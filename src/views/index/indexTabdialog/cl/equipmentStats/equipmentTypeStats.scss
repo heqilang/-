@@ -1,0 +1,44 @@
+.equipment-type-stats-wrapper {
+    padding: 40px 64px;
+
+    .equipment-types {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 30px 30px;
+
+        .equipment-type {
+            cursor: pointer;
+            display: flex;
+            height: 84px;
+            background: linear-gradient(90deg, #34527a 0%, rgba(52, 82, 122, 0) 100%);
+            border-radius: 56px 56px 56px 56px;
+
+            .equipment-type-flag {
+                width: 118px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .equipment-type-flag-color {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 6px 6px 6px 6px;
+                    opacity: 1;
+                }
+            }
+
+            .equipment-type-content {
+                flex: 1;
+                font-size: 26px;
+                color: #ffffff;
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .equipment-type-name {
+                    width: 210px;
+                }
+            }
+        }
+    }
+}

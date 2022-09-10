@@ -1,0 +1,183 @@
+<template>
+    <div class="scoreModelItem">
+        <el-row class="diaHeadStandardC" style="background-color: #2b4b6b; padding-left: 12px; color: #fff">
+            <el-col :span="18">
+                <div style="height: 46px; line-height: 46px">综合评分 》隐患整改率</div>
+            </el-col>
+            <el-col :span="6">
+                <div class="text_r">
+                    <i @click="$emit('closeTsComp')" class="el-icon-circle-close" style="font-size: 26px; margin: 12px 20px; color: #5e9ffb; cursor: pointer"> </i>
+                    <!-- <span @click="$emit('closeTsComp')" style="margin: 12px 20px; display: inline-block; padding: 3px 6px; border: 1px solid #616266; color: #616266; cursor: pointer"><<</span> -->
+                </div>
+            </el-col>
+        </el-row>
+        <div class="tabelCon" style="padding: 12px; color: #fff">
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <div class="third_head_card text_c">
+                        <div>
+                            <div>隐患总数</div>
+                            <div>
+                                <span>{{ sonData.allRisks }}</span> 个
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="third_head_card text_c">
+                        <div>
+                            <div>未整改数</div>
+                            <div>
+                                <span>{{ sonData.notHandleRisks }}</span> 个
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="third_head_card text_c">
+                        <div>
+                            <div>已整改数</div>
+                            <div>
+                                <span>{{ sonData.beanHandleRisks }}</span> 个
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="third_head_card text_c">
+                        <div>
+                            <div>隐患整改率</div>
+                            <div>
+                                <span>{{ sonData.risksHandlePercent }}</span> %
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+            <div style="margin: 12px 0">
+                <el-radio-group @change="getList()" v-model="radio4" size="mini">
+                    <el-radio-button label="未整改"></el-radio-button>
+                    <el-radio-button label="已整改"></el-radio-button>
+                </el-radio-group>
+            </div>
+            <el-table header-row-class-name="table-header-class" row-class-name="table-row-class" :data="dataTable" ref="treeTable" border style="width: 100%">
+                <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                <el-table-column prop="risksType" label="隐患类型" :show-overflow-tooltip="true">
+                    <template slot-scope="scope">
+                        {{ scope.row.risksType == 'EQUIPMENT' ? '设备隐患' : '环境隐患' }}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="handleReportor" label="上报人员" :show-overflow-tooltip="true">
+                    <template slot-scope="scope">
+                        {{ scope.row.lookup.handleReportor || '--' }}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="handleReportTime" label="上报时间" :show-overflow-tooltip="true">
+                    <template slot-scope="scope">
+                        {{ scope.row.handleReportTime || '--' }}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="title" label="所属区域" :show-overflow-tooltip="true">
+                    <template slot-scope="scope">
+                        {{ (scope.row.lookup.building == 'null' ? '-' : scope.row.lookup.building) + (scope.row.lookup.floor == 'null' ? '-' : scope.row.lookup.floor) }}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="address" label="详细地址" :show-overflow-tooltip="true"> </el-table-column>
+                <el-table-column prop="risksImages" label="现场照片">
+                    <template slot-scope="scope">
+                        <el-image v-if="scope.row.risksImages" style="width: 100px; height: 100px" :src="scope.row.risksImages" :fit="fit"></el-image>
+                        <span v-else>--</span>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="title" label="反馈状态" :show-overflow-tooltip="true">
+                    <template slot-scope="scope">
+                        {{ scope.row.feedback ? (scope.row.feedback == 'YES' ? '成功' : '失败') : '--' }}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="lookup.handler" label="处置人员" :show-overflow-tooltip="true"> </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-popover placement="right" width="400" trigger="click">
+                            <div>
+                                <div>上报时间：{{ scope.row.handleReportTime || '--' }}</div>
+                                <div>隐患类型：{{ scope.row.risksType == 'EQUIPMENT' ? '设备隐患' : '环境隐患' }}</div>
+                                <div>上报人员：{{ scope.row.lookup.handleReportor || '--' }}</div>
+                                <div>隐患位置：{{ scope.row.lookup.building + scope.row.lookup.floor + scope.row.address }}</div>
+                                <div>隐患等级：{{ scope.row.lookup.level == 1 ? '一般隐患' : '重大隐患' }}</div>
+                                <div>备注说明：{{ scope.row.lookup.risksRemark || '--' }}</div>
+                                <div v-if="scope.row.risksImages">
+                                    <img style="width: 120px" :src="scope.row.risksImages" alt="" />
+                                </div>
+                            </div>
+                            <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                            <!-- <el-button >click 激活</el-button> -->
+                        </el-popover>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="flex text_c mar-t-18 mar-b-18">
+                <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    props: ['sonData'],
+    data() {
+        return {
+            radio4: '已整改',
+            pager: {
+                pageSize: 5,
+                pageIndex: 1,
+                total: null
+            },
+            dataTable: []
+        };
+    },
+    methods: {
+        indexMethod(index) {
+            let _self = this;
+            if (_self.pager.pageIndex * _self.pager.pageSize > _self.dataTable.totalCount) {
+                let tempIndex = index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
+                if (tempIndex < _self.dataTable.totalCount) {
+                    return tempIndex;
+                } else {
+                    return _self.dataTable.totalCount;
+                }
+            } else {
+                return index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
+            }
+        },
+        getList() {
+            let _self = this;
+            _self.loading = true;
+            _self.dataTable = [];
+            _self._http({
+                url: '/api/web/indexCountTwo/scoreFindRisks',
+                type: 'get',
+                data: {
+                    size: _self.pager.pageSize,
+                    current: _self.pager.pageIndex,
+                    transform: 'U:handler;U:handleReportor,OW:owningSystem;B:building;F:floor',
+                    // feedback: _self.radio4 == '未整改' ? 'NO' : 'YES'
+                    queryState: _self.radio4 == '未整改' ? 1 : 2
+                },
+                success: function (res) {
+                    _self.dataTable = res.data.records;
+                    _self.pager.total = res.data.total;
+                    _self.loading = false;
+                }
+            });
+        }
+    },
+    created() {},
+    mounted() {
+        this.getList();
+    }
+};
+</script>
+<style lang="scss">
+.scoreModelItem {
+}
+</style>

@@ -1,0 +1,18 @@
+.fire-dept-list-wrapper {
+    padding: 20px 25px 70px 25px;
+
+    > .xf-radio-group {
+        margin-bottom: 18px;
+
+        .el-radio-button__inner {
+            background-color: transparent;
+            border: 1px solid #a3a3a3;
+            color: #ffffff;
+        }
+        .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+            background-color: #25a6ff;
+            border: 1px solid #a3a3a3;
+            color: #ffffff;
+        }
+    }
+}

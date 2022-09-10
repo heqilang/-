@@ -1,0 +1,66 @@
+.risk-stats-wrapper {
+    padding: 0 24px;
+
+    .risk-stats-indicators {
+        /* display: flex;
+        justify-content: space-between;*/
+        padding: 16px 0;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 0 20px;
+
+        .xf-indicator {
+            padding: 45px 0;
+            background: linear-gradient(180deg, rgba(33, 57, 90, 0) 0%, #1c3e61 100%);
+            border-radius: 6px 6px 6px 6px;
+
+            &.xf-indicator-active-clickable:hover {
+                background: linear-gradient(180deg, rgba(33, 57, 90, 0) 0%, #2f557a 100%);
+            }
+        }
+    }
+
+    .risk-stats-charts-wrapper {
+        .risk-stats-charts-header {
+            background: url('../../../../../assets/images/cl/charts_header_icon.png') center left no-repeat, #1c3e61;
+            border-radius: 16px 0px 16px 0px;
+
+            color: #ffffff;
+            font-size: 18px;
+            line-height: 40px;
+            height: 40px;
+            padding-left: 62px;
+            position: relative;
+        }
+
+        .risk-stats-charts-body {
+            padding: 28px 56px;
+
+            .risk-stats-charts-stats {
+                display: flex;
+                justify-content: space-between;
+                gap: 0 200px;
+
+                > div {
+                    width: 50%;
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+
+            .risk-stats-charts-content {
+                height: 240px;
+                display: flex;
+                gap: 0 100px;
+
+                > div {
+                    width: 100%;
+                    padding: 0 200px;
+                }
+                margin-top: 70px;
+                margin-bottom: 40px;
+            }
+        }
+    }
+}

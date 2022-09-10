@@ -1,0 +1,30 @@
+.patrol-stats-wrapper {
+    padding: 0 24px;
+
+    .patrol-stats-indicators {
+        padding: 16px 0;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 0 20px;
+
+        .xf-indicator {
+            padding: 45px 0;
+            background: linear-gradient(180deg, rgba(33, 57, 90, 0) 0%, #1c3e61 100%);
+            border-radius: 6px 6px 6px 6px;
+
+            &.xf-indicator-active-clickable:hover {
+                background: linear-gradient(180deg, rgba(33, 57, 90, 0) 0%, #2f557a 100%);
+            }
+        }
+    }
+
+    .risk-stats-charts-wrapper {
+        padding: 100px 0 60px 0;
+        .patrol-stats-charts-content {
+            .patrol-stats-chart {
+                height: 280px;
+            }
+        }
+    }
+}

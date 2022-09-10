@@ -1,0 +1,69 @@
+.xf-indicator {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .xf-indicator-title {
+        font-size: 15px;
+        color: #ffffff;
+        text-align: center;
+
+        > span {
+            position: relative;
+        }
+    }
+
+    .xf-indicator-body {
+        margin-top: 10px;
+        text-align: center;
+
+        > span:first-child {
+            font-weight: normal;
+            font-size: 56px;
+            line-height: 56px;
+            background: linear-gradient(180deg, #ffffff 0%, #3ca2f8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        > span:last-child {
+            font-size: 15px;
+            color: #ffffff;
+        }
+    }
+
+    &.xf-indicator-active-clickable {
+        cursor: pointer;
+    }
+
+    &.xf-indicator-active {
+        .xf-indicator-title > span:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            top: -8px;
+            background: #37c6ee;
+        }
+    }
+
+    &.xf-indicator-cs {
+        flex-direction: column-reverse;
+
+        .xf-indicator-title {
+            margin-top: 8px;
+        }
+
+        .xf-indicator-body {
+            margin-top: 0;
+
+            > span:first-child {
+                font-size: 36px;
+                line-height: 36px;
+                background: linear-gradient(180deg, #ffffff 0%, #48e5e5 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+    }
+}
