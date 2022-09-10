@@ -876,6 +876,7 @@ export default {
             showFirePowerDia: false,
             showsafetyresponsi: false,
             showAlarm1: false,
+            showAlarm1Day: false,
             showAlarm2: false,
             showSSImg: false,
             showReadyAlarm: false,

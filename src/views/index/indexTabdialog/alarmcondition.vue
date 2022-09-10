@@ -45,7 +45,7 @@
                                     </el-radio-button>
                                 </el-radio-group>
                             </div>
-                            <el-table class="xf-table" :data="dataTable" height="340">
+                            <el-table class="xf-table" :data="dataTable" height="345">
                                 <el-table-column label="序号" align="center" width="50">
                                     <template slot-scope="scope">
                                         {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
@@ -125,7 +125,7 @@
                             </el-radio-button>
                         </el-radio-group>
                     </div>
-                    <el-table class="xf-table" :data="dataTable" height="340">
+                    <el-table class="xf-table" :data="dataTable" height="345">
                         <el-table-column label="序号" align="center" width="50">
                             <template slot-scope="scope">
                                 {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
@@ -1748,6 +1748,7 @@ export default {
                 _self.equipmentName = undefined;
                 _self.equipmentNameOther = [];
                 _self.isLevel1 = true;
+                _self.pager.pageSize = 5;
             } else {
                 _self.over = _self.overLevel;
                 _self.isLevel1 = false;
