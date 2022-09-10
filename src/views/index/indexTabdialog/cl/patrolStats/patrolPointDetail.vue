@@ -10,7 +10,7 @@
                     <div>
                         <div class="patrol-detail-field">
                             <span>点位名称: </span>
-                            <span>{{ patrolPointId.templateName }}</span>
+                            <span>{{ patrolPointId.pointName }}</span>
                         </div>
                         <div class="patrol-detail-field">
                             <span>单位: </span>
@@ -22,41 +22,12 @@
                         </div>
                         <div class="patrol-detail-field">
                             <span>详细地址: </span>
-                            <span>{{ patrolPointId.templateName }}</span>
+                            <span>{{ patrolPointId.unitName }}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="patrol-detail-panel">
-                <div class="patrol-detail-panel-header" v-if="false">巡查列表</div>
-                <div class="patrol-detail-panel-content patrol-detail-flows" v-if="false">
-                    <el-timeline>
-                        <!-- <el-timeline-item :timestamp="patrolPointId.completeTime" placement="top">
-                            <el-card style="background-color: #264365;border: none;color: #fff;font-size: 14px;line-height: 24px;">
-                                <p>
-                                    <span>巡查人员: {{ patrolPointId.userName }}</span>
-                                    <span>{{ patrolPointId.patrolStatus=='NORMAL'?'正常':patrolPointId.patrolStatus=='TIMEOUT'?'超时':'未巡检' }}</span>
-                                </p>
-                                <p>
-                                    <span>巡查时间: {{ patrolPointId.completeTime }}</span>
-                                </p>
-                            </el-card>
-                        </el-timeline-item> -->
-                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" v-if="item.show && item.title != '被指派了报警工单'" :timestamp="item.addtime" placement="top">
-                            <el-card style="background-color: #264365; border: none; color: #fff; font-size: 14px">
-                                <p>{{ item.targetObjectJob }}</p>
-                                <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
-                                    <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
-                                    ><span>语音、短信通知成功</span>
-                                </p>
-                                <p v-else-if="item.completeTime">
-                                    <span>巡查人员：{{ item.userName || '--' }}</span
-                                    ><span style="float: right">{{ item.patrolStatus }}</span> <br />巡查时间：{{ item.completeTime }}
-                                </p>
-                            </el-card>
-                        </el-timeline-item>
-                    </el-timeline>
-                </div>
 
                 <div class="classReadyDialogBox">
                     <div class="eventMsgInfo">
@@ -73,9 +44,9 @@
                                                 <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
                                                 ><span>语音、短信通知成功</span>
                                             </p>
-                                            <p v-else-if="item.completeTime">
-                                                <span>巡查人员：{{ item.userName || '--' }}</span
-                                                ><span style="float: right">{{ item.patrolStatus }}</span> <br />巡查时间：{{ item.completeTime }}
+                                            <p v-else-if="item.beginTime">
+                                                <span>巡查人员：{{ item.inspectPerson || '--' }}</span
+                                                ><span style="float: right">{{ item.inspectStatus }}</span> <br />巡查时间：{{ item.beginTime }}
                                             </p>
                                         </el-card>
                                     </el-timeline-item>
@@ -175,14 +146,15 @@ export default {
                             }
                         }
                     });
-                    if ((val.completeTime || '') != '') {
+                    if ((val.beginTime || '') != '') {
                         _self.sourcelist.push({
-                            addtime: val.completeTime,
-                            completeTime: val.completeTime,
+                            addtime: val.beginTime,
+                            beginTime: val.beginTime,
                             // lookup:{
                             //     targetObject:val.lookup.verifier
                             // },
-                            userName: val.userName,
+                            inspectPerson: val.inspectPerson,
+                            inspectStatus:val.inspectStatus,
                             patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
                             title: '',
                             show: true

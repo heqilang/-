@@ -10,7 +10,7 @@
                     <div>
                         <div class="risk-detail-field">
                             <span>上报时间: </span>
-                            <span>{{ riskId.reportTime }}</span>
+                            <span>{{ riskId.createTime }}</span>
                         </div>
                         <div class="risk-detail-field">
                             <span>隐患类型: </span>
@@ -18,15 +18,15 @@
                         </div>
                         <div class="risk-detail-field">
                             <span>上报人员: </span>
-                            <span>{{ riskId.lookup.reporter }}</span>
+                            <span>{{ riskId.createUser }}</span>
                         </div>
                         <div class="risk-detail-field">
                             <span>隐患位置: </span>
-                            <span>{{ riskId.address }}</span>
+                            <span>{{ riskId.troubleLocation }}</span>
                         </div>
                         <div class="risk-detail-field">
                             <span>隐患级别: </span>
-                            <span style="color:rgb(255,0,0)">{{ riskId.levelText }}</span>
+                            <span style="color:rgb(255,0,0)">{{ riskId.risksTypeText }}</span>
                         </div>
                         <div class="risk-detail-field">
                             <span>整改状态: </span>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="risk-detail-field">
                             <span>备注说明: </span>
-                            <span>{{ riskId.description }}</span>
+                            <span>{{ riskId.troubleDesc }}</span>
                         </div>
                     </div>
                 </div>
@@ -47,14 +47,14 @@
                         <div>
                             <el-scrollbar style="height: 100%; width: 90%">
                                 <el-timeline>
-                                    <el-timeline-item v-if="(riskId.reportTime || '') != ''" :timestamp="riskId.reportTime" placement="top">
+                                    <el-timeline-item v-if="(riskId.createTime || '') != ''" :timestamp="riskId.createTime" placement="top">
                                         <el-card style="font-size: 14px">
-                                            <p>上报隐患：{{ riskId.reportTime }}</p>
+                                            <p>上报隐患：{{ riskId.createTime }}</p>
                                         </el-card>
                                     </el-timeline-item>
                                     <el-timeline-item v-if="(riskId.handleTime || '') != ''" :timestamp="riskId.handleTime" placement="top">
                                         <el-card style="font-size: 14px">
-                                            <p>处置人员：{{ riskId.lookup.handler || '--' }} {{riskId.handlerMobile || '--'}}</p>
+                                            <p>处置人员：{{ riskId.createUser || '--' }} {{riskId.handlerMobile || '--'}}</p>
                                             <p>处置结果：已完成隐患处理</p>
                                         </el-card>
                                     </el-timeline-item>
@@ -162,7 +162,6 @@ export default {
     created() {},
     mounted() {
         // this.riskData = riskData;
-        this.getfindMessages(this.riskId);
         console.log(this.riskId);
     },
     methods: {

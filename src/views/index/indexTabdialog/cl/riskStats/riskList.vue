@@ -6,19 +6,19 @@
         <el-form :inline="true" :model="searchModel" class="xf-form" size="small">
             <el-form-item label="隐患级别">
                 <el-select v-model="searchModel.riskLevel" clearable placeholder="隐患级别" @change="changeRiskLevel">
-                    <!-- <el-option label="一般隐患" value="一般隐患"></el-option>
-                    <el-option label="重大隐患" value="重大隐患"></el-option> -->
-                    <el-option v-for="item in dataRiskLevel" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode" />
+                    <el-option label="一般隐患" :value="0"></el-option>
+                    <el-option label="重大隐患" :value="1"></el-option>
+                    <!-- <el-option v-for="item in dataRiskLevel" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode" /> -->
                 </el-select>
             </el-form-item>
             <el-form-item label="整改状态">
                 <el-select v-model="searchModel.riskStatus" clearable placeholder="整改状态" @change="changeRiskStatus">
-                    <!-- <el-option label="逾期未整改" value="1"></el-option>
+                    <el-option label="逾期未整改" value="1"></el-option>
                     <el-option label="限期未整改" value="2"></el-option>
                     <el-option label="逾期已整改" value="3"></el-option>
                     <el-option label="未整改" value="4"></el-option>
-                    <el-option label="已整改" value="5"></el-option> -->
-                    <el-option v-for="item in dataRiskStatus" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode" />
+                    <el-option label="已整改" value="5"></el-option>
+                    <!-- <el-option v-for="item in dataRiskStatus" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode" /> -->
                 </el-select>
             </el-form-item>
             <el-form-item label="隐患类型">
@@ -43,25 +43,26 @@
             <el-table-column type="index" label="序号" align="center"> </el-table-column>
             <el-table-column prop="risksType" label="隐患类型" :show-overflow-tooltip="true" width="120">
                 <template slot-scope="scope">
-                    <div>{{ dataRiskTypeJson[scope.row.risksType] }}</div>
+                    <!-- <div>{{ dataRiskTypeJson[scope.row.risksType] }}</div> -->
+                    <div>{{ dataRiskLevelJson[scope.row.troubleType] }}</div>
                 </template>
             </el-table-column>
             <!--    <el-table-column prop="handleReportor" label="上报人员" :show-overflow-tooltip="true" width="120" /> -->
-            <el-table-column prop="reporter" label="上报人员" :show-overflow-tooltip="true" width="120">
+            <el-table-column prop="createUser" label="上报人员" :show-overflow-tooltip="true" width="120">
                 <template slot-scope="scope">
-                    <div>{{ scope.row.lookup.reporter }}</div>
+                    <div>{{ scope.row.createUser||'-' }}</div>
                 </template>
             </el-table-column>
             <!--      <el-table-column prop="handleReportTime" label="上报时间" :show-overflow-tooltip="true" width="180" /> -->
-            <el-table-column prop="reportTime" label="上报时间" :show-overflow-tooltip="true" width="180" />
+            <el-table-column prop="createTime" label="上报时间" :show-overflow-tooltip="true" width="180" />
             <el-table-column prop="area" label="所属区域" :show-overflow-tooltip="true">
                 <template slot-scope="scope">
                     <div>{{ scope.row.area||'-' }}</div>
                 </template>
             </el-table-column>
-            <el-table-column prop="address" label="详细地址" :show-overflow-tooltip="true">
+            <el-table-column prop="troubleLocation" label="详细地址" :show-overflow-tooltip="true">
                 <template slot-scope="scope">
-                    <div>{{ scope.row.address||'-' }}</div>
+                    <div>{{ scope.row.troubleLocation||'-' }}</div>
                 </template>
             </el-table-column>
             <!-- <el-table-column prop="firePartition" label="现场照片"/>-->
@@ -69,7 +70,7 @@
 
             <el-table-column fixed="right" align="center" label="整改状态" width="100">
                 <template slot-scope="scope">
-                    <div>{{ statusJson[scope.row.state] }}</div>
+                    <div>{{ dataRiskStatusJson[scope.row.completeStatus] }}</div>
                 </template>
             </el-table-column>
 
@@ -77,7 +78,7 @@
 
             <el-table-column fixed="right" align="center" label="隐患级别" width="100">
                 <template slot-scope="scope">
-                    <div>{{ dataRiskLevelJson[scope.row.level] }}</div>
+                    <div>{{ dataRiskLevelJson[scope.row.troubleType] }}</div>
                 </template>
             </el-table-column>
             <el-table-column fixed="right" align="center" label="操作" width="100">
@@ -124,7 +125,10 @@ export default {
         },
         dataTable: [],
         dataRiskLevel:[],
-        dataRiskLevelJson:{},
+        dataRiskLevelJson:{
+            "0":"一般隐患",
+            "1":"重大隐患"
+        },
         dataRiskType:[],
         dataRiskTypeJson:{},
         dataRiskStatus:[
@@ -192,12 +196,9 @@ export default {
         },
         loadListData() {
             // this.dataTable = equipmentTypeListData;
-            //todo 待接口对接, 可使用props中传入的参数作为查询条件
-
             const that = this;
             that._http({
-                url: '/api/web/indexCountTwo/findRisksList',
-                /*   url: '/api/web/indexCountTwo/scoreFindRisks', */
+                url: '/api/web/indexCountV3/findRisksList', ///api/web/indexCountTwo/findRisksList
                 type: 'get',
                 isBody: true,
                 data: {
@@ -263,9 +264,9 @@ export default {
             this.loadListData();
         },
         handleViewDetailClick(riskItem) {
-            riskItem['risksTypeText'] = this.dataRiskTypeJson[riskItem.risksType];
+            riskItem['risksTypeText'] = this.dataRiskLevelJson[riskItem.troubleType];
             riskItem['levelText'] = this.dataRiskLevelJson[riskItem.level];
-            riskItem['stateText'] = this.statusJson[riskItem.state];
+            riskItem['stateText'] = this.dataRiskStatusJson[riskItem.completeStatus];
             this.$emit('viewDetailOnclick', riskItem);
         },
         changeRiskLevel(val) {

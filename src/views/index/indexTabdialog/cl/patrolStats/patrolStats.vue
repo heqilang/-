@@ -159,7 +159,7 @@ export default {
         loadStatsData() {
             const that = this;
             that._http({
-                url: '/api/web/indexCountTwo/thirdPatrolSecond',
+                url: '/api/web/indexCountV3/thirdPatrolSecond',///api/web/indexCountTwo/thirdPatrolSecond
                 type: 'get',
                 isBody: true,
                 data: {
@@ -222,7 +222,7 @@ export default {
                 _self.DAYdrawLeftLineList.number = [];
 
                 _self._http({
-                    url: '/api/web/indexCountTwo/countAlarms',
+                    url: '/api/web/indexCountTwo/countPatrolMinute',///api/web/indexCountTwo/countAlarms
                     type: 'get',
                     isBody: true,
                     data: {
@@ -242,7 +242,7 @@ export default {
                 _self.MONTHdrawLeftLineList.everyDay = [];
                 _self.MONTHdrawLeftLineList.number = [];
                 _self._http({
-                    url: '/api/web/indexCountTwo/countAlarms',
+                    url: '/api/web/indexCountTwo/countPatrolMinute',
                     type: 'get',
                     isBody: true,
                     data: {

@@ -10,10 +10,10 @@
                     <span>新世纪环球中心</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="completeTime" label="巡查时间" :show-overflow-tooltip="true" width="180" />
-            <el-table-column prop="templateName" label="点位名称" :show-overflow-tooltip="true" />
-            <el-table-column prop="templateName" label="点位地址" :show-overflow-tooltip="true" />
-            <el-table-column prop="userName" label="巡查人" :show-overflow-tooltip="true" />
+            <el-table-column prop="beginTime" label="巡查时间" :show-overflow-tooltip="true" width="180" />
+            <el-table-column prop="pointName" label="点位名称" :show-overflow-tooltip="true" />
+            <el-table-column prop="unitName" label="点位地址" :show-overflow-tooltip="true" />
+            <el-table-column prop="inspectPerson" label="巡查人" :show-overflow-tooltip="true" />
             <el-table-column fixed="right" align="center" label="操作" width="100">
                 <template slot-scope="scope">
                     <el-button @click="handleViewDetailClick(scope.row)" type="text">查看</el-button>
@@ -94,7 +94,7 @@ export default {
             const that = this;
             console.log(that.dataRange);
             that._http({
-                url: '/api/web/indexCountTwo/findPatrolList',
+                url: '/api/web/indexCountV3/findPatrolList',///api/web/indexCountTwo/findPatrolList
                 type: 'get',
                 isBody: true,
                 data: {

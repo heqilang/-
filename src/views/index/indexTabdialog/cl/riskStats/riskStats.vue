@@ -195,6 +195,11 @@ export default {
                     break
                 }
             }
+            if(riskLevel=='一般隐患'){
+                level = 0;
+            } else if(riskLevel=='重大隐患'){
+                level = 1;
+            }
             this.activeRiskLevel = level;
             this.activeRiskStatus = riskStatus;
             this.activeRiskType = riskType;
@@ -239,8 +244,13 @@ export default {
                     break
                 }
             }
+            if(this.activeRiskLevel=='一般隐患'){
+                level = 0;
+            } else if(this.activeRiskLevel=='重大隐患'){
+                level = 1;
+            }
             that._http({
-                url: '/api/web/indexCountTwo/thirdRisksSecond',
+                url: '/api/web/indexCountV3/thirdRisksSecond',///api/web/indexCountTwo/thirdRisksSecond
                 type: 'get',
                 isBody: true,
                 data: {
