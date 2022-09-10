@@ -13,7 +13,7 @@
                         <el-row>
                             <el-col :span="10">
                                 <div class="alarmanalysis1Title">
-                                    <div @click="showLeavelchage">
+                                    <div @click="showLeavelchage('0')">
                                         <div style="display: flex; justify-content: space-around">
                                             <p>{{ alarmRadio === 'DAY' ? '当日' : '当月' }}管理类事件预警</p>
                                             <p>
@@ -21,7 +21,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div @click="showLeavelchage">
+                                    <div @click="showLeavelchage('true')">
                                         <div style="display: flex; justify-content: space-around">
                                             <p>{{ alarmRadio === 'DAY' ? '当日' : '当月' }}已处置数</p>
                                             <p>
@@ -152,7 +152,7 @@
                                     <div>{{ activeSenName == 'xiaofang' ? patrolinformation : dangerinformation }}</div>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="handleTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                            <el-table-column prop="addtime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                             <el-table-column prop="handler" label="预警人员" width="160" :show-overflow-tooltip="true">
                                 <template slot-scope="scope">
                                     <div v-if="scope.row.lookup.handler">{{ scope.row.lookup.handler }}</div>
@@ -215,7 +215,7 @@
                 <div style="padding: 20px">
                     <div style="display: flex">
                         <div>报警时间：</div>
-                        <div>{{ alarmanalysis6_params.handleTime }}</div>
+                        <div>{{ alarmanalysis6_params.addtime }}</div>
                     </div>
                     <div style="display: flex">
                         <div>设备名称：</div>
@@ -227,7 +227,7 @@
                     </div>
                     <div style="display: flex">
                         <div>报警位置：</div>
-                        <div>{{ alarmanalysis6_params.address }}</div>
+                        <div>{{ alarmanalysis6_params.building != 'null' ? alarmanalysis6_params.lookup.building + '-' : '' }} {{ alarmanalysis6_params.floor != 'null' ? alarmanalysis6_params.lookup.floor + '-' : '' }}{{ alarmanalysis6_params.address }}</div>
                     </div>
                 </div>
                 <el-scrollbar v-if="sourcelist.length > 0" style="height: 100%; width: 90%">
@@ -237,17 +237,32 @@
                                 <p>设备报警：{{ alarmanalysis6_params.alarmTime }}</p>
                             </el-card>
                         </el-timeline-item>
-                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" v-if="item.title != '被指派了报警工单' && item.lookup.targetObject != sourcelist[index - 1].lookup.targetObject" :timestamp="item.addtime" placement="top">
-                            <el-card style="font-size: 14px">
-                                <p>{{ item.targetObjectJob }}</p>
-                                <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
-                                    <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
-                                    ><span>语音、短信通知成功</span>
-                                </p>
-                                <p v-else-if="item.verifyTime">处理人员：{{ item.verifier || '--' }} <br />处理描述：{{ item.result | confirmResultType }}</p>
-                                <p v-else-if="item.confirmTime">处理人员：{{ item.confirmor || '--' }} <br />处理描述：{{ item.confirmResult | confirmResultType }}</p>
-                            </el-card>
-                        </el-timeline-item>
+                        <template v-for="(item, index) in sourcelist">
+                            <template v-if="item.title != '被指派了报警工单'">
+                                <el-timeline-item :key="index" v-if="index === 0" :timestamp="item.addtime" placement="top">
+                                    <el-card style="font-size: 14px">
+                                        <p>{{ item.targetObjectJob }}</p>
+                                        <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
+                                            <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
+                                            ><span>语音、短信通知成功</span>
+                                        </p>
+                                        <p v-else-if="item.verifyTime">处理人员：{{ item.verifier || '--' }} <br />处理描述：{{ item.result | confirmResultType }}</p>
+                                        <p v-else-if="item.confirmTime">处理人员：{{ item.confirmor || '--' }} <br />处理描述：{{ item.confirmResult | confirmResultType }}</p>
+                                    </el-card>
+                                </el-timeline-item>
+                                <el-timeline-item :key="index" v-else-if="item.lookup.targetObject != sourcelist[index - 1].lookup.targetObject" :timestamp="item.addtime" placement="top">
+                                    <el-card style="font-size: 14px">
+                                        <p>{{ item.targetObjectJob }}</p>
+                                        <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
+                                            <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
+                                            ><span>语音、短信通知成功</span>
+                                        </p>
+                                        <p v-else-if="item.verifyTime">处理人员：{{ item.verifier || '--' }} <br />处理描述：{{ item.result | confirmResultType }}</p>
+                                        <p v-else-if="item.confirmTime">处理人员：{{ item.confirmor || '--' }} <br />处理描述：{{ item.confirmResult | confirmResultType }}</p>
+                                    </el-card>
+                                </el-timeline-item>
+                            </template>
+                        </template>
                     </el-timeline>
                 </el-scrollbar>
                 <div v-if="sourcelist.length < 1" style="text-align: center; padding: 100px 0">暂时无数据哦.....</div>
@@ -360,9 +375,11 @@ export default {
         this.getList();
     },
     methods: {
-        showLeavelchage() {
+        showLeavelchage(value) {
             if (this.alarmRadio == 'MONTH') {
                 this.showLeavel = 2;
+                this.chartRadio1 = value;
+                this.getList();
             }
         },
         changeTabsSeco() {
@@ -512,8 +529,9 @@ export default {
             };
             option && myChart.setOption(option);
             myChart.on('click', (d) => {
-                // console.log(d);
                 _self.showLeavel = 2;
+                d.seriesIndex == 0 ? (_self.chartRadio1 = '0') : (_self.chartRadio1 = 'true');
+                this.getList();
             });
         },
         drawLineChart2() {
@@ -756,7 +774,8 @@ export default {
                 type: 'get',
                 data: {
                     sourceId: row.id,
-                    transform: 'U:targetObject'
+                    transform: 'U:targetObject',
+                    sorts: 'addtime:desc'
                 },
                 success: function (res) {
                     // _self.timeLineData = [{ targetObjectJob: '' }];
@@ -765,6 +784,7 @@ export default {
                     _self.currentRow = row;
 
                     _self.sourcelist = res.data.records || [];
+
                     if ((_self.alarmanalysis6_params.verifyTime || '') != '') {
                         _self.sourcelist.push({
                             addtime: _self.alarmanalysis6_params.verifyTime,
@@ -787,10 +807,9 @@ export default {
                             confirmResult: _self.alarmanalysis6_params.confirmResult
                         });
                     }
-                    console.log(_self.sourcelist);
-                    _self.sourcelist = _self.sourcelist.sort((a, b) => {
-                        return a.addtime > b.addtime ? 1 : -1;
-                    });
+                    // _self.sourcelist = _self.sourcelist.sort((a, b) => {
+                    //     return a.addtime > b.addtime ? 1 : -1;
+                    // });
                 }
             });
         },
