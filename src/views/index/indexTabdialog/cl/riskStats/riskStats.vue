@@ -119,10 +119,13 @@ export default {
 
         prevLayerLevel: undefined,
 
-        riskLevel: undefined
+        riskLevel: undefined,
+
+        dataRiskLevel:[],
     }),
     created() {},
     mounted() {
+        this.getDataListLevel();
         this.loadStatsData();
     },
     watch: {
@@ -184,7 +187,15 @@ export default {
             this.currentLayerLevel = 1.5;
         },
         intoLayer2(prevLayerLevel, riskLevel, riskStatus, riskType) {
-            this.activeRiskLevel = riskLevel;
+            let arr = this.dataRiskLevel||[];
+            let level = undefined;
+            for(let i in arr){
+                if(riskLevel==arr[i].dictValue){
+                    level = arr[i].dictCode;
+                    break
+                }
+            }
+            this.activeRiskLevel = level;
             this.activeRiskStatus = riskStatus;
             this.activeRiskType = riskType;
 
@@ -195,7 +206,7 @@ export default {
             console.log(riskLevel, riskStatus, riskType, prevLayerLevel);
         },
         intoLayer3(riskItem) {
-            this.activeRiskId = riskItem.id;
+            this.activeRiskId = riskItem;
             this.currentLayerLevel = 3;
         },
         changeLayer1(val) {
@@ -203,8 +214,9 @@ export default {
             this.activeRiskLevel = val || '全部隐患';
             this.loadStatsData();
         },
-        loadStatsData() {
-            const that = this;
+        //隐患级别
+        getDataListLevel(){
+            let that = this;
             that._http({
                 url: '/api/auth/dict/dictItem',
                 type: 'get',
@@ -213,20 +225,30 @@ export default {
                     parentCode: 'riskLevel'
                 },
                 success: function (res) {
-                    let Arr = res.data.filter((res) => res.dictValue === that.riskLevel);
-
-                    that._http({
-                        url: '/api/web/indexCountTwo/thirdRisksSecond',
-                        type: 'get',
-                        isBody: true,
-                        data: {
-                            type: that.dataRange === '当日' ? 1 : 2,
-                            level: Arr.length > 0 ? Arr[0].dictCode : undefined
-                        },
-                        success: function (res) {
-                            that.statsData = res.data;
-                        }
-                    });
+                    that.dataRiskLevel = res.data || [];
+                }
+            });
+        },
+        loadStatsData() {
+            const that = this;
+            let arr = this.dataRiskLevel||[];
+            let level = undefined;
+            for(let i in arr){
+                if(this.activeRiskLevel==arr[i].dictValue){
+                    level = arr[i].dictCode;
+                    break
+                }
+            }
+            that._http({
+                url: '/api/web/indexCountTwo/thirdRisksSecond',
+                type: 'get',
+                isBody: true,
+                data: {
+                    type: that.dataRange === '当日' ? 1 : 2,
+                    level: level
+                },
+                success: function (res) {
+                    that.statsData = res.data;
                 }
             });
         },

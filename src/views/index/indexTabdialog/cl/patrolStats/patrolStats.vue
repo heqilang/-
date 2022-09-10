@@ -23,6 +23,8 @@
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
                         <div class="patrol-stats-charts-content">
                             <div class="patrol-stats-chart" id="patrol-stats-chart1"></div>
+                            <div v-if="dataRange=='当日'" style="height: 200px" id="quxianChart"></div>
+                            <div v-else style="height: 200px" id="dangyeCharts"></div>
                         </div>
                     </div>
 
@@ -84,13 +86,17 @@ export default {
         title: '',
         currentLayerLevel: 1,
         activePatrolStatus: '', //当前激活的 巡查状态(正常 或 超时)
-        activePartolPointId: undefined //当前激活的 巡查点位id
+        activePartolPointId: undefined, //当前激活的 巡查点位id
+
+        DAYdrawLeftLineList: { everyHour: [], number: [] },
+        MONTHdrawLeftLineList: { everyDay: [], number: [] },
     }),
     created() {
         console.dir(this.statsData);
     },
     mounted() {
         this.loadStatsData();
+        this.getcountAlarms();
     },
 
     watch: {
@@ -101,6 +107,14 @@ export default {
                     { name: '正常巡查次数', value: newVal.opportunelyFinish },
                     { name: '逾期未巡查次数', value: newVal.notOpportunelyFinish }
                 ]);
+                if (this.dataRange=='当日') {
+                    this.drawLeftLine();
+                } else {
+                    this.drawdangyeCharts();
+                }
+                
+                
+                
             }
         },
         currentLayerLevel: {
@@ -119,6 +133,11 @@ export default {
                             { name: '正常巡查次数', value: this.statsData.opportunelyFinish },
                             { name: '逾期未巡查次数', value: this.statsData.notOpportunelyFinish }
                         ]);
+                        if (this.dataRange=='当日') {
+                            this.drawLeftLine();
+                        } else {
+                            this.drawdangyeCharts();
+                        }
                     }
                 }, 50);
             }
@@ -193,7 +212,287 @@ export default {
                 }
                 that.intoLayer2(name);
             });
-        }
+        },
+        //告警次数
+        getcountAlarms() {
+            let _self = this;
+
+            if (_self.dataRange=='当日') {
+                _self.DAYdrawLeftLineList.everyHour = [];
+                _self.DAYdrawLeftLineList.number = [];
+
+                _self._http({
+                    url: '/api/web/indexCountTwo/countAlarms',
+                    type: 'get',
+                    isBody: true,
+                    data: {
+                        option: 'DAY',
+                        over: _self.overLevel
+                    },
+                    success: function (res) {
+                        res.data = res.data || [];
+                        res.data.forEach((item) => {
+                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour.substring(11, 13));
+                            _self.DAYdrawLeftLineList.number.push(item.number);
+                        });
+                        _self.drawLeftLine();
+                    }
+                });
+            } else {
+                _self.MONTHdrawLeftLineList.everyDay = [];
+                _self.MONTHdrawLeftLineList.number = [];
+                _self._http({
+                    url: '/api/web/indexCountTwo/countAlarms',
+                    type: 'get',
+                    isBody: true,
+                    data: {
+                        option: 'MONTH',
+                        over: _self.overLevel
+                    },
+                    success: function (res) {
+                        res.data = res.data || [];
+                        res.data.forEach((item) => {
+                            _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
+                            _self.MONTHdrawLeftLineList.number.push(item.number);
+                        });
+                        _self.drawdangyeCharts();
+                    }
+                });
+            }
+        },
+        // 当日时段报警处置
+        drawLeftLine() {
+            let quxianChart = echarts.init(document.getElementById('quxianChart'));
+            quxianChart.off('click');
+            let option = null;
+            let _self = this;
+
+            let text1 = _self.overLevel == true ? '当日平均处理时效' : '当日平均处理时效';
+            let text2 = _self.overLevel == true ? '平均处理时效' : '平均处理时效';
+
+            option = {
+                title: {
+                    text: text1,
+                    textStyle: {
+                        color: 'rgb(255,255,255)',
+                        fontWeight: 'bolder',
+                        fontSize: '14'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
+                },
+                legend: {
+                    data: [text2],
+                    right: '5%',
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                },
+                grid: {
+                    left: '1%',
+                    right: '5%',
+                    bottom: '5%',
+                    containLabel: true
+                },
+                color: ['#25A6FF', '#E7745B'],
+                xAxis: {
+                    type: 'category',
+                    data: _self.DAYdrawLeftLineList.everyHour, //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#596677'
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#C9CED5'
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        lineStyle: {
+                            color: '#596677',
+                            type: 'dotted'
+                        }
+                    }
+                },
+                yAxis: {
+                    // name:'次',
+                    // nameTextStyle: {
+                    //     color: '#ffffff'
+                    // },
+                    type: 'value',
+                    axisLine: {
+                        show: false,
+                        lineStyle: {
+                            color: '#596677'
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#C9CED5'
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#596677',
+                            type: 'dotted'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: text2,
+                        data: _self.DAYdrawLeftLineList.number, //[2, 6, 3, 0, 0, 2, 1, 0, 0, 3, 0, 7]
+                        // barMaxWidth: 10,
+                        smooth: true,
+                        type: 'line',
+                        smoothMonotone: 'x',
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                                    {
+                                        offset: 0,
+                                        color: '#2e486e'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#2e486e'
+                                    }
+                                ])
+                            }
+                        }
+                    }
+                ]
+            };
+
+            if (option && typeof option === 'object') {
+                quxianChart.setOption(option);
+            }
+        },
+        //当月时段报警处置
+        drawdangyeCharts() {
+            let drawLine2 = echarts.init(document.getElementById('dangyeCharts'));
+            drawLine2.off('click');
+            let option = null;
+            let _self = this;
+
+            let text1 = _self.overLevel == true ? '当月平均处理时效' : '当月平均处理时效';
+            let text2 = _self.overLevel == true ? '平均处理时效' : '平均处理时效';
+
+            option = {
+                title: {
+                    text: text1,
+                    textStyle: {
+                        color: 'rgb(255,255,255)',
+                        fontWeight: 'bolder',
+                        fontSize: '14'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
+                },
+                legend: {
+                    data: [text2],
+                    right: '5%',
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                },
+                grid: {
+                    left: '1%',
+                    right: '1%',
+                    bottom: '5%',
+                    containLabel: true
+                },
+                color: ['#25A6FF', '#E7745B'],
+                xAxis: {
+                    type: 'category',
+                    data: _self.MONTHdrawLeftLineList.everyDay, //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#596677'
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        rotate: 60,
+                        textStyle: {
+                            color: '#C9CED5'
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        lineStyle: {
+                            color: '#596677',
+                            type: 'dotted'
+                        }
+                    }
+                },
+                yAxis: {
+                    // name:'次',
+                    // nameTextStyle: {
+                    //     color: '#ffffff'
+                    // },
+                    type: 'value',
+                    axisLine: {
+                        show: false,
+                        lineStyle: {
+                            color: '#596677'
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#C9CED5'
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#596677',
+                            type: 'dotted'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: text2,
+                        smooth: true,
+                        data: _self.MONTHdrawLeftLineList.number, // [2, 6, 3, 0, 0, 2, 1, 0, 0, 3, 0, 7]
+                        type: 'line',
+                        smoothMonotone: 'x',
+                        // barMaxWidth: 10,
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                                    {
+                                        offset: 0,
+                                        color: '#2e486e'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#2e486e'
+                                    }
+                                ])
+                            }
+                        }
+                    }
+                ]
+            };
+
+            if (option && typeof option === 'object') {
+                drawLine2.setOption(option);
+            }
+        },
     }
 };
 </script>

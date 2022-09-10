@@ -6,22 +6,24 @@
         <el-form :inline="true" :model="searchModel" class="xf-form" size="small">
             <el-form-item label="隐患级别">
                 <el-select v-model="searchModel.riskLevel" clearable placeholder="隐患级别" @change="changeRiskLevel">
-                    <el-option label="一般隐患" value="一般隐患"></el-option>
-                    <el-option label="重大隐患" value="重大隐患"></el-option>
+                    <!-- <el-option label="一般隐患" value="一般隐患"></el-option>
+                    <el-option label="重大隐患" value="重大隐患"></el-option> -->
+                    <el-option v-for="item in dataRiskLevel" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode" />
                 </el-select>
             </el-form-item>
             <el-form-item label="整改状态">
                 <el-select v-model="searchModel.riskStatus" clearable placeholder="整改状态" @change="changeRiskStatus">
-                    <el-option label="逾期未整改" value="1"></el-option>
+                    <!-- <el-option label="逾期未整改" value="1"></el-option>
                     <el-option label="限期未整改" value="2"></el-option>
                     <el-option label="逾期已整改" value="3"></el-option>
                     <el-option label="未整改" value="4"></el-option>
-                    <el-option label="已整改" value="5"></el-option>
+                    <el-option label="已整改" value="5"></el-option> -->
+                    <el-option v-for="item in dataRiskStatus" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode" />
                 </el-select>
             </el-form-item>
             <el-form-item label="隐患类型">
                 <el-select v-model="searchModel.riskType" clearable placeholder="隐患类型" @change="changeRiskType">
-                    <el-option label="用火用电" value="用火用电"></el-option>
+                    <!-- <el-option label="用火用电" value="用火用电"></el-option>
                     <el-option label="疏散通道" value="疏散通道"></el-option>
                     <el-option label="疏散指示" value="疏散指示"></el-option>
                     <el-option label="应急照明" value="应急照明"></el-option>
@@ -29,7 +31,8 @@
                     <el-option label="消防器材" value="消防器材隐患"></el-option>
                     <el-option label="重点部位" value="重点部位"></el-option>
                     <el-option label="电动车隐患" value="电动车隐患"></el-option>
-                    <el-option label="其他" value="其他"></el-option>
+                    <el-option label="其他" value="其他"></el-option> -->
+                    <el-option v-for="item in dataRiskType" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="">
@@ -38,19 +41,35 @@
         </el-form>
         <el-table class="xf-table" :data="dataTable" height="540" style="width: 100%">
             <el-table-column type="index" label="序号" align="center"> </el-table-column>
-            <el-table-column prop="risksType" label="隐患类型" :show-overflow-tooltip="true" width="120" />
+            <el-table-column prop="risksType" label="隐患类型" :show-overflow-tooltip="true" width="120">
+                <template slot-scope="scope">
+                    <div>{{ dataRiskTypeJson[scope.row.risksType] }}</div>
+                </template>
+            </el-table-column>
             <!--    <el-table-column prop="handleReportor" label="上报人员" :show-overflow-tooltip="true" width="120" /> -->
-            <el-table-column prop="reporter" label="上报人员" :show-overflow-tooltip="true" width="120" />
+            <el-table-column prop="reporter" label="上报人员" :show-overflow-tooltip="true" width="120">
+                <template slot-scope="scope">
+                    <div>{{ scope.row.lookup.reporter }}</div>
+                </template>
+            </el-table-column>
             <!--      <el-table-column prop="handleReportTime" label="上报时间" :show-overflow-tooltip="true" width="180" /> -->
             <el-table-column prop="reportTime" label="上报时间" :show-overflow-tooltip="true" width="180" />
-            <el-table-column prop="area" label="所属区域" :show-overflow-tooltip="true" />
-            <el-table-column prop="address" label="详细地址" :show-overflow-tooltip="true" />
+            <el-table-column prop="area" label="所属区域" :show-overflow-tooltip="true">
+                <template slot-scope="scope">
+                    <div>{{ scope.row.area||'-' }}</div>
+                </template>
+            </el-table-column>
+            <el-table-column prop="address" label="详细地址" :show-overflow-tooltip="true">
+                <template slot-scope="scope">
+                    <div>{{ scope.row.address||'-' }}</div>
+                </template>
+            </el-table-column>
             <!-- <el-table-column prop="firePartition" label="现场照片"/>-->
             <!--   <el-table-column prop="state" align="center" label="整改状态" :show-overflow-tooltip="true" /> -->
 
             <el-table-column fixed="right" align="center" label="整改状态" width="100">
                 <template slot-scope="scope">
-                    <div>{{ getLabel(scope.row.state) }}</div>
+                    <div>{{ statusJson[scope.row.state] }}</div>
                 </template>
             </el-table-column>
 
@@ -58,7 +77,7 @@
 
             <el-table-column fixed="right" align="center" label="隐患级别" width="100">
                 <template slot-scope="scope">
-                    <div>{{ getLevelabel(scope.row.level) }}</div>
+                    <div>{{ dataRiskLevelJson[scope.row.level] }}</div>
                 </template>
             </el-table-column>
             <el-table-column fixed="right" align="center" label="操作" width="100">
@@ -76,75 +95,6 @@
 </template>
 
 <script>
-const equipmentTypeListData = [
-    {
-        seq: 1,
-        id: 111,
-        riskType: '用火用电',
-        equipmentState: '小磊',
-        reportTime: '2022-09-01 09:00:81',
-        area: '',
-        address: '新世纪环球中心12楼',
-        riskStatus: '',
-        riskLevel: '一般隐患'
-    },
-    {
-        seq: 2,
-        id: 111,
-        riskType: '用火用电',
-        equipmentState: '小磊',
-        reportTime: '2022-09-01 09:00:81',
-        area: '',
-        address: '新世纪环球中心12楼',
-        riskStatus: '',
-        riskLevel: '一般隐患'
-    },
-    {
-        seq: 3,
-        id: 111,
-        riskType: '用火用电',
-        equipmentState: '小磊',
-        reportTime: '2022-09-01 09:00:81',
-        area: '',
-        address: '新世纪环球中心12楼',
-        riskStatus: '',
-        riskLevel: '一般隐患'
-    },
-    {
-        seq: 4,
-        id: 111,
-        riskType: '用火用电',
-        equipmentState: '小磊',
-        reportTime: '2022-09-01 09:00:81',
-        area: '',
-        address: '新世纪环球中心12楼',
-        riskStatus: '',
-        riskLevel: '一般隐患'
-    },
-    {
-        seq: 5,
-        id: 111,
-        riskType: '用火用电',
-        equipmentState: '小磊',
-        reportTime: '2022-09-01 09:00:81',
-        area: '',
-        address: '新世纪环球中心12楼',
-        riskStatus: '',
-        riskLevel: '一般隐患'
-    },
-    {
-        seq: 6,
-        id: 111,
-        riskType: '用火用电',
-        equipmentState: '小磊',
-        reportTime: '2022-09-01 09:00:81',
-        area: '',
-        address: '新世纪环球中心12楼',
-        riskStatus: '',
-        riskLevel: '一般隐患'
-    },
-    { seq: 7, id: 111, riskType: '用火用电', equipmentState: '小磊', reportTime: '2022-09-01 09:00:81', area: '', address: '新世纪环球中心12楼', riskStatus: '', riskLevel: '一般隐患' }
-];
 
 export default {
     props: {
@@ -163,24 +113,53 @@ export default {
     },
     data: () => ({
         searchModel: {
-            riskLevel: '',
-            riskStatus: '',
-            riskType: ''
+            riskLevel: undefined,
+            riskStatus: undefined,
+            riskType: undefined
         },
         pager: {
             pageSize: 10,
             pageIndex: 1,
-            total: equipmentTypeListData.length
+            total: 0
         },
         dataTable: [],
-        arr: [],
-        Arr: []
+        dataRiskLevel:[],
+        dataRiskLevelJson:{},
+        dataRiskType:[],
+        dataRiskTypeJson:{},
+        dataRiskStatus:[
+            {dictValue: "逾期未整改",dictCode: "1"},
+            {dictValue: "限期未整改",dictCode: "2"},
+            {dictValue: "逾期已整改",dictCode: "3"},
+            {dictValue: "未整改",dictCode: "4"},
+            {dictValue: "已整改",dictCode: "5"},
+        ],
+        dataRiskStatusJson:{
+            "1":"逾期未整改",
+            "2":"限期未整改",
+            "3":"逾期已整改",
+            "4":"未整改",
+            "5":"已整改"
+        },
+        status: [
+            { label: '待处理', value: '01' },
+            { label: '待确认', value: '02' },
+            { label: '处理中', value: '03' },
+            { label: '完成', value: '04' },
+            { label: '忽略', value: '05' }
+        ],
+        statusJson:{
+            "01":'待处理',
+            "02":'待确认',
+            "03":'处理中',
+            "04":'完成',
+            "05":'忽略'
+        },
     }),
     watch: {
         riskLevel: {
             immediate: true,
             handler: function (newVal, oldVal) {
-                console.log(newVal);
                 this.searchModel.riskLevel = newVal;
             }
         },
@@ -199,129 +178,81 @@ export default {
     },
     created() {
         const that = this;
-        that._http({
-            /* '/api/web/indexCountTwo/findRisksList', */
-            url: '/api/auth/dict/dictItem',
-            type: 'get',
-            isBody: true,
-            data: {
-                parentCode: 'riskLevel'
-            },
-            success: function (res) {
-                that.Arr = res.data;
-            }
-        });
-
-        this.arr = [
-            { label: '待处理', value: '01' },
-            { label: '待确认', value: '02' },
-            { label: '处理中', value: '03' },
-            { label: '完成', value: '04' },
-            { label: '忽略', value: '05' }
-        ];
+        this.getDataListLevel();
+        this.getDataListType();
+        
     },
     mounted() {
         this.loadListData();
     },
     methods: {
         search() {
+            this.pager.pageIndex = 1;
             this.loadListData();
         },
-        getLevelabel(val) {
-            let arr = this.Arr.filter((res) => {
-                return res.dictCode == val;
-            });
-            return arr[0].dictValue;
-        },
-        getLabel(val) {
-            let arr = this.arr.filter((res) => {
-                return res.value == val;
-            });
-            return arr[0].label;
-        },
-
         loadListData() {
             // this.dataTable = equipmentTypeListData;
             //todo 待接口对接, 可使用props中传入的参数作为查询条件
 
             const that = this;
-            let getType = new Promise((resolve, reject) => {
-                that._http({
-                    /* '/api/web/indexCountTwo/findRisksList', */
-                    url: '/api/auth/dict/dictItem',
-                    type: 'get',
-                    isBody: true,
-                    data: {
-                        parentCode: 'riskType'
-                    },
-                    success: function (res) {
-                        resolve(res);
-                        console.dir(res);
-                    }
-                });
+            that._http({
+                url: '/api/web/indexCountTwo/findRisksList',
+                /*   url: '/api/web/indexCountTwo/scoreFindRisks', */
+                type: 'get',
+                isBody: true,
+                data: {
+                    current: that.pager.pageIndex,
+                    size: that.pager.pageSize,
+                    timeType: that.dataRange === '当日' ? 1 : 2,
+                    level: that.searchModel.riskLevel||undefined,
+                    risksType: that.searchModel.riskType||undefined,
+                    handel: that.searchModel.riskStatus||undefined,
+                    sorts: 'handleReportTime:desc',
+                    transform: 'U:reporter,U:handler'
+                },
+                success: function (res) {
+                    that.dataTable = res.data.records || [];
+                    that.pager.pageSize = res.data.size;
+                    that.pager.pageIndex = res.data.current;
+                    that.pager.total = res.data.total;
+                }
             });
-
-            let getLevel = new Promise((resolve, reject) => {
-                that._http({
-                    url: '/api/auth/dict/dictItem',
-                    type: 'get',
-                    isBody: true,
-                    data: {
-                        parentCode: 'riskLevel'
-                    },
-                    success: function (res) {
-                        resolve(res);
-                    }
-                });
+        },
+        //隐患级别
+        getDataListLevel(){
+            let that = this;
+            that._http({
+                url: '/api/auth/dict/dictItem',
+                type: 'get',
+                isBody: true,
+                data: {
+                    parentCode: 'riskLevel'
+                },
+                success: function (res) {
+                    that.dataRiskLevel = res.data || [];
+                    that.dataRiskLevel.forEach(element => {
+                        that.dataRiskLevelJson[element.dictCode] = element.dictValue
+                    });
+                }
             });
-
-            Promise.all([getType, getLevel]).then((res) => {
-                let Arr = res[1].data.filter((res) => res.dictValue == that.searchModel.riskLevel);
-                let arr = res[0].data.filter((res) => res.dictValue == that.searchModel.riskType);
-                console.dir(arr);
-                that._http({
-                    url: '/api/web/indexCountTwo/findRisksList',
-                    /*   url: '/api/web/indexCountTwo/scoreFindRisks', */
-                    type: 'get',
-                    isBody: true,
-                    data: {
-                        current: that.pager.pageIndex,
-                        size: that.pager.pageSize,
-                        timeType: that.dataRange === '当日' ? 1 : 2,
-                        level: Arr.length > 0 ? Arr[0].dictCode : undefined,
-                        risksType: arr.length > 0 ? arr[0].dictCode : undefined,
-                        handel: that.searchModel.riskStatus == '未整改' ? 4 : that.searchModel.riskStatus == '已整改' ? 5 : that.searchModel.riskStatus,
-                        sorts: 'handleReportTime:desc',
-                        code: Arr.length > 0 ? Arr[0].dictCode : undefined
-                    },
-                    success: function (res) {
-                        that.dataTable = res.data.records || [];
-                        that.pager.pageSize = res.data.size;
-                        that.pager.pageIndex = res.data.current;
-                        that.pager.total = res.data.total;
-                    }
-                });
+        },
+        //隐患类型
+        getDataListType(){
+            let that = this;
+            that._http({
+                url: '/api/auth/dict/dictItem',
+                type: 'get',
+                isBody: true,
+                data: {
+                    parentCode: 'riskType'
+                },
+                success: function (res) {
+                    that.dataRiskType = res.data || [];
+                    that.dataRiskType.forEach(element => {
+                        that.dataRiskTypeJson[element.dictCode] = element.dictValue
+                    });
+                }
             });
-            /* '/api/web/indexCountTwo/findRisksList', */
-            /*     that._http({
- 
-    url: '/api/web/indexCountTwo/scoreFindRisks',
-    type: 'get',
-    isBody: true,
-    data: {
-        timeType: that.dataRange === '当日' ? 1 : 2,
-        level: this.searchModel.riskLevel || undefined,
-        risksType: this.searchModel.riskType || undefined,
-        handel: this.searchModel.riskStatus || undefined,
-        sorts: 'handleReportTime:desc'
-    },
-    success: function (res) {
-        that.dataTable = res.data.records || [];
-        that.pager.pageSize = res.data.size;
-        that.pager.pageIndex = res.data.current;
-        that.pager.total = res.data.total;
-    }
-}); */
         },
         handleSizeChange(val) {
             this.pageSize = val;
@@ -332,6 +263,9 @@ export default {
             this.loadListData();
         },
         handleViewDetailClick(riskItem) {
+            riskItem['risksTypeText'] = this.dataRiskTypeJson[riskItem.risksType];
+            riskItem['levelText'] = this.dataRiskLevelJson[riskItem.level];
+            riskItem['stateText'] = this.statusJson[riskItem.state];
             this.$emit('viewDetailOnclick', riskItem);
         },
         changeRiskLevel(val) {
