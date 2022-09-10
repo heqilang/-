@@ -4,7 +4,7 @@
 <template>
     <div class="equipment-type-stats-wrapper">
         <div class="equipment-types">
-            <a class="equipment-type" v-for="item in equipmentTypeData" :key="item" v-on:click="onClick(item.equipmentType)">
+            <a class="equipment-type" v-for="item in equipmentTypeData" :key="item" v-on:click="onClick(item.name)">
                 <div class="equipment-type-flag">
                     <span class="equipment-type-flag-color" v-bind:style="'background-color:' + item.color"></span>
                 </div>
@@ -73,6 +73,8 @@ export default {
                             });
                             if (colorIndex == colors.length) colorIndex = 0;
                         });
+                        console.log('装配后的数据->');
+                        console.log(_self.equipmentTypeData);
                         // _self.equipmentTypeData = [
                         //     { name: '光电感烟探测器', value: 10221, color: '#BE4C3D' },
                         //     { name: '输出模块', value: 300, color: '#3DBE71' },
@@ -89,6 +91,8 @@ export default {
             }
         },
         onClick(type) {
+            // console.log('item->' + item);
+            console.log('equipmentTypeData->' + this.equipmentTypeData);
             this.$emit('onclick', type);
         }
     }

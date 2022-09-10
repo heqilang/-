@@ -62,9 +62,9 @@ export default {
                 _self.group1 = [
                     { name: '火灾报警系统', code: 'equipSys1', value: res.data.equipSys1, img: require('@/assets/images/cl/huozaibaojing.png') },
                     { name: '消防供水设备', code: 'equipSys9', value: res.data.equipSys9, img: require('@/assets/images/cl/xiaofanggongsui.png') },
-                    { name: '喷水灭火系统', code: 'equipSys10', value: res.data.equipSys10, img: require('@/assets/images/cl/pensuimiehuo.png') },
+                    { name: '喷水灭火系统', code: 'equipSys8', value: res.data.equipSys8, img: require('@/assets/images/cl/pensuimiehuo.png') },
                     // { name: '耐火构件系统', code: 'equipSys3', value: res.data.equipSys3 + res.data.equipSys4 + res.data.equipSys8, img: require('@/assets/images/cl/xiaofanggeishui.png') },
-                    { name: '耐火构件系统', code: 'equipSys3', value: res.data.equipSys3, img: require('@/assets/images/cl/xiaofanggeishui.png') },
+                    { name: '耐火构件系统', code: 'equipSys10', value: res.data.equipSys10, img: require('@/assets/images/cl/xiaofanggeishui.png') },
                     { name: '手提式干粉灭火器', code: 'equipSys5', value: res.data.equipSys5, img: require('@/assets/images/cl/xiaofangmiehuo.png') },
                     { name: '其它', code: '', value: 0, img: require('@/assets/images/cl/qita.png') }
                 ];

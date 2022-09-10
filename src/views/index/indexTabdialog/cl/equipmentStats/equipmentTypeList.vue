@@ -83,6 +83,7 @@ export default {
     }),
     created() {},
     mounted() {
+        console.log(this.type, this.owningSystem);
         this.loadListData();
     },
     methods: {
@@ -91,17 +92,18 @@ export default {
         },
         loadListData() {
             //todo 待接口对接
-            this.dataTable = equipmentTypeListData;
+            // this.dataTable = equipmentTypeListData;
 
             let _self = this;
             if (_self.type && _self.owningSystem) {
+                // if (_self.owningSystem) {
                 _self._http({
                     url: '/api/app/index/findEquipment',
                     type: 'get',
                     data: {
                         // equipmentName: _self.type,
                         owningSystem: _self.owningSystem,
-                        equipmentType: _self.type,
+                        equipmentName: _self.type,
                         current: _self.pager.pageIndex,
                         size: _self.pager.pageSize,
                         sorts: 'id:desc;',
