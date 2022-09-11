@@ -162,7 +162,7 @@
             <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative; padding: 30px">
                 <div>
                     <div style="display: flex">
-                        <div>报警时间：</div>
+                        <div>预警时间：</div>
                         <div>{{ alarmanalysis6_params.sendTime }}</div>
                     </div>
                     <div style="display: flex">
