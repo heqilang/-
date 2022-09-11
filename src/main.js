@@ -37,11 +37,13 @@ import './assets/styles/base.scss';
 import RouterTab from 'vue-router-tab';
 import 'vue-router-tab/dist/lib/vue-router-tab.css';
 import customPagination from './components/customPagination';
+import customPaginationNoSizes from './components/customPaginationNoSizes';
 import VueAnimateNumber from 'vue-animate-number';
 import dataV from '@jiaminghi/data-view';
 Vue.use(dataV);
 Vue.use(VueAnimateNumber);
 Vue.use(customPagination);
+Vue.use(customPaginationNoSizes);
 Vue.use(RouterTab);
 /*********************页面tab标签插件*********************/
 Vue.use(VueRouter);
