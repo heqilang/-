@@ -83,7 +83,7 @@
                             </el-table>
                             <div class="text_c mar-t-18 backColorPage">
                                 <!-- 分页 -->
-                                <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                                <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPaginationNoSizes>
                             </div>
                         </el-col>
                     </el-row>
@@ -166,7 +166,7 @@
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                        <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPaginationNoSizes>
                     </div>
                 </div>
             </div>
@@ -346,14 +346,14 @@
                                 <div>报警时间：</div>
                                 <div>{{ alarmanalysis6_params.alarmTime }}</div>
                             </div>
-                            <div style="display: flex">
+                            <!-- <div style="display: flex">
                                 <div>设备名称：</div>
                                 <div>{{ alarmanalysis6_params.equipmentName || '--' }}</div>
                             </div>
                             <div style="display: flex">
                                 <div>所属系统：</div>
-                                <div>{{ alarmanalysis6_params.lookup.owningSystem || '--' }}</div>
-                            </div>
+                                <div>{{ alarmanalysis6_params.lookup.owningSystem||'--' }}</div>
+                            </div> -->
                             <!-- <div style="display: flex">
                                 <div>设备类型：</div>
                                 <div v-if="alarmanalysis6_params.equipmentName">{{ alarmanalysis6_params.equipmentName | equipmentStateType }}</div>
@@ -562,7 +562,9 @@ export default {
             } else if (option == 'overLevel1') {
                 this.overLevel = true;
             }
+            this.pager.pageSize = 10;
             if (type == 'alarmanalysis1') {
+                this.pager.pageSize = 5;
                 this.getleftNumData();
             } else if (type == 'alarmanalysis2') {
                 this.getcountAlarms();
@@ -835,7 +837,7 @@ export default {
                     success: function (res) {
                         res.data = res.data || [];
                         res.data.forEach((item) => {
-                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour.substring(11, 13));
+                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour);
                             _self.DAYdrawLeftLineList.number.push(item.number);
                         });
                         _self.drawLeftLine();
@@ -1736,13 +1738,10 @@ export default {
                 _self.equipmentName = undefined;
                 _self.equipmentNameOther = [];
                 _self.isLevel1 = true;
-                _self.pager.pageSize = 5;
             } else {
                 _self.over = _self.overLevel;
                 _self.isLevel1 = false;
-                _self.pager.pageSize = 10;
             }
-
             let searchObj = {
                 size: _self.pager.pageSize,
                 current: _self.pager.pageIndex,

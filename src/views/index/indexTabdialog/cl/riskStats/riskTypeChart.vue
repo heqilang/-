@@ -69,7 +69,8 @@ export default {
                     let Arr = res.data.filter((res) => res.dictValue === that.newLevel);
                     console.dir(Arr);
                     that._http({
-                        url: '/api/web/indexCountTwo/patrolRisksBing',
+                        // url: '/api/web/indexCountTwo/patrolRisksBing',
+                        url: '/api/web/indexCountV3/patrolRisksBing',
                         type: 'get',
                         isBody: true,
                         data: {

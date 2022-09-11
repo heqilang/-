@@ -626,7 +626,7 @@
                                                             <el-col :span="12">
                                                                 <div class="text_l">设备总数</div>
                                                                 <div class="text_l">
-                                                                    <span class="textColor" style="font-size: 0.2rem; font-weight: 700">{{ alarmEventList.total }}</span>
+                                                                    <span class="textColor" style="font-size: 0.2rem; font-weight: 700">{{ alarmEventList.total - 1 }}</span>
                                                                 </div>
                                                             </el-col>
                                                         </el-row>
@@ -634,7 +634,7 @@
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
                                                             <el-col :span="14">消防设备：</el-col>
-                                                            <el-col :span="10"> {{ alarmEventList.equipSys1 + alarmEventList.equipSys3 + alarmEventList.equipSys4 + alarmEventList.equipSys8 + alarmEventList.equipSys5 + alarmEventList.equipSys9 + alarmEventList.equipSys10 }} </el-col>
+                                                            <el-col :span="10"> {{ alarmEventList.equipSys1 + alarmEventList.equipSys3 + alarmEventList.equipSys8 + alarmEventList.equipSys5 + alarmEventList.equipSys9 }} </el-col>
                                                         </el-row>
                                                     </div>
                                                     <div class="text_l" style="margin-top: 0.12rem">
@@ -646,7 +646,7 @@
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
                                                             <el-col :span="14">逃生疏散设备：</el-col>
-                                                            <el-col :span="10"> {{ alarmEventList.tsbnxt + alarmEventList.equipSys6 + alarmEventList.equipSys11 }} </el-col>
+                                                            <el-col :span="10"> {{ alarmEventList.tsbnxt + alarmEventList.equipSys6 + alarmEventList.equipSys11 + alarmEventList.equipSys10 }} </el-col>
                                                         </el-row>
                                                     </div>
                                                 </div>
@@ -1949,10 +1949,11 @@ export default {
         getAlarmStatistics() {
             const _self = this;
             _self._http({
-                url: '/api/web/indexCountTwo/earlyWarningStatistics',
+                // url: '/api/web/indexCountTwo/earlyWarningStatistics',
+                url: '/api/web/indexCountV3/earlyWarningStatistics',
                 type: 'get',
                 data: {
-                    option: _self.alarmRadio
+                    option: _self.alarmRadiog
                 },
                 success: function (res) {
                     _self.leftDataBot = res.data;
