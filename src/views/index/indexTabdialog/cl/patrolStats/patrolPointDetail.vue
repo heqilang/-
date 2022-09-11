@@ -35,9 +35,8 @@
                         <div>
                             <el-scrollbar style="height: 100%; width: 90%">
                                 <el-timeline>
-                                    <el-timeline-item v-for="(item, index) in sourcelist" :key="index" v-if="item.show && item.title != '被指派了报警工单'" placement="top">
+                                    <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.addtime" v-if="item.show && item.title != '被指派了报警工单'" placement="top">
                                         <el-card style="font-size: 14px">
-                                            <span class="spanTime">{{ item.addtime }}</span>
                                             <p>{{ item.targetObjectJob }}</p>
                                             <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
                                                 <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
@@ -171,13 +170,4 @@ export default {
 
 <style lang="scss">
 @import './patrolPointDetail.scss';
-
-.spanTime {
-    position: absolute;
-    left: -145px;
-    top: 0;
-    width: 80px;
-    margin: 0 0;
-    padding: 0 0;
-}
 </style>

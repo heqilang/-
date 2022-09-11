@@ -136,9 +136,9 @@ export default {
                 //     { name: '一般隐患', value: newVal.commonRisks },
                 //     { name: '重大隐患', value: newVal.greatRisks }
                 // ]);
-                if (this.riskLevel == '一般隐患') {
+                if (this.riskLevel == '一般隐患'||this.activeRiskLevel == '0') {
                     this.drawPieChart('risk-stats-chart1', '隐患级别', [{ name: '一般隐患', value: newVal.commonRisks }]);
-                } else if (this.riskLevel == '重大隐患') {
+                } else if (this.riskLevel == '重大隐患'||this.activeRiskLevel == '1') {
                     this.drawPieChart('risk-stats-chart1', '隐患级别', [{ name: '重大隐患', value: newVal.greatRisks }]);
                 } else {
                     this.drawPieChart('risk-stats-chart1', '隐患级别', [
@@ -151,6 +151,7 @@ export default {
         currentLayerLevel: {
             immediate: true,
             handler: function (newVal, oldVal) {
+                let that = this;
                 if (newVal === 1) {
                     this.title = `${this.dataRange}隐患`;
                 } else if (newVal === 1.5) {
@@ -163,10 +164,16 @@ export default {
 
                 setTimeout(() => {
                     if (newVal !== oldVal && newVal === 1) {
-                        this.drawPieChart('risk-stats-chart1', '隐患级别', [
-                            { name: '一般隐患', value: this.statsData.commonRisks },
-                            { name: '重大隐患', value: this.statsData.greatRisks }
-                        ]);
+                        if (that.riskLevel == '一般隐患'||that.activeRiskLevel == '0') {
+                            that.drawPieChart('risk-stats-chart1', '隐患级别', [{ name: '一般隐患', value: that.statsData.commonRisks }]);
+                        } else if (that.riskLevel == '重大隐患'||that.activeRiskLevel == '1') {
+                            that.drawPieChart('risk-stats-chart1', '隐患级别', [{ name: '重大隐患', value: that.statsData.greatRisks }]);
+                        } else {
+                            that.drawPieChart('risk-stats-chart1', '隐患级别', [
+                                { name: '一般隐患', value: that.statsData.commonRisks },
+                                { name: '重大隐患', value: that.statsData.greatRisks }
+                            ]);
+                        }
                     }
                 }, 50);
             }
