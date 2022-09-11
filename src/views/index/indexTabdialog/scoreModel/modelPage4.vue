@@ -64,12 +64,14 @@
                 <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                 <el-table-column prop="patrolType" label="巡检类型" :show-overflow-tooltip="true">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.patrolType == 'DAY'">日检</span>
+                        <!--  <span v-if="scope.row.patrolType == 'DAY'">日检</span>
                         <span v-else-if="scope.row.patrolType == 'WEEK'">周检</span>
                         <span v-else-if="scope.row.patrolType == 'MONTH'">月检</span>
                         <span v-else-if="scope.row.patrolType == 'QUARTER'">季检</span>
                         <span v-else-if="scope.row.patrolType == 'YEAR'">年检</span>
-                        <span v-else-if="scope.row.patrolType == 'TEMPORARY'">临时检</span>
+                        <span v-else-if="scope.row.patrolType == 'TEMPORARY'">临时检</span> -->
+                        <span v-if="scope.row.type == '1'">普通巡检</span>
+                        <span v-else>防火巡检</span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="result" label="巡检状态" :show-overflow-tooltip="true">
@@ -78,27 +80,29 @@
                         <span v-else>已完成</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="templateName" label="模板名称" :show-overflow-tooltip="true"> </el-table-column>
-                <el-table-column prop="startDate" label="开始日期" :show-overflow-tooltip="true"> </el-table-column>
-                <el-table-column prop="endDate" label="截至日期" :show-overflow-tooltip="true"> </el-table-column>
+                <el-table-column prop="location" label="模板名称" :show-overflow-tooltip="true"> </el-table-column>
+                <el-table-column prop="beginTime" label="开始日期" :show-overflow-tooltip="true"> </el-table-column>
+                <el-table-column prop="addtime" label="截至日期" :show-overflow-tooltip="true"> </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-popover placement="right" width="400" trigger="click">
                             <div>
                                 <div>
-                                    巡检类型：<span v-if="scope.row.patrolType == 'DAY'">日检</span>
+                                    巡检类型：<!-- <span v-if="scope.row.patrolType == 'DAY'">日检</span>
                                     <span v-else-if="scope.row.patrolType == 'WEEK'">周检</span>
                                     <span v-else-if="scope.row.patrolType == 'MONTH'">月检</span>
                                     <span v-else-if="scope.row.patrolType == 'QUARTER'">季检</span>
                                     <span v-else-if="scope.row.patrolType == 'YEAR'">年检</span>
-                                    <span v-else-if="scope.row.patrolType == 'TEMPORARY'">临时检</span>
+                                    <span v-else-if="scope.row.patrolType == 'TEMPORARY'">临时检</span> -->
+                                    <span v-if="scope.row.type == '1'">普通巡检</span>
+                                    <span v-else>防火巡检</span>
                                 </div>
                                 <div>巡检状态：<span v-if="scope.row.result == '0'">进行中</span> <span v-else>已完成</span></div>
-                                <div>模板名称：{{ scope.row.templateName }}</div>
-                                <div>开始日期：{{ scope.row.startDate }}</div>
-                                <div>截至日期：{{ scope.row.endDate }}</div>
-                                <div>巡检人员：{{ scope.row.userName }}</div>
-                                <div>完成时间：{{ scope.row.completeTime }}</div>
+                                <div>模板名称：{{ scope.row.location }}</div>
+                                <div>开始日期：{{ scope.row.beginTime }}</div>
+                                <div>截至日期：{{ null }}</div>
+                                <div>巡检人员：{{ scope.row.inspectPerson }}</div>
+                                <div>完成时间：{{ scope.row.addtime }}</div>
                             </div>
                             <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
                             <!-- <el-button >click 激活</el-button> -->
@@ -145,13 +149,19 @@ export default {
             _self.loading = true;
             _self.dataTable = [];
             _self._http({
-                url: '/api/web/indexCountTwo/findPatrol',
+                url: '/api/web/indexCountV3/findPatrolList', //迪威-巡检列表-3级页面
+                //   url: '/api/web/indexCountTwo/findPatrol',
                 type: 'get',
                 data: {
+                    /*   size: _self.pager.pageSize,
+            current: _self.pager.pageIndex,
+            transform: 'U:handler;OW:owningSystem;B:building;F:floor'
+            // eliminateRisks: _self.radio4=='未整改'?'NO':'YES', */
                     size: _self.pager.pageSize,
                     current: _self.pager.pageIndex,
+                    patrolStatus: 'NORMAL',
+                    sorts: 'completeTime:desc',
                     transform: 'U:handler;OW:owningSystem;B:building;F:floor'
-                    // eliminateRisks: _self.radio4=='未整改'?'NO':'YES',
                 },
                 success: function (res) {
                     _self.dataTable = res.data.records;

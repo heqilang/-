@@ -348,7 +348,7 @@
                             </div>
                             <!-- <div style="display: flex">
                                 <div>设备名称：</div>
-                                <div>{{ alarmanalysis6_params.equipmentName||'--' }}</div>
+                                <div>{{ alarmanalysis6_params.equipmentName || '--' }}</div>
                             </div>
                             <div style="display: flex">
                                 <div>所属系统：</div>

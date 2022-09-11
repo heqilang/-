@@ -1290,10 +1290,13 @@ export default {
         getsystemScore() {
             let _self = this;
             _self._http({
-                url: '/api/web/indexCountTwo/systemScore',
+                url: '/api/web/indexCountV3/systemScore', //迪威的系统评分
+                //  url: '/api/web/indexCountTwo/systemScore',
                 type: 'get',
                 success: function (res) {
                     _self.systemScoreList = res.data;
+                    console.log('eeeeeeeeeeeeeeeeeeeeeee');
+                    console.dir(res);
                 }
             });
         },
