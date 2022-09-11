@@ -5,6 +5,7 @@
                 <span style="cursor: pointer">
                     <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
                 </span>
+                <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a>
             </div>
             <div class="classReadyDialogBox">
                 <div class="firstLevel">
@@ -43,7 +44,7 @@
             </div>
         </div>
 
-        <div style="padding:0 30px">
+        <div v-if="showLeavel == 1" style="padding:0 30px">
             <el-row>
                 <el-col :span="24">
                     <div style="margin-bottom: 12px">
@@ -96,11 +97,17 @@
             </el-row>
         </div>
         
-        <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff; padding: 20px">
-            <div style="position: absolute; right: 10px; top: 10px; background-color: #1f223000; z-index: 1">
-                <span @click="showLeavel = 1" style="margin: 12px 20px; display: inline-block; padding: 3px 6px; border: 1px solid #616266; color: #616266; cursor: pointer"><<</span>
+        <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff;">
+            <div class="diaHeadStandardC classReadyDialogTitle">
+                <span style="cursor: pointer">
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
+                </span>
+                <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
+                <span @click="showLeavel = 1" style="float:right;margin-right:20px;cursor: pointer">
+                    <i class="el-icon-d-arrow-left"></i>
+                </span>
             </div>
-            <el-row>
+            <el-row style="padding:20px">
                 <el-col :span="24">
                     <div style="margin-bottom: 12px">
                         <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
@@ -153,15 +160,21 @@
         </div>
         
         <div v-if="showLeavel == 3" class="secendLevel" style="background-color: #2b4b6b; color: #fff">
-            <div class="diaHeadStandardC" style="height: 46px; background-color: #2b4b6b; line-height: 46px; padding-left: 12px; color: #fff">
+            <div class="diaHeadStandardC classReadyDialogTitle">
+                <span style="cursor: pointer">
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
+                </span>
+                <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
+                <span @click="showLeavel = 2" style="float:right;margin-right:20px;cursor: pointer">
+                    <i class="el-icon-d-arrow-left"></i>
+                </span>
+            </div>
+            <!-- <div class="diaHeadStandardC" style="height: 46px; background-color: #2b4b6b; line-height: 46px; padding-left: 12px; color: #fff">
                 <span style="cursor: pointer">
                     {{ activeName == 'first' ? '突发类事件预警' : '管理类事件预警' }}
                 </span>
-            </div>
+            </div> -->
             <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative">
-                <div style="position: absolute; right: 10px; top: 10px; background-color: #1f223000; z-index: 1">
-                    <span @click="showLeavel = 2" style="margin: 12px 20px; display: inline-block; padding: 3px 6px; border: 1px solid #616266; color: #616266; cursor: pointer"><<</span>
-                </div>
                 <div style="padding: 20px">
                     <div style="display: flex">
                         <div>报警时间：</div>
@@ -324,6 +337,10 @@ export default {
         this.getList();
     },
     methods: {
+        closeDialog() {
+            this.$emit('update:visible', false);
+            // this.turntopage('alarmanalysis1');
+        },
         showLeavelchage(value) {
             if (this.alarmRadio == 'MONTH') {
                 this.showLeavel = 2;

@@ -792,14 +792,14 @@
         <!-- 突发类事件预警 -->
         <div class="alertModel" v-if="showearlyemergency">
             <el-dialog top="5vh" :modal-append-to-body="false" width="1200px" title="突发类事件预警" :visible.sync="showearlyemergency" :close-on-click-modal="true" class="unit-edit-con">
-                <component @closeDialog="homedilogshow = ''" :alarmRadiofu="alarmRadio" :readyAlarmType="readyAlarmType" :is="require('./indexTabdialog/early/earlyemergency')"></component>
+                <component :visible.sync="showearlyemergency" @closeDialog="homedilogshow = ''" :alarmRadiofu="alarmRadio" :readyAlarmType="readyAlarmType" :is="require('./indexTabdialog/early/earlyemergency')"></component>
             </el-dialog>
         </div>
 
         <!-- 管理类事件预警 -->
         <div class="alertModel" v-if="showearlymanageevents">
             <el-dialog top="5vh" :modal-append-to-body="false" width="1200px" title="管理类事件预警" :visible.sync="showearlymanageevents" :close-on-click-modal="true" class="unit-edit-con">
-                <component @closeDialog="homedilogshow = ''" :alarmRadiofu="alarmRadio" :readyAlarmType="readyAlarmType" :is="require('./indexTabdialog/early/earlymanageevents')"></component>
+                <component :visible.sync="showearlymanageevents" @closeDialog="homedilogshow = ''" :alarmRadiofu="alarmRadio" :readyAlarmType="readyAlarmType" :is="require('./indexTabdialog/early/earlymanageevents')"></component>
             </el-dialog>
         </div>
 

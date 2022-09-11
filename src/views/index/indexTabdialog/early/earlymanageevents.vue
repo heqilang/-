@@ -3,8 +3,8 @@
         <div v-show="showLeavel == 1" class="firstLevel">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
-                    >事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
+                    <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a>
                 </span>
             </div>
             <div class="classReadyDialogBox">
@@ -375,6 +375,10 @@ export default {
         this.getList();
     },
     methods: {
+        closeDialog() {
+            this.$emit('update:visible', false);
+            // this.turntopage('alarmanalysis1');
+        },
         showLeavelchage(value) {
             if (this.alarmRadio == 'MONTH') {
                 this.showLeavel = 2;
