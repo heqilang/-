@@ -1950,7 +1950,7 @@ export default {
                 url: '/api/web/indexCountV3/earlyWarningStatistics',
                 type: 'get',
                 data: {
-                    option: _self.alarmRadiog
+                    option: _self.alarmRadio
                 },
                 success: function (res) {
                     _self.leftDataBot = res.data;
