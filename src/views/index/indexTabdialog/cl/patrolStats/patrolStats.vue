@@ -219,7 +219,7 @@ export default {
                 _self.DAYdrawLeftLineList.number = [];
 
                 _self._http({
-                    url: '/api/web/indexCountTwo/countPatrolMinute', ///api/web/indexCountTwo/countAlarms
+                    url: '/api/web/indexCountV3/countPatrolMinute',
                     type: 'get',
                     isBody: true,
                     data: {
@@ -239,7 +239,7 @@ export default {
                 _self.MONTHdrawLeftLineList.everyDay = [];
                 _self.MONTHdrawLeftLineList.number = [];
                 _self._http({
-                    url: '/api/web/indexCountTwo/countPatrolMinute',
+                    url: '/api/web/indexCountV3/countPatrolMinute',
                     type: 'get',
                     isBody: true,
                     data: {
