@@ -32,6 +32,12 @@
             </el-table-column>
             <el-table-column prop="address" label="详细地址" width="280" />
             <el-table-column prop="firePartition" label="防火分区" />
+            <el-table-column label="操作" width="180">
+                <template slot-scope="scope">
+                    <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo(scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                </template>
+            </el-table-column>
+
             <!-- <el-table-column label="使用单位" />
             <el-table-column label="责任单位">
                 <template slot-scope="scope"> 环球中心 </template>
@@ -87,6 +93,10 @@ export default {
         this.loadListData();
     },
     methods: {
+        updateOrDeleteInfo(val) {
+            this.$emit('getDealie', val);
+        },
+
         search() {
             let _self = this;
         },
@@ -107,7 +117,7 @@ export default {
                         current: _self.pager.pageIndex,
                         size: _self.pager.pageSize,
                         sorts: 'id:desc;',
-                        transform: 'B:building;F:floor'
+                        transform: 'B:building;F:floor;ET:equipmentType'
                     },
                     success: function (res) {
                         _self.dataTable = res.data.records;

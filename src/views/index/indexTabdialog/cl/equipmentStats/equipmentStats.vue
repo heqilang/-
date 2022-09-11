@@ -24,7 +24,12 @@
 
         <div class="stats-layer-container" v-if="currentLayerLevel === 3">
             <a class="return-upper-level-btn" v-on:click="intoLayer2(activeEquipmentCategory)"><<</a>
-            <equipmentTypeList :type="activeEquipmentType" :owning-system="activeEquipmentCategory" />
+            <equipmentTypeList :type="activeEquipmentType" @getDealie="getDealie" :owning-system="activeEquipmentCategory" />
+        </div>
+
+        <div class="stats-layer-container" v-if="currentLayerLevel === 4">
+            <a class="return-upper-level-btn" v-on:click="intoLayer4(activeEquipmentCategory)"><<</a>
+            <equipmentDealie :activeDealie="activeDealie" />
         </div>
     </div>
 </template>
@@ -32,11 +37,12 @@
 <script>
 import equipmentTypeStats from './equipmentTypeStats';
 import equipmentTypeList from './equipmentTypeList';
-
+import equipmentDealie from './equipmentDealie';
 export default {
     components: {
         equipmentTypeStats,
-        equipmentTypeList
+        equipmentTypeList,
+        equipmentDealie
     },
     props: {},
     data: () => ({
@@ -46,6 +52,7 @@ export default {
         activeEquipmentGroup: '消防设备', //当前激活的 设备分组 TODO 目前是个中文字符串,后面应该要改成字典id
         activeEquipmentCategory: '', //当前激活的 设备分类 TODO 目前是个中文字符串,后面应该要改成字典id
         activeEquipmentType: '', //当前激活的 设备类型 TODO 目前是个中文字符串,后面应该要改成字典id
+        activeDealie: '', //设备详情页面的数据
         group1: {},
         group2: {},
         group3: {}
@@ -97,6 +104,14 @@ export default {
         intoLayer3(type) {
             this.activeEquipmentType = type;
             this.currentLayerLevel = 3;
+        },
+        intoLayer4() {
+            this.currentLayerLevel = 3;
+        },
+        getDealie(val) {
+            this.currentLayerLevel = 4;
+            this.activeDealie = val;
+            console.dir(val);
         },
         changeEquipmentGroup(groupName) {
             let _self = this;
