@@ -179,7 +179,7 @@
             <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative; padding: 30px">
                 <div>
                     <div style="display: flex">
-                        <div>报警时间：</div>
+                        <div>预警时间：</div>
                         <div>{{ alarmanalysis6_params.sendTime }}</div>
                     </div>
                     <div style="display: flex">
@@ -523,7 +523,7 @@ export default {
                     top: '25%',
                     left: '0%',
                     right: '5%',
-                    bottom: '0%',
+                    bottom: '5%',
                     containLabel: true
                 },
                 tooltip: {
@@ -625,7 +625,7 @@ export default {
                 grid: {
                     top: '25%',
                     left: '0%',
-                    right: '5%',
+                    right: '8%',
                     bottom: '0%',
                     containLabel: true
                 },
