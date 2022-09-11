@@ -26,7 +26,7 @@
                         </div>
                         <div class="risk-detail-field">
                             <span>隐患级别: </span>
-                            <span style="color:rgb(255,0,0)">{{ riskId.risksTypeText }}</span>
+                            <span style="color: rgb(255, 0, 0)">{{ riskId.risksTypeText }}</span>
                         </div>
                         <div class="risk-detail-field">
                             <span>整改状态: </span>
@@ -54,7 +54,7 @@
                                     </el-timeline-item>
                                     <el-timeline-item v-if="(riskId.handleTime || '') != ''" :timestamp="riskId.handleTime" placement="top">
                                         <el-card style="font-size: 14px">
-                                            <p>处置人员：{{ riskId.createUser || '--' }} {{riskId.handlerMobile || '--'}}</p>
+                                            <p>处置人员：{{ riskId.createUser || '--' }} {{ riskId.handlerMobile || '--' }}</p>
                                             <p>处置结果：已完成隐患处理</p>
                                         </el-card>
                                     </el-timeline-item>
@@ -157,7 +157,7 @@ export default {
             description: '',
             flows: []
         },
-        sourcelist: [],
+        sourcelist: []
     }),
     created() {},
     mounted() {
@@ -168,7 +168,7 @@ export default {
         loadData() {
             //todo 待接口对接  使用props中传入的riskId作为查询条件
             this.riskData = riskData;
-        },
+        }
     }
 };
 </script>

@@ -50,19 +50,19 @@
             <!--    <el-table-column prop="handleReportor" label="上报人员" :show-overflow-tooltip="true" width="120" /> -->
             <el-table-column prop="createUser" label="上报人员" :show-overflow-tooltip="true" width="120">
                 <template slot-scope="scope">
-                    <div>{{ scope.row.createUser||'-' }}</div>
+                    <div>{{ scope.row.createUser || '-' }}</div>
                 </template>
             </el-table-column>
             <!--      <el-table-column prop="handleReportTime" label="上报时间" :show-overflow-tooltip="true" width="180" /> -->
             <el-table-column prop="createTime" label="上报时间" :show-overflow-tooltip="true" width="180" />
             <el-table-column prop="area" label="所属区域" :show-overflow-tooltip="true">
                 <template slot-scope="scope">
-                    <div>{{ scope.row.area||'-' }}</div>
+                    <div>{{ scope.row.area || '-' }}</div>
                 </template>
             </el-table-column>
             <el-table-column prop="troubleLocation" label="详细地址" :show-overflow-tooltip="true">
                 <template slot-scope="scope">
-                    <div>{{ scope.row.troubleLocation||'-' }}</div>
+                    <div>{{ scope.row.troubleLocation || '-' }}</div>
                 </template>
             </el-table-column>
             <!-- <el-table-column prop="firePartition" label="现场照片"/>-->
@@ -96,7 +96,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
         dataRange: {
@@ -124,26 +123,26 @@ export default {
             total: 0
         },
         dataTable: [],
-        dataRiskLevel:[],
-        dataRiskLevelJson:{
-            "0":"一般隐患",
-            "1":"重大隐患"
+        dataRiskLevel: [],
+        dataRiskLevelJson: {
+            0: '一般隐患',
+            1: '重大隐患'
         },
-        dataRiskType:[],
-        dataRiskTypeJson:{},
-        dataRiskStatus:[
-            {dictValue: "逾期未整改",dictCode: "1"},
-            {dictValue: "限期未整改",dictCode: "2"},
-            {dictValue: "逾期已整改",dictCode: "3"},
-            {dictValue: "未整改",dictCode: "4"},
-            {dictValue: "已整改",dictCode: "5"},
+        dataRiskType: [],
+        dataRiskTypeJson: {},
+        dataRiskStatus: [
+            { dictValue: '逾期未整改', dictCode: '1' },
+            { dictValue: '限期未整改', dictCode: '2' },
+            { dictValue: '逾期已整改', dictCode: '3' },
+            { dictValue: '未整改', dictCode: '4' },
+            { dictValue: '已整改', dictCode: '5' }
         ],
-        dataRiskStatusJson:{
-            "1":"逾期未整改",
-            "2":"限期未整改",
-            "3":"逾期已整改",
-            "4":"未整改",
-            "5":"已整改"
+        dataRiskStatusJson: {
+            1: '逾期未整改',
+            2: '限期未整改',
+            3: '逾期已整改',
+            4: '未整改',
+            5: '已整改'
         },
         status: [
             { label: '待处理', value: '01' },
@@ -152,13 +151,13 @@ export default {
             { label: '完成', value: '04' },
             { label: '忽略', value: '05' }
         ],
-        statusJson:{
-            "01":'待处理',
-            "02":'待确认',
-            "03":'处理中',
-            "04":'完成',
-            "05":'忽略'
-        },
+        statusJson: {
+            '01': '待处理',
+            '02': '待确认',
+            '03': '处理中',
+            '04': '完成',
+            '05': '忽略'
+        }
     }),
     watch: {
         riskLevel: {
@@ -184,7 +183,6 @@ export default {
         const that = this;
         this.getDataListLevel();
         this.getDataListType();
-        
     },
     mounted() {
         this.loadListData();
@@ -205,9 +203,9 @@ export default {
                     current: that.pager.pageIndex,
                     size: that.pager.pageSize,
                     timeType: that.dataRange === '当日' ? 1 : 2,
-                    level: that.searchModel.riskLevel||undefined,
-                    risksType: that.searchModel.riskType||undefined,
-                    handel: that.searchModel.riskStatus||undefined,
+                    level: that.searchModel.riskLevel || undefined,
+                    risksType: that.searchModel.riskType || undefined,
+                    handel: that.searchModel.riskStatus || undefined,
                     sorts: 'handleReportTime:desc',
                     transform: 'U:reporter,U:handler'
                 },
@@ -220,7 +218,7 @@ export default {
             });
         },
         //隐患级别
-        getDataListLevel(){
+        getDataListLevel() {
             let that = this;
             that._http({
                 url: '/api/auth/dict/dictItem',
@@ -231,14 +229,14 @@ export default {
                 },
                 success: function (res) {
                     that.dataRiskLevel = res.data || [];
-                    that.dataRiskLevel.forEach(element => {
-                        that.dataRiskLevelJson[element.dictCode] = element.dictValue
+                    that.dataRiskLevel.forEach((element) => {
+                        that.dataRiskLevelJson[element.dictCode] = element.dictValue;
                     });
                 }
             });
         },
         //隐患类型
-        getDataListType(){
+        getDataListType() {
             let that = this;
             that._http({
                 url: '/api/auth/dict/dictItem',
@@ -249,8 +247,8 @@ export default {
                 },
                 success: function (res) {
                     that.dataRiskType = res.data || [];
-                    that.dataRiskType.forEach(element => {
-                        that.dataRiskTypeJson[element.dictCode] = element.dictValue
+                    that.dataRiskType.forEach((element) => {
+                        that.dataRiskTypeJson[element.dictCode] = element.dictValue;
                     });
                 }
             });

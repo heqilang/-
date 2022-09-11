@@ -94,7 +94,7 @@ export default {
             const that = this;
             console.log(that.dataRange);
             that._http({
-                url: '/api/web/indexCountV3/findPatrolList',///api/web/indexCountTwo/findPatrolList
+                url: '/api/web/indexCountV3/findPatrolList', ///api/web/indexCountTwo/findPatrolList
                 type: 'get',
                 isBody: true,
                 data: {

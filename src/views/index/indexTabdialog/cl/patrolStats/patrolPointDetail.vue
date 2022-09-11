@@ -28,7 +28,6 @@
                 </div>
             </div>
             <div class="patrol-detail-panel">
-
                 <div class="classReadyDialogBox">
                     <div class="eventMsgInfo">
                         <div class="box2">流程追溯</div>
@@ -154,7 +153,7 @@ export default {
                             //     targetObject:val.lookup.verifier
                             // },
                             inspectPerson: val.inspectPerson,
-                            inspectStatus:val.inspectStatus,
+                            inspectStatus: val.inspectStatus,
                             patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
                             title: '',
                             show: true

@@ -1946,7 +1946,8 @@ export default {
         getAlarmStatistics() {
             const _self = this;
             _self._http({
-                url: '/api/web/indexCountTwo/earlyWarningStatistics',
+                // url: '/api/web/indexCountTwo/earlyWarningStatistics',
+                url: '/api/web/indexCountV3/earlyWarningStatistics',
                 type: 'get',
                 data: {
                     option: _self.alarmRadio
