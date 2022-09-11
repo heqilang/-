@@ -23,7 +23,7 @@
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
                         <div class="patrol-stats-charts-content">
                             <div class="patrol-stats-chart" id="patrol-stats-chart1"></div>
-                            <div v-if="dataRange=='当日'" style="height: 200px" id="quxianChart"></div>
+                            <div v-if="dataRange == '当日'" style="height: 200px" id="quxianChart"></div>
                             <div v-else style="height: 200px" id="dangyeCharts"></div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@ export default {
         activePartolPointId: undefined, //当前激活的 巡查点位id
 
         DAYdrawLeftLineList: { everyHour: [], number: [] },
-        MONTHdrawLeftLineList: { everyDay: [], number: [] },
+        MONTHdrawLeftLineList: { everyDay: [], number: [] }
     }),
     created() {
         console.dir(this.statsData);
@@ -107,14 +107,11 @@ export default {
                     { name: '正常巡查次数', value: newVal.opportunelyFinish },
                     { name: '逾期未巡查次数', value: newVal.notOpportunelyFinish }
                 ]);
-                if (this.dataRange=='当日') {
+                if (this.dataRange == '当日') {
                     this.drawLeftLine();
                 } else {
                     this.drawdangyeCharts();
                 }
-                
-                
-                
             }
         },
         currentLayerLevel: {
@@ -133,7 +130,7 @@ export default {
                             { name: '正常巡查次数', value: this.statsData.opportunelyFinish },
                             { name: '逾期未巡查次数', value: this.statsData.notOpportunelyFinish }
                         ]);
-                        if (this.dataRange=='当日') {
+                        if (this.dataRange == '当日') {
                             this.drawLeftLine();
                         } else {
                             this.drawdangyeCharts();
@@ -159,7 +156,7 @@ export default {
         loadStatsData() {
             const that = this;
             that._http({
-                url: '/api/web/indexCountV3/thirdPatrolSecond',///api/web/indexCountTwo/thirdPatrolSecond
+                url: '/api/web/indexCountV3/thirdPatrolSecond', ///api/web/indexCountTwo/thirdPatrolSecond
                 type: 'get',
                 isBody: true,
                 data: {
@@ -217,12 +214,12 @@ export default {
         getcountAlarms() {
             let _self = this;
 
-            if (_self.dataRange=='当日') {
+            if (_self.dataRange == '当日') {
                 _self.DAYdrawLeftLineList.everyHour = [];
                 _self.DAYdrawLeftLineList.number = [];
 
                 _self._http({
-                    url: '/api/web/indexCountTwo/countPatrolMinute',///api/web/indexCountTwo/countAlarms
+                    url: '/api/web/indexCountTwo/countPatrolMinute', ///api/web/indexCountTwo/countAlarms
                     type: 'get',
                     isBody: true,
                     data: {
@@ -492,7 +489,7 @@ export default {
             if (option && typeof option === 'object') {
                 drawLine2.setOption(option);
             }
-        },
+        }
     }
 };
 </script>

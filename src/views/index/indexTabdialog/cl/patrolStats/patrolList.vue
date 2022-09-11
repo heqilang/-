@@ -94,15 +94,20 @@ export default {
             const that = this;
             console.log(that.dataRange);
             that._http({
-                url: '/api/web/indexCountV3/findPatrolList',///api/web/indexCountTwo/findPatrolList
+                url: '/api/web/indexCountV3/findPatrolList', ///api/web/indexCountTwo/findPatrolList
                 type: 'get',
                 isBody: true,
                 data: {
                     size: that.pager.pageSize,
                     current: that.pager.pageIndex,
-                    timeType: that.dataRange == '当日' ? '1' : '2',
-                    patrolStatus: that.patrolStatus || undefined,
+                    patrolStatus: 'NORMAL',
                     sorts: 'completeTime:desc'
+
+                    /*  size: that.pager.pageSize,
+           current: that.pager.pageIndex,
+           timeType: that.dataRange == '当日' ? '1' : '2',
+           patrolStatus: that.patrolStatus || undefined,
+           sorts: 'completeTime:desc' */
                 },
                 success: function (res) {
                     that.dataTable = res.data.records || [];

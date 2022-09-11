@@ -3,7 +3,8 @@
         <div v-show="showLeavel == 1" class="firstLevel">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警列表
                     <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a>
                 </span>
             </div>
@@ -71,11 +72,9 @@
                     </div>
                     <el-table class="xf-table" :data="dataTable" max-height="340">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
-                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                                 <template slot-scope="scope">
                                     <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
@@ -83,12 +82,11 @@
                                 </template>
                             </el-table-column> -->
                         <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
-                        <el-table-column prop="unitName" label="报警位置" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column prop="unitName" label="报警位置" :show-overflow-tooltip="true"> </el-table-column>
 
                         <el-table-column prop="state" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '已处理':'待处理' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '已处理' : '待处理' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -107,17 +105,18 @@
             </el-row>
         </div>
 
-        <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff;">
+        <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警列表
                     <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
                 </span>
-                <span @click="showLeavel = 1" style="float:right;margin-right:20px;cursor: pointer">
+                <span @click="showLeavel = 1" style="float: right; margin-right: 20px; cursor: pointer">
                     <i class="el-icon-d-arrow-left"></i>
                 </span>
             </div>
-            <el-row style="padding:20px">
+            <el-row style="padding: 20px">
                 <el-col :span="24">
                     <div style="margin-bottom: 12px">
                         <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
@@ -134,11 +133,9 @@
                     </div>
                     <el-table class="xf-table" :data="dataTable" height="600">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
-                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
@@ -146,11 +143,10 @@
                             </template>
                         </el-table-column> -->
                         <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
-                        <el-table-column prop="unitName" label="报警位置" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column prop="unitName" label="报警位置" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="state" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '已处理':'待处理' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '已处理' : '待处理' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -172,14 +168,15 @@
         <div v-if="showLeavel == 3" class="secendLevel" style="background-color: #2b4b6b; color: #fff">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警列表
                 </span>
                 <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
-                <span @click="showLeavel = 2" style="float:right;margin-right:20px;cursor: pointer">
+                <span @click="showLeavel = 2" style="float: right; margin-right: 20px; cursor: pointer">
                     <i class="el-icon-d-arrow-left"></i>
                 </span>
             </div>
-            <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative;padding:30px">
+            <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative; padding: 30px">
                 <div>
                     <div style="display: flex">
                         <div>报警时间：</div>
@@ -193,19 +190,18 @@
                 <div class="box2">流程追溯</div>
                 <el-scrollbar v-if="sourcelist.length > 0" style="height: 100%; width: 90%">
                     <el-timeline style="margin-top: 20px">
-                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index"  :timestamp="item.lineDate" placement="top">
+                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
                             <el-card style="font-size: 14px">
-                                <p v-if="(item.alarmDate||'')!=''">
-                                    {{item.alarmDesc}}：{{item.alarmDate}}
+                                <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
+                                <p v-else-if="(item.dealName || '') != ''">
+                                    处理人员：{{ item.dealName }} {{ item.dealPhone }}<br />
+                                    处理描述：{{ item.dealDesc }}
                                 </p>
-                                <p v-else-if="(item.dealName||'')!=''">
-                                    处理人员：{{item.dealName}} {{item.dealPhone}}<br/>
-                                    处理描述：{{item.dealDesc}}
-                                </p>
-                                <p v-else-if="(item.pushUserName||'')!=''">
-                                    <span style="display:block">{{ item.orgPushDesc }}</span>
+                                <p v-else-if="(item.pushUserName || '') != ''">
+                                    <span style="display: block">{{ item.orgPushDesc }}</span>
                                     <span style="display: flex; justify-content: space-between">
-                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span><span>{{item.pushResult}}</span>
+                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
+                                        ><span>{{ item.pushResult }}</span>
                                     </span>
                                 </p>
                             </el-card>
@@ -369,7 +365,7 @@ export default {
         getFirstData() {
             let _self = this;
             _self._http({
-                url: '/api/web/indexCountV3/earlyWarningStatistics',///api/web/indexCountTwo/earlyWarningStatistics
+                url: '/api/web/indexCountV3/earlyWarningStatistics', ///api/web/indexCountTwo/earlyWarningStatistics
                 type: 'get',
                 data: {
                     option: _self.alarmRadio
@@ -389,14 +385,14 @@ export default {
                 success: function (res) {
                     _self.firstPageData2 = res.data;
                     _self.suddenData2 = [
-                        [res.data.patrol||0,res.data.risks||0],
-                        [res.data.patrolOver||0,res.data.risksOver||0]
+                        [res.data.patrol || 0, res.data.risks || 0],
+                        [res.data.patrolOver || 0, res.data.risksOver || 0]
                     ];
                     _self.drawLineSuddenChart();
                 }
             });
         },
-        
+
         // 留
         drawLineSuddenChart() {
             let _self = this;
@@ -405,7 +401,7 @@ export default {
             var option;
             let _xData = ['管理类事件预警', '已处置数'];
             let _yData = this.suddenData2;
-            console.log(_yData)
+            console.log(_yData);
             option = {
                 title: {
                     text: '',
@@ -821,11 +817,11 @@ export default {
             let _self = this;
             _self.sourcelist = [];
             _self._http({
-                url: '/api/web/indexCountV3/findDwMessages',///api/web/indexCountTwo/findMessages 
+                url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
                 type: 'get',
                 isBody: true,
                 data: {
-                    waringId: val.id,
+                    waringId: val.id
                     // sourceId: val.id,
                     // transform: 'U:targetObject'
                 },

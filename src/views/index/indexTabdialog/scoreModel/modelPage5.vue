@@ -69,20 +69,23 @@
                 </el-table-column>
                 <el-table-column prop="handleReportor" label="上报人员" :show-overflow-tooltip="true">
                     <template slot-scope="scope">
-                        {{ scope.row.lookup.handleReportor || '--' }}
+                        <!--  {{ scope.row.lookup.handleReportor || '--' }} -->
+                        {{ scope.row.createUser || '--' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="handleReportTime" label="上报时间" :show-overflow-tooltip="true">
                     <template slot-scope="scope">
-                        {{ scope.row.handleReportTime || '--' }}
+                        <!--     {{ scope.row.handleReportTime || '--' }} -->
+                        {{ scope.row.createTime || '--' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="title" label="所属区域" :show-overflow-tooltip="true">
                     <template slot-scope="scope">
-                        {{ (scope.row.lookup.building == 'null' ? '-' : scope.row.lookup.building) + (scope.row.lookup.floor == 'null' ? '-' : scope.row.lookup.floor) }}
+                        <!--     {{ (scope.row.lookup.building == 'null' ? '-' : scope.row.lookup.building) + (scope.row.lookup.floor == 'null' ? '-' : scope.row.lookup.floor) }} -->
+                        <span>{{ scope.row.unitName }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="address" label="详细地址" :show-overflow-tooltip="true"> </el-table-column>
+                <el-table-column prop="troubleLocation" label="详细地址" :show-overflow-tooltip="true"> </el-table-column>
                 <el-table-column prop="risksImages" label="现场照片">
                     <template slot-scope="scope">
                         <el-image v-if="scope.row.risksImages" style="width: 100px; height: 100px" :src="scope.row.risksImages" :fit="fit"></el-image>
@@ -91,7 +94,8 @@
                 </el-table-column>
                 <el-table-column prop="title" label="反馈状态" :show-overflow-tooltip="true">
                     <template slot-scope="scope">
-                        {{ scope.row.feedback ? (scope.row.feedback == 'YES' ? '成功' : '失败') : '--' }}
+                        <!--         {{ scope.row.feedback ? (scope.row.feedback == 'YES' ? '成功' : '失败') : '--' }} -->
+                        {{ scope.row.completeStatus ? (scope.row.completeStatus == '1' ? '处理中' : '已处理') : '--' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="lookup.handler" label="处置人员" :show-overflow-tooltip="true"> </el-table-column>
@@ -99,10 +103,21 @@
                     <template slot-scope="scope">
                         <el-popover placement="right" width="400" trigger="click">
                             <div>
-                                <div>上报时间：{{ scope.row.handleReportTime || '--' }}</div>
+                                <!--   <div>上报时间：{{ scope.row.handleReportTime || '--' }}</div>
                                 <div>隐患类型：{{ scope.row.risksType == 'EQUIPMENT' ? '设备隐患' : '环境隐患' }}</div>
                                 <div>上报人员：{{ scope.row.lookup.handleReportor || '--' }}</div>
                                 <div>隐患位置：{{ scope.row.lookup.building + scope.row.lookup.floor + scope.row.address }}</div>
+                                <div>隐患等级：{{ scope.row.lookup.level == 1 ? '一般隐患' : '重大隐患' }}</div>
+                                <div>备注说明：{{ scope.row.lookup.risksRemark || '--' }}</div>
+                                <div v-if="scope.row.risksImages">
+                                    <img style="width: 120px" :src="scope.row.risksImages" alt="" />
+                                </div> -->
+                                <div>上报时间：{{ scope.row.createTime || '--' }}</div>
+                                <div>隐患类型：{{ scope.row.risksType == 'EQUIPMENT' ? '设备隐患' : '环境隐患' }}</div>
+                                <!--  <div>上报人员：{{ scope.row.lookup.handleReportor || '--' }}</div> -->
+                                <div>上报人员：{{ scope.row.createUser || '--' }}</div>
+                                <!--      <div>隐患位置：{{ (scope.row.lookup.building == 'null' || '') + (scope.row.lookup.floor == 'null' || '') + scope.row.address }}</div> -->
+                                <div>隐患位置：{{ scope.row.unitName + scope.row.troubleLocation }}</div>
                                 <div>隐患等级：{{ scope.row.lookup.level == 1 ? '一般隐患' : '重大隐患' }}</div>
                                 <div>备注说明：{{ scope.row.lookup.risksRemark || '--' }}</div>
                                 <div v-if="scope.row.risksImages">
@@ -154,14 +169,22 @@ export default {
             _self.loading = true;
             _self.dataTable = [];
             _self._http({
-                url: '/api/web/indexCountTwo/scoreFindRisks',
+                url: '/api/web/indexCountV3/findRisksList', //迪威--隐患列表-3级页面
+                // url: '/api/web/indexCountTwo/scoreFindRisks',
                 type: 'get',
                 data: {
                     size: _self.pager.pageSize,
                     current: _self.pager.pageIndex,
+                    patrolStatus: 'NORMAL',
+                    sorts: 'completeTime:desc',
                     transform: 'U:handler;U:handleReportor,OW:owningSystem;B:building;F:floor',
-                    // feedback: _self.radio4 == '未整改' ? 'NO' : 'YES'
+                    feedback: _self.radio4 == '未整改' ? 'NO' : 'YES',
                     queryState: _self.radio4 == '未整改' ? 1 : 2
+                    /*    size: _self.pager.pageSize,
+             current: _self.pager.pageIndex,
+             transform: 'U:handler;U:handleReportor,OW:owningSystem;B:building;F:floor',
+             // feedback: _self.radio4 == '未整改' ? 'NO' : 'YES'
+             queryState: _self.radio4 == '未整改' ? 1 : 2 */
                 },
                 success: function (res) {
                     _self.dataTable = res.data.records;

@@ -121,7 +121,7 @@ export default {
 
         riskLevel: undefined,
 
-        dataRiskLevel:[],
+        dataRiskLevel: []
     }),
     created() {},
     mounted() {
@@ -187,17 +187,17 @@ export default {
             this.currentLayerLevel = 1.5;
         },
         intoLayer2(prevLayerLevel, riskLevel, riskStatus, riskType) {
-            let arr = this.dataRiskLevel||[];
+            let arr = this.dataRiskLevel || [];
             let level = undefined;
-            for(let i in arr){
-                if(riskLevel==arr[i].dictValue){
+            for (let i in arr) {
+                if (riskLevel == arr[i].dictValue) {
                     level = arr[i].dictCode;
-                    break
+                    break;
                 }
             }
-            if(riskLevel=='一般隐患'){
+            if (riskLevel == '一般隐患') {
                 level = 0;
-            } else if(riskLevel=='重大隐患'){
+            } else if (riskLevel == '重大隐患') {
                 level = 1;
             }
             this.activeRiskLevel = level;
@@ -220,7 +220,7 @@ export default {
             this.loadStatsData();
         },
         //隐患级别
-        getDataListLevel(){
+        getDataListLevel() {
             let that = this;
             that._http({
                 url: '/api/auth/dict/dictItem',
@@ -236,21 +236,21 @@ export default {
         },
         loadStatsData() {
             const that = this;
-            let arr = this.dataRiskLevel||[];
+            let arr = this.dataRiskLevel || [];
             let level = undefined;
-            for(let i in arr){
-                if(this.activeRiskLevel==arr[i].dictValue){
+            for (let i in arr) {
+                if (this.activeRiskLevel == arr[i].dictValue) {
                     level = arr[i].dictCode;
-                    break
+                    break;
                 }
             }
-            if(this.activeRiskLevel=='一般隐患'){
+            if (this.activeRiskLevel == '一般隐患') {
                 level = 0;
-            } else if(this.activeRiskLevel=='重大隐患'){
+            } else if (this.activeRiskLevel == '重大隐患') {
                 level = 1;
             }
             that._http({
-                url: '/api/web/indexCountV3/thirdRisksSecond',///api/web/indexCountTwo/thirdRisksSecond
+                url: '/api/web/indexCountV3/thirdRisksSecond', ///api/web/indexCountTwo/thirdRisksSecond
                 type: 'get',
                 isBody: true,
                 data: {

@@ -75,10 +75,11 @@
                 <!-- <el-table-column prop="alarmType" label="报警时间" :show-overflow-tooltip="true"> </el-table-column> -->
                 <el-table-column prop="alarmType" label="安装位置" :show-overflow-tooltip="true">
                     <template slot-scope="scope">
-                        <span>{{ scope.row.lookup.building + scope.row.lookup.floor }}</span>
+                        <!--   <span>{{ scope.row.lookup.building + scope.row.lookup.floor }}</span> -->
+                        <span> {{ scope.row.unitName }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="address" label="详细地址" :show-overflow-tooltip="true"> </el-table-column>
+                <el-table-column prop="alarmLocation" label="详细地址" :show-overflow-tooltip="true"> </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-popover placement="right" width="400" trigger="click">
@@ -88,12 +89,16 @@
                                 <div>所属系统：{{ scope.row.lookup.owningSystem }}</div>
                                 <div>设备类型：{{ scope.row.host == 'YES' ? '主机' : '探测器' }}</div>
                                 <div>
-                                    报警类型：<span style="color: #ed3a3a" v-if="scope.row.equipmentState == 9">火警</span>
+                                    报警类型：<!-- <span style="color: #ed3a3a" v-if="scope.row.equipmentState == 9">火警</span>
                                     <span style="color: #f77e05" v-else-if="scope.row.equipmentState == 4">预警</span>
                                     <span style="color: #bfa900" v-else-if="scope.row.equipmentState == 2">故障</span>
-                                    <span style="color: #a7acba" v-else-if="scope.row.equipmentState == 3">离线</span>
+                                    <span style="color: #a7acba" v-else-if="scope.row.equipmentState == 3">离线</span> -->
+                                    <span>{{ scope.row.alarmType }}</span>
                                 </div>
-                                <div>安装位置：{{ scope.row.lookup.building + scope.row.lookup.floor + scope.row.address }}</div>
+                                <div>
+                                    安装位置：<!-- {{ scope.row.lookup.building + scope.row.lookup.floor + scope.row.address }} -->
+                                    {{ scope.row.unitName }}
+                                </div>
                             </div>
                             <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
                             <!-- <el-button >click 激活</el-button> -->
@@ -155,7 +160,8 @@ export default {
                     break;
             }
             _self._http({
-                url: '/api/web/indexCountTwo/scoreFindAlarm',
+                url: '/api/web/indexCountV3/find', // 迪威告警数据表查询
+                //  url: '/api/web/indexCountTwo/scoreFindAlarm',
                 type: 'get',
                 data: {
                     size: _self.pager.pageSize,

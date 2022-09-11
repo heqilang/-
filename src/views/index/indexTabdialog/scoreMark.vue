@@ -197,17 +197,22 @@ export default {
             // /api/web/indexCountTwo/systemScoreThird
             let _self = this;
             _self._http({
-                url: '/api/web/indexCountTwo/systemScoreThird',
+                url: '/api/web/indexCountV3/systemScoreThird', //迪威--系统评分--三级级页面--所有统计数据
+                //  url: '/api/web/indexCountTwo/systemScoreThird',
                 type: 'get',
                 success: function (res) {
                     _self.sonData = res.data;
+
+                    console.log('评分所有数据', res);
                     _self.drawPieChart();
                 }
             });
             _self._http({
-                url: '/api/web/indexCountTwo/systemScore',
+                url: '/api/web/indexCountV3/systemScoreSecond', //迪威--系统评分--二级页面
+                // url: '/api/web/indexCountTwo/systemScore',
                 type: 'get',
                 success: function (res) {
+                    console.log('评分二级页面8条数据', res);
                     _self.systemScoreList = res.data;
                 }
             });
