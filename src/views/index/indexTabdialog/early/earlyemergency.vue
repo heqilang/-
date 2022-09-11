@@ -56,13 +56,10 @@
                     </div>
                     <el-table class="xf-table" :data="dataTable" height="380">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
-                        <el-table-column prop="handleAlarmRemark" label="预警信息" width="160" :show-overflow-tooltip="true">
-                            <template slot-scope="scope">
-                                <div>{{ warninginformation }}</div>
-                            </template>
+                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
                         </el-table-column>
-                        <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="dispatcher" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                                 <template slot-scope="scope">
                                     <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
@@ -70,16 +67,12 @@
                                 </template>
                             </el-table-column> -->
                         <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
-                        <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
-                            <template slot-scope="scope">
-                                <div v-if="scope.row.address">{{ scope.row.building != 'null' ? scope.row.lookup.building + '-' : '' }} {{ scope.row.floor != 'null' ? scope.row.lookup.floor + '-' : '' }} {{ scope.row.address }}</div>
-                                <div v-else>--</div>
-                            </template>
+                        <el-table-column prop="unitName" label="报警位置" :show-overflow-tooltip="true">
                         </el-table-column>
 
-                        <el-table-column prop="state" label="处置状态" width="120">
+                        <el-table-column prop="completeStatus" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '已处理':'待处理' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -118,13 +111,10 @@
                     </div>
                     <el-table class="xf-table" :data="dataTable" max-height="540">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
-                        <el-table-column prop="handleAlarmRemark" label="预警信息" width="160" :show-overflow-tooltip="true">
-                            <template slot-scope="scope">
-                                <div>{{ warninginformation }}</div>
-                            </template>
+                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
                         </el-table-column>
-                        <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="dispatcher" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
@@ -132,16 +122,12 @@
                             </template>
                         </el-table-column> -->
                         <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
-                        <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
-                            <template slot-scope="scope">
-                                <div v-if="scope.row.address">{{ scope.row.building != 'null' ? scope.row.lookup.building + '-' : '' }} {{ scope.row.floor != 'null' ? scope.row.lookup.floor + '-' : '' }} {{ scope.row.address }}</div>
-                                <div v-else>--</div>
-                            </template>
+                        <el-table-column prop="unitName" label="报警位置" :show-overflow-tooltip="true">
                         </el-table-column>
 
-                        <el-table-column prop="state" label="处置状态" width="120">
+                        <el-table-column prop="completeStatus" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '已处理':'待处理' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -174,58 +160,37 @@
                     {{ activeName == 'first' ? '突发类事件预警' : '管理类事件预警' }}
                 </span>
             </div> -->
-            <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative">
-                <div style="padding: 20px">
+            <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative;padding:30px">
+                <div>
                     <div style="display: flex">
                         <div>报警时间：</div>
-                        <div>{{ alarmanalysis6_params.alarmTime }}</div>
-                    </div>
-                    <div style="display: flex">
-                        <div>设备名称：</div>
-                        <div>{{ alarmanalysis6_params.equipmentName }}</div>
-                    </div>
-                    <div style="display: flex">
-                        <div>所属系统：</div>
-                        <div>{{ alarmanalysis6_params.lookup.owningSystem }}</div>
+                        <div>{{ alarmanalysis6_params.sendTime }}</div>
                     </div>
                     <div style="display: flex">
                         <div>报警位置：</div>
-                        <div>{{ alarmanalysis6_params.address }}</div>
+                        <div>{{ alarmanalysis6_params.unitName }}</div>
                     </div>
                 </div>
+                <div class="box2">流程追溯</div>
                 <el-scrollbar v-if="sourcelist.length > 0" style="height: 100%; width: 90%">
                     <el-timeline style="margin-top: 20px">
-                        <el-timeline-item v-if="(alarmanalysis6_params.alarmTime || '') != ''" :timestamp="alarmanalysis6_params.alarmTime" placement="top">
+                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index"  :timestamp="item.lineDate" placement="top">
                             <el-card style="font-size: 14px">
-                                <p>设备报警：{{ alarmanalysis6_params.alarmTime }}</p>
+                                <p v-if="(item.alarmDate||'')!=''">
+                                    {{item.alarmDesc}}：{{item.alarmDate}}
+                                </p>
+                                <p v-else-if="(item.dealName||'')!=''">
+                                    处理人员：{{item.dealName}} {{item.dealPhone}}<br/>
+                                    处理描述：{{item.dealDesc}}
+                                </p>
+                                <p v-else-if="(item.pushUserName||'')!=''">
+                                    <span style="display:block">{{ item.orgPushDesc }}</span>
+                                    <span style="display: flex; justify-content: space-between">
+                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span><span>{{item.pushResult}}</span>
+                                    </span>
+                                </p>
                             </el-card>
                         </el-timeline-item>
-                        <template v-for="(item, index) in sourcelist">
-                            <template v-if="item.title != '被指派了报警工单'">
-                                <el-timeline-item :key="index" v-if="index === 0" :timestamp="item.addtime" placement="top">
-                                    <el-card style="font-size: 14px">
-                                        <p>{{ item.targetObjectJob }}</p>
-                                        <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
-                                            <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
-                                            ><span>语音、短信通知成功</span>
-                                        </p>
-                                        <p v-else-if="item.verifyTime">处理人员：{{ item.verifier || '--' }} <br />处理描述：{{ item.result | confirmResultType }}</p>
-                                        <p v-else-if="item.confirmTime">处理人员：{{ item.confirmor || '--' }} <br />处理描述：{{ item.confirmResult | confirmResultType }}</p>
-                                    </el-card>
-                                </el-timeline-item>
-                                <el-timeline-item :key="index" v-if="item.lookup.targetObject != sourcelist[index - 1].lookup.targetObject" :timestamp="item.addtime" placement="top">
-                                    <el-card style="font-size: 14px">
-                                        <p>{{ item.targetObjectJob }}</p>
-                                        <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
-                                            <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
-                                            ><span>语音、短信通知成功</span>
-                                        </p>
-                                        <p v-else-if="item.verifyTime">处理人员：{{ item.verifier || '--' }} <br />处理描述：{{ item.result | confirmResultType }}</p>
-                                        <p v-else-if="item.confirmTime">处理人员：{{ item.confirmor || '--' }} <br />处理描述：{{ item.confirmResult | confirmResultType }}</p>
-                                    </el-card>
-                                </el-timeline-item>
-                            </template>
-                        </template>
                     </el-timeline>
                 </el-scrollbar>
                 <div v-if="sourcelist.length < 1" style="text-align: center; padding: 100px 0">暂时无数据哦.....</div>
@@ -342,23 +307,22 @@ export default {
             // this.turntopage('alarmanalysis1');
         },
         showLeavelchage(value) {
-            if (this.alarmRadio == 'MONTH') {
-                this.showLeavel = 2;
-                this.chartRadio1 = value;
-                this.getList();
-            }
+            this.showLeavel = 2;
+            this.chartRadio1 = value;
+            this.getList();
         },
         updateOrDeleteInfo(type, row) {
             console.log('点击参数');
             console.log(row);
             this.showLeavel = 3;
             this.alarmanalysis6_params = row;
-            this.getMessageList(row);
+            // this.getMessageList(row);
+            this.getfindMessages(row);
         },
         getFirstData() {
             let _self = this;
             _self._http({
-                url: '/api/web/indexCountTwo/earlyWarningStatistics',
+                url: '/api/web/indexCountV3/earlyWarningStatistics',///api/web/indexCountTwo/earlyWarningStatistics
                 type: 'get',
                 data: {
                     option: _self.alarmRadio
@@ -613,7 +577,8 @@ export default {
                 }
             }
             _self._http({
-                url: '/api/web/indexCountTwo/findAlarms',
+                // url: '/api/web/indexCountTwo/findAlarms',
+                url: '/api/web/indexCountV3/findAlarms',
                 type: 'get',
                 data: searchObj,
                 success: function (res) {
@@ -692,6 +657,75 @@ export default {
                 var x = a[key];
                 var y = b[key];
                 return x < y ? -1 : x > y ? 1 : 0;
+            });
+        },
+        getfindMessages(val) {
+            let _self = this;
+            _self.sourcelist = [];
+            _self._http({
+                url: '/api/web/indexCountV3/findDwMessages',///api/web/indexCountTwo/findMessages 
+                type: 'get',
+                isBody: true,
+                data: {
+                    waringId: val.id,
+                    // sourceId: val.id,
+                    // transform: 'U:targetObject'
+                },
+                success: function (res) {
+                    _self.sourcelist = res.data.data || [];
+                    // let arr = [];
+                    // _self.sourcelist.forEach((item, index) => {
+                    //     item.targetObjectJob = item.targetObjectJob || '';
+                    //     if (item.targetObjectJob.indexOf('责任人') == -1) {
+                    //         item.show = false;
+                    //     } else {
+                    //         let has = false;
+                    //         for (let i = 0; i < arr.length; i++) {
+                    //             if (item.targetObjectJob == arr[i]) {
+                    //                 has = true;
+                    //                 break;
+                    //             }
+                    //         }
+                    //         if (!has) {
+                    //             item.show = true;
+                    //             arr.push(item.targetObjectJob);
+                    //         } else {
+                    //             item.show = false;
+                    //         }
+                    //     }
+                    // });
+                    // if ((_self.alarmanalysis6_params.verifyTime || '') != '') {
+                    //     _self.sourcelist.push({
+                    //         addtime: _self.alarmanalysis6_params.verifyTime,
+                    //         verifyTime: _self.alarmanalysis6_params.verifyTime,
+                    //         lookup: {
+                    //             targetObject: _self.alarmanalysis6_params.lookup.verifier
+                    //         },
+                    //         verifier: _self.alarmanalysis6_params.lookup.verifier,
+                    //         result: _self.alarmanalysis6_params.result,
+                    //         title: '',
+                    //         verifierPhone: _self.alarmanalysis6_params.verifierPhone || '',
+                    //         show: true
+                    //     });
+                    // }
+                    // if ((_self.alarmanalysis6_params.confirmTime || '') != '') {
+                    //     _self.sourcelist.push({
+                    //         addtime: _self.alarmanalysis6_params.confirmTime,
+                    //         confirmTime: _self.alarmanalysis6_params.confirmTime,
+                    //         lookup: {
+                    //             targetObject: _self.alarmanalysis6_params.lookup.confirmor
+                    //         },
+                    //         confirmor: _self.alarmanalysis6_params.lookup.confirmor,
+                    //         confirmResult: _self.alarmanalysis6_params.confirmResult,
+                    //         confirmorPhone: _self.alarmanalysis6_params.confirmorPhone || '',
+                    //         title: '',
+                    //         show: true
+                    //     });
+                    // }
+                    // _self.sourcelist = _self.sourcelist.sort((a, b) => {
+                    //     return a.addtime > b.addtime ? 1 : -1;
+                    // });
+                }
             });
         }
     },
@@ -813,5 +847,21 @@ export default {
         // overflow: hidden;
         border: none;
     }
+}
+
+.box2 {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding: 30px 20px;
+}
+.box2::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 18px;
+    background-color: #25a6ff;
+    margin-left: -12px;
+    margin-top: 2px;
+    border-radius: 2px;
 }
 </style>
