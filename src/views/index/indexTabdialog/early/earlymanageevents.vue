@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <div v-if="alarmRadio === 'DAY'" style="padding: 20px">
+        <div v-if="showLeavel == 1" style="padding: 0 30px">
             <el-row>
                 <el-col :span="24">
                     <div style="margin-bottom: 12px">
@@ -125,93 +125,98 @@
             </el-row>
         </div>
 
-        <div v-else>
-            <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff; padding: 20px">
-                <div style="position: absolute; right: 10px; top: 10px; background-color: #1f223000; z-index: 1">
-                    <span @click="showLeavel = 1" style="margin: 12px 20px; display: inline-block; padding: 3px 6px; border: 1px solid #616266; color: #616266; cursor: pointer"><<</span>
-                </div>
-                <el-row>
-                    <el-col :span="24">
-                        <div style="margin-bottom: 12px">
-                            <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
-                                <el-radio-button label="0">管理类事件预警</el-radio-button>
-                                <el-radio-button label="true">已处置</el-radio-button>
-                                <el-radio-button label="false">未处置</el-radio-button>
-                            </el-radio-group>
-                        </div>
-                        <div>
-                            <el-tabs v-model="activeSenName" @tab-click="changeSenName">
-                                <el-tab-pane label="消防巡查预警" name="xiaofang"></el-tab-pane>
-                                <el-tab-pane label="隐患预警" name="yinghuan"></el-tab-pane>
-                            </el-tabs>
-                        </div>
-                        <el-table class="xf-table" :data="dataTable" max-height="340">
-                            <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
-                            <el-table-column prop="handleAlarmRemark" label="预警信息" width="160" :show-overflow-tooltip="true">
-                                <template slot-scope="scope">
-                                    <div>{{ activeSenName == 'xiaofang' ? patrolinformation : dangerinformation }}</div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="addtime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                            <el-table-column prop="handler" label="预警人员" width="160" :show-overflow-tooltip="true">
-                                <template slot-scope="scope">
-                                    <div v-if="scope.row.lookup.handler">{{ scope.row.lookup.handler }}</div>
-                                    <div v-else>--</div>
-                                </template>
-                            </el-table-column>
-                            <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
-                                <template slot-scope="scope">
-                                    <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
-                                    <div v-else>--</div>
-                                </template>
-                            </el-table-column> -->
-                            <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
-                            <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
-                                <template slot-scope="scope">
-                                    <div v-if="scope.row.address">{{ scope.row.building != 'null' ? scope.row.lookup.building + '-' : '' }} {{ scope.row.floor != 'null' ? scope.row.lookup.floor + '-' : '' }} {{ scope.row.address }}</div>
-                                    <div v-else>--</div>
-                                </template>
-                            </el-table-column>
-
-                            <el-table-column v-if="activeSenName == 'xiaofang'" prop="state" label="处置状态" width="120">
-                                <template slot-scope="scope">
-                                    <div v-if="scope.row.status">{{ scope.row.status == '04' || scope.row.status == '05' ? '处置完毕' : '未处置' }}</div>
-                                    <div v-else>--</div>
-                                </template>
-                            </el-table-column>
-
-                            <el-table-column v-if="activeSenName == 'yinghuan'" prop="state" label="处置状态" width="120">
-                                <template slot-scope="scope">
-                                    <div v-if="scope.row.state">{{ scope.row.state == '04' || scope.row.state == '05' ? '处置完毕' : '未处置' }}</div>
-                                    <div v-else>--</div>
-                                </template>
-                            </el-table-column>
-
-                            <el-table-column prop="times" label="操作" width="80" align="center">
-                                <template slot-scope="scope">
-                                    <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <div class="text_c mar-t-18 backColorPage">
-                            <!-- 分页 -->
-                            <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
-                        </div>
-                    </el-col>
-                </el-row>
+        <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff;">
+            <div class="diaHeadStandardC classReadyDialogTitle">
+                <span style="cursor: pointer">
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
+                    <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
+                </span>
+                <span @click="showLeavel = 1" style="float:right;margin-right:20px;cursor: pointer">
+                    <i class="el-icon-d-arrow-left"></i>
+                </span>
             </div>
+            <el-row style="padding:20px">
+                <el-col :span="24">
+                    <div style="margin-bottom: 12px">
+                        <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
+                            <el-radio-button label="0">管理类事件预警</el-radio-button>
+                            <el-radio-button label="true">已处置</el-radio-button>
+                            <el-radio-button label="false">未处置</el-radio-button>
+                        </el-radio-group>
+                    </div>
+                    <div>
+                        <el-tabs v-model="activeSenName" @tab-click="changeSenName">
+                            <el-tab-pane label="消防巡查预警" name="xiaofang"></el-tab-pane>
+                            <el-tab-pane label="隐患预警" name="yinghuan"></el-tab-pane>
+                        </el-tabs>
+                    </div>
+                    <el-table class="xf-table" :data="dataTable" max-height="340">
+                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                        <el-table-column prop="handleAlarmRemark" label="预警信息" width="160" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div>{{ activeSenName == 'xiaofang' ? patrolinformation : dangerinformation }}</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="addtime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="handler" label="预警人员" width="160" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.lookup.handler">{{ scope.row.lookup.handler }}</div>
+                                <div v-else>--</div>
+                            </template>
+                        </el-table-column>
+                        <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
+                                <div v-else>--</div>
+                            </template>
+                        </el-table-column> -->
+                        <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
+                        <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.address">{{ scope.row.building != 'null' ? scope.row.lookup.building + '-' : '' }} {{ scope.row.floor != 'null' ? scope.row.lookup.floor + '-' : '' }} {{ scope.row.address }}</div>
+                                <div v-else>--</div>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column v-if="activeSenName == 'xiaofang'" prop="state" label="处置状态" width="120">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.status">{{ scope.row.status == '04' || scope.row.status == '05' ? '处置完毕' : '未处置' }}</div>
+                                <div v-else>--</div>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column v-if="activeSenName == 'yinghuan'" prop="state" label="处置状态" width="120">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.state">{{ scope.row.state == '04' || scope.row.state == '05' ? '处置完毕' : '未处置' }}</div>
+                                <div v-else>--</div>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column prop="times" label="操作" width="80" align="center">
+                            <template slot-scope="scope">
+                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <div class="text_c mar-t-18 backColorPage">
+                        <!-- 分页 -->
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                    </div>
+                </el-col>
+            </el-row>
         </div>
 
         <div v-if="showLeavel == 3" class="secendLevel" style="background-color: #2b4b6b; color: #fff">
-            <div class="diaHeadStandardC" style="height: 46px; background-color: #2b4b6b; line-height: 46px; padding-left: 12px; color: #fff">
+            <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    {{ activeName == 'first' ? '突发类事件预警' : '管理类事件预警' }}
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
+                </span>
+                <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
+                <span @click="showLeavel = 2" style="float:right;margin-right:20px;cursor: pointer">
+                    <i class="el-icon-d-arrow-left"></i>
                 </span>
             </div>
             <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative">
-                <div style="position: absolute; right: 10px; top: 10px; background-color: #1f223000; z-index: 1">
-                    <span @click="showLeavel = 2" style="margin: 12px 20px; display: inline-block; padding: 3px 6px; border: 1px solid #616266; color: #616266; cursor: pointer"><<</span>
-                </div>
                 <div style="padding: 20px">
                     <div style="display: flex">
                         <div>报警时间：</div>
