@@ -1,1 +1,0 @@
-webpackJsonp([57],{1122:function(p,o,a){var s=a(3023);"string"==typeof s&&(s=[[p.i,s,""]]),s.locals&&(p.exports=s.locals);a(1114)("046e516a",s,!0)},3023:function(p,o,a){o=p.exports=a(1113)(),o.push([p.i,".patrol-list-wrapper{padding:51px 25px 70px}",""])}});
