@@ -72,7 +72,7 @@
                                     <template slot-scope="scope">
                                         <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
                                         <div v-else>--</div> -->
-                                        <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理' : '未处理' }}</div>
+                                        <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理':'未处理' }}</div>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="times" label="操作" width="80" align="center">
@@ -83,7 +83,7 @@
                             </el-table>
                             <div class="text_c mar-t-18 backColorPage">
                                 <!-- 分页 -->
-                                <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                                <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPaginationNoSizes>
                             </div>
                         </el-col>
                     </el-row>
@@ -155,7 +155,7 @@
                             <template slot-scope="scope">
                                 <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
                                 <div v-else>--</div> -->
-                                <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理' : '未处理' }}</div>
+                                <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理':'未处理' }}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="times" label="操作" width="80" align="center">
@@ -166,7 +166,7 @@
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                        <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPaginationNoSizes>
                     </div>
                 </div>
             </div>
@@ -315,7 +315,7 @@
                             <template slot-scope="scope">
                                 <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
                                 <div v-else>--</div> -->
-                                <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理' : '未处理' }}</div>
+                                <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理':'未处理' }}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="times" label="操作" width="80" align="center">
@@ -346,14 +346,14 @@
                                 <div>报警时间：</div>
                                 <div>{{ alarmanalysis6_params.alarmTime }}</div>
                             </div>
-                            <div style="display: flex">
+                            <!-- <div style="display: flex">
                                 <div>设备名称：</div>
-                                <div>{{ alarmanalysis6_params.equipmentName || '--' }}</div>
+                                <div>{{ alarmanalysis6_params.equipmentName||'--' }}</div>
                             </div>
                             <div style="display: flex">
                                 <div>所属系统：</div>
-                                <div>{{ alarmanalysis6_params.lookup.owningSystem || '--' }}</div>
-                            </div>
+                                <div>{{ alarmanalysis6_params.lookup.owningSystem||'--' }}</div>
+                            </div> -->
                             <!-- <div style="display: flex">
                                 <div>设备类型：</div>
                                 <div v-if="alarmanalysis6_params.equipmentName">{{ alarmanalysis6_params.equipmentName | equipmentStateType }}</div>
@@ -366,7 +366,7 @@
                             <div style="display: flex">
                                 <div>报警位置：</div>
                                 <!-- <div>{{ alarmanalysis6_params.lookup.building }}-{{ alarmanalysis6_params.lookup.floor }}-{{ alarmanalysis6_params.address }}</div> -->
-                                <div>{{ alarmanalysis6_params.alarmLocation }}</div>
+                                <div>{{alarmanalysis6_params.alarmLocation}}</div>
                             </div>
                         </div>
                     </div>
@@ -374,18 +374,19 @@
                     <div style="height: 450px">
                         <el-scrollbar style="height: 100%; width: 90%">
                             <el-timeline>
-                                <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
+                                <el-timeline-item v-for="(item, index) in sourcelist" :key="index"  :timestamp="item.lineDate" placement="top">
                                     <el-card style="font-size: 14px">
-                                        <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
-                                        <p v-else-if="(item.dealName || '') != ''">
-                                            处理人员：{{ item.dealName }} {{ item.dealPhone }}<br />
-                                            处理描述：{{ item.dealDesc }}
+                                        <p v-if="(item.alarmDate||'')!=''">
+                                            {{item.alarmDesc}}：{{item.alarmDate}}
                                         </p>
-                                        <p v-else-if="(item.pushUserName || '') != ''">
-                                            <span style="display: block">{{ item.orgPushDesc }}</span>
+                                        <p v-else-if="(item.dealName||'')!=''">
+                                            处理人员：{{item.dealName}} {{item.dealPhone}}<br/>
+                                            处理描述：{{item.dealDesc}}
+                                        </p>
+                                        <p v-else-if="(item.pushUserName||'')!=''">
+                                            <span style="display:block">{{ item.orgPushDesc }}</span>
                                             <span style="display: flex; justify-content: space-between">
-                                                <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
-                                                ><span>{{ item.pushResult }}</span>
+                                                <span>{{ item.pushUserName }} {{ item.pushPhone }}</span><span>{{item.pushResult}}</span>
                                             </span>
                                         </p>
                                     </el-card>
@@ -562,7 +563,9 @@ export default {
             } else if (option == 'overLevel1') {
                 this.overLevel = true;
             }
+            this.pager.pageSize = 10;
             if (type == 'alarmanalysis1') {
+                this.pager.pageSize = 5;
                 this.getleftNumData();
             } else if (type == 'alarmanalysis2') {
                 this.getcountAlarms();
@@ -602,7 +605,7 @@ export default {
         getleftNumData() {
             let _self = this;
             _self._http({
-                url: '/api/web/indexCountV3/alarmStatistics', ///api/web/indexCountTwo/alarmStatistics
+                url: '/api/web/indexCountV3/alarmStatistics',///api/web/indexCountTwo/alarmStatistics
                 type: 'get',
                 success: function (res) {
                     _self.leftDataTop = res.data;
@@ -825,7 +828,7 @@ export default {
                 _self.DAYdrawLeftLineList.number = [];
 
                 _self._http({
-                    url: '/api/web/indexCountV3/countAlarms', ///api/web/indexCountTwo/countAlarms
+                    url: '/api/web/indexCountV3/countAlarms',///api/web/indexCountTwo/countAlarms
                     type: 'get',
                     isBody: true,
                     data: {
@@ -835,7 +838,7 @@ export default {
                     success: function (res) {
                         res.data = res.data || [];
                         res.data.forEach((item) => {
-                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour.substring(11, 13));
+                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour);
                             _self.DAYdrawLeftLineList.number.push(item.number);
                         });
                         _self.drawLeftLine();
@@ -845,7 +848,7 @@ export default {
                 _self.MONTHdrawLeftLineList.everyDay = [];
                 _self.MONTHdrawLeftLineList.number = [];
                 _self._http({
-                    url: '/api/web/indexCountTwo/countAlarms', ///api/web/indexCountTwo/countAlarms
+                    url: '/api/web/indexCountTwo/countAlarms',///api/web/indexCountTwo/countAlarms
                     type: 'get',
                     isBody: true,
                     data: {
@@ -1736,13 +1739,10 @@ export default {
                 _self.equipmentName = undefined;
                 _self.equipmentNameOther = [];
                 _self.isLevel1 = true;
-                _self.pager.pageSize = 5;
             } else {
                 _self.over = _self.overLevel;
                 _self.isLevel1 = false;
-                _self.pager.pageSize = 10;
             }
-
             let searchObj = {
                 size: _self.pager.pageSize,
                 current: _self.pager.pageIndex,
@@ -1757,7 +1757,7 @@ export default {
             };
             _self.dataTable = [];
             _self._http({
-                url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find
+                url: '/api/web/indexCountV3/find',///api/web/indexCountTwo/find
                 type: 'get',
                 isBody: true,
                 data: searchObj,
@@ -1771,11 +1771,11 @@ export default {
             let _self = this;
             _self.sourcelist = [];
             _self._http({
-                url: '/api/web/indexCountV3/alarmFlow', ///api/web/indexCountTwo/findMessages
+                url: '/api/web/indexCountV3/alarmFlow',///api/web/indexCountTwo/findMessages 
                 type: 'get',
                 isBody: true,
                 data: {
-                    alarmId: val.id,
+                    alarmId:val.id,
                     sourceId: val.id,
                     transform: 'U:targetObject'
                 },
