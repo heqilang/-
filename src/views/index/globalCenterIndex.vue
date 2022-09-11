@@ -1924,14 +1924,16 @@ export default {
         getleftNumData() {
             let _self = this;
             _self._http({
-                url: '/api/web/indexCountTwo/alarmStatistics',
+                // url: '/api/web/indexCountTwo/alarmStatistics',
+                url: '/api/web/indexCountV3/alarmStatistics',
                 type: 'get',
                 success: function (res) {
                     _self.leftDataTop = res.data;
                 }
             });
             _self._http({
-                url: '/api/web/indexCountTwo/patrolStatistics',
+                // url: '/api/web/indexCountTwo/patrolStatistics',
+                url: '/api/web/indexCountV3/patrolStatistics',
                 type: 'get',
                 success: function (res) {
                     _self.leftDataMid = res.data;
