@@ -59,7 +59,11 @@
                                         <div>{{ scope.row.alarmType }}</div>
                                     </template>
                                 </el-table-column>
-                                <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
+                                <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
+                                    <template slot-scope="scope">
+                                        <span>--</span>
+                                    </template>
+                                </el-table-column>
                                 <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
                                     <template slot-scope="scope">
                                         <!-- <div v-if="scope.row.lookup.building">{{ scope.row.lookup.building }} - {{ scope.row.lookup.floor }} - {{ scope.row.address }}</div>
@@ -72,7 +76,7 @@
                                     <template slot-scope="scope">
                                         <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
                                         <div v-else>--</div> -->
-                                        <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理' : '未处理' }}</div>
+                                        <div>{{ scope.row.alarmStatus == '1' ? '处置中' : scope.row.alarmStatus == '2' ? '已处置' : '未处置' }}</div>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="times" label="操作" width="80" align="center">
@@ -142,7 +146,11 @@
                                 <div>{{ scope.row.alarmType }}</div>
                             </template>
                         </el-table-column>
-                        <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
+                        <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <span>--</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
                                 <!-- <div v-if="scope.row.lookup.building">{{ scope.row.lookup.building }} - {{ scope.row.lookup.floor }} - {{ scope.row.address }}</div>
@@ -155,7 +163,7 @@
                             <template slot-scope="scope">
                                 <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
                                 <div v-else>--</div> -->
-                                <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理' : '未处理' }}</div>
+                                <div>{{ scope.row.alarmStatus == '1' ? '处置中' : scope.row.alarmStatus == '2' ? '已处置' : '未处置' }}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="times" label="操作" width="80" align="center">
@@ -302,7 +310,11 @@
                                 <div>{{ scope.row.alarmType }}</div>
                             </template>
                         </el-table-column>
-                        <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
+                        <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <span>--</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
                                 <!-- <div v-if="scope.row.lookup.building">{{ scope.row.lookup.building }} - {{ scope.row.lookup.floor }} - {{ scope.row.address }}</div>
@@ -315,7 +327,7 @@
                             <template slot-scope="scope">
                                 <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
                                 <div v-else>--</div> -->
-                                <div>{{ scope.row.alarmStatus == '1' ? '处理中' : scope.row.alarmStatus == '2' ? '已处理' : '未处理' }}</div>
+                                <div>{{ scope.row.alarmStatus == '1' ? '处置中' : scope.row.alarmStatus == '2' ? '已处置' : '未处置' }}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="times" label="操作" width="80" align="center">
@@ -1280,7 +1292,7 @@ export default {
                 },
                 grid: {
                     left: '10%',
-                    right: '8%',
+                    right: '10%',
                     bottom: '5%',
                     containLabel: true
                 },
@@ -1313,7 +1325,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: _self.DAYAlarmByFloorlist.floorCN, //['一层', '二层', '三层', '四层', '五层']
+                    data: [], //_self.DAYAlarmByFloorlist.floorCN
 
                     axisLine: {
                         show: true,
@@ -1338,7 +1350,7 @@ export default {
                 series: [
                     {
                         name: text2,
-                        data: _self.DAYAlarmByFloorlist.number, //[2, 6, 3, 1, 3]
+                        data: [], //_self.DAYAlarmByFloorlist.number
                         type: 'bar',
                         barMaxWidth: 10
                     }
@@ -1503,7 +1515,7 @@ export default {
                 },
                 grid: {
                     left: '10%',
-                    right: '8%',
+                    right: '10%',
                     bottom: '5%',
                     containLabel: true
                 },
@@ -1536,7 +1548,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: _self.countAlarmByFloorlist.floorCN, //['一层', '二层', '三层', '四层', '五层']
+                    data: [], //_self.countAlarmByFloorlist.floorCN
 
                     axisLine: {
                         show: true,
@@ -1561,7 +1573,7 @@ export default {
                 series: [
                     {
                         name: text2,
-                        data: _self.countAlarmByFloorlist.number, //[2, 6, 3, 1, 3]
+                        data: [], //_self.countAlarmByFloorlist.number
                         type: 'bar',
                         barMaxWidth: 10
                     }

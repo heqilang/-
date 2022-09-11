@@ -293,6 +293,16 @@ export default {
                         data: data.map((d) => d.name),
                         textStyle: {
                             color: '#ffffff'
+                        },
+                        formatter:function(name){
+                            let value = 0;
+                            for(let i=0;i<data.length;i++ ){
+                                if(data[i].name==name){
+                                    value = data[i].value;
+                                    break
+                                }
+                            }
+                            return name + ' ' + ' ' + value 
                         }
                     }
                 ],

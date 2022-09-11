@@ -58,7 +58,7 @@
                     <el-table class="xf-table" :data="dataTable" height="380">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="sendTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                                 <template slot-scope="scope">
@@ -67,11 +67,11 @@
                                 </template>
                             </el-table-column> -->
                         <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
-                        <el-table-column prop="unitName" label="报警位置" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="unitName" label="预警位置" :show-overflow-tooltip="true"> </el-table-column>
 
                         <el-table-column prop="completeStatus" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '已处理' : '待处理' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '处理完毕' : '待处理' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -112,7 +112,7 @@
                     <el-table class="xf-table" :data="dataTable" max-height="540">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="sendTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                             <template slot-scope="scope">
@@ -121,11 +121,11 @@
                             </template>
                         </el-table-column> -->
                         <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
-                        <el-table-column prop="unitName" label="报警位置" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="unitName" label="预警位置" :show-overflow-tooltip="true"> </el-table-column>
 
                         <el-table-column prop="completeStatus" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '已处理' : '待处理' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '处理完毕' : '待处理' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -166,7 +166,7 @@
                         <div>{{ alarmanalysis6_params.sendTime }}</div>
                     </div>
                     <div style="display: flex">
-                        <div>报警位置：</div>
+                        <div>预警位置：</div>
                         <div>{{ alarmanalysis6_params.unitName }}</div>
                     </div>
                 </div>
