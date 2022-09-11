@@ -3,8 +3,7 @@
         <div v-show="showLeavel == 1" class="firstLevel">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
-                    >事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span>事件预警列表
                 </span>
             </div>
             <div class="classReadyDialogBox">
@@ -39,13 +38,12 @@
                 </div>
 
                 <div v-show="alarmRadio === 'MONTH'">
-                    <div style="color: #fff; margin: 20px 0; padding-left: 6%; font-size: 0.2rem; font-weight: 700">当月平均处置时效趋势图</div>
-                    <div style="height: 200px; width: 1172px" id="lineChart1"></div>
+                    <div style="height: 150px; width: 100%" id="lineChart1"></div>
                 </div>
             </div>
         </div>
 
-        <div v-if="alarmRadio === 'DAY'">
+        <div style="padding:0 30px">
             <el-row>
                 <el-col :span="24">
                     <div style="margin-bottom: 12px">
@@ -55,7 +53,7 @@
                             <el-radio-button label="false">未处置</el-radio-button>
                         </el-radio-group>
                     </div>
-                    <el-table class="xf-table" :data="dataTable" max-height="540">
+                    <el-table class="xf-table" :data="dataTable" height="380">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="handleAlarmRemark" label="预警信息" width="160" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
@@ -90,6 +88,62 @@
                             </template>
                         </el-table-column>
                     </el-table>
+                    <div class="text_c mar-t-18 backColorPage" style="padding-bottom:15px">
+                        <!-- 分页 -->
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                    </div>
+                </el-col>
+            </el-row>
+        </div>
+        
+        <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff; padding: 20px">
+            <div style="position: absolute; right: 10px; top: 10px; background-color: #1f223000; z-index: 1">
+                <span @click="showLeavel = 1" style="margin: 12px 20px; display: inline-block; padding: 3px 6px; border: 1px solid #616266; color: #616266; cursor: pointer"><<</span>
+            </div>
+            <el-row>
+                <el-col :span="24">
+                    <div style="margin-bottom: 12px">
+                        <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
+                            <el-radio-button label="0">突发类事件预警</el-radio-button>
+                            <el-radio-button label="true">已处置</el-radio-button>
+                            <el-radio-button label="false">未处置</el-radio-button>
+                        </el-radio-group>
+                    </div>
+                    <el-table class="xf-table" :data="dataTable" max-height="540">
+                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                        <el-table-column prop="handleAlarmRemark" label="预警信息" width="160" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div>{{ warninginformation }}</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="dispatcher" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
+                                <div v-else>--</div>
+                            </template>
+                        </el-table-column> -->
+                        <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
+                        <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.address">{{ scope.row.building != 'null' ? scope.row.lookup.building + '-' : '' }} {{ scope.row.floor != 'null' ? scope.row.lookup.floor + '-' : '' }} {{ scope.row.address }}</div>
+                                <div v-else>--</div>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column prop="state" label="处置状态" width="120">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
+                                <div v-else>--</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="times" label="操作" width="80" align="center">
+                            <template slot-scope="scope">
+                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
                         <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
@@ -97,64 +151,7 @@
                 </el-col>
             </el-row>
         </div>
-        <div v-else>
-            <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff; padding: 20px">
-                <div style="position: absolute; right: 10px; top: 10px; background-color: #1f223000; z-index: 1">
-                    <span @click="showLeavel = 1" style="margin: 12px 20px; display: inline-block; padding: 3px 6px; border: 1px solid #616266; color: #616266; cursor: pointer"><<</span>
-                </div>
-                <el-row>
-                    <el-col :span="24">
-                        <div style="margin-bottom: 12px">
-                            <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
-                                <el-radio-button label="0">突发类事件预警</el-radio-button>
-                                <el-radio-button label="true">已处置</el-radio-button>
-                                <el-radio-button label="false">未处置</el-radio-button>
-                            </el-radio-group>
-                        </div>
-                        <el-table class="xf-table" :data="dataTable" max-height="540">
-                            <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
-                            <el-table-column prop="handleAlarmRemark" label="预警信息" width="160" :show-overflow-tooltip="true">
-                                <template slot-scope="scope">
-                                    <div>{{ warninginformation }}</div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                            <el-table-column prop="dispatcher" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                            <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
-                                <template slot-scope="scope">
-                                    <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
-                                    <div v-else>--</div>
-                                </template>
-                            </el-table-column> -->
-                            <!-- <el-table-column prop="equipmentName" label="设备类型" :show-overflow-tooltip="true"></el-table-column> -->
-                            <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
-                                <template slot-scope="scope">
-                                    <div v-if="scope.row.address">{{ scope.row.building != 'null' ? scope.row.lookup.building + '-' : '' }} {{ scope.row.floor != 'null' ? scope.row.lookup.floor + '-' : '' }} {{ scope.row.address }}</div>
-                                    <div v-else>--</div>
-                                </template>
-                            </el-table-column>
-
-                            <el-table-column prop="state" label="处置状态" width="120">
-                                <template slot-scope="scope">
-                                    <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
-                                    <div v-else>--</div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="times" label="操作" width="80" align="center">
-                                <template slot-scope="scope">
-                                    <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <div class="text_c mar-t-18 backColorPage">
-                            <!-- 分页 -->
-                            <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-        </div>
-
+        
         <div v-if="showLeavel == 3" class="secendLevel" style="background-color: #2b4b6b; color: #fff">
             <div class="diaHeadStandardC" style="height: 46px; background-color: #2b4b6b; line-height: 46px; padding-left: 12px; color: #fff">
                 <span style="cursor: pointer">
@@ -475,11 +472,25 @@ export default {
                 _yData.push(this.dellData[i].average);
             }
             option = {
+                title: {
+                    text: '当月平均处置时效趋势图',
+                    textStyle: {
+                        fontSize: '14',
+                        color: '#ffffff'
+                    }
+                },
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (val) {
                         return '平均处理时效' + val[0].data + '分钟';
                     }
+                },
+                grid: {
+                    top: '25%',
+                    left: '0%',
+                    right: '5%',
+                    bottom: '0%',
+                    containLabel: true
                 },
                 color: ['#5aa1fc'],
                 xAxis: {
@@ -527,6 +538,7 @@ export default {
                     {
                         data: _yData,
                         type: 'line',
+                        smooth: true,
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
