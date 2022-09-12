@@ -30,12 +30,12 @@
 
 <script>
 const equipmentTypeListData = [
-    { id: 111, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 1, pointName: '东商业一层大厅', pointAddress: '东商业一层大厅', patroler: '小磊' },
-    { id: 112, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 2, pointName: '地商环形通道', pointAddress: '地商环形通道', patroler: '小磊' },
-    { id: 113, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 3, pointName: 'B1F24通道机房', pointAddress: 'B1F24通道机房', patroler: '小磊' },
-    { id: 114, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 4, pointName: '一层S小厅', pointAddress: '一层S小厅', patroler: '小磊' },
-    { id: 114, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 4, pointName: '一层S小厅', pointAddress: '一层S小厅', patroler: '小磊' },
-    { id: 115, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 4, pointName: '一层S小厅', pointAddress: '一层S小厅', patroler: '小磊' }
+    // { id: 111, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 1, pointName: '东商业一层大厅', pointAddress: '东商业一层大厅', patroler: '小磊' },
+    // { id: 112, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 2, pointName: '地商环形通道', pointAddress: '地商环形通道', patroler: '小磊' },
+    // { id: 113, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 3, pointName: 'B1F24通道机房', pointAddress: 'B1F24通道机房', patroler: '小磊' },
+    // { id: 114, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 4, pointName: '一层S小厅', pointAddress: '一层S小厅', patroler: '小磊' },
+    // { id: 114, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 4, pointName: '一层S小厅', pointAddress: '一层S小厅', patroler: '小磊' },
+    // { id: 115, unitName: '环球中心购物中心', patrolTime: '2022-09-01 09:00:81', pointId: 4, pointName: '一层S小厅', pointAddress: '一层S小厅', patroler: '小磊' }
 ];
 
 export default {
@@ -84,7 +84,7 @@ export default {
     },
     created() {},
     mounted() {
-        console.log(this.patrolStatus);
+        console.log(this.dataRange);
         this.loadListData();
     },
     methods: {
@@ -92,7 +92,8 @@ export default {
             //todo 待接口对接, 可使用props中传入的参数作为查询条件
             // this.dataTable = equipmentTypeListData;
             const that = this;
-            console.log(that.dataRange);
+            // console.log('loadListData');
+            // console.log(this.dataRange);
             that._http({
                 url: '/api/web/indexCountV3/findPatrolList', ///api/web/indexCountTwo/findPatrolList
                 type: 'get',
@@ -101,7 +102,8 @@ export default {
                     size: that.pager.pageSize,
                     current: that.pager.pageIndex,
                     patrolStatus: 'NORMAL',
-                    sorts: 'completeTime:desc'
+                    timeType: that.dataRange == '当日' ? 1 : 2,
+                    sorts: 'beginTime:desc'
 
                     /*  size: that.pager.pageSize,
            current: that.pager.pageIndex,

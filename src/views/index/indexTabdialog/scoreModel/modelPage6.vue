@@ -167,6 +167,7 @@ export default {
                     size: _self.pager.pageSize,
                     current: _self.pager.pageIndex,
                     // equipmentState: etype,
+                    option: 'MONTH', //统计都用当月的
                     transform: 'U:handler;ES:owningSystem;B:building;F:floor'
                 },
                 success: function (res) {

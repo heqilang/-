@@ -397,7 +397,7 @@
                                             <span style="display: block">{{ item.orgPushDesc }}</span>
                                             <span style="display: flex; justify-content: space-between">
                                                 <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
-                                                ><span>{{ item.pushResult=='短信推送成功'?'语音、短信通知成功':item.pushResult }}</span>
+                                                ><span>{{ item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
                                             </span>
                                         </p>
                                     </el-card>

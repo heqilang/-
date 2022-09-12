@@ -136,9 +136,9 @@ export default {
                 //     { name: '一般隐患', value: newVal.commonRisks },
                 //     { name: '重大隐患', value: newVal.greatRisks }
                 // ]);
-                if (this.riskLevel == '一般隐患'||this.activeRiskLevel == '0') {
+                if (this.riskLevel == '一般隐患' || this.activeRiskLevel == '0') {
                     this.drawPieChart('risk-stats-chart1', '隐患级别', [{ name: '一般隐患', value: newVal.commonRisks }]);
-                } else if (this.riskLevel == '重大隐患'||this.activeRiskLevel == '1') {
+                } else if (this.riskLevel == '重大隐患' || this.activeRiskLevel == '1') {
                     this.drawPieChart('risk-stats-chart1', '隐患级别', [{ name: '重大隐患', value: newVal.greatRisks }]);
                 } else {
                     this.drawPieChart('risk-stats-chart1', '隐患级别', [
@@ -164,9 +164,9 @@ export default {
 
                 setTimeout(() => {
                     if (newVal !== oldVal && newVal === 1) {
-                        if (that.riskLevel == '一般隐患'||that.activeRiskLevel == '0') {
+                        if (that.riskLevel == '一般隐患' || that.activeRiskLevel == '0') {
                             that.drawPieChart('risk-stats-chart1', '隐患级别', [{ name: '一般隐患', value: that.statsData.commonRisks }]);
-                        } else if (that.riskLevel == '重大隐患'||that.activeRiskLevel == '1') {
+                        } else if (that.riskLevel == '重大隐患' || that.activeRiskLevel == '1') {
                             that.drawPieChart('risk-stats-chart1', '隐患级别', [{ name: '重大隐患', value: that.statsData.greatRisks }]);
                         } else {
                             that.drawPieChart('risk-stats-chart1', '隐患级别', [
@@ -294,15 +294,15 @@ export default {
                         textStyle: {
                             color: '#ffffff'
                         },
-                        formatter:function(name){
+                        formatter: function (name) {
                             let value = 0;
-                            for(let i=0;i<data.length;i++ ){
-                                if(data[i].name==name){
+                            for (let i = 0; i < data.length; i++) {
+                                if (data[i].name == name) {
                                     value = data[i].value;
-                                    break
+                                    break;
                                 }
                             }
-                            return name + ' ' + ' ' + value 
+                            return name + ' ' + ' ' + value;
                         }
                     }
                 ],

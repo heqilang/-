@@ -160,6 +160,7 @@ export default {
                     size: _self.pager.pageSize,
                     current: _self.pager.pageIndex,
                     patrolStatus: 'NORMAL',
+                    timeType: 2, //按月查询
                     sorts: 'completeTime:desc',
                     transform: 'U:handler;OW:owningSystem;B:building;F:floor'
                 },

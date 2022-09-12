@@ -11,7 +11,7 @@
                 </li>
                 <li>设备名称：{{ activeDealie.equipmentName }}</li>
                 <li>设备类型： {{ activeDealie.lookup.equipmentType }}</li>
-                <li>所属系统： {{ activeDealie.owningSystem }}</li>
+                <li>所属系统： {{ systemName }}</li>
                 <li>安装位置：{{ activeDealie.lookup.building + activeDealie.lookup.floor }}</li>
                 <li>详细地址：{{ activeDealie.address }}</li>
             </ul>
@@ -37,7 +37,8 @@ export default {
         searchModel: {
             fhfq: '',
             installSite: undefined
-        }
+        },
+        systemName: ''
     }),
     created() {
         if (this.activeDealie.equipmentState == 1) {
@@ -51,6 +52,49 @@ export default {
             this.activeDealie.newEquipmentState = '预警';
         } else if (this.activeDealie.equipmentState == 9) {
             this.activeDealie.newEquipmentState = '火警）';
+        }
+
+        //
+        switch (this.activeDealie.owningSystem) {
+            case 'equipSys1':
+                this.systemName = '火灾报警系统';
+                break;
+            case 'equipSys10':
+                this.systemName = '耐火构建系统';
+                break;
+            case 'equipSys11':
+                this.systemName = '消防电梯设施';
+                break;
+            case 'equipSys12':
+                this.systemName = '电源监控系统';
+                break;
+            case 'equipSys3':
+                this.systemName = '消防给水系统';
+                break;
+            case 'equipSys4':
+                this.systemName = '独立式感烟火灾系统';
+                break;
+            case 'equipSys5':
+                this.systemName = '灭火器系统';
+                break;
+            case 'equipSys6':
+                this.systemName = '防烟排烟系统';
+                break;
+            case 'equipSys8':
+                this.systemName = '喷水灭火系统';
+                break;
+            case 'equipSys9':
+                this.systemName = '消防供水设备';
+                break;
+            case 'gfmhsbxt':
+                this.systemName = '干粉灭火系统';
+                break;
+            case 'hzfhcpxt':
+                this.systemName = '火灾防护系统';
+                break;
+            case 'jznhgjxt':
+                this.systemName = '建筑耐火构建系统';
+                break;
         }
     },
     mounted() {},

@@ -108,7 +108,8 @@ export default {
             if (_self.type && _self.owningSystem) {
                 // if (_self.owningSystem) {
                 _self._http({
-                    url: '/api/app/index/findEquipment',
+                    // url: '/api/app/index/findEquipment',
+                    url: '/api/web/webEquipment/find',
                     type: 'get',
                     data: {
                         // equipmentName: _self.type,
@@ -117,7 +118,8 @@ export default {
                         current: _self.pager.pageIndex,
                         size: _self.pager.pageSize,
                         sorts: 'id:desc;',
-                        transform: 'B:building;F:floor;ET:equipmentType'
+                        transform: 'B:building;F:floor;ET:equipmentType',
+                        'owningSystem.symbol': 'IN'
                     },
                     success: function (res) {
                         _self.dataTable = res.data.records;
