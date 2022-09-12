@@ -56,92 +56,93 @@
 
 <script>
 const equipmentTypeListData = [
-    // { seq: 1, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
-    // { seq: 2, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
-    // { seq: 3, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
-    // { seq: 4, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
-    // { seq: 5, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
-    // { seq: 6, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' }
+  // { seq: 1, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
+  // { seq: 2, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
+  // { seq: 3, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
+  // { seq: 4, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
+  // { seq: 5, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' },
+  // { seq: 6, equipmentState: '正常', equipmentName: '光电感烟探测器', azAddress: '', address: '新世纪环球中心12楼', firePartition: '' }
 ];
 
 export default {
-    props: {
-        type: {
-            //设备类型的请求过滤条件
-            required: true
-        },
-        owningSystem: {
-            //设备类型的请求过滤条件
-            required: true
-        }
+  props: {
+    type: {
+      //设备类型的请求过滤条件
+      required: true
     },
-    data: () => ({
-        pager: {
-            pageSize: 5,
-            pageIndex: 1,
-            total: 0
-        },
-        dataTable: [],
-        searchModel: {
-            fhfq: '',
-            installSite: undefined
-        }
-    }),
-    created() {},
-    mounted() {
-        console.log(this.type, this.owningSystem);
-        this.loadListData();
-    },
-    methods: {
-        updateOrDeleteInfo(val) {
-            this.$emit('getDealie', val);
-        },
-
-        search() {
-            let _self = this;
-        },
-        loadListData() {
-            //todo 待接口对接
-            // this.dataTable = equipmentTypeListData;
-
-            let _self = this;
-            if (_self.type && _self.owningSystem) {
-                // if (_self.owningSystem) {
-                _self._http({
-                    url: '/api/app/index/findEquipment',
-                    type: 'get',
-                    data: {
-                        // equipmentName: _self.type,
-                        owningSystem: _self.owningSystem,
-                        equipmentName: _self.type,
-                        current: _self.pager.pageIndex,
-                        size: _self.pager.pageSize,
-                        sorts: 'id:desc;',
-                        transform: 'B:building;F:floor;ET:equipmentType;ES:owningSystem'
-                    },
-                    success: function (res) {
-                        _self.dataTable = res.data.records;
-                        _self.pager.total = res.data.total;
-                    }
-                });
-            }
-        },
-        handleSizeChange(val) {
-            this.pager.pageSize = val;
-            this.loadListData();
-        },
-        handleCurrentChange(val) {
-            this.pager.pageIndex = val;
-            this.loadListData();
-        },
-        setupAddress(row) {
-            if (row.lookup) {
-                return (row.lookup.building ? row.lookup.building : '') + (row.lookup.floor ? row.lookup.floor : '');
-            } else {
-                return '';
-            }
-        }
+    owningSystem: {
+      //设备类型的请求过滤条件
+      required: true
     }
+  },
+  data: () => ({
+    pager: {
+      pageSize: 5,
+      pageIndex: 1,
+      total: 0
+    },
+    dataTable: [],
+    searchModel: {
+      fhfq: '',
+      installSite: undefined
+    }
+  }),
+  created () { },
+  mounted () {
+    console.log(this.type, this.owningSystem);
+    this.loadListData();
+  },
+  methods: {
+    updateOrDeleteInfo (val) {
+      this.$emit('getDealie', val);
+    },
+
+    search () {
+      let _self = this;
+    },
+    loadListData () {
+      //todo 待接口对接
+      // this.dataTable = equipmentTypeListData;
+
+      let _self = this;
+      if (_self.type && _self.owningSystem) {
+        // if (_self.owningSystem) {
+        _self._http({
+          url: '/api/app/index/findEquipment',
+          type: 'get',
+          data: {
+            // equipmentName: _self.type,
+            owningSystem: _self.owningSystem,
+            equipmentName: _self.type,
+            current: _self.pager.pageIndex,
+            size: _self.pager.pageSize,
+            sorts: 'id:desc;',
+            transform: 'B:building;F:floor;ET:equipmentType;ES:owningSystem',
+            'owningSystem.symbol': 'IN'
+          },
+          success: function (res) {
+            _self.dataTable = res.data.records;
+            _self.pager.total = res.data.total;
+          }
+        });
+      }
+    },
+    handleSizeChange (val) {
+      this.pager.pageSize = val;
+      this.loadListData();
+    },
+    handleCurrentChange (val) {
+      this.pager.pageIndex = val;
+      this.loadListData();
+    },
+    setupAddress (row) {
+      if (row.lookup) {
+        return (row.lookup.building ? row.lookup.building : '') + (row.lookup.floor ? row.lookup.floor : '');
+      } else {
+        return '';
+      }
+    }
+  }
 };
 </script>
 

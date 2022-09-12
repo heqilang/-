@@ -196,6 +196,7 @@ export default {
                     current: _self.pager.pageIndex,
                     // equipmentState: 1,
                     // 'equipmentState.symbol': 'NE',
+                    option: 'MONTH', //统计都用当月的
                     transform: 'U:handler;ES:owningSystem;B:building;F:floor'
                 },
                 success: function (res) {

@@ -1,1 +1,0 @@
-webpackJsonp([53],{1128:function(p,s,i){var o=i(3028);"string"==typeof o&&(o=[[p.i,o,""]]),o.locals&&(p.exports=o.locals);i(1114)("00d4d92d",o,!0)},3028:function(p,s,i){s=p.exports=i(1113)(),s.push([p.i,".risk-list-wrapper{padding:51px 25px 70px}",""])}});
