@@ -138,12 +138,12 @@
                 <component :sonData="sonData" @closeDialog="homedilogshow = ''" @closeTsComp="(showSec7 = false), (showPage = 1)" :is="require('./scoreModel/modelPage7')"></component>
             </el-dialog> -->
             <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-if="showSec1" :visible.sync="showSec1" @closeTsComp="(showSec1 = false), (showPage = 1)" :is="require('./scoreModel/modelPage1')"></component>
-            <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec2" :visible.sync="showSec2" @closeTsComp="(showSec2 = false), (showPage = 1)" :is="require('./scoreModel/modelPage2')"></component>
-            <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec3" :visible.sync="showSec3" @closeTsComp="(showSec3 = false), (showPage = 1)" :is="require('./scoreModel/modelPage3')"></component>
-            <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec4" :visible.sync="showSec4" @closeTsComp="(showSec4 = false), (showPage = 1)" :is="require('./scoreModel/modelPage4')"></component>
-            <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec5" :visible.sync="showSec5" @closeTsComp="(showSec5 = false), (showPage = 1)" :is="require('./scoreModel/modelPage5')"></component>
-            <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec6" :visible.sync="showSec6" @closeTsComp="(showSec6 = false), (showPage = 1)" :is="require('./scoreModel/modelPage6')"></component>
-            <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec7" :visible.sync="showSec7" @closeTsComp="(showSec7 = false), (showPage = 1)" :is="require('./scoreModel/modelPage7')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec2" :visible.sync="showSec2" @closeTsComp="(showSec2 = false), (showPage = 1)" :is="require('./scoreModel/modelPage2')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec3" :visible.sync="showSec3" @closeTsComp="(showSec3 = false), (showPage = 1)" :is="require('./scoreModel/modelPage3')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec4" :visible.sync="showSec4" @closeTsComp="(showSec4 = false), (showPage = 1)" :is="require('./scoreModel/modelPage4')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec5" :visible.sync="showSec5" @closeTsComp="(showSec5 = false), (showPage = 1)" :is="require('./scoreModel/modelPage5')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec6" :visible.sync="showSec6" @closeTsComp="(showSec6 = false), (showPage = 1)" :is="require('./scoreModel/modelPage6')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec7" :visible.sync="showSec7" @closeTsComp="(showSec7 = false), (showPage = 1)" :is="require('./scoreModel/modelPage7')"></component>
         </div>
     </div>
 </template>
@@ -165,6 +165,12 @@ export default {
         };
     },
     methods: {
+        closeDealie(val) {
+            this.$emit('closeTsCompF');
+            this.$emit('closeDialog');
+            setTimeout(() => {});
+        },
+
         showPageChage(e) {
             this.showPage = 2;
             switch (e) {

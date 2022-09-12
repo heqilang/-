@@ -5,15 +5,27 @@
     <div class="equipment-type-list-wrapper">
         <div>
             <ul>
-                <li>更新时间：{{ activeDealie.lastUpdatetime }}</li>
+                <li>
+                    更新时间：<span> {{ activeDealie.lastUpdatetime }}</span>
+                </li>
                 <li>
                     设备状态：<span :style="{ color: activeDealie.equipmentState == 1 ? '#29f329d4' : '' }"> {{ activeDealie.newEquipmentState }} </span>
                 </li>
-                <li>设备名称：{{ activeDealie.equipmentName }}</li>
-                <li>设备类型： {{ activeDealie.lookup.equipmentType }}</li>
-                <li>所属系统： {{ activeDealie.owningSystem }}</li>
-                <li>安装位置：{{ activeDealie.lookup.building + activeDealie.lookup.floor }}</li>
-                <li>详细地址：{{ activeDealie.address }}</li>
+                <li>
+                    设备名称： <span> {{ activeDealie.equipmentName }}</span>
+                </li>
+                <li>
+                    设备类型： <span>{{ activeDealie.lookup.equipmentType }}</span>
+                </li>
+                <li>
+                    所属系统： <span> {{ activeDealie.lookup.owningSystem }}</span>
+                </li>
+                <li>
+                    安装位置： <span>{{ activeDealie.lookup.building + activeDealie.lookup.floor }}</span>
+                </li>
+                <li>
+                    详细地址： <span>{{ activeDealie.address }}</span>
+                </li>
             </ul>
         </div>
     </div>
@@ -63,9 +75,9 @@ export default {
 
 .equipment-type-list-wrapper {
     li {
-        color: #fff;
-        font-size: 14px;
-        line-height: 20px;
+        color: white;
+        font-size: 16px;
+        line-height: 30px;
     }
 }
 </style>

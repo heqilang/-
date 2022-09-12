@@ -117,7 +117,7 @@ export default {
                         current: _self.pager.pageIndex,
                         size: _self.pager.pageSize,
                         sorts: 'id:desc;',
-                        transform: 'B:building;F:floor;ET:equipmentType'
+                        transform: 'B:building;F:floor;ET:equipmentType;ES:owningSystem'
                     },
                     success: function (res) {
                         _self.dataTable = res.data.records;

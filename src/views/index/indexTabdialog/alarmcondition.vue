@@ -348,7 +348,7 @@
                 <a class="returnbtn" @click="turntopage('alarmanalysis5')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
             </div>
             <div v-show="_self.isLevel1" class="diaHeadStandardC classReadyDialogTitle">
-                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
+                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况2</span>
             </div>
             <div class="classReadyDialogBox">
                 <div class="eventMsgInfo">
@@ -397,7 +397,7 @@
                                             <span style="display: block">{{ item.orgPushDesc }}</span>
                                             <span style="display: flex; justify-content: space-between">
                                                 <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
-                                                ><span>{{ item.pushResult=='短信推送成功'?'语音、短信通知成功':item.pushResult }}</span>
+                                                ><span>{{ item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
                                             </span>
                                         </p>
                                     </el-card>
@@ -1719,6 +1719,8 @@ export default {
 
         viewchange(row, title) {
             // this.$emit('viewchange', row, title);
+
+            console.dir('报警页面');
             this.alarmanalysis6_params = row;
             this.alarmanalysis6_optin = title;
             this.analysischange('alarmanalysis6', row, title);
