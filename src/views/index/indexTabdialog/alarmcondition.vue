@@ -348,7 +348,7 @@
                 <a class="returnbtn" @click="turntopage('alarmanalysis5')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
             </div>
             <div v-show="_self.isLevel1" class="diaHeadStandardC classReadyDialogTitle">
-                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况2</span>
+                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
             </div>
             <div class="classReadyDialogBox">
                 <div class="eventMsgInfo">
