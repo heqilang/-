@@ -5,8 +5,8 @@ module.exports = {
             // 匹配以所有/api开头的请求路径，名字随意
             '/api': {
                 //   target: 'http://118.114.172.18:26168/', // 请求地址
-                //   target: ' http://118.114.172.18:47090/',//测试环境
-                target: 'https://hqzx.csin.net.cn/api', //正式环境
+                target: ' http://118.114.172.18:47090/',//测试环境
+                //  target: 'https://hqzx.csin.net.cn/api', //正式环境
                 ws: true, // 用于支持websocket 默认true
 
                 changeOrigin: true, // 默认true
