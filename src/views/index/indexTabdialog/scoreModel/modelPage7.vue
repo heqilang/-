@@ -141,7 +141,7 @@
 
         <div v-else>
             <div class="diaHeadStandardC classReadyDialogTitle">
-                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close" style="font-size: 26px; color: #5e9ffb; cursor: pointer"></i></a><span>综合评分 》隐患按时整改率</span>
+                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close" style="font-size: 26px; color: #5e9ffb; cursor: pointer"></i></a><span>消防安全运行综合评分</span>
             </div>
 
             <modelpagedealie :showNumber="3" :modelDate="modelDate" />
@@ -204,10 +204,10 @@ export default {
                 type: 'get',
                 data: {
                     /*   size: _self.pager.pageSize,
-  current: _self.pager.pageIndex,
-  transform: 'U:handler;OW:owningSystem;B:building;F:floor',
-  // feedback: _self.radio4 == '未整改' ? 'NO' : 'YES'
-  queryState: _self.radio4 == '未整改' ? 1 : 2 */
+current: _self.pager.pageIndex,
+transform: 'U:handler;OW:owningSystem;B:building;F:floor',
+// feedback: _self.radio4 == '未整改' ? 'NO' : 'YES'
+queryState: _self.radio4 == '未整改' ? 1 : 2 */
                     size: _self.pager.pageSize,
                     current: _self.pager.pageIndex,
                     patrolStatus: 'NORMAL',

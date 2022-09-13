@@ -12,7 +12,7 @@
             <div v-if="currentLayerLevel == 1" style="background-color: #1c2232; color: #fff; padding: 12px; position: relative; overflow: hidden">
                 <div style="cursor: pointer; margin-bottom: 12px" v-if="showF != 'first'" @click="showF == 'second' ? (showF = 'first') : (showF = 'second')">< 返回</div>
                 <div v-if="showF == 'first'" class="firstLevel_header">
-                    <el-table class="xf-table" :data="dataTable" height="500" style="width: 100%">
+                    <el-table class="xf-table" :data="displayData" height="530" style="width: 100%">
                         <el-table-column align="center" prop="no" label="序号" :show-overflow-tooltip="true" width="180" />
                         <el-table-column align="center" prop="name" label="姓名" :show-overflow-tooltip="true" width="180" />
                         <el-table-column align="center" prop="sex" label="性别" :show-overflow-tooltip="true" />
@@ -39,47 +39,50 @@ export default {
     props: ['safetyrespons', 'compType', 'imgSing', 'peopleSign'],
     data() {
         return {
+            displayData: [], // this.displayData是当前页面要显示的数据
+            pagesize: 10, //pagesize是当前页面要显示总条数
+            currentPage: 1, //currentPage是当前页面数;
             currentLayerLevel: 1,
             radio4: '组织机构',
             dataTable: [],
             arr: [
                 /*      {
 
-                title: 中心监控应急物资清单,
+        title: 中心监控应急物资清单,
 
-                    tableData: [
-                        {
-                            num: '01',
-                            teamName: '中心监控物资清单',
-                            personNum: '35',
-                            equip: '200',
-                            concat: '197',
-                            phone: '安防管理部',
-                            searve: '安防管理部'
-                        }
-                    ]
+            tableData: [
+                {
+                    num: '01',
+                    teamName: '中心监控物资清单',
+                    personNum: '35',
+                    equip: '200',
+                    concat: '197',
+                    phone: '安防管理部',
+                    searve: '安防管理部'
+                }
+            ]
 
-                 
-                },  */
+         
+        },  */
                 /*  {
-                    title: '(中心监控)备用应急物资清单',
-                    tableData: [
+            title: '(中心监控)备用应急物资清单',
+            tableData: [
 
-                        {
-                            num: '01',
-                            teamName: '政府专职消防队',
-                            personNum: '30',
-                            equip: '200',
-                            concat: '任衍富',
-                            phone: '13880481490',
-                            searve: '-'
-                        }
-                    ],
+                {
+                    num: '01',
+                    teamName: '政府专职消防队',
+                    personNum: '30',
+                    equip: '200',
+                    concat: '任衍富',
+                    phone: '13880481490',
+                    searve: '-'
+                }
+            ],
 
 
 
-                   
-                }  */
+           
+        }  */
             ],
 
             showF: 'first',
@@ -93,7 +96,7 @@ export default {
             activeName: 'first',
             activeSenName: 'first',
             pager: {
-                pageSize: 5,
+                pageSize: 10,
                 pageIndex: 1,
                 total: 8
             },
@@ -108,7 +111,9 @@ export default {
         };
     },
     watch: {},
-    created() {},
+    created() {
+        console.dir(this.dataTable);
+    },
     mounted() {
         console.log('peopleSign', this.peopleSign);
         this.radio4 = '组织机构';
@@ -832,8 +837,32 @@ export default {
         //     //     by: '是'
         //     // }
         // ];
+
+        this.tableList();
     },
     methods: {
+        tableList() {
+            // this.displayData是当前页面要显示的数据
+
+            this.pager.total = this.dataTable.length;
+            this.displayData = [];
+            for (
+                // pagesize是当前页面要显示总条数，例如：每页显示20条；currentPage是当前页面数;
+                var j = this.pagesize * (this.currentPage - 1);
+                j < this.pagesize * this.currentPage;
+                j++
+            ) {
+                // this.dataTable是总数据
+                if (this.dataTable[j]) {
+                    this.displayData.push(this.dataTable[j]);
+                }
+            }
+        },
+        paginCurrentChange(page, pagesize) {
+            this.currentPage = page;
+            this.pagesize = pagesize;
+            this.tableList();
+        },
         intoLayer1() {
             this.currentLayerLevel = 1;
         },
@@ -843,6 +872,8 @@ export default {
         },
         loadListData() {
             let _self = this;
+            console.dir(this.pager.pageIndex);
+            this.paginCurrentChange(this.pager.pageIndex, this.pager.pageSize);
         }
     },
     computed: {},

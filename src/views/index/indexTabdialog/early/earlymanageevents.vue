@@ -168,8 +168,10 @@
         <div v-if="showLeavel == 3" class="secendLevel" style="background-color: #2b4b6b; color: #fff">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
-                    >事件预警列表
+                    <!--   <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警列表 -->
+                    <span>{{ activeName == 'first' ? '突发类' : '管理类' }}</span
+                    >事件预警
                 </span>
                 <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
                 <span @click="showLeavel = 2" style="float: right; margin-right: 20px; cursor: pointer">

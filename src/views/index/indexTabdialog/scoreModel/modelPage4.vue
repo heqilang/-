@@ -120,7 +120,7 @@
 
         <div v-else>
             <div class="diaHeadStandardC classReadyDialogTitle">
-                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close" style="font-size: 26px; color: #5e9ffb; cursor: pointer"></i></a><span>综合评分 》巡查完成率</span>
+                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close" style="font-size: 26px; color: #5e9ffb; cursor: pointer"></i></a><span>消防安全运行综合评分</span>
             </div>
 
             <modelpagedealie :showNumber="2" :modelDate="modelDate" />
