@@ -207,7 +207,9 @@ export default {
                     sorts: 'completeTime:desc',
                     transform: 'U:handler;U:handleReportor,OW:owningSystem;B:building;F:floor',
                     feedback: _self.radio4 == '未整改' ? 'NO' : 'YES',
-                    queryState: _self.radio4 == '未整改' ? 1 : 2
+                    queryState: _self.radio4 == '未整改' ? 1 : 2,
+                    completeStatus: _self.radio4 == '未整改' ? 1 : 2,
+                    timeType: 2
                     /*    size: _self.pager.pageSize,
    current: _self.pager.pageIndex,
    transform: 'U:handler;U:handleReportor,OW:owningSystem;B:building;F:floor',

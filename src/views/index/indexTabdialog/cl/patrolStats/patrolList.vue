@@ -4,7 +4,12 @@
 <template>
     <div class="patrol-list-wrapper" style="height: 650px">
         <el-table class="xf-table" :data="dataTable" height="520" style="width: 100%">
-            <el-table-column type="index" label="序号" align="center"> </el-table-column>
+            <!-- <el-table-column type="index" label="序号" align="center"> </el-table-column> -->
+            <el-table-column label="序号" align="center" width="50">
+                <template slot-scope="scope">
+                    {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
+                </template>
+            </el-table-column>
             <el-table-column prop="" label="单位名称" :show-overflow-tooltip="true" width="180">
                 <template slot-scope="scope">
                     <span>新世纪环球中心</span>
@@ -84,7 +89,6 @@ export default {
     },
     created() {},
     mounted() {
-        console.log(this.dataRange);
         this.loadListData();
     },
     methods: {
@@ -101,7 +105,8 @@ export default {
                 data: {
                     size: that.pager.pageSize,
                     current: that.pager.pageIndex,
-                    patrolStatus: 'NORMAL',
+                    // patrolStatus: 'NORMAL',
+                    patrolStatus: that.patrolStatus,
                     timeType: that.dataRange == '当日' ? 1 : 2,
                     sorts: 'beginTime:desc'
 

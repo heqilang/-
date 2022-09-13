@@ -859,7 +859,8 @@ export default {
                 _self.MONTHdrawLeftLineList.everyDay = [];
                 _self.MONTHdrawLeftLineList.number = [];
                 _self._http({
-                    url: '/api/web/indexCountTwo/countAlarms', ///api/web/indexCountTwo/countAlarms
+                    // url: '/api/web/indexCountTwo/countAlarms',
+                    url: '/api/web/indexCountV3/countAlarms',
                     type: 'get',
                     isBody: true,
                     data: {
@@ -886,7 +887,8 @@ export default {
             _self.countAlarmByFloorlist.floorCN = [];
             _self.countAlarmByFloorlist.number = [];
             _self._http({
-                url: '/api/web/indexCountTwo/countAlarms',
+                // url: '/api/web/indexCountTwo/countAlarms',
+                url: '/api/web/indexCountV3/countAlarms',
                 type: 'get',
                 isBody: true,
                 data: {

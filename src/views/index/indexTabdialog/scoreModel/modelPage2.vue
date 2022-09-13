@@ -195,6 +195,7 @@ export default {
                     radiCode = item.dictCode;
                 }
             });
+
             _self._http({
                 url: '/api/web/indexCountV3/findRisksList', //迪威--隐患列表-3级页面
                 // url: '/api/web/indexCountTwo/scoreFindRisks',
@@ -205,8 +206,9 @@ export default {
                     patrolStatus: 'NORMAL',
                     sorts: 'completeTime:desc',
                     transform: 'U:handler;U:handleReportor;OW:owningSystem;B:building;F:floor',
-                    level: radiCode
-
+                    level: radiCode,
+                    timeType: 2,
+                    troubleType: _self.radio4 == '一般隐患' ? 0 : 1
                     /*    size: _self.pager.pageSize,
    current: _self.pager.pageIndex,
    transform: 'U:handler;U:handleReportor;OW:owningSystem;B:building;F:floor',
