@@ -41,8 +41,8 @@
                 </li>
                 <li>巡检状态：<span v-if="modelDate.result == '0'">进行中</span> <span v-else>已完成</span></li>
                 <li>模板名称：{{ modelDate.location }}</li>
-                <li>开始日期：{{ modelDate.beginTime }}</li>
-                <li>截至日期：{{ null }}</li>
+                <li v-if="false">开始日期：{{ modelDate.beginTime }}</li>
+                <li v-if="false">截至日期：{{ modelDate.addtime }}</li>
                 <li>巡检人员：{{ modelDate.inspectPerson }}</li>
                 <li>完成时间：{{ modelDate.addtime }}</li>
             </ul>
@@ -191,128 +191,116 @@
 
 <script>
 export default {
-  props: {
-    modelDate: {
-      required: true
+    props: {
+        modelDate: {
+            required: true
+        },
+        showLi: {
+            required: false,
+            default: true
+        },
+        showNumber: {
+            required: false,
+            default: 1
+        }
     },
-    showLi: {
-      required: false,
-      default: true
+    data: () => ({
+        pager: {
+            pageSize: 5,
+            pageIndex: 1,
+            total: 0
+        },
+        sourcelist: [],
+        riskId: '',
+        dataTable: [],
+        searchModel: {
+            fhfq: '',
+            installSite: undefined
+        }
+    }),
+    created() {
+        this.getfindMessages(this.modelDate);
     },
-    showNumber: {
-      required: false,
-      default: 1
-    }
-  },
-  data: () => ({
-    pager: {
-      pageSize: 5,
-      pageIndex: 1,
-      total: 0
-    },
-    sourcelist: [],
-    riskId: "",
-    dataTable: [],
-    searchModel: {
-      fhfq: '',
-      installSite: undefined
-    }
-  }),
-  created () {
-    this.getfindMessages(this.modelDate)
+    mounted() {},
+    methods: {
+        //告警总计
+        getfindMessages(val) {
+            let _self = this;
+            _self.sourcelist = [];
+            if (_self.showNumber == 1) {
+                _self._http({
+                    url: '/api/web/indexCountV3/alarmFlow', ///api/web/indexCountTwo/findMessages
+                    type: 'get',
+                    isBody: true,
+                    data: {
+                        alarmId: val.id,
+                        sourceId: val.id,
+                        transform: 'U:targetObject'
+                    },
+                    success: function (res) {
+                        _self.sourcelist = res.data.data || [];
+                    }
+                });
+            } else if (_self.showNumber == 2) {
+                _self._http({
+                    url: '/api/web/indexCountTwo/findMessages', ///api/web/indexCountTwo/findMessages
+                    type: 'get',
+                    isBody: true,
+                    data: {
+                        sourceId: val.id,
+                        transform: 'U:targetObject'
+                    },
+                    success: function (res) {
+                        console.dir(res);
+                        _self.sourcelist = res.data.records || [];
+                        console.dir(_self.sourcelist);
+                        let arr = [];
+                        _self.sourcelist.forEach((item, index) => {
+                            item.targetObjectJob = item.targetObjectJob || '';
+                            if (item.targetObjectJob.indexOf('责任人') == -1) {
+                                item.show = false;
+                            } else {
+                                let has = false;
+                                for (let i = 0; i < arr.length; i++) {
+                                    if (item.targetObjectJob == arr[i]) {
+                                        has = true;
+                                        break;
+                                    }
+                                }
+                                if (!has) {
+                                    item.show = true;
+                                    arr.push(item.targetObjectJob);
+                                } else {
+                                    item.show = false;
+                                }
+                            }
+                        });
+                        if ((val.beginTime || '') != '') {
+                            _self.sourcelist.push({
+                                addtime: val.addtime,
+                                beginTime: val.addtime,
+                                // lookup:{
+                                //     targetObject:val.lookup.verifier
+                                // },
+                                inspectPerson: val.inspectPerson,
+                                inspectStatus: val.inspectStatus,
+                                patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
+                                title: '',
+                                show: true
+                            });
+                        }
+                        _self.sourcelist = _self.sourcelist.sort((a, b) => {
+                            return a.addtime > b.addtime ? 1 : -1;
+                        });
 
-  },
-  mounted () { },
-  methods: {
-    //告警总计
-    getfindMessages (val) {
-
-
-
-      let _self = this;
-      _self.sourcelist = [];
-      if (_self.showNumber == 1) {
-        _self._http({
-          url: '/api/web/indexCountV3/alarmFlow', ///api/web/indexCountTwo/findMessages
-          type: 'get',
-          isBody: true,
-          data: {
-            alarmId: val.id,
-            sourceId: val.id,
-            transform: 'U:targetObject'
-          },
-          success: function (res) {
-            _self.sourcelist = res.data.data || [];
-
-          }
-        });
-      } else if (_self.showNumber == 2) {
-
-        _self._http({
-          url: '/api/web/indexCountTwo/findMessages', ///api/web/indexCountTwo/findMessages
-          type: 'get',
-          isBody: true,
-          data: {
-            sourceId: val.id,
-            transform: 'U:targetObject'
-          },
-          success: function (res) {
-            console.dir(res)
-            _self.sourcelist = res.data.records || [];
-            console.dir(_self.sourcelist)
-            let arr = [];
-            _self.sourcelist.forEach((item, index) => {
-              item.targetObjectJob = item.targetObjectJob || '';
-              if (item.targetObjectJob.indexOf('责任人') == -1) {
-                item.show = false;
-              } else {
-                let has = false;
-                for (let i = 0; i < arr.length; i++) {
-                  if (item.targetObjectJob == arr[i]) {
-                    has = true;
-                    break;
-                  }
-                }
-                if (!has) {
-                  item.show = true;
-                  arr.push(item.targetObjectJob);
-                } else {
-                  item.show = false;
-                }
-              }
-            });
-            if ((val.beginTime || '') != '') {
-              _self.sourcelist.push({
-                addtime: val.beginTime,
-                beginTime: val.beginTime,
-                // lookup:{
-                //     targetObject:val.lookup.verifier
-                // },
-                inspectPerson: val.inspectPerson,
-                inspectStatus: val.inspectStatus,
-                patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
-                title: '',
-                show: true
-              });
+                        console.dir(_self.sourcelist);
+                    }
+                });
+            } else {
+                this.riskId = val;
             }
-            _self.sourcelist = _self.sourcelist.sort((a, b) => {
-              return a.addtime > b.addtime ? 1 : -1;
-            });
-
-
-
-            console.dir(_self.sourcelist)
-
-          }
-        });
-
-      } else {
-        this.riskId = val
-      }
-
-
+        }
     }
-  }
 };
 </script>
 

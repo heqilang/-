@@ -126,93 +126,93 @@
 <script>
 import modelpagedealie from './modelPageDealie.vue';
 export default {
-  components: {
-    modelpagedealie
-  },
-  props: ['sonData'],
-  data () {
-    return {
-      modelDate: '', //传值
-      showDealie: true,
-      radio4: '火警事件',
-      pager: {
-        pageSize: 5,
-        pageIndex: 1,
-        total: null
-      },
-      dataTable: []
-    };
-  },
-  methods: {
-    turntopage () {
-      this.showDealie = true;
+    components: {
+        modelpagedealie
     },
-    closeDialog () {
-      this.$emit('closeDealie', false);
-      this.$emit('closeTsComp');
+    props: ['sonData'],
+    data() {
+        return {
+            modelDate: '', //传值
+            showDealie: true,
+            radio4: '火警事件',
+            pager: {
+                pageSize: 5,
+                pageIndex: 1,
+                total: null
+            },
+            dataTable: []
+        };
     },
-    updateOrDeleteInfo (update, val) {
-      this.modelDate = val;
-      this.showDealie = false;
-    },
-
-    indexMethod (index) {
-      let _self = this;
-      if (_self.pager.pageIndex * _self.pager.pageSize > _self.dataTable.totalCount) {
-        let tempIndex = index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
-        if (tempIndex < _self.dataTable.totalCount) {
-          return tempIndex;
-        } else {
-          return _self.dataTable.totalCount;
-        }
-      } else {
-        return index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
-      }
-    },
-    getList () {
-      let _self = this;
-      _self.loading = true;
-      _self.dataTable = [];
-      let etype = '';
-      switch (_self.radio4) {
-        case '火警事件':
-          etype = 9;
-          break;
-        case '预警事件':
-          etype = 4;
-          break;
-        case '故障事件':
-          etype = 2;
-          break;
-        case '告警事件':
-          etype = 3;
-          break;
-      }
-      _self._http({
-        url: '/api/web/indexCountV3/find', // 迪威告警数据表查询
-        //  url: '/api/web/indexCountTwo/scoreFindAlarm',
-        type: 'get',
-        data: {
-          size: _self.pager.pageSize,
-          current: _self.pager.pageIndex,
-          // equipmentState: etype,
-          option: 'MONTH', //统计都用当月的
-          transform: 'U:handler;ES:owningSystem;B:building;F:floor'
+    methods: {
+        turntopage() {
+            this.showDealie = true;
         },
-        success: function (res) {
-          _self.dataTable = res.data.records;
-          _self.pager.total = res.data.total;
-          _self.loading = false;
+        closeDialog() {
+            this.$emit('closeDealie', false);
+            this.$emit('closeTsComp');
+        },
+        updateOrDeleteInfo(update, val) {
+            this.modelDate = val;
+            this.showDealie = false;
+        },
+
+        indexMethod(index) {
+            let _self = this;
+            if (_self.pager.pageIndex * _self.pager.pageSize > _self.dataTable.totalCount) {
+                let tempIndex = index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
+                if (tempIndex < _self.dataTable.totalCount) {
+                    return tempIndex;
+                } else {
+                    return _self.dataTable.totalCount;
+                }
+            } else {
+                return index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
+            }
+        },
+        getList() {
+            let _self = this;
+            _self.loading = true;
+            _self.dataTable = [];
+            let etype = '';
+            switch (_self.radio4) {
+                case '火警事件':
+                    etype = 9;
+                    break;
+                case '预警事件':
+                    etype = 4;
+                    break;
+                case '故障事件':
+                    etype = 2;
+                    break;
+                case '告警事件':
+                    etype = 3;
+                    break;
+            }
+            _self._http({
+                url: '/api/web/indexCountV3/find', // 迪威告警数据表查询
+                //  url: '/api/web/indexCountTwo/scoreFindAlarm',
+                type: 'get',
+                data: {
+                    size: _self.pager.pageSize,
+                    current: _self.pager.pageIndex,
+                    // equipmentState: etype,
+                    option: 'MONTH', //统计都用当月的
+                    transform: 'U:handler;ES:owningSystem;B:building;F:floor'
+                },
+                success: function (res) {
+                    _self.dataTable = res.data.records;
+                    _self.pager.total = res.data.total;
+                    _self.loading = false;
+                }
+            });
         }
-      });
+    },
+    created() {
+        console.dir('报警页码');
+    },
+    mounted() {
+        this.getList();
     }
-  },
-  created () {
-    console.dir('报警页码');
-  },
-  mounted () {
-    this.getList();
-  }
 };
 </script>
 <style lang="scss">

@@ -81,9 +81,9 @@
                             <span v-else>已完成</span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="location" label="模板名称" :show-overflow-tooltip="true"> </el-table-column>
-                    <el-table-column prop="beginTime" label="开始日期" :show-overflow-tooltip="true"> </el-table-column>
-                    <el-table-column prop="addtime" label="截至日期" :show-overflow-tooltip="true"> </el-table-column>
+                    <el-table-column prop="location" label="巡检名称" :show-overflow-tooltip="true"> </el-table-column>
+                    <el-table-column v-if="false" prop="beginTime" label="开始日期" :show-overflow-tooltip="true"> </el-table-column>
+                    <el-table-column v-if="false" prop="addtime" label="截至日期" :show-overflow-tooltip="true"> </el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-popover v-if="false" placement="right" width="400" trigger="click">
@@ -185,9 +185,9 @@ export default {
                 type: 'get',
                 data: {
                     /*   size: _self.pager.pageSize,
-  current: _self.pager.pageIndex,
-  transform: 'U:handler;OW:owningSystem;B:building;F:floor'
-  // eliminateRisks: _self.radio4=='未整改'?'NO':'YES', */
+current: _self.pager.pageIndex,
+transform: 'U:handler;OW:owningSystem;B:building;F:floor'
+// eliminateRisks: _self.radio4=='未整改'?'NO':'YES', */
                     size: _self.pager.pageSize,
                     current: _self.pager.pageIndex,
                     patrolStatus: 'NORMAL',

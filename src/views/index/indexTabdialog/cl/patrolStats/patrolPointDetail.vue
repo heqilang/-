@@ -72,101 +72,101 @@
 
 <script>
 const mockData = {
-  id: 111,
-  name: '东南业一层大厅1',
-  floor: '1层',
-  unitName: '环球中心购物中心',
-  frequency: '每两小时巡查一次',
-  address: '东商业一层大厅',
-  patrolList: [
-    { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
-    { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
-    { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
-    { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
-    { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' }
-  ]
+    id: 111,
+    name: '东南业一层大厅1',
+    floor: '1层',
+    unitName: '环球中心购物中心',
+    frequency: '每两小时巡查一次',
+    address: '东商业一层大厅',
+    patrolList: [
+        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
+        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
+        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
+        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
+        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' }
+    ]
 };
 
 export default {
-  components: {},
-  props: {
-    patrolPointId: {
-      //巡查点位id
-      required: true
-    }
-  },
-  data: () => ({
-    patrolPointData: { id: undefined, unitName: '', patrolTime: '', pointName: '', pointAddress: '', patroler: '' },
-    sourcelist: []
-  }),
-  created () { },
-  mounted () {
-    let that = this;
-    this.getfindMessages(that.patrolPointId);
-    // this.patrolPointData = mockData;
-  },
-  methods: {
-    loadData () {
-      //todo 待接口对接, 使用props中传入的patrolPointId作为查询条件
-      this.patrolPointData = mockData;
-    },
-    getfindMessages (val) {
-      let _self = this;
-      _self.sourcelist = [];
-      _self._http({
-        url: '/api/web/indexCountTwo/findMessages',
-        type: 'get',
-        isBody: true,
-        data: {
-          sourceId: val.id,
-          transform: 'U:targetObject'
-        },
-        success: function (res) {
-          console.dir(res)
-          _self.sourcelist = res.data.records || [];
-          console.dir(_self.sourcelist)
-          let arr = [];
-          _self.sourcelist.forEach((item, index) => {
-            item.targetObjectJob = item.targetObjectJob || '';
-            if (item.targetObjectJob.indexOf('责任人') == -1) {
-              item.show = false;
-            } else {
-              let has = false;
-              for (let i = 0; i < arr.length; i++) {
-                if (item.targetObjectJob == arr[i]) {
-                  has = true;
-                  break;
-                }
-              }
-              if (!has) {
-                item.show = true;
-                arr.push(item.targetObjectJob);
-              } else {
-                item.show = false;
-              }
-            }
-          });
-          if ((val.beginTime || '') != '') {
-            _self.sourcelist.push({
-              addtime: val.beginTime,
-              beginTime: val.beginTime,
-              // lookup:{
-              //     targetObject:val.lookup.verifier
-              // },
-              inspectPerson: val.inspectPerson,
-              inspectStatus: val.inspectStatus,
-              patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
-              title: '',
-              show: true
-            });
-          }
-          _self.sourcelist = _self.sourcelist.sort((a, b) => {
-            return a.addtime > b.addtime ? 1 : -1;
-          });
+    components: {},
+    props: {
+        patrolPointId: {
+            //巡查点位id
+            required: true
         }
-      });
+    },
+    data: () => ({
+        patrolPointData: { id: undefined, unitName: '', patrolTime: '', pointName: '', pointAddress: '', patroler: '' },
+        sourcelist: []
+    }),
+    created() {},
+    mounted() {
+        let that = this;
+        this.getfindMessages(that.patrolPointId);
+        // this.patrolPointData = mockData;
+    },
+    methods: {
+        loadData() {
+            //todo 待接口对接, 使用props中传入的patrolPointId作为查询条件
+            this.patrolPointData = mockData;
+        },
+        getfindMessages(val) {
+            let _self = this;
+            _self.sourcelist = [];
+            _self._http({
+                url: '/api/web/indexCountTwo/findMessages',
+                type: 'get',
+                isBody: true,
+                data: {
+                    sourceId: val.id,
+                    transform: 'U:targetObject'
+                },
+                success: function (res) {
+                    console.dir(res);
+                    _self.sourcelist = res.data.records || [];
+                    console.dir(_self.sourcelist);
+                    let arr = [];
+                    _self.sourcelist.forEach((item, index) => {
+                        item.targetObjectJob = item.targetObjectJob || '';
+                        if (item.targetObjectJob.indexOf('责任人') == -1) {
+                            item.show = false;
+                        } else {
+                            let has = false;
+                            for (let i = 0; i < arr.length; i++) {
+                                if (item.targetObjectJob == arr[i]) {
+                                    has = true;
+                                    break;
+                                }
+                            }
+                            if (!has) {
+                                item.show = true;
+                                arr.push(item.targetObjectJob);
+                            } else {
+                                item.show = false;
+                            }
+                        }
+                    });
+                    if ((val.beginTime || '') != '') {
+                        _self.sourcelist.push({
+                            addtime: val.beginTime,
+                            beginTime: val.beginTime,
+                            // lookup:{
+                            //     targetObject:val.lookup.verifier
+                            // },
+                            inspectPerson: val.inspectPerson,
+                            inspectStatus: val.inspectStatus,
+                            patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
+                            title: '',
+                            show: true
+                        });
+                    }
+                    _self.sourcelist = _self.sourcelist.sort((a, b) => {
+                        return a.addtime > b.addtime ? 1 : -1;
+                    });
+                }
+            });
+        }
     }
-  }
 };
 </script>
 
