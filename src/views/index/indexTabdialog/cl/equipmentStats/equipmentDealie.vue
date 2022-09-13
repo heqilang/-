@@ -18,7 +18,7 @@
                     设备类型： <span>{{ activeDealie.lookup.equipmentType }}</span>
                 </li>
                 <li>
-                    所属系统： <span> {{ activeDealie.lookup.owningSystem }}</span>
+                    所属系统： <span> {{ systemName }}</span>
                 </li>
                 <li>
                     安装位置： <span>{{ activeDealie.lookup.building + activeDealie.lookup.floor }}</span>

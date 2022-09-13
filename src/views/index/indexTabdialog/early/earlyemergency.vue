@@ -591,7 +591,8 @@ export default {
             let _self = this;
             // 当月平均处置时效趋势图
             _self._http({
-                url: '/api/web/indexCountTwo/countAlarmMinute',
+                // url: '/api/web/indexCountTwo/countAlarmMinute',
+                url: '/api/web/indexCountV3/countAlarmMinute',
                 type: 'get',
                 success: function (res) {
                     _self.dellData = res.data;

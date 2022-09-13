@@ -64,7 +64,11 @@
                 <el-table header-row-class-name="table-header-class" row-class-name="table-row-class" :data="dataTable" ref="treeTable" border style="width: 100%">
                     <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
 
-                    <el-table-column prop="equipmentName" label="设备名称" :show-overflow-tooltip="true"> </el-table-column>
+                    <el-table-column prop="alarmLocation" label="设备名称" :show-overflow-tooltip="true">
+                        <template slot-scope="scope">
+                            <span>{{ filterWords(scope.row.alarmLocation) }}</span>
+                        </template>
+                    </el-table-column>
                     <!-- <el-table-column prop="equipmentState" label="设备状态" :show-overflow-tooltip="true">
                     <template slot-scope="scope">
                         <span style="color: #ed3a3a" v-if="scope.row.equipmentState == 9">火警</span>
@@ -169,6 +173,10 @@ export default {
                 return index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
             }
         },
+        filterWords(str) {
+            let _self = this;
+            return str.replace('环球中心2号控制室', '');
+        },
         getList() {
             let _self = this;
             _self.loading = true;
@@ -197,7 +205,8 @@ export default {
                     current: _self.pager.pageIndex,
                     // equipmentState: etype,
                     option: 'MONTH', //统计都用当月的
-                    transform: 'U:handler;ES:owningSystem;B:building;F:floor'
+                    transform: 'U:handler;ES:owningSystem;B:building;F:floor',
+                    sort: ''
                 },
                 success: function (res) {
                     _self.dataTable = res.data.records;

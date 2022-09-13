@@ -64,7 +64,11 @@
                 <el-table header-row-class-name="table-header-class" row-class-name="table-row-class" :data="dataTable" ref="treeTable" border style="width: 100%">
                     <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
 
-                    <el-table-column prop="equipmentName" label="设备名称" :show-overflow-tooltip="true"> </el-table-column>
+                    <el-table-column prop="alarmLocation" label="设备名称" :show-overflow-tooltip="true">
+                        <template slot-scope="scope">
+                            <span>{{ filterWords(scope.row.alarmLocation) }}</span>
+                        </template>
+                    </el-table-column>
                     <!-- <el-table-column prop="equipmentState" label="设备状态" :show-overflow-tooltip="true">
                     <template slot-scope="scope">
                         <span style="color: #ed3a3a" v-if="scope.row.equipmentState == 9">火警</span>
@@ -73,7 +77,7 @@
                         <span style="color: #a7acba" v-else-if="scope.row.equipmentState == 3">离线</span>
                     </template>
                 </el-table-column> -->
-                    <el-table-column prop="lastUpdatetime" label="报警时间" :show-overflow-tooltip="true"> </el-table-column>
+                    <el-table-column prop="alarmTime" label="报警时间" :show-overflow-tooltip="true"> </el-table-column>
                     <el-table-column prop="alarmType" label="安装位置" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
                             <!--    <span>{{ scope.row.lookup.building + scope.row.lookup.floor }}</span> -->
@@ -83,7 +87,7 @@
                     <el-table-column prop="alarmLocation" label="详细地址" :show-overflow-tooltip="true"> </el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-popover v-if="false" placement="right" width="400" trigger="click">
+                            <el-popover placement="right" width="400" trigger="click">
                                 <div>
                                     <!-- <div>更新时间：{{ scope.row.lastUpdatetime }}</div> -->
                                     <div>设备名称：{{ scope.row.equipmentName }}</div>
@@ -100,7 +104,7 @@
                                         {{ scope.row.unitName }}
                                     </div>
                                 </div>
-                                <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                                <!-- <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button> -->
                                 <!-- <el-button >click 激活</el-button> -->
                             </el-popover>
                             <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
@@ -197,7 +201,8 @@ export default {
                     // equipmentState: 1,
                     // 'equipmentState.symbol': 'NE',
                     option: 'MONTH', //统计都用当月的
-                    transform: 'U:handler;ES:owningSystem;B:building;F:floor'
+                    transform: 'U:handler;ES:owningSystem;B:building;F:floor',
+                    sorts: 'alarmTime:desc'
                 },
                 success: function (res) {
                     _self.dataTable = res.data.records;
@@ -205,6 +210,10 @@ export default {
                     _self.loading = false;
                 }
             });
+        },
+        filterWords(str) {
+            let _self = this;
+            return str.replace('环球中心2号控制室', '');
         }
     },
     created() {},

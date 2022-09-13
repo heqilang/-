@@ -213,7 +213,9 @@ export default {
                     patrolStatus: 'NORMAL',
                     sorts: 'completeTime:desc',
                     transform: 'U:handler;OW:owningSystem;B:building;F:floor',
-                    queryState: _self.radio4 == '未整改' ? 1 : 2
+                    queryState: _self.radio4 == '未整改' ? 1 : 2,
+                    completeStatus: _self.radio4 == '未整改' ? 1 : 2,
+                    timeType: 2
                 },
                 success: function (res) {
                     _self.dataTable = res.data.records;
