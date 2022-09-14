@@ -567,6 +567,7 @@ export default {
     },
     methods: {
         turntopage(type, option) {
+            console.dir('什么情况');
             let _self = this;
             this.showanalysis = type;
             if (option == 'overLevel') {
@@ -1738,6 +1739,7 @@ export default {
             let _self = this;
             _self.loading = true;
 
+            console.dir('切换');
             if (_self.showanalysis == 'alarmanalysis1') {
                 if (_self.showAlarm1Day) {
                     _self.chartRadio = '当日';
@@ -1770,6 +1772,7 @@ export default {
                 sorts: 'alarmTime:desc',
                 transform: 'B:building,F:floor,ES:owningSystem,U:confirmor,U:verifier'
             };
+            console.dir(searchObj);
             _self.dataTable = [];
             _self._http({
                 url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find

@@ -396,7 +396,10 @@ export default {
         },
 
         // 留
-        drawLineSuddenChart() {
+        drawLineSuddenChart(val = false) {
+            if (val == 0) {
+                val = false;
+            }
             let _self = this;
             var chartDom = document.getElementById('barChartSudden');
             var myChart = echarts.init(chartDom);
@@ -423,7 +426,8 @@ export default {
                     textStyle: {
                         color: '#ffffff'
                     },
-                    icon: 'circle'
+                    icon: 'circle',
+                    selected: { 管理类事件预警: !val, 已处置数: val }
                 },
                 grid: {
                     left: '5%',
@@ -707,10 +711,13 @@ export default {
             console.log('pxpxpx1', option);
         },
         tabitemchange(val) {
+            console.dir(val);
             this.chartRadio1 = val;
             this.pager.pageSize = 10;
             this.pager.pageIndex = 1;
             this.getList();
+
+            this.drawLineSuddenChart(val);
         },
         indexMethod(index) {
             let _self = this;
