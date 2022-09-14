@@ -150,6 +150,41 @@
                 <div style="height: 400px">
                     <el-scrollbar style="height: 100%; width: 90%">
                         <el-timeline>
+                            <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.addtime" v-if="item.show && item.title != '被指派了报警工单'" placement="top">
+                                <el-card style="font-size: 14px">
+                                    <p>{{ item.targetObjectJob }}</p>
+                                    <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
+                                        <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
+                                        ><span>语音、短信通知成功</span>
+                                    </p>
+                                    <p v-else-if="item.beginTime">
+                                        <span>巡查人员：{{ item.inspectPerson || '--' }}</span
+                                        ><span style="float: right">{{ item.inspectStatus }}</span> <br />巡查时间：{{ item.beginTime }}
+                                    </p>
+                                </el-card>
+                            </el-timeline-item>
+                            <!-- <el-timeline-item v-if="(alarmanalysis6_params.verifyTime||'')!=''" :timestamp="alarmanalysis6_params.verifyTime" placement="top">
+                                <el-card style="font-size: 14px">
+                                    <p>处理人员：{{ alarmanalysis6_params.verifier || '--' }}</p>
+                                    <p>处理描述：{{ alarmanalysis6_params.result || '--'}}</p>
+                                </el-card>
+                            </el-timeline-item>
+                            <el-timeline-item v-if="(alarmanalysis6_params.confirmTime||'')!=''" :timestamp="alarmanalysis6_params.confirmTime" placement="top">
+                                <el-card style="font-size: 14px">
+                                    <p>确认人员：{{ alarmanalysis6_params.confirmor || '--' }}</p>
+                                    <p>确认描述：{{ alarmanalysis6_params.confirmResult || '--'}}</p>
+                                </el-card>
+                            </el-timeline-item> -->
+                        </el-timeline>
+                    </el-scrollbar>
+                </div>
+            </div>
+            <div v-if="false" class="eventMsgInfo">
+                <div class="box2">流程追溯</div>
+                <!-- style="height: 450px" -->
+                <div style="height: 400px">
+                    <el-scrollbar style="height: 100%; width: 90%">
+                        <el-timeline>
                             <el-timeline-item v-if="(riskId.createTime || '') != ''" :timestamp="riskId.createTime" placement="top">
                                 <el-card style="font-size: 14px">
                                     <p>上报隐患：{{ riskId.createTime }}</p>
@@ -297,7 +332,60 @@ export default {
                     }
                 });
             } else {
-                this.riskId = val;
+                _self._http({
+                    url: '/api/web/indexCountV3/risksFlow', ///api/web/indexCountTwo/findMessages
+                    type: 'get',
+                    isBody: true,
+                    data: {
+                        hiddenTroubleId: val.id,
+                        transform: 'U:targetObject'
+                    },
+                    success: function (res) {
+                        console.dir(res);
+                        _self.sourcelist = res.data.records || [];
+                        console.dir(_self.sourcelist);
+                        let arr = [];
+                        _self.sourcelist.forEach((item, index) => {
+                            item.targetObjectJob = item.targetObjectJob || '';
+                            if (item.targetObjectJob.indexOf('责任人') == -1) {
+                                item.show = false;
+                            } else {
+                                let has = false;
+                                for (let i = 0; i < arr.length; i++) {
+                                    if (item.targetObjectJob == arr[i]) {
+                                        has = true;
+                                        break;
+                                    }
+                                }
+                                if (!has) {
+                                    item.show = true;
+                                    arr.push(item.targetObjectJob);
+                                } else {
+                                    item.show = false;
+                                }
+                            }
+                        });
+                        if ((val.beginTime || '') != '') {
+                            _self.sourcelist.push({
+                                addtime: val.addtime,
+                                beginTime: val.addtime,
+                                // lookup:{
+                                //     targetObject:val.lookup.verifier
+                                // },
+                                inspectPerson: val.inspectPerson,
+                                inspectStatus: val.inspectStatus,
+                                patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
+                                title: '',
+                                show: true
+                            });
+                        }
+                        _self.sourcelist = _self.sourcelist.sort((a, b) => {
+                            return a.addtime > b.addtime ? 1 : -1;
+                        });
+
+                        console.dir(_self.sourcelist);
+                    }
+                });
             }
         }
     }
