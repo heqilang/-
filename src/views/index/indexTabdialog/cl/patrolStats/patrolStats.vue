@@ -217,6 +217,8 @@ export default {
             if (_self.dataRange == '当日') {
                 _self.DAYdrawLeftLineList.everyHour = [];
                 _self.DAYdrawLeftLineList.number = [];
+                /*    _self.MONTHdrawLeftLineList.everyDay = [];
+           _self.MONTHdrawLeftLineList.number = []; */
 
                 _self._http({
                     url: '/api/web/indexCountV3/countPatrolMinute',
@@ -229,10 +231,14 @@ export default {
                     success: function (res) {
                         res.data = res.data || [];
                         res.data.forEach((item) => {
-                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour.substring(11, 13));
-                            _self.DAYdrawLeftLineList.number.push(item.number);
+                            _self.DAYdrawLeftLineList.everyHour.push(item.timeName.substring(11, 13));
+                            _self.DAYdrawLeftLineList.number.push(item.average);
+                            /*    _self.DAYdrawLeftLineList.everyHour.push(item.everyHour.substring(11, 13));
+                 _self.DAYdrawLeftLineList.number.push(item.number); */
                         });
+
                         _self.drawLeftLine();
+                        console.dir(_self.DAYdrawLeftLineList);
                     }
                 });
             } else {
@@ -247,11 +253,16 @@ export default {
                         over: _self.overLevel
                     },
                     success: function (res) {
+                        console.dir(res);
                         res.data = res.data || [];
+
                         res.data.forEach((item) => {
-                            _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
-                            _self.MONTHdrawLeftLineList.number.push(item.number);
+                            _self.MONTHdrawLeftLineList.everyDay.push(item.timeName);
+                            _self.MONTHdrawLeftLineList.number.push(item.average);
+                            /*   _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
+                _self.MONTHdrawLeftLineList.number.push(item.number); */
                         });
+                        console.dir(_self.MONTHdrawLeftLineList);
                         _self.drawdangyeCharts();
                     }
                 });
