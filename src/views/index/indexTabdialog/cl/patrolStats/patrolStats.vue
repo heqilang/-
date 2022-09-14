@@ -223,7 +223,7 @@ export default {
                     type: 'get',
                     isBody: true,
                     data: {
-                        option: 'DAY',
+                        timeType: 'DAY',
                         over: _self.overLevel
                     },
                     success: function (res) {
@@ -243,7 +243,7 @@ export default {
                     type: 'get',
                     isBody: true,
                     data: {
-                        option: 'MONTH',
+                        timeType: 'MONTH',
                         over: _self.overLevel
                     },
                     success: function (res) {
