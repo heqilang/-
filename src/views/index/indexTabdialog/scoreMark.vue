@@ -112,20 +112,26 @@
                     </el-col>
                 </el-row> -->
                 <div id="pieChart" style="height: 360px"></div>
-                <div style="color: #fff; text-align: left; font-size: 12px">
-                    <div style="margin-left: 53%">
+                <div v-if="systemScoreList.score < 95" style="color: #fff; text-align: center; font-size: 12px">
+                    <div style="padding: 0 0 20px 0">
                         <ul>
-                            <li><span>*</span> <span> 报警处置率=（报警总数-未处置总数）/ 报警总数</span></li>
-                            <li><span style="margin-left: 10px">报警处置及时率=（报警总数-未及时处置总数）/ 报警总数</span></li>
+                            <li>
+                                <span>*</span>
+                                <span>
+                                    当前综合评分为 <span style="color: red"> {{ (systemScoreList.score / 1).toFixed(2) }}</span
+                                    >，
+                                    <span>需要尽快完成<span v-if="sonData.alarmHandlePercent !== 100">报警处置、</span><span v-if="sonData.alarmHandOpportunelyPercent !== 100">报警及时处置、</span> <span v-if="sonData.patrolHandlePercent !== 100"> 巡查计划、</span> <span v-if="sonData.risksPercent !== 100">隐患排查、</span> <span v-if="sonData.risksHandlePercent !== 100">隐患整改、</span> <span v-if="sonData.risksOpportunelyPercent !== 100"> 按时整改隐患</span> </span>
+                                </span>
+                            </li>
                         </ul>
-                        <ul style="margin: 10px 0px">
+                        <!-- <ul style="margin: 10px 0px">
                             <li><span style="margin-left: 10px">巡查完成率=（巡查总数-未完成总数）/ 巡查总数</span></li>
                         </ul>
                         <ul>
                             <li><span style="margin-left: 10px"> 隐患发现率=（自查隐患总数-被查隐患总数）/ 应查出隐患数量5次【负数默认为0,超出5条为100%】</span></li>
                             <li><span style="margin-left: 10px">隐患整改率=（隐患总数-未整改总数）/ 隐患总数</span></li>
                             <li><span style="margin-left: 10px">隐患按时整改率=（隐患计划整改数量-隐患未按时整改数量）/ 隐患计划整改数量</span></li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -375,8 +381,5 @@ export default {
         background-color: transparent !important;
         border: none !important;
     }
-}
-.box::before {
-    content: '22222';
 }
 </style>

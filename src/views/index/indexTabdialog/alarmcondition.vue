@@ -807,7 +807,8 @@ export default {
             _self.MONTHcountByType.number = [];
             this.floor = data.floor;
             _self._http({
-                url: '/api/web/indexCountTwo/countAlarmByArea',
+                /*         url: '/api/web/indexCountTwo/countAlarmByArea', */
+                url: '/api/web/indexCountV3/countAlarmByArea',
                 type: 'get',
                 isBody: true,
                 data: {
