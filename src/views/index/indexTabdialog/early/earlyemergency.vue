@@ -59,7 +59,11 @@
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div>
+                            </template>
+                        </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                                 <template slot-scope="scope">
                                     <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
@@ -113,7 +117,11 @@
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column label="预警人员" width="160" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div>
+                            </template>
+                        </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
@@ -335,9 +343,18 @@ export default {
             });
         },
         // 留
-        drawLineSuddenChart(val = false) {
-            if (val == 0) {
-                val = false;
+        drawLineSuddenChart(val) {
+            let changLengthLeft = '',
+                changLengthriht = '';
+            if (val == 'false') {
+                changLengthLeft = false;
+                changLengthriht = false;
+            } else if (val == 'true') {
+                changLengthLeft = false;
+                changLengthriht = true;
+            } else {
+                changLengthLeft = true;
+                changLengthriht = false;
             }
             let _self = this;
             var chartDom = document.getElementById('barChartSudden');
@@ -365,7 +382,7 @@ export default {
                         color: '#ffffff'
                     },
                     icon: 'circle',
-                    selected: { 突发类事件预警: !val, 已处置数: val }
+                    selected: { 突发类事件预警: changLengthLeft, 已处置数: changLengthriht }
                 },
                 grid: {
                     left: '5%',
@@ -458,7 +475,7 @@ export default {
             }
             option = {
                 title: {
-                    text: '当月平均处置时效趋势图',
+                    text: '当月平均处置时效',
                     textStyle: {
                         fontSize: '14',
                         color: '#ffffff'
@@ -482,6 +499,8 @@ export default {
                     type: 'category',
                     boundaryGap: false,
                     axisLabel: {
+                        interval: 0,
+                        rotate: 45,
                         textStyle: {
                             color: '#FFFFFF'
                         }
@@ -587,6 +606,9 @@ export default {
                 type: 'get',
                 data: searchObj,
                 success: function (res) {
+                    res.data.records.sort((a, b) => {
+                        return new Date(b.sendTime) - new Date(a.sendTime);
+                    });
                     _self.dataTable = res.data.records;
                     _self.pager.total = res.data.total;
                     _self.loading = false;
@@ -602,6 +624,10 @@ export default {
                 url: '/api/web/indexCountV3/countAlarmMinute',
                 type: 'get',
                 success: function (res) {
+                    res.data.forEach((item) => {
+                        item.everyDay = item.everyDay.slice(5, 10);
+                    });
+
                     _self.dellData = res.data;
                     _self.$nextTick(() => {
                         _self.drawLineChart1();

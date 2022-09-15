@@ -74,7 +74,11 @@
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div>
+                            </template>
+                        </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                                 <template slot-scope="scope">
                                     <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
@@ -135,7 +139,11 @@
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div>
+                            </template>
+                        </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
@@ -335,9 +343,15 @@ export default {
             // 清空id的innerHTML
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
-                url: '/api/web/indexCountTwo/countPatrolMinute',
+                //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
+                url: '/api/web/indexCountV3/countPatrolManageMinute',
+                //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 type: 'get',
                 success: function (res) {
+                    res.data.forEach((item) => {
+                        item.everyDay = item.timeName.slice(5, 10);
+                    });
+
                     _self.checkData = res.data;
                     _self.drawLineChart2();
                 }
@@ -345,11 +359,23 @@ export default {
             // 隐患时效统计
             // document.getElementById('lineChart2').innerHTML = '';
             _self._http({
-                url: '/api/web/indexCountTwo/countRisksDay',
+                url: '/api/web/indexCountV3/countRisksDay', //迪威隐患时效图
+                // url: '/api/web/indexCountTwo/countRisksDay',
                 type: 'get',
                 success: function (res) {
-                    _self.riskData = res.data;
-                    _self.drawLineChart3();
+                    if (res.data.length > 0) {
+                        res.data.forEach((item) => {
+                            item.everyDay = item.timeName.slice(5, 10);
+                        });
+                        _self.riskData = res.data;
+                        _self.drawLineChart3();
+                    } else {
+                        _self.riskData = res.data;
+                        _self.drawLineChart3();
+                    }
+
+                    /*     _self.riskData = res.data;
+              _self.drawLineChart3(); */
                 }
             });
         },
@@ -396,10 +422,21 @@ export default {
         },
 
         // 留
-        drawLineSuddenChart(val = false) {
-            if (val == 0) {
-                val = false;
+        drawLineSuddenChart(val) {
+            console.dir(val);
+            let changLengthLeft = '',
+                changLengthriht = '';
+            if (val == 'false') {
+                changLengthLeft = false;
+                changLengthriht = false;
+            } else if (val == 'true') {
+                changLengthLeft = false;
+                changLengthriht = true;
+            } else {
+                changLengthLeft = true;
+                changLengthriht = false;
             }
+
             let _self = this;
             var chartDom = document.getElementById('barChartSudden');
             var myChart = echarts.init(chartDom);
@@ -427,7 +464,7 @@ export default {
                         color: '#ffffff'
                     },
                     icon: 'circle',
-                    selected: { 管理类事件预警: !val, 已处置数: val }
+                    selected: { 管理类事件预警: changLengthLeft, 已处置数: changLengthriht }
                 },
                 grid: {
                     left: '5%',
@@ -543,6 +580,8 @@ export default {
                     type: 'category',
                     boundaryGap: false,
                     axisLabel: {
+                        interval: 0,
+                        rotate: 45,
                         textStyle: {
                             color: '#FFFFFF'
                         }
@@ -578,10 +617,10 @@ export default {
                             width: 1,
                             type: 'dashed'
                         }
-                    },
-                    min: 0,
-                    max: 60,
-                    interval: 20
+                    }
+                    /*   min: 0,
+            max: 60,
+            interval: 20 */
                 },
                 series: [
                     {
@@ -646,6 +685,8 @@ export default {
                     type: 'category',
                     boundaryGap: false,
                     axisLabel: {
+                        interval: 0,
+                        rotate: 45,
                         textStyle: {
                             color: '#FFFFFF'
                         }
@@ -716,7 +757,7 @@ export default {
             this.pager.pageSize = 10;
             this.pager.pageIndex = 1;
             this.getList();
-
+            console.dir(val);
             this.drawLineSuddenChart(val);
         },
         indexMethod(index) {

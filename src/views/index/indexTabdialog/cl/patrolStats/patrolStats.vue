@@ -218,7 +218,7 @@ export default {
                 _self.DAYdrawLeftLineList.everyHour = [];
                 _self.DAYdrawLeftLineList.number = [];
                 /*    _self.MONTHdrawLeftLineList.everyDay = [];
-           _self.MONTHdrawLeftLineList.number = []; */
+_self.MONTHdrawLeftLineList.number = []; */
 
                 _self._http({
                     url: '/api/web/indexCountV3/countPatrolMinute',
@@ -234,7 +234,7 @@ export default {
                             _self.DAYdrawLeftLineList.everyHour.push(item.timeName.substring(11, 13));
                             _self.DAYdrawLeftLineList.number.push(item.average);
                             /*    _self.DAYdrawLeftLineList.everyHour.push(item.everyHour.substring(11, 13));
-                 _self.DAYdrawLeftLineList.number.push(item.number); */
+_self.DAYdrawLeftLineList.number.push(item.number); */
                         });
 
                         _self.drawLeftLine();
@@ -257,10 +257,10 @@ export default {
                         res.data = res.data || [];
 
                         res.data.forEach((item) => {
-                            _self.MONTHdrawLeftLineList.everyDay.push(item.timeName);
+                            _self.MONTHdrawLeftLineList.everyDay.push(item.timeName.substring(5, 10));
                             _self.MONTHdrawLeftLineList.number.push(item.average);
                             /*   _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
-                _self.MONTHdrawLeftLineList.number.push(item.number); */
+_self.MONTHdrawLeftLineList.number.push(item.number); */
                         });
                         console.dir(_self.MONTHdrawLeftLineList);
                         _self.drawdangyeCharts();
@@ -405,7 +405,7 @@ export default {
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
+                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 分钟'
                 },
                 legend: {
                     data: [text2],

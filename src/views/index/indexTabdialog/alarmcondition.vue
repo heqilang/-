@@ -472,7 +472,7 @@ export default {
             overLevel: undefined, //下钻是否已处置
 
             pager: {
-                pageSize: 10,
+                pageSize: 5,
                 pageIndex: 1,
                 total: null
             },
@@ -931,7 +931,7 @@ export default {
             });
         },
         // 当日
-        drawLeftLine1() {
+        drawLeftLine1(val = false) {
             let quxianChart1 = echarts.init(document.getElementById('quxianChart1'));
             quxianChart1.off('click');
             let option = null;
@@ -956,7 +956,8 @@ export default {
                     textStyle: {
                         color: '#ffffff'
                     },
-                    icon: 'circle'
+                    icon: 'circle',
+                    selected: { 设备报警数量: !val, 报警处置数量: val }
                 },
                 grid: {
                     top: '20%',
@@ -1039,7 +1040,7 @@ export default {
             }
         },
         // 当月告警统计
-        drawdangyeCharts1() {
+        drawdangyeCharts1(val = false) {
             let dangyeCharts1 = echarts.init(document.getElementById('dangyeCharts1'));
             dangyeCharts1.off('click');
             let option = null;
@@ -1064,7 +1065,8 @@ export default {
                     textStyle: {
                         color: '#ffffff'
                     },
-                    icon: 'circle'
+                    icon: 'circle',
+                    selected: { 设备报警数量: !val, 报警处置数量: val }
                 },
                 grid: {
                     top: '20%',
@@ -1152,10 +1154,11 @@ export default {
             quxianChart.off('click');
             let option = null;
             let _self = this;
-
+            /* 
             let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
-            let text2 = _self.overLevel == true ? '报警处置' : '设备报警';
-
+            let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
+            let text1 = '',
+                text2 = '';
             option = {
                 title: {
                     text: text1,
@@ -1329,7 +1332,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: [], //_self.DAYAlarmByFloorlist.floorCN
+                    data: _self.DAYAlarmByFloorlist.floorCN, //_self.DAYAlarmByFloorlist.floorCN[]
 
                     axisLine: {
                         show: true,
@@ -1354,7 +1357,7 @@ export default {
                 series: [
                     {
                         name: text2,
-                        data: [], //_self.DAYAlarmByFloorlist.number
+                        data: _self.DAYAlarmByFloorlist.number, //_self.DAYAlarmByFloorlist.number[]
                         type: 'bar',
                         barMaxWidth: 10
                     }
@@ -1375,9 +1378,10 @@ export default {
             let option = null;
             let _self = this;
 
-            let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
-            let text2 = _self.overLevel == true ? '报警处置' : '设备报警';
-
+            /*     let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
+          let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
+            let text1 = '',
+                text2 = '';
             option = {
                 title: {
                     text: text1,
@@ -1552,8 +1556,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: [], //_self.countAlarmByFloorlist.floorCN
-
+                    data: _self.countAlarmByFloorlist.floorCN, //_self.countAlarmByFloorlist.floorCN []
                     axisLine: {
                         show: true,
                         lineStyle: {
@@ -1577,7 +1580,7 @@ export default {
                 series: [
                     {
                         name: text2,
-                        data: [], //_self.countAlarmByFloorlist.number
+                        data: _self.countAlarmByFloorlist.number, //_self.countAlarmByFloorlist.number,[]
                         type: 'bar',
                         barMaxWidth: 10
                     }
@@ -1733,8 +1736,20 @@ export default {
             this.$emit('update:visible', false);
             this.turntopage('alarmanalysis1');
         },
-        tabitemchange() {
-            this.getList();
+        tabitemchange(val) {
+            console.dir(val);
+            this.getList(val);
+            let getDate = '';
+            if (val == '报警处置数量') {
+                getDate = true;
+            } else {
+                getDate = false;
+            }
+            if (this.chartRadio == '当日') {
+                this.drawLeftLine1(getDate);
+            } else {
+                this.drawdangyeCharts1(getDate);
+            }
         },
         getList() {
             let _self = this;
@@ -1776,7 +1791,8 @@ export default {
             console.dir(searchObj);
             _self.dataTable = [];
             _self._http({
-                url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find
+                //  url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find
+                url: 'api/web/indexCountTwo/find',
                 type: 'get',
                 isBody: true,
                 data: searchObj,

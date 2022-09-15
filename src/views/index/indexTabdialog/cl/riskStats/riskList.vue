@@ -180,6 +180,7 @@ export default {
         }
     },
     created() {
+        console.dir(this.riskLevel);
         const that = this;
         this.getDataListLevel();
         this.getDataListType();
@@ -193,8 +194,10 @@ export default {
             this.loadListData();
         },
         loadListData() {
-            // this.dataTable = equipmentTypeListData;
             const that = this;
+            // this.dataTable = equipmentTypeListData;
+            console.dir(this.dataRiskLevelJson);
+            let newDate = that.searchModel.riskLevel == 1 ? 'ciaw2awr' : 'nwvl7lvw';
             that._http({
                 url: '/api/web/indexCountV3/findRisksList', ///api/web/indexCountTwo/findRisksList
                 type: 'get',
@@ -203,7 +206,7 @@ export default {
                     current: that.pager.pageIndex,
                     size: that.pager.pageSize,
                     timeType: that.dataRange === '当日' ? 1 : 2,
-                    level: that.searchModel.riskLevel || undefined,
+                    level: newDate || undefined,
                     risksType: that.searchModel.riskType || undefined,
                     handel: that.searchModel.riskStatus || undefined,
                     sorts: 'handleReportTime:desc',
@@ -231,6 +234,7 @@ export default {
                     that.dataRiskLevel = res.data || [];
                     that.dataRiskLevel.forEach((element) => {
                         that.dataRiskLevelJson[element.dictCode] = element.dictValue;
+                        that.dataRiskLevelJson[element.dictValue] = element.dictCode;
                     });
                 }
             });
@@ -268,6 +272,7 @@ export default {
             this.$emit('viewDetailOnclick', riskItem);
         },
         changeRiskLevel(val) {
+            console.dir(val);
             this.searchModel.riskLevel = val;
             this.loadListData();
         },
