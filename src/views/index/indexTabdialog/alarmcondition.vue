@@ -1552,7 +1552,8 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: [], //_self.countAlarmByFloorlist.floorCN
+                    // data: [], //_self.countAlarmByFloorlist.floorCN
+                    data: _self.countAlarmByFloorlist.floorCN,
 
                     axisLine: {
                         show: true,
@@ -1577,7 +1578,8 @@ export default {
                 series: [
                     {
                         name: text2,
-                        data: [], //_self.countAlarmByFloorlist.number
+                        // data: [], //_self.countAlarmByFloorlist.number
+                        data: _self.countAlarmByFloorlist.number,
                         type: 'bar',
                         barMaxWidth: 10
                     }

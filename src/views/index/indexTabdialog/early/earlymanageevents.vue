@@ -335,7 +335,8 @@ export default {
             // 清空id的innerHTML
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
-                url: '/api/web/indexCountTwo/countPatrolMinute',
+                // url: '/api/web/indexCountTwo/countPatrolMinute',
+                url:'/api/web/indexCountV3/countPatrolMinute',
                 type: 'get',
                 success: function (res) {
                     _self.checkData = res.data;
@@ -345,7 +346,8 @@ export default {
             // 隐患时效统计
             // document.getElementById('lineChart2').innerHTML = '';
             _self._http({
-                url: '/api/web/indexCountTwo/countRisksDay',
+                // url: '/api/web/indexCountTwo/countRisksDay',
+                url: '/api/web/indexCountV3/countRisksDay',
                 type: 'get',
                 success: function (res) {
                     _self.riskData = res.data;
@@ -514,7 +516,7 @@ export default {
             let _xData = [];
             let _yData = [];
             for (let i = 0; i < this.checkData.length; i++) {
-                _xData.push(this.checkData[i].everyDay);
+                _xData.push(this.checkData[i].timeName);
                 _yData.push(this.checkData[i].average);
             }
             option = {

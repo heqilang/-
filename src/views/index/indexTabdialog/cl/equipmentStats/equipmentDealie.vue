@@ -20,7 +20,7 @@
                 <li>
                     所属系统： <span> {{ systemName }}</span>
                 </li>
-                <li>
+                <li>m
                     安装位置： <span>{{ activeDealie.lookup.building + activeDealie.lookup.floor }}</span>
                 </li>
                 <li>

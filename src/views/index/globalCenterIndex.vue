@@ -835,7 +835,7 @@
                 <!--   <img @click="changeImg" @mouseover="getImg" v-show="!showImg" style="width: 100%; display: block" src="" alt="" /> -->
                 <img @click="changeImg" @mouseover="getImg" v-show="!showImg" style="width: 100%; display: block" :src="img" alt="" />
                 <!--  <img @mouseover="getImg" @click="changeImg" class="imghover" v-show="!showImg" style="width: 100%" src="../../assets/images/globalCenterNew/20220906-230217.png" alt="" /> -->
-                <img v-show="showImg" style="width: 100%" src="../../assets/images/globalCenterNew/20220906-230232.png" alt="" />
+                <img v-show="showImg" style="width: 100%" src="../../assets/images/layer1.png" alt="" />
             </el-dialog>
         </div>
     </div>
