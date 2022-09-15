@@ -54,9 +54,9 @@
                                 <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                                 <el-table-column prop="equipmentState" label="报警类型" width="140">
                                     <template slot-scope="scope">
-                                        <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
-                                        <div v-else>--</div>
-                                        <!--   <div>{{ scope.row.alarmType }}</div> -->
+                                        <!--  <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
+                                        <div v-else>--</div> -->
+                                        <div>{{ scope.row.alarmType }}</div>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
@@ -141,9 +141,9 @@
                         <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="equipmentState" label="报警类型" width="140">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
-                                <div v-else>--</div>
-                                <!--    <div>{{ scope.row.alarmType }}</div> -->
+                                <!--   <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
+                                <div v-else>--</div> -->
+                                <div>{{ scope.row.alarmType }}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
@@ -305,9 +305,9 @@
                         <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="equipmentState" label="报警类型" width="140">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
-                                <div v-else>--</div>
-                                <!--   <div>{{ scope.row.alarmType }}</div> -->
+                                <!--   <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
+                                <div v-else>--</div> -->
+                                <div>{{ scope.row.alarmType }}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
@@ -1155,8 +1155,8 @@ export default {
             let option = null;
             let _self = this;
             /* 
-      let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
-      let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
+let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
+let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
             let text1 = '',
                 text2 = '';
             option = {
@@ -1379,7 +1379,7 @@ export default {
             let _self = this;
 
             /*     let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
-    let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
+let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
             let text1 = '',
                 text2 = '';
             option = {
