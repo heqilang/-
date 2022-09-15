@@ -79,11 +79,11 @@ const mockData = {
     frequency: '每两小时巡查一次',
     address: '东商业一层大厅',
     patrolList: [
-        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
-        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
-        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
-        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
-        { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' }
+        // { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
+        // { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
+        // { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
+        // { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' },
+        // { name: '张三', reportTime: '2022-09-01 09:00:81', patrolTime: '2022-09-01 09:00:81', status: '正常' }
     ]
 };
 
@@ -146,6 +146,7 @@ export default {
                             }
                         }
                     });
+
                     if ((val.beginTime || '') != '') {
                         _self.sourcelist.push({
                             addtime: val.beginTime,

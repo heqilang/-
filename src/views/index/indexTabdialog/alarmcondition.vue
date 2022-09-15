@@ -431,1449 +431,1452 @@
 import * as echarts from 'echarts';
 import { watch } from 'vue';
 export default {
-    // props: ['showanaly'],
-    props: {
-        visible: {
-            type: Boolean,
-            require: false
-        },
-        showAlarm1Day: {}
+  // props: ['showanaly'],
+  props: {
+    visible: {
+      type: Boolean,
+      require: false
     },
-    data() {
-        return {
-            showanalysis: 'alarmanalysis1',
-            floorname: '',
-            floornamenumber: '',
+    showAlarm1Day: {}
+  },
+  data () {
+    return {
+      showanalysis: 'alarmanalysis1',
+      floorname: '',
+      floornamenumber: '',
 
-            leftDataTop: '',
+      leftDataTop: '',
 
-            DAYdrawLeftLineList: { everyHour: [], number: [] },
-            MONTHdrawLeftLineList: { everyDay: [], number: [] },
+      DAYdrawLeftLineList: { everyHour: [], number: [] },
+      MONTHdrawLeftLineList: { everyDay: [], number: [] },
 
-            DAYcountByType: { equipmentTypeCN: [], number: [] },
-            MONTHcountByType: { equipmentTypeCN: [], number: [] },
+      DAYcountByType: { equipmentTypeCN: [], number: [] },
+      MONTHcountByType: { equipmentTypeCN: [], number: [] },
 
-            Month30: false,
+      Month30: false,
 
-            countAlarmByFloorlist: { floorCN: [], number: [] },
-            DAYAlarmByFloorlist: { floorCN: [], number: [] },
+      countAlarmByFloorlist: { floorCN: [], number: [] },
+      DAYAlarmByFloorlist: { floorCN: [], number: [] },
 
-            countAlarmByReasonlist: { reasonCN: [], number: [] },
-            countByPlacelist: { placeCN: [], number: [] },
+      countAlarmByReasonlist: { reasonCN: [], number: [] },
+      countByPlacelist: { placeCN: [], number: [] },
 
-            alarmanalysis3_params: null, //楼层参数
-            alarmanalysis3_optin: null,
+      alarmanalysis3_params: null, //楼层参数
+      alarmanalysis3_optin: null,
 
-            alarmanalysis4_params: null, //设备类型
+      alarmanalysis4_params: null, //设备类型
 
-            chartRadio: '当日',
-            chartRadio1: '设备报警数量',
-            over: undefined, //是否已处置
-            overLevel: undefined, //下钻是否已处置
+      chartRadio: '当日',
+      chartRadio1: '设备报警数量',
+      over: undefined, //是否已处置
+      overLevel: undefined, //下钻是否已处置
 
-            pager: {
-                pageSize: 5,
-                pageIndex: 1,
-                total: null
-            },
-            tablist: [
-                { name: '火警事件', value: '9' },
-                { name: '设备告警事件', value: '4' }
-                // { name: '故障事件', value: '2' },
-                // { name: '离线事件', value: '3' }
-            ],
-            dialogFormVisible: true,
-            dataTable: [],
-            equipInfs: '',
-            sourcelist: [],
+      pager: {
+        pageSize: 5,
+        pageIndex: 1,
+        total: null
+      },
+      tablist: [
+        { name: '火警事件', value: '9' },
+        { name: '设备告警事件', value: '4' }
+        // { name: '故障事件', value: '2' },
+        // { name: '离线事件', value: '3' }
+      ],
+      dialogFormVisible: true,
+      dataTable: [],
+      equipInfs: '',
+      sourcelist: [],
 
-            alarmanalysis6_params: null,
-            alarmanalysis6_optin: null,
+      alarmanalysis6_params: null,
+      alarmanalysis6_optin: null,
 
-            isLevel1: false,
+      isLevel1: false,
 
-            floor: undefined, //楼层参数
-            equipmentName: undefined, //设备名称
-            equipmentNameOther: [], //其它
-            equipmentType: undefined, //设备类型
-            equipmentTypeList: [
-                { name: '手动火灾报警按钮', value: 0 },
-                { name: '点型感温火灾探测器', value: 0 },
-                { name: '点型感烟火灾探测器', value: 0 },
-                { name: '线性光束感烟火灾探测器', value: 0 },
-                { name: '消防栓按钮', value: 0 },
-                { name: '其它', value: 0 }
-            ],
+      floor: undefined, //楼层参数
+      equipmentName: undefined, //设备名称
+      equipmentNameOther: [], //其它
+      equipmentType: undefined, //设备类型
+      equipmentTypeList: [
+        { name: '手动火灾报警按钮', value: 0 },
+        { name: '点型感温火灾探测器', value: 0 },
+        { name: '点型感烟火灾探测器', value: 0 },
+        { name: '线性光束感烟火灾探测器', value: 0 },
+        { name: '消防栓按钮', value: 0 },
+        { name: '其它', value: 0 }
+      ],
 
-            colors: ['#7CFBDD', '#549EFF', '#8ef2a7', '#fdfd39', '#325efb', '#d37f8b', '#468080', '#5aa1fc']
-        };
+      colors: ['#7CFBDD', '#549EFF', '#8ef2a7', '#fdfd39', '#325efb', '#d37f8b', '#468080', '#5aa1fc']
+    };
+  },
+  watch: {
+    visible: function (val) {
+      this.showanalysis = 'alarmanalysis1';
+      this.Month30 = false;
+      this.getleftNumData();
+      this.pager.pageIndex = 1;
+
+      this.getList();
     },
-    watch: {
-        visible: function (val) {
-            this.showanalysis = 'alarmanalysis1';
-            this.Month30 = false;
-            this.getleftNumData();
-            this.pager.pageIndex = 1;
-
-            this.getList();
-        },
-        showAlarm1Day: function (val) {
-            this.showanalysis = 'alarmanalysis1';
-            this.Month30 = false;
-            // this.getleftNumData();
-            // this.getList();
-        }
+    showAlarm1Day: function (val) {
+      this.showanalysis = 'alarmanalysis1';
+      this.Month30 = false;
+      // this.getleftNumData();
+      // this.getList();
+    }
+  },
+  created () { },
+  mounted () {
+    this.showanalysis = 'alarmanalysis1';
+    this.getleftNumData();
+    this.getList();
+  },
+  filters: {
+    equipmentStateType (val) {
+      if (val == '1') return '正常';
+      if (val == '2') return '故障';
+      if (val == '3') return '离线';
+      if (val == '4') return '预警';
+      if (val == '9') return '火警';
     },
-    created() {},
-    mounted() {
-        this.showanalysis = 'alarmanalysis1';
+    alarmStateType (val) {
+      // if (val == '0') return '无';
+      if (val == '0') return '火警';
+      if (val == '6') return '温度高报';
+      if (val == '7') return '温度低报';
+      if (val == '8') return '压力高报';
+      if (val == '9') return '压力低报';
+      if (val == '10') return '液位高报';
+      if (val == '11') return '液位低报';
+      if (val == '12') return '主电故障';
+      if (val == '13') return '备电故障';
+      if (val == '14') return '总线故障';
+      if (val == '15') return '总线短路';
+      if (val == '16') return '短路';
+      if (val == '17') return '开路';
+      if (val == '18') return '漏电高报';
+      if (val == '19') return '漏电低报';
+      if (val == '20') return '电流高报';
+      if (val == '21') return '电流低报';
+      if (val == '22') return '断线';
+    },
+    confirmResultType (val) {
+      if (val == '01') return '误报';
+      if (val == '02') return '真实报警';
+      if (val == '03') return '故障';
+    }
+  },
+  methods: {
+    turntopage (type, option) {
+      console.dir('什么情况');
+      let _self = this;
+      this.showanalysis = type;
+      if (option == 'overLevel') {
+        this.overLevel = false;
+      } else if (option == 'overLevel1') {
+        this.overLevel = true;
+      }
+      this.pager.pageSize = 10;
+      if (type == 'alarmanalysis1') {
+        this.pager.pageSize = 5;
         this.getleftNumData();
+      } else if (type == 'alarmanalysis2') {
+        this.getcountAlarms();
+        this.getcountAlarmByFloor();
+      } else if (type == 'alarmanalysis3') {
+        this.analysischange(type, _self.alarmanalysis3_params, _self.alarmanalysis3_optin);
+      } else if (type == 'alarmanalysis4') {
+        this.analysischange(type, _self.alarmanalysis4_params);
+      } else if (type == 'alarmanalysis5') {
+        this.equipmentType = option;
+        this.equipmentName = option;
         this.getList();
+      }
     },
-    filters: {
-        equipmentStateType(val) {
-            if (val == '1') return '正常';
-            if (val == '2') return '故障';
-            if (val == '3') return '离线';
-            if (val == '4') return '预警';
-            if (val == '9') return '火警';
-        },
-        alarmStateType(val) {
-            // if (val == '0') return '无';
-            if (val == '0') return '火警';
-            if (val == '6') return '温度高报';
-            if (val == '7') return '温度低报';
-            if (val == '8') return '压力高报';
-            if (val == '9') return '压力低报';
-            if (val == '10') return '液位高报';
-            if (val == '11') return '液位低报';
-            if (val == '12') return '主电故障';
-            if (val == '13') return '备电故障';
-            if (val == '14') return '总线故障';
-            if (val == '15') return '总线短路';
-            if (val == '16') return '短路';
-            if (val == '17') return '开路';
-            if (val == '18') return '漏电高报';
-            if (val == '19') return '漏电低报';
-            if (val == '20') return '电流高报';
-            if (val == '21') return '电流低报';
-            if (val == '22') return '断线';
-        },
-        confirmResultType(val) {
-            if (val == '01') return '误报';
-            if (val == '02') return '真实报警';
-            if (val == '03') return '故障';
+    analysischange (type, data, optin) {
+      this.showanalysis = type;
+      if (type == 'alarmanalysis3') {
+        this.$nextTick(() => {
+          this.getcountAlarmByArea(data, optin);
+        });
+      } else if (type == 'alarmanalysis4') {
+        this.$nextTick(() => {
+          console.log(optin);
+          this.getcountByType(optin);
+        });
+      } else if (type == 'alarmanalysis5') {
+        this.$nextTick(() => {
+          this.getList();
+        });
+      } else if (type == 'alarmanalysis6') {
+        this.$nextTick(() => {
+          this.getfindMessages(data);
+        });
+      }
+    },
+    //告警总计
+    getleftNumData () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCountV3/alarmStatistics', ///api/web/indexCountTwo/alarmStatistics
+        type: 'get',
+        success: function (res) {
+          _self.leftDataTop = res.data;
+          if (_self.showAlarm1Day) {
+            _self.drawLeftLine1();
+          } else {
+            _self.drawdangyeCharts1();
+          }
         }
+      });
     },
-    methods: {
-        turntopage(type, option) {
-            console.dir('什么情况');
-            let _self = this;
-            this.showanalysis = type;
-            if (option == 'overLevel') {
-                this.overLevel = false;
-            } else if (option == 'overLevel1') {
-                this.overLevel = true;
+    //楼层
+    getcountAlarmByFloor () {
+      let _self = this;
+      if (_self.showAlarm1Day) {
+        _self.DAYAlarmByFloorlist.floorCN = [];
+        _self.DAYAlarmByFloorlist.number = [];
+
+        _self._http({
+          url: '/api/web/indexCountTwo/countAlarmByFloor',
+          type: 'get',
+          isBody: true,
+          data: {
+            option: 'DAY',
+            over: _self.overLevel
+          },
+          success: function (res) {
+            res.data = res.data || [];
+            res.data.sort((a, b) => {
+              return a.number > b.number ? 1 : -1;
+            });
+            res.data.map((item) => {
+              if (item.floorCN && item.number) {
+                _self.DAYAlarmByFloorlist.floorCN.push(item.floorCN);
+                let number = { value: item.number, name: item.floorCN, floor: item.floor };
+                _self.DAYAlarmByFloorlist.number.push(number);
+              }
+            });
+            _self.drawPieChart();
+          }
+        });
+      } else {
+        _self.countAlarmByFloorlist.floorCN = [];
+        _self.countAlarmByFloorlist.number = [];
+        _self._http({
+          url: '/api/web/indexCountTwo/countAlarmByFloor',
+          type: 'get',
+          isBody: true,
+          data: {
+            option: 'MONTH',
+            over: _self.overLevel
+          },
+          success: function (res) {
+            res.data = res.data || [];
+            res.data.sort((a, b) => {
+              return a.number > b.number ? 1 : -1;
+            });
+            res.data.map((item) => {
+              if (item.floorCN && item.number) {
+                _self.countAlarmByFloorlist.floorCN.push(item.floorCN);
+                let number = { value: item.number, name: item.floorCN, floor: item.floor };
+                _self.countAlarmByFloorlist.number.push(number);
+              }
+            });
+            _self.drawdangyeploucCharts();
+          }
+        });
+      }
+    },
+    //设备类型
+    getcountByType (optin) {
+      let _self = this;
+      _self.DAYcountByType.equipmentTypeCN = [];
+      _self.DAYcountByType.number = [];
+      _self._http({
+        url: '/api/web/indexCountTwo/countAlarmByName', ///api/web/indexCountTwo/countByType
+        type: 'get',
+        isBody: true,
+        data: {
+          option: optin,
+          floor: _self.floor,
+          over: _self.overLevel
+        },
+        success: function (res) {
+          _self.equipmentTypeList = [
+            { name: '手动火灾报警按钮', value: 0 },
+            { name: '点型感温火灾探测器', value: 0 },
+            { name: '点型感烟火灾探测器', value: 0 },
+            { name: '线性光束感烟火灾探测器', value: 0 },
+            { name: '消防栓按钮', value: 0 },
+            { name: '其它', value: 0 }
+          ];
+          _self.equipmentNameOther = [];
+          res.data.map((item) => {
+            let isOther = false;
+            for (let i = 0; i < _self.equipmentTypeList.length; i++) {
+              if (_self.equipmentTypeList[i].name == item.equipmentName) {
+                _self.equipmentTypeList[i].value = _self.equipmentTypeList[i].value + item.number;
+                isOther = false;
+                break;
+              } else {
+                isOther = true;
+              }
             }
-            this.pager.pageSize = 10;
-            if (type == 'alarmanalysis1') {
-                this.pager.pageSize = 5;
-                this.getleftNumData();
-            } else if (type == 'alarmanalysis2') {
-                this.getcountAlarms();
-                this.getcountAlarmByFloor();
-            } else if (type == 'alarmanalysis3') {
-                this.analysischange(type, _self.alarmanalysis3_params, _self.alarmanalysis3_optin);
-            } else if (type == 'alarmanalysis4') {
-                this.analysischange(type, _self.alarmanalysis4_params);
-            } else if (type == 'alarmanalysis5') {
-                this.equipmentType = option;
-                this.equipmentName = option;
-                this.getList();
+            if (isOther) {
+              _self.equipmentTypeList[5].value = _self.equipmentTypeList[5].value + item.number;
+              _self.equipmentNameOther.push(item.equipmentName);
             }
-        },
-        analysischange(type, data, optin) {
-            this.showanalysis = type;
-            if (type == 'alarmanalysis3') {
-                this.$nextTick(() => {
-                    this.getcountAlarmByArea(data, optin);
-                });
-            } else if (type == 'alarmanalysis4') {
-                this.$nextTick(() => {
-                    console.log(optin);
-                    this.getcountByType(optin);
-                });
-            } else if (type == 'alarmanalysis5') {
-                this.$nextTick(() => {
-                    this.getList();
-                });
-            } else if (type == 'alarmanalysis6') {
-                this.$nextTick(() => {
-                    this.getfindMessages(data);
-                });
-            }
-        },
-        //告警总计
-        getleftNumData() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCountV3/alarmStatistics', ///api/web/indexCountTwo/alarmStatistics
-                type: 'get',
-                success: function (res) {
-                    _self.leftDataTop = res.data;
-                    if (_self.showAlarm1Day) {
-                        _self.drawLeftLine1();
-                    } else {
-                        _self.drawdangyeCharts1();
-                    }
-                }
-            });
-        },
-        //楼层
-        getcountAlarmByFloor() {
-            let _self = this;
-            if (_self.showAlarm1Day) {
-                _self.DAYAlarmByFloorlist.floorCN = [];
-                _self.DAYAlarmByFloorlist.number = [];
 
-                _self._http({
-                    url: '/api/web/indexCountTwo/countAlarmByFloor',
-                    type: 'get',
-                    isBody: true,
-                    data: {
-                        option: 'DAY',
-                        over: _self.overLevel
-                    },
-                    success: function (res) {
-                        res.data = res.data || [];
-                        res.data.sort((a, b) => {
-                            return a.number > b.number ? 1 : -1;
-                        });
-                        res.data.map((item) => {
-                            if (item.floorCN && item.number) {
-                                _self.DAYAlarmByFloorlist.floorCN.push(item.floorCN);
-                                let number = { value: item.number, name: item.floorCN, floor: item.floor };
-                                _self.DAYAlarmByFloorlist.number.push(number);
-                            }
-                        });
-                        _self.drawPieChart();
-                    }
-                });
-            } else {
-                _self.countAlarmByFloorlist.floorCN = [];
-                _self.countAlarmByFloorlist.number = [];
-                _self._http({
-                    url: '/api/web/indexCountTwo/countAlarmByFloor',
-                    type: 'get',
-                    isBody: true,
-                    data: {
-                        option: 'MONTH',
-                        over: _self.overLevel
-                    },
-                    success: function (res) {
-                        res.data = res.data || [];
-                        res.data.sort((a, b) => {
-                            return a.number > b.number ? 1 : -1;
-                        });
-                        res.data.map((item) => {
-                            if (item.floorCN && item.number) {
-                                _self.countAlarmByFloorlist.floorCN.push(item.floorCN);
-                                let number = { value: item.number, name: item.floorCN, floor: item.floor };
-                                _self.countAlarmByFloorlist.number.push(number);
-                            }
-                        });
-                        _self.drawdangyeploucCharts();
-                    }
-                });
-            }
-        },
-        //设备类型
-        getcountByType(optin) {
-            let _self = this;
-            _self.DAYcountByType.equipmentTypeCN = [];
-            _self.DAYcountByType.number = [];
-            _self._http({
-                url: '/api/web/indexCountTwo/countAlarmByName', ///api/web/indexCountTwo/countByType
-                type: 'get',
-                isBody: true,
-                data: {
-                    option: optin,
-                    floor: _self.floor,
-                    over: _self.overLevel
-                },
-                success: function (res) {
-                    _self.equipmentTypeList = [
-                        { name: '手动火灾报警按钮', value: 0 },
-                        { name: '点型感温火灾探测器', value: 0 },
-                        { name: '点型感烟火灾探测器', value: 0 },
-                        { name: '线性光束感烟火灾探测器', value: 0 },
-                        { name: '消防栓按钮', value: 0 },
-                        { name: '其它', value: 0 }
-                    ];
-                    _self.equipmentNameOther = [];
-                    res.data.map((item) => {
-                        let isOther = false;
-                        for (let i = 0; i < _self.equipmentTypeList.length; i++) {
-                            if (_self.equipmentTypeList[i].name == item.equipmentName) {
-                                _self.equipmentTypeList[i].value = _self.equipmentTypeList[i].value + item.number;
-                                isOther = false;
-                                break;
-                            } else {
-                                isOther = true;
-                            }
-                        }
-                        if (isOther) {
-                            _self.equipmentTypeList[5].value = _self.equipmentTypeList[5].value + item.number;
-                            _self.equipmentNameOther.push(item.equipmentName);
-                        }
+            // _self.DAYcountByType.equipmentTypeCN.push(`${item.equipmentTypeCN}`);
+            // _self.DAYcountByType.number.push({ value: item.number, name: `${item.equipmentTypeCN}`, equipmentType: item.equipmentType });
+          });
 
-                        // _self.DAYcountByType.equipmentTypeCN.push(`${item.equipmentTypeCN}`);
-                        // _self.DAYcountByType.number.push({ value: item.number, name: `${item.equipmentTypeCN}`, equipmentType: item.equipmentType });
-                    });
-
-                    _self.equipmentTypeList.forEach((item) => {
-                        _self.DAYcountByType.equipmentTypeCN.push(item.name);
-                        _self.DAYcountByType.number.push({ value: item.value, name: item.name });
-                    });
-                    _self.drawEquipment();
-                }
-            });
-        },
-        //设备类型
-        drawEquipment() {
-            var chartDom = document.getElementById('EquipmentCharts');
-            var myChart = echarts.init(chartDom);
-            var option;
-            let _self = this;
-
-            option = {
-                title: {
-                    show: true, //显示策略，默认值true,可选为：true（显示） | false（隐藏）
-                    text: '设备类型报警占比', //主标题文本，'\n'指定换行
-                    bottom: '1%',
-                    left: 'center',
-                    textStyle: {
-                        fontSize: 16,
-                        color: '#ffffff'
-                    }
-                },
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    orient: 'vertical',
-                    icon: 'circle',
-                    left: 'left',
-                    y: 'center',
-                    // data: _self.DAYcountByType.equipmentTypeCN,
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                },
-                color: _self.colors,
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: '60%',
-                        data: _self.DAYcountByType.number,
-                        label: {
-                            normal: {
-                                show: true,
-                                formatter: '{b}({d}%)'
-                            }
-                        }
-                    }
-                ]
-            };
-
-            myChart.on('click', function (params) {
-                _self.equipmentType = params.data.equipmentType || undefined;
-                _self.equipmentName = params.data.name || undefined;
-                // console.log(params)
-                _self.showequipment();
-            });
-            option && myChart.setOption(option);
-        },
-        EchartsChange(i) {
-            console.log(i);
-        },
-        //楼层统计
-        getcountAlarmByArea(data, optin) {
-            let _self = this;
-            _self.floorname = data.name;
-            _self.floornamenumber = data.value;
-            _self.MONTHcountByType.equipmentTypeCN = [];
-            _self.MONTHcountByType.number = [];
-            this.floor = data.floor;
-            _self._http({
-                /*         url: '/api/web/indexCountTwo/countAlarmByArea', */
-                url: '/api/web/indexCountV3/countAlarmByArea',
-                type: 'get',
-                isBody: true,
-                data: {
-                    option: optin,
-                    floor: data.floor,
-                    over: _self.overLevel
-                },
-                success: function (res) {
-                    let arr = ['第一防火分区报警', '第二防火分区报警', '第三防火分区报警', '第四防火分区报警', '第五防火分区报警', '第六防火分区报警', '第七防火分区报警'];
-                    res.data = res.data || [];
-                    res.data.forEach((item) => {
-                        let index = Math.floor(Math.random() * 7);
-                        let name = arr[index] || '第一防火分区报警';
-                        _self.MONTHcountByType.equipmentTypeCN.push(`${item.areaCN || name}`);
-                        let number = { value: item.number, name: `${item.areaCN || name}`, optin: optin };
-                        _self.MONTHcountByType.number.push(number);
-                        arr.splice(index, 1);
-                    });
-                    _self.drawdangyuepieCharts();
-                }
-            });
-        },
-
-        //告警次数
-        getcountAlarms() {
-            let _self = this;
-
-            if (_self.showAlarm1Day) {
-                _self.DAYdrawLeftLineList.everyHour = [];
-                _self.DAYdrawLeftLineList.number = [];
-
-                _self._http({
-                    url: '/api/web/indexCountV3/countAlarms', ///api/web/indexCountTwo/countAlarms
-                    type: 'get',
-                    isBody: true,
-                    data: {
-                        option: 'DAY',
-                        over: _self.overLevel
-                    },
-                    success: function (res) {
-                        res.data = res.data || [];
-                        res.data.forEach((item) => {
-                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour);
-                            _self.DAYdrawLeftLineList.number.push(item.number);
-                        });
-                        _self.drawLeftLine();
-                    }
-                });
-            } else {
-                _self.MONTHdrawLeftLineList.everyDay = [];
-                _self.MONTHdrawLeftLineList.number = [];
-                _self._http({
-                    // url: '/api/web/indexCountTwo/countAlarms',
-                    url: '/api/web/indexCountV3/countAlarms',
-                    type: 'get',
-                    isBody: true,
-                    data: {
-                        option: 'MONTH',
-                        over: _self.overLevel
-                    },
-                    success: function (res) {
-                        res.data = res.data || [];
-                        res.data.forEach((item) => {
-                            _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
-                            _self.MONTHdrawLeftLineList.number.push(item.number);
-                        });
-                        _self.drawdangyeCharts();
-                    }
-                });
-            }
-        },
-        //当月切换
-        getMothAlarms() {
-            let _self = this;
-            _self.MONTHdrawLeftLineList.everyDay = [];
-            _self.MONTHdrawLeftLineList.number = [];
-
-            _self.countAlarmByFloorlist.floorCN = [];
-            _self.countAlarmByFloorlist.number = [];
-            _self._http({
-                // url: '/api/web/indexCountTwo/countAlarms',
-                url: '/api/web/indexCountV3/countAlarms',
-                type: 'get',
-                isBody: true,
-                data: {
-                    option: _self.Month30 ? 'BEFORE30DAY' : 'MONTH',
-                    over: _self.overLevel
-                },
-                success: function (res) {
-                    res.data = res.data || [];
-                    res.data.map((item) => {
-                        _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
-                        _self.MONTHdrawLeftLineList.number.push(item.number);
-                    });
-                    _self.drawdangyeCharts();
-                }
-            });
-            _self._http({
-                url: '/api/web/indexCountTwo/countAlarmByFloor',
-                type: 'get',
-                isBody: true,
-                data: {
-                    option: _self.Month30 ? 'BEFORE30DAY' : 'MONTH',
-                    over: _self.overLevel
-                },
-                success: function (res) {
-                    res.data = res.data || [];
-                    res.data.sort((a, b) => {
-                        return a.number > b.number ? 1 : -1;
-                    });
-                    res.data.map((item) => {
-                        if (item.floorCN && item.number) {
-                            _self.countAlarmByFloorlist.floorCN.push(item.floorCN);
-                            let number = { value: item.number, name: item.floorCN, floor: item.floor };
-                            _self.countAlarmByFloorlist.number.push(number);
-                        }
-                    });
-                    _self.drawdangyeploucCharts();
-                }
-            });
-        },
-        // 当日
-        drawLeftLine1(val = false) {
-            let quxianChart1 = echarts.init(document.getElementById('quxianChart1'));
-            quxianChart1.off('click');
-            let option = null;
-            let _self = this;
-
-            option = {
-                title: {
-                    text: '',
-                    textStyle: {
-                        color: 'rgb(255,255,255)',
-                        fontWeight: 'bolder',
-                        fontSize: '14'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis'
-                    // formatter: '时段：{b0}<br />设备警告：{c0} 次'
-                },
-                legend: {
-                    data: ['设备报警数量', '报警处置数量'],
-                    right: '0%',
-                    textStyle: {
-                        color: '#ffffff'
-                    },
-                    icon: 'circle',
-                    selected: { 设备报警数量: !val, 报警处置数量: val }
-                },
-                grid: {
-                    top: '20%',
-                    left: '5%',
-                    right: '0%',
-                    bottom: '5%',
-                    containLabel: true
-                },
-                //  color: ['#25A6FF', '#E7745B'],
-                color: ['#6bd0ca', '#2aadff'],
-                xAxis: {
-                    type: 'category',
-                    data: ['数量'],
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                yAxis: {
-                    // name:'次',
-                    // nameTextStyle: {
-                    //     color: '#ffffff'
-                    // },
-                    type: 'value',
-                    axisLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: '设备报警数量',
-                        data: [_self.leftDataTop.dayAlarms || 0], // [{value:leftDataTop.monthAlarms || 0,name:'设备报警数量'}]
-                        type: 'bar',
-                        barMaxWidth: 80
-                    },
-                    {
-                        name: '报警处置数量',
-                        data: [_self.leftDataTop.dayAlarmsOver || 0], // [{value:leftDataTop.monthAlarmsOver || 0,name:'报警处置数量'}]
-                        type: 'bar',
-                        barMaxWidth: 80
-                    }
-                ]
-            };
-            quxianChart1.on('click', function (params) {
-                _self.turntopage('alarmanalysis2', params.seriesName == '报警处置数量' ? 'overLevel1' : 'overLevel');
-            });
-            if (option && typeof option === 'object') {
-                quxianChart1.setOption(option);
-            }
-        },
-        // 当月告警统计
-        drawdangyeCharts1(val = false) {
-            let dangyeCharts1 = echarts.init(document.getElementById('dangyeCharts1'));
-            dangyeCharts1.off('click');
-            let option = null;
-            let _self = this;
-
-            option = {
-                title: {
-                    text: '',
-                    textStyle: {
-                        color: 'rgb(255,255,255)',
-                        fontWeight: 'bolder',
-                        fontSize: '14'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis'
-                    // formatter: '时段：{b0}<br />设备警告：{c0} 次'
-                },
-                legend: {
-                    data: ['设备报警数量', '报警处置数量'],
-                    right: '0%',
-                    textStyle: {
-                        color: '#ffffff'
-                    },
-                    icon: 'circle',
-                    selected: { 设备报警数量: !val, 报警处置数量: val }
-                },
-                grid: {
-                    top: '20%',
-                    left: '5%',
-                    right: '0%',
-                    bottom: '5%',
-                    containLabel: true
-                },
-                //25A6FF  E7745B
-                color: ['#6bd0ca', '#2aadff'],
-                xAxis: {
-                    type: 'category',
-                    data: ['数量'], //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                yAxis: {
-                    // name:'次',
-                    // nameTextStyle: {
-                    //     color: '#ffffff'
-                    // },
-                    type: 'value',
-                    axisLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: '设备报警数量',
-                        data: [_self.leftDataTop.monthAlarms || 0], // [{value:leftDataTop.monthAlarms || 0,name:'设备报警数量'}]
-                        type: 'bar',
-                        barMaxWidth: 80
-                    },
-                    {
-                        name: '报警处置数量',
-                        data: [_self.leftDataTop.monthAlarmsOver || 0], // [{value:leftDataTop.monthAlarmsOver || 0,name:'报警处置数量'}]
-                        type: 'bar',
-                        barMaxWidth: 80
-                    }
-                ]
-            };
-            dangyeCharts1.on('click', function (params) {
-                _self.turntopage('alarmanalysis2', params.seriesName == '报警处置数量' ? 'overLevel1' : 'overLevel');
-            });
-            if (option && typeof option === 'object') {
-                dangyeCharts1.setOption(option);
-            }
-        },
-        // 当日时段报警处置
-        drawLeftLine() {
-            let quxianChart = echarts.init(document.getElementById('quxianChart'));
-            quxianChart.off('click');
-            let option = null;
-            let _self = this;
-            /* 
-            let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
-            let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
-            let text1 = '',
-                text2 = '';
-            option = {
-                title: {
-                    text: text1,
-                    textStyle: {
-                        color: 'rgb(255,255,255)',
-                        fontWeight: 'bolder',
-                        fontSize: '14'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
-                },
-                legend: {
-                    data: [text2],
-                    right: '5%',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                },
-                grid: {
-                    left: '1%',
-                    right: '5%',
-                    bottom: '5%',
-                    containLabel: true
-                },
-                color: ['#25A6FF', '#E7745B'],
-                xAxis: {
-                    type: 'category',
-                    data: _self.DAYdrawLeftLineList.everyHour, //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                yAxis: {
-                    // name:'次',
-                    // nameTextStyle: {
-                    //     color: '#ffffff'
-                    // },
-                    type: 'value',
-                    axisLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: text2,
-                        data: _self.DAYdrawLeftLineList.number, //[2, 6, 3, 0, 0, 2, 1, 0, 0, 3, 0, 7]
-                        // barMaxWidth: 10,
-                        smooth: true,
-                        type: 'line',
-                        smoothMonotone: 'x',
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                                    {
-                                        offset: 0,
-                                        color: '#2e486e'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#2e486e'
-                                    }
-                                ])
-                            }
-                        }
-                    }
-                ]
-            };
-
-            if (option && typeof option === 'object') {
-                quxianChart.setOption(option);
-            }
-        },
-        //当日楼层报警处置
-        drawPieChart() {
-            var ripieChart = document.getElementById('ripieChart');
-            var myChart = echarts.init(ripieChart);
-            myChart.off('click');
-            var option;
-            let _self = this;
-
-            let text1 = _self.overLevel == true ? '处置楼层' : '报警楼层';
-            let text2 = _self.overLevel == true ? '处置次数' : '报警次数';
-
-            option = {
-                title: {
-                    text: text1,
-                    left: '20%',
-                    textStyle: {
-                        color: 'rgb(255,255,255)',
-                        fontWeight: 'bolder',
-                        fontSize: '14'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: '楼层：{b0}<br />' + text2 + '：{c0} 次'
-                },
-                legend: {
-                    data: [text2],
-                    right: '5%',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                },
-                grid: {
-                    left: '10%',
-                    right: '10%',
-                    bottom: '5%',
-                    containLabel: true
-                },
-                color: ['#6BD0CA'],
-                xAxis: {
-                    name: '（次）',
-                    nameTextStyle: {
-                        color: '#ffffff'
-                    },
-                    type: 'value',
-                    axisLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                yAxis: {
-                    type: 'category',
-                    data: _self.DAYAlarmByFloorlist.floorCN, //_self.DAYAlarmByFloorlist.floorCN[]
-
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: text2,
-                        data: _self.DAYAlarmByFloorlist.number, //_self.DAYAlarmByFloorlist.number[]
-                        type: 'bar',
-                        barMaxWidth: 10
-                    }
-                ]
-            };
-            myChart.on('click', function (params) {
-                _self.alarmanalysis3_params = params.data;
-                _self.alarmanalysis3_optin = 'DAY';
-                _self.chartRadio = '当日';
-                _self.analysischange('alarmanalysis3', params.data, 'DAY');
-            });
-            option && myChart.setOption(option);
-        },
-        //当月时段报警处置
-        drawdangyeCharts() {
-            let drawLine2 = echarts.init(document.getElementById('dangyeCharts'));
-            drawLine2.off('click');
-            let option = null;
-            let _self = this;
-
-            /*     let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
-          let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
-            let text1 = '',
-                text2 = '';
-            option = {
-                title: {
-                    text: text1,
-                    textStyle: {
-                        color: 'rgb(255,255,255)',
-                        fontWeight: 'bolder',
-                        fontSize: '14'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
-                },
-                legend: {
-                    data: [text2],
-                    right: '5%',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                },
-                grid: {
-                    left: '1%',
-                    right: '1%',
-                    bottom: '5%',
-                    containLabel: true
-                },
-                color: ['#25A6FF', '#E7745B'],
-                xAxis: {
-                    type: 'category',
-                    data: _self.MONTHdrawLeftLineList.everyDay, //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        rotate: 60,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                yAxis: {
-                    // name:'次',
-                    // nameTextStyle: {
-                    //     color: '#ffffff'
-                    // },
-                    type: 'value',
-                    axisLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: text2,
-                        smooth: true,
-                        data: _self.MONTHdrawLeftLineList.number, // [2, 6, 3, 0, 0, 2, 1, 0, 0, 3, 0, 7]
-                        type: 'line',
-                        smoothMonotone: 'x',
-                        // barMaxWidth: 10,
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                                    {
-                                        offset: 0,
-                                        color: '#2e486e'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#2e486e'
-                                    }
-                                ])
-                            }
-                        }
-                    }
-                ]
-            };
-
-            if (option && typeof option === 'object') {
-                drawLine2.setOption(option);
-            }
-        },
-        //当月楼层报警处置
-        drawdangyeploucCharts() {
-            var chartDom = document.getElementById('dangyeploucCharts');
-            var myChart = echarts.init(chartDom);
-            myChart.off('click');
-            var option;
-            let _self = this;
-
-            let text1 = _self.overLevel == true ? '处置楼层' : '报警楼层';
-            let text2 = _self.overLevel == true ? '处置次数' : '报警次数';
-
-            option = {
-                title: {
-                    text: text1,
-                    left: '20%',
-                    textStyle: {
-                        color: 'rgb(255,255,255)',
-                        fontWeight: 'bolder',
-                        fontSize: '14'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: '楼层：{b0}<br />' + text2 + '：{c0} 次'
-                },
-                legend: {
-                    data: [text2],
-                    right: '5%',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                },
-                grid: {
-                    left: '10%',
-                    right: '10%',
-                    bottom: '5%',
-                    containLabel: true
-                },
-                color: ['#6BD0CA'],
-                xAxis: {
-                    name: '（次）',
-                    nameTextStyle: {
-                        color: '#ffffff'
-                    },
-                    type: 'value',
-                    axisLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                yAxis: {
-                    type: 'category',
-                    data: _self.countAlarmByFloorlist.floorCN, //_self.countAlarmByFloorlist.floorCN []
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: text2,
-                        data: _self.countAlarmByFloorlist.number, //_self.countAlarmByFloorlist.number,[]
-                        type: 'bar',
-                        barMaxWidth: 10
-                    }
-                ]
-            };
-
-            myChart.on('click', function (params) {
-                _self.alarmanalysis3_params = params.data;
-                _self.alarmanalysis3_optin = 'MONTH';
-                _self.chartRadio = '当月';
-                _self.analysischange('alarmanalysis3', params.data, 'MONTH');
-                // _self.analysischange('alarmanalysis4', params.data, 'MONTH');
-            });
-
-            option && myChart.setOption(option);
-        },
-        //楼层统计
-        drawdangyuepieCharts() {
-            var chartDom = document.getElementById('dangyuepieCharts');
-            var myChart = echarts.init(chartDom);
-            myChart.off('click');
-            var option;
-            let _self = this;
-
-            option = {
-                title: {
-                    show: true, //显示策略，默认值true,可选为：true（显示） | false（隐藏）
-                    // text: '设备类型报警占比', //主标题文本，'\n'指定换行
-                    bottom: '1%',
-                    left: 'center',
-                    textStyle: {
-                        fontSize: 16,
-                        color: '#ffffff'
-                    }
-                },
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    orient: 'vertical',
-                    icon: 'circle',
-                    left: 'left',
-                    y: 'center',
-                    // data: _self.MONTHcountByType.equipmentTypeCN,
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                },
-                color: _self.colors,
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: '60%',
-                        data: _self.MONTHcountByType.number,
-                        label: {
-                            normal: {
-                                show: true,
-                                formatter: '{b}({d}%)'
-                            }
-                        }
-                    }
-                ]
-            };
-
-            myChart.on('click', function (params) {
-                _self.alarmanalysis4_params = params.data;
-                _self.analysischange('alarmanalysis4', params.data, _self.chartRadio == '当日' ? 'DAY' : 'MONTH');
-            });
-            option && myChart.setOption(option);
-        },
-        drawplaceChartChart() {
-            var chartDom = document.getElementById('placeChart');
-            var myChart = echarts.init(chartDom);
-            myChart.off('click');
-            var option;
-            let _self = this;
-            // 绘制图表
-            option = {
-                //此处插入echart实例中的option内部内容
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{a} <br/>{b}: {c} ({d}%)'
-                },
-                // legend用数组两项，分两排显示
-                legend: [
-                    {
-                        orient: 'vertical',
-                        // 图例变圆
-                        icon: 'circle',
-
-                        // 调整第一排图例位置
-                        bottom: 0,
-                        x: '80%',
-                        textStyle: {
-                            color: '#ffffff' //字体颜色
-                        },
-                        data: _self.countByPlacelist.placeCN,
-                        y: 'center'
-                    }
-                    // {
-                    //     orient: 'vertical',
-                    //     icon: 'circle',
-
-                    //     // 调整第二排图例位置
-                    //     bottom: 0,
-                    //     x: '90%',
-
-                    //     data: ['视频广告', '搜索引擎'],
-                    //     y: 'center',
-                    //     // x: 'right'
-                    // }
-                ],
-                label: {
-                    fontSize: 12,
-                    show: true,
-                    position: 'inner',
-                    // formatter: "{b}:{c}" + "\n\r" + "({d}%)",
-                    // 每一块的数据显示格式
-                    formatter: '{c}'
-                },
-                series: [
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        radius: ['30%', '50%'],
-                        avoidLabelOverlap: false,
-
-                        data: _self.countByPlacelist.number
-                    }
-                ]
-            };
-            option && myChart.setOption(option);
-        },
-        showequipment() {
-            // this.$emit('showequipment');
-            this.analysischange('alarmanalysis5');
-        },
-        handleMonthChange(value) {
-            this.Month30 = value;
-            this.getMothAlarms();
-        },
-
-        viewchange(row, title) {
-            // this.$emit('viewchange', row, title);
-
-            console.dir('报警页面');
-            this.alarmanalysis6_params = row;
-            this.alarmanalysis6_optin = title;
-            this.analysischange('alarmanalysis6', row, title);
-        },
-        closeDialog() {
-            this.$emit('update:visible', false);
-            this.turntopage('alarmanalysis1');
-        },
-        tabitemchange(val) {
-            console.dir(val);
-            this.getList(val);
-            let getDate = '';
-            if (val == '报警处置数量') {
-                getDate = true;
-            } else {
-                getDate = false;
-            }
-            if (this.chartRadio == '当日') {
-                this.drawLeftLine1(getDate);
-            } else {
-                this.drawdangyeCharts1(getDate);
-            }
-        },
-        getList() {
-            let _self = this;
-            _self.loading = true;
-
-            console.dir('切换');
-            if (_self.showanalysis == 'alarmanalysis1') {
-                if (_self.showAlarm1Day) {
-                    _self.chartRadio = '当日';
-                } else {
-                    _self.chartRadio = '';
-                }
-                if (_self.chartRadio1 == '设备报警数量') {
-                    _self.over = undefined;
-                } else {
-                    _self.over = true;
-                }
-                _self.floor = undefined;
-                _self.equipmentType = undefined;
-                _self.equipmentName = undefined;
-                _self.equipmentNameOther = [];
-                _self.isLevel1 = true;
-            } else {
-                _self.over = _self.overLevel;
-                _self.isLevel1 = false;
-            }
-            let searchObj = {
-                size: _self.pager.pageSize,
-                current: _self.pager.pageIndex,
-                option: _self.chartRadio == '当日' ? 'DAY' : 'MONTH', //DAY：当日，MONTH：当月
-                floor: _self.floor,
-                equipmentType: _self.equipmentType,
-                equipmentName: _self.equipmentName == '其它' ? _self.equipmentNameOther.join(',') : _self.equipmentName,
-                'equipmentName.symbol': _self.equipmentName == '其它' ? 'IN' : undefined,
-                over: _self.over,
-                sorts: 'alarmTime:desc',
-                transform: 'B:building,F:floor,ES:owningSystem,U:confirmor,U:verifier'
-            };
-            console.dir(searchObj);
-            _self.dataTable = [];
-            _self._http({
-                //  url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find
-                url: 'api/web/indexCountTwo/find',
-                type: 'get',
-                isBody: true,
-                data: searchObj,
-                success: function (res) {
-                    _self.dataTable = res.data.records;
-                    _self.pager.total = res.data.total;
-                }
-            });
-        },
-        getfindMessages(val) {
-            let _self = this;
-            _self.sourcelist = [];
-            _self._http({
-                url: '/api/web/indexCountV3/alarmFlow', ///api/web/indexCountTwo/findMessages
-                type: 'get',
-                isBody: true,
-                data: {
-                    alarmId: val.id,
-                    sourceId: val.id,
-                    transform: 'U:targetObject'
-                },
-                success: function (res) {
-                    _self.sourcelist = res.data.data || [];
-                    // let arr = [];
-                    // _self.sourcelist.forEach((item, index) => {
-                    //     item.targetObjectJob = item.targetObjectJob || '';
-                    //     if (item.targetObjectJob.indexOf('责任人') == -1) {
-                    //         item.show = false;
-                    //     } else {
-                    //         let has = false;
-                    //         for (let i = 0; i < arr.length; i++) {
-                    //             if (item.targetObjectJob == arr[i]) {
-                    //                 has = true;
-                    //                 break;
-                    //             }
-                    //         }
-                    //         if (!has) {
-                    //             item.show = true;
-                    //             arr.push(item.targetObjectJob);
-                    //         } else {
-                    //             item.show = false;
-                    //         }
-                    //     }
-                    // });
-                    // if ((_self.alarmanalysis6_params.verifyTime || '') != '') {
-                    //     _self.sourcelist.push({
-                    //         addtime: _self.alarmanalysis6_params.verifyTime,
-                    //         verifyTime: _self.alarmanalysis6_params.verifyTime,
-                    //         lookup: {
-                    //             targetObject: _self.alarmanalysis6_params.lookup.verifier
-                    //         },
-                    //         verifier: _self.alarmanalysis6_params.lookup.verifier,
-                    //         result: _self.alarmanalysis6_params.result,
-                    //         title: '',
-                    //         verifierPhone: _self.alarmanalysis6_params.verifierPhone || '',
-                    //         show: true
-                    //     });
-                    // }
-                    // if ((_self.alarmanalysis6_params.confirmTime || '') != '') {
-                    //     _self.sourcelist.push({
-                    //         addtime: _self.alarmanalysis6_params.confirmTime,
-                    //         confirmTime: _self.alarmanalysis6_params.confirmTime,
-                    //         lookup: {
-                    //             targetObject: _self.alarmanalysis6_params.lookup.confirmor
-                    //         },
-                    //         confirmor: _self.alarmanalysis6_params.lookup.confirmor,
-                    //         confirmResult: _self.alarmanalysis6_params.confirmResult,
-                    //         confirmorPhone: _self.alarmanalysis6_params.confirmorPhone || '',
-                    //         title: '',
-                    //         show: true
-                    //     });
-                    // }
-                    // _self.sourcelist = _self.sourcelist.sort((a, b) => {
-                    //     return a.addtime > b.addtime ? 1 : -1;
-                    // });
-                }
-            });
+          _self.equipmentTypeList.forEach((item) => {
+            _self.DAYcountByType.equipmentTypeCN.push(item.name);
+            _self.DAYcountByType.number.push({ value: item.value, name: item.name });
+          });
+          _self.drawEquipment();
         }
+      });
     },
-    computed: {},
-    components: {}
+    //设备类型
+    drawEquipment () {
+      var chartDom = document.getElementById('EquipmentCharts');
+      var myChart = echarts.init(chartDom);
+      var option;
+      let _self = this;
+
+      option = {
+        title: {
+          show: true, //显示策略，默认值true,可选为：true（显示） | false（隐藏）
+          text: '设备类型报警占比', //主标题文本，'\n'指定换行
+          bottom: '1%',
+          left: 'center',
+          textStyle: {
+            fontSize: 16,
+            color: '#ffffff'
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          icon: 'circle',
+          left: 'left',
+          y: 'center',
+          // data: _self.DAYcountByType.equipmentTypeCN,
+          textStyle: {
+            color: '#ffffff'
+          }
+        },
+        color: _self.colors,
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: '60%',
+            data: _self.DAYcountByType.number,
+            label: {
+              normal: {
+                show: true,
+                formatter: '{b}({d}%)'
+              }
+            }
+          }
+        ]
+      };
+
+      myChart.on('click', function (params) {
+        _self.equipmentType = params.data.equipmentType || undefined;
+        _self.equipmentName = params.data.name || undefined;
+        // console.log(params)
+        _self.showequipment();
+      });
+      option && myChart.setOption(option);
+    },
+    EchartsChange (i) {
+      console.log(i);
+    },
+    //楼层统计
+    getcountAlarmByArea (data, optin) {
+      let _self = this;
+      _self.floorname = data.name;
+      _self.floornamenumber = data.value;
+      _self.MONTHcountByType.equipmentTypeCN = [];
+      _self.MONTHcountByType.number = [];
+      this.floor = data.floor;
+      _self._http({
+        /*         url: '/api/web/indexCountTwo/countAlarmByArea', */
+        url: '/api/web/indexCountV3/countAlarmByArea',
+        type: 'get',
+        isBody: true,
+        data: {
+          option: optin,
+          floor: data.floor,
+          over: _self.overLevel
+        },
+        success: function (res) {
+          let arr = ['第一防火分区报警', '第二防火分区报警', '第三防火分区报警', '第四防火分区报警', '第五防火分区报警', '第六防火分区报警', '第七防火分区报警'];
+          res.data = res.data || [];
+          res.data.forEach((item) => {
+            let index = Math.floor(Math.random() * 7);
+            let name = arr[index] || '第一防火分区报警';
+            _self.MONTHcountByType.equipmentTypeCN.push(`${item.areaCN || name}`);
+            let number = { value: item.number, name: `${item.areaCN || name}`, optin: optin };
+            _self.MONTHcountByType.number.push(number);
+            arr.splice(index, 1);
+          });
+          _self.drawdangyuepieCharts();
+        }
+      });
+    },
+
+    //告警次数
+    getcountAlarms () {
+      let _self = this;
+
+      if (_self.showAlarm1Day) {
+        _self.DAYdrawLeftLineList.everyHour = [];
+        _self.DAYdrawLeftLineList.number = [];
+
+        _self._http({
+          url: '/api/web/indexCountV3/countAlarms', ///api/web/indexCountTwo/countAlarms
+          type: 'get',
+          isBody: true,
+          data: {
+            option: 'DAY',
+            over: _self.overLevel
+          },
+          success: function (res) {
+            res.data = res.data || [];
+            res.data.forEach((item) => {
+              _self.DAYdrawLeftLineList.everyHour.push(item.everyHour);
+              _self.DAYdrawLeftLineList.number.push(item.number);
+            });
+            _self.drawLeftLine();
+          }
+        });
+      } else {
+        _self.MONTHdrawLeftLineList.everyDay = [];
+        _self.MONTHdrawLeftLineList.number = [];
+        _self._http({
+          // url: '/api/web/indexCountTwo/countAlarms',
+          url: '/api/web/indexCountV3/countAlarms',
+          type: 'get',
+          isBody: true,
+          data: {
+            option: 'MONTH',
+            over: _self.overLevel
+          },
+          success: function (res) {
+            res.data = res.data || [];
+            res.data.forEach((item) => {
+              _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
+              _self.MONTHdrawLeftLineList.number.push(item.number);
+            });
+            _self.drawdangyeCharts();
+          }
+        });
+      }
+    },
+    //当月切换
+    getMothAlarms () {
+      let _self = this;
+      _self.MONTHdrawLeftLineList.everyDay = [];
+      _self.MONTHdrawLeftLineList.number = [];
+
+      _self.countAlarmByFloorlist.floorCN = [];
+      _self.countAlarmByFloorlist.number = [];
+      _self._http({
+        // url: '/api/web/indexCountTwo/countAlarms',
+        url: '/api/web/indexCountV3/countAlarms',
+        type: 'get',
+        isBody: true,
+        data: {
+          option: _self.Month30 ? 'BEFORE30DAY' : 'MONTH',
+          over: _self.overLevel
+        },
+        success: function (res) {
+          res.data = res.data || [];
+          res.data.map((item) => {
+            _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
+            _self.MONTHdrawLeftLineList.number.push(item.number);
+          });
+          _self.drawdangyeCharts();
+        }
+      });
+      _self._http({
+        url: '/api/web/indexCountTwo/countAlarmByFloor',
+        type: 'get',
+        isBody: true,
+        data: {
+          option: _self.Month30 ? 'BEFORE30DAY' : 'MONTH',
+          over: _self.overLevel
+        },
+        success: function (res) {
+          res.data = res.data || [];
+          res.data.sort((a, b) => {
+            return a.number > b.number ? 1 : -1;
+          });
+          res.data.map((item) => {
+            if (item.floorCN && item.number) {
+              _self.countAlarmByFloorlist.floorCN.push(item.floorCN);
+              let number = { value: item.number, name: item.floorCN, floor: item.floor };
+              _self.countAlarmByFloorlist.number.push(number);
+            }
+          });
+          _self.drawdangyeploucCharts();
+        }
+      });
+    },
+    // 当日
+    drawLeftLine1 (val = false) {
+      let quxianChart1 = echarts.init(document.getElementById('quxianChart1'));
+      quxianChart1.off('click');
+      let option = null;
+      let _self = this;
+
+      option = {
+        title: {
+          text: '',
+          textStyle: {
+            color: 'rgb(255,255,255)',
+            fontWeight: 'bolder',
+            fontSize: '14'
+          }
+        },
+        tooltip: {
+          trigger: 'axis'
+          // formatter: '时段：{b0}<br />设备警告：{c0} 次'
+        },
+        legend: {
+          data: ['设备报警数量', '报警处置数量'],
+          right: '0%',
+          textStyle: {
+            color: '#ffffff'
+          },
+          icon: 'circle',
+          selected: { 设备报警数量: !val, 报警处置数量: val }
+        },
+        grid: {
+          top: '20%',
+          left: '5%',
+          right: '0%',
+          bottom: '5%',
+          containLabel: true
+        },
+        //  color: ['#25A6FF', '#E7745B'],
+        color: ['#6bd0ca', '#2aadff'],
+        xAxis: {
+          type: 'category',
+          data: ['数量'],
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        yAxis: {
+          // name:'次',
+          // nameTextStyle: {
+          //     color: '#ffffff'
+          // },
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        series: [
+          {
+            name: '设备报警数量',
+            data: [_self.leftDataTop.dayAlarms || 0], // [{value:leftDataTop.monthAlarms || 0,name:'设备报警数量'}]
+            type: 'bar',
+            barMaxWidth: 80
+          },
+          {
+            name: '报警处置数量',
+            data: [_self.leftDataTop.dayAlarmsOver || 0], // [{value:leftDataTop.monthAlarmsOver || 0,name:'报警处置数量'}]
+            type: 'bar',
+            barMaxWidth: 80
+          }
+        ]
+      };
+      quxianChart1.on('click', function (params) {
+        _self.turntopage('alarmanalysis2', params.seriesName == '报警处置数量' ? 'overLevel1' : 'overLevel');
+      });
+      if (option && typeof option === 'object') {
+        quxianChart1.setOption(option);
+      }
+    },
+    // 当月告警统计
+    drawdangyeCharts1 (val = false) {
+      let dangyeCharts1 = echarts.init(document.getElementById('dangyeCharts1'));
+      dangyeCharts1.off('click');
+      let option = null;
+      let _self = this;
+
+      option = {
+        title: {
+          text: '',
+          textStyle: {
+            color: 'rgb(255,255,255)',
+            fontWeight: 'bolder',
+            fontSize: '14'
+          }
+        },
+        tooltip: {
+          trigger: 'axis'
+          // formatter: '时段：{b0}<br />设备警告：{c0} 次'
+        },
+        legend: {
+          data: ['设备报警数量', '报警处置数量'],
+          right: '0%',
+          textStyle: {
+            color: '#ffffff'
+          },
+          icon: 'circle',
+          selected: { 设备报警数量: !val, 报警处置数量: val }
+        },
+        grid: {
+          top: '20%',
+          left: '5%',
+          right: '0%',
+          bottom: '5%',
+          containLabel: true
+        },
+        //25A6FF  E7745B
+        color: ['#6bd0ca', '#2aadff'],
+        xAxis: {
+          type: 'category',
+          data: ['数量'], //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        yAxis: {
+          // name:'次',
+          // nameTextStyle: {
+          //     color: '#ffffff'
+          // },
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        series: [
+          {
+            name: '设备报警数量',
+            data: [_self.leftDataTop.monthAlarms || 0], // [{value:leftDataTop.monthAlarms || 0,name:'设备报警数量'}]
+            type: 'bar',
+            barMaxWidth: 80
+          },
+          {
+            name: '报警处置数量',
+            data: [_self.leftDataTop.monthAlarmsOver || 0], // [{value:leftDataTop.monthAlarmsOver || 0,name:'报警处置数量'}]
+            type: 'bar',
+            barMaxWidth: 80
+          }
+        ]
+      };
+      dangyeCharts1.on('click', function (params) {
+        _self.turntopage('alarmanalysis2', params.seriesName == '报警处置数量' ? 'overLevel1' : 'overLevel');
+      });
+      if (option && typeof option === 'object') {
+        dangyeCharts1.setOption(option);
+      }
+    },
+    // 当日时段报警处置
+    drawLeftLine () {
+      let quxianChart = echarts.init(document.getElementById('quxianChart'));
+      quxianChart.off('click');
+      let option = null;
+      let _self = this;
+      /* 
+      let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
+      let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
+      let text1 = '',
+        text2 = '';
+      option = {
+        title: {
+          text: text1,
+          textStyle: {
+            color: 'rgb(255,255,255)',
+            fontWeight: 'bolder',
+            fontSize: '14'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
+        },
+        legend: {
+          data: [text2],
+          right: '5%',
+          textStyle: {
+            color: '#ffffff'
+          }
+        },
+        grid: {
+          left: '1%',
+          right: '5%',
+          bottom: '5%',
+          containLabel: true
+        },
+        color: ['#25A6FF', '#E7745B'],
+        xAxis: {
+          type: 'category',
+          data: _self.DAYdrawLeftLineList.everyHour, //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        yAxis: {
+          // name:'次',
+          // nameTextStyle: {
+          //     color: '#ffffff'
+          // },
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        series: [
+          {
+            name: text2,
+            data: _self.DAYdrawLeftLineList.number, //[2, 6, 3, 0, 0, 2, 1, 0, 0, 3, 0, 7]
+            // barMaxWidth: 10,
+            smooth: true,
+            type: 'line',
+            smoothMonotone: 'x',
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  {
+                    offset: 0,
+                    color: '#2e486e'
+                  },
+                  {
+                    offset: 1,
+                    color: '#2e486e'
+                  }
+                ])
+              }
+            }
+          }
+        ]
+      };
+
+      if (option && typeof option === 'object') {
+        quxianChart.setOption(option);
+      }
+    },
+    //当日楼层报警处置
+    drawPieChart () {
+      var ripieChart = document.getElementById('ripieChart');
+      var myChart = echarts.init(ripieChart);
+      myChart.off('click');
+      var option;
+      let _self = this;
+
+      let text1 = _self.overLevel == true ? '处置楼层' : '报警楼层';
+      let text2 = _self.overLevel == true ? '处置次数' : '报警次数';
+
+      option = {
+        title: {
+          text: text1,
+          left: '20%',
+          textStyle: {
+            color: 'rgb(255,255,255)',
+            fontWeight: 'bolder',
+            fontSize: '14'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          formatter: '楼层：{b0}<br />' + text2 + '：{c0} 次'
+        },
+        legend: {
+          data: [text2],
+          right: '5%',
+          textStyle: {
+            color: '#ffffff'
+          }
+        },
+        grid: {
+          left: '10%',
+          right: '10%',
+          bottom: '5%',
+          containLabel: true
+        },
+        color: ['#6BD0CA'],
+        xAxis: {
+          name: '（次）',
+          nameTextStyle: {
+            color: '#ffffff'
+          },
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        yAxis: {
+          type: 'category',
+          data: _self.DAYAlarmByFloorlist.floorCN, //_self.DAYAlarmByFloorlist.floorCN[]
+
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        series: [
+          {
+            name: text2,
+            data: _self.DAYAlarmByFloorlist.number, //_self.DAYAlarmByFloorlist.number[]
+            type: 'bar',
+            barMaxWidth: 10
+          }
+        ]
+      };
+      myChart.on('click', function (params) {
+        _self.alarmanalysis3_params = params.data;
+        _self.alarmanalysis3_optin = 'DAY';
+        _self.chartRadio = '当日';
+        _self.analysischange('alarmanalysis3', params.data, 'DAY');
+      });
+      option && myChart.setOption(option);
+    },
+    //当月时段报警处置
+    drawdangyeCharts () {
+      let drawLine2 = echarts.init(document.getElementById('dangyeCharts'));
+      drawLine2.off('click');
+      let option = null;
+      let _self = this;
+
+      /*     let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
+    let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
+      let text1 = '',
+        text2 = '';
+      option = {
+        title: {
+          text: text1,
+          textStyle: {
+            color: 'rgb(255,255,255)',
+            fontWeight: 'bolder',
+            fontSize: '14'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
+        },
+        legend: {
+          data: [text2],
+          right: '5%',
+          textStyle: {
+            color: '#ffffff'
+          }
+        },
+        grid: {
+          left: '1%',
+          right: '1%',
+          bottom: '5%',
+          containLabel: true
+        },
+        color: ['#25A6FF', '#E7745B'],
+        xAxis: {
+          type: 'category',
+          data: _self.MONTHdrawLeftLineList.everyDay, //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            rotate: 60,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        yAxis: {
+          // name:'次',
+          // nameTextStyle: {
+          //     color: '#ffffff'
+          // },
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        series: [
+          {
+            name: text2,
+            smooth: true,
+            data: _self.MONTHdrawLeftLineList.number, // [2, 6, 3, 0, 0, 2, 1, 0, 0, 3, 0, 7]
+            type: 'line',
+            smoothMonotone: 'x',
+            // barMaxWidth: 10,
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  {
+                    offset: 0,
+                    color: '#2e486e'
+                  },
+                  {
+                    offset: 1,
+                    color: '#2e486e'
+                  }
+                ])
+              }
+            }
+          }
+        ]
+      };
+
+      if (option && typeof option === 'object') {
+        drawLine2.setOption(option);
+      }
+    },
+    //当月楼层报警处置
+    drawdangyeploucCharts () {
+      var chartDom = document.getElementById('dangyeploucCharts');
+      var myChart = echarts.init(chartDom);
+      myChart.off('click');
+      var option;
+      let _self = this;
+
+      let text1 = _self.overLevel == true ? '处置楼层' : '报警楼层';
+      let text2 = _self.overLevel == true ? '处置次数' : '报警次数';
+
+      option = {
+        title: {
+          text: text1,
+          left: '20%',
+          textStyle: {
+            color: 'rgb(255,255,255)',
+            fontWeight: 'bolder',
+            fontSize: '14'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          formatter: '楼层：{b0}<br />' + text2 + '：{c0} 次'
+        },
+        legend: {
+          data: [text2],
+          right: '5%',
+          textStyle: {
+            color: '#ffffff'
+          }
+        },
+        grid: {
+          left: '10%',
+          right: '10%',
+          bottom: '5%',
+          containLabel: true
+        },
+        color: ['#6BD0CA'],
+        xAxis: {
+          name: '（次）',
+          nameTextStyle: {
+            color: '#ffffff'
+          },
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        yAxis: {
+          type: 'category',
+          // data: [], //_self.countAlarmByFloorlist.floorCN
+          data: _self.countAlarmByFloorlist.floorCN,
+
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        series: [
+          {
+            name: text2,
+            // data: [], //_self.countAlarmByFloorlist.number
+            data: _self.countAlarmByFloorlist.number,
+            type: 'bar',
+            barMaxWidth: 10
+          }
+        ]
+      };
+
+      myChart.on('click', function (params) {
+        _self.alarmanalysis3_params = params.data;
+        _self.alarmanalysis3_optin = 'MONTH';
+        _self.chartRadio = '当月';
+        _self.analysischange('alarmanalysis3', params.data, 'MONTH');
+        // _self.analysischange('alarmanalysis4', params.data, 'MONTH');
+      });
+
+      option && myChart.setOption(option);
+    },
+    //楼层统计
+    drawdangyuepieCharts () {
+      var chartDom = document.getElementById('dangyuepieCharts');
+      var myChart = echarts.init(chartDom);
+      myChart.off('click');
+      var option;
+      let _self = this;
+
+      option = {
+        title: {
+          show: true, //显示策略，默认值true,可选为：true（显示） | false（隐藏）
+          // text: '设备类型报警占比', //主标题文本，'\n'指定换行
+          bottom: '1%',
+          left: 'center',
+          textStyle: {
+            fontSize: 16,
+            color: '#ffffff'
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          icon: 'circle',
+          left: 'left',
+          y: 'center',
+          // data: _self.MONTHcountByType.equipmentTypeCN,
+          textStyle: {
+            color: '#ffffff'
+          }
+        },
+        color: _self.colors,
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: '60%',
+            data: _self.MONTHcountByType.number,
+            label: {
+              normal: {
+                show: true,
+                formatter: '{b}({d}%)'
+              }
+            }
+          }
+        ]
+      };
+
+      myChart.on('click', function (params) {
+        _self.alarmanalysis4_params = params.data;
+        _self.analysischange('alarmanalysis4', params.data, _self.chartRadio == '当日' ? 'DAY' : 'MONTH');
+      });
+      option && myChart.setOption(option);
+    },
+    drawplaceChartChart () {
+      var chartDom = document.getElementById('placeChart');
+      var myChart = echarts.init(chartDom);
+      myChart.off('click');
+      var option;
+      let _self = this;
+      // 绘制图表
+      option = {
+        //此处插入echart实例中的option内部内容
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        // legend用数组两项，分两排显示
+        legend: [
+          {
+            orient: 'vertical',
+            // 图例变圆
+            icon: 'circle',
+
+            // 调整第一排图例位置
+            bottom: 0,
+            x: '80%',
+            textStyle: {
+              color: '#ffffff' //字体颜色
+            },
+            data: _self.countByPlacelist.placeCN,
+            y: 'center'
+          }
+          // {
+          //     orient: 'vertical',
+          //     icon: 'circle',
+
+          //     // 调整第二排图例位置
+          //     bottom: 0,
+          //     x: '90%',
+
+          //     data: ['视频广告', '搜索引擎'],
+          //     y: 'center',
+          //     // x: 'right'
+          // }
+        ],
+        label: {
+          fontSize: 12,
+          show: true,
+          position: 'inner',
+          // formatter: "{b}:{c}" + "\n\r" + "({d}%)",
+          // 每一块的数据显示格式
+          formatter: '{c}'
+        },
+        series: [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius: ['30%', '50%'],
+            avoidLabelOverlap: false,
+
+            data: _self.countByPlacelist.number
+          }
+        ]
+      };
+      option && myChart.setOption(option);
+    },
+    showequipment () {
+      // this.$emit('showequipment');
+      this.analysischange('alarmanalysis5');
+    },
+    handleMonthChange (value) {
+      this.Month30 = value;
+      this.getMothAlarms();
+    },
+
+    viewchange (row, title) {
+      // this.$emit('viewchange', row, title);
+
+      console.dir('报警页面');
+      this.alarmanalysis6_params = row;
+      this.alarmanalysis6_optin = title;
+      this.analysischange('alarmanalysis6', row, title);
+    },
+    closeDialog () {
+      this.$emit('update:visible', false);
+      this.turntopage('alarmanalysis1');
+    },
+    tabitemchange (val) {
+      console.dir(val);
+      this.getList(val);
+      let getDate = '';
+      if (val == '报警处置数量') {
+        getDate = true;
+      } else {
+        getDate = false;
+      }
+      if (this.chartRadio == '当日') {
+        this.drawLeftLine1(getDate);
+      } else {
+        this.drawdangyeCharts1(getDate);
+      }
+    },
+    getList () {
+      let _self = this;
+      _self.loading = true;
+
+      console.dir('切换');
+      if (_self.showanalysis == 'alarmanalysis1') {
+        if (_self.showAlarm1Day) {
+          _self.chartRadio = '当日';
+        } else {
+          _self.chartRadio = '';
+        }
+        if (_self.chartRadio1 == '设备报警数量') {
+          _self.over = undefined;
+        } else {
+          _self.over = true;
+        }
+        _self.floor = undefined;
+        _self.equipmentType = undefined;
+        _self.equipmentName = undefined;
+        _self.equipmentNameOther = [];
+        _self.isLevel1 = true;
+      } else {
+        _self.over = _self.overLevel;
+        _self.isLevel1 = false;
+      }
+      let searchObj = {
+        size: _self.pager.pageSize,
+        current: _self.pager.pageIndex,
+        option: _self.chartRadio == '当日' ? 'DAY' : 'MONTH', //DAY：当日，MONTH：当月
+        floor: _self.floor,
+        equipmentType: _self.equipmentType,
+        equipmentName: _self.equipmentName == '其它' ? _self.equipmentNameOther.join(',') : _self.equipmentName,
+        'equipmentName.symbol': _self.equipmentName == '其它' ? 'IN' : undefined,
+        over: _self.over,
+        sorts: 'alarmTime:desc',
+        transform: 'B:building,F:floor,ES:owningSystem,U:confirmor,U:verifier'
+      };
+      console.dir(searchObj);
+      _self.dataTable = [];
+      _self._http({
+        //  url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find
+        url: 'api/web/indexCountTwo/find',
+        type: 'get',
+        isBody: true,
+        data: searchObj,
+        success: function (res) {
+          _self.dataTable = res.data.records;
+          _self.pager.total = res.data.total;
+        }
+      });
+    },
+    getfindMessages (val) {
+      let _self = this;
+      _self.sourcelist = [];
+      _self._http({
+        url: '/api/web/indexCountV3/alarmFlow', ///api/web/indexCountTwo/findMessages
+        type: 'get',
+        isBody: true,
+        data: {
+          alarmId: val.id,
+          sourceId: val.id,
+          transform: 'U:targetObject'
+        },
+        success: function (res) {
+          _self.sourcelist = res.data.data || [];
+          // let arr = [];
+          // _self.sourcelist.forEach((item, index) => {
+          //     item.targetObjectJob = item.targetObjectJob || '';
+          //     if (item.targetObjectJob.indexOf('责任人') == -1) {
+          //         item.show = false;
+          //     } else {
+          //         let has = false;
+          //         for (let i = 0; i < arr.length; i++) {
+          //             if (item.targetObjectJob == arr[i]) {
+          //                 has = true;
+          //                 break;
+          //             }
+          //         }
+          //         if (!has) {
+          //             item.show = true;
+          //             arr.push(item.targetObjectJob);
+          //         } else {
+          //             item.show = false;
+          //         }
+          //     }
+          // });
+          // if ((_self.alarmanalysis6_params.verifyTime || '') != '') {
+          //     _self.sourcelist.push({
+          //         addtime: _self.alarmanalysis6_params.verifyTime,
+          //         verifyTime: _self.alarmanalysis6_params.verifyTime,
+          //         lookup: {
+          //             targetObject: _self.alarmanalysis6_params.lookup.verifier
+          //         },
+          //         verifier: _self.alarmanalysis6_params.lookup.verifier,
+          //         result: _self.alarmanalysis6_params.result,
+          //         title: '',
+          //         verifierPhone: _self.alarmanalysis6_params.verifierPhone || '',
+          //         show: true
+          //     });
+          // }
+          // if ((_self.alarmanalysis6_params.confirmTime || '') != '') {
+          //     _self.sourcelist.push({
+          //         addtime: _self.alarmanalysis6_params.confirmTime,
+          //         confirmTime: _self.alarmanalysis6_params.confirmTime,
+          //         lookup: {
+          //             targetObject: _self.alarmanalysis6_params.lookup.confirmor
+          //         },
+          //         confirmor: _self.alarmanalysis6_params.lookup.confirmor,
+          //         confirmResult: _self.alarmanalysis6_params.confirmResult,
+          //         confirmorPhone: _self.alarmanalysis6_params.confirmorPhone || '',
+          //         title: '',
+          //         show: true
+          //     });
+          // }
+          // _self.sourcelist = _self.sourcelist.sort((a, b) => {
+          //     return a.addtime > b.addtime ? 1 : -1;
+          // });
+        }
+      });
+    }
+  },
+  computed: {},
+  components: {}
 };
 </script>
 <style lang="scss">
