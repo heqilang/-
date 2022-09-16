@@ -31,10 +31,10 @@ export default {
         };
     },
     watch: {
-        // videoid: function (val) {
-        //     document.getElementById('homeVideo').innerHTML = '';
-        //     this.getVideoInfo();
-        // }
+        videoid: function (val) {
+            document.getElementById('homeVideo').innerHTML = '';
+            this.getVideoInfo();
+        }
     },
     methods: {
         getVideoInfo() {
