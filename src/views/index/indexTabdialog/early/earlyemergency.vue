@@ -354,7 +354,7 @@ export default {
                 changLengthriht = true;
             } else {
                 changLengthLeft = true;
-                changLengthriht = false;
+                changLengthriht = true;
             }
             let _self = this;
             var chartDom = document.getElementById('barChartSudden');

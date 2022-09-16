@@ -435,7 +435,7 @@ _self.drawLineChart3(); */
                 changLengthriht = true;
             } else {
                 changLengthLeft = true;
-                changLengthriht = false;
+                changLengthriht = true;
             }
 
             let _self = this;
