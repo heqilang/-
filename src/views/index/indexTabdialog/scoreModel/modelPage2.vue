@@ -70,13 +70,15 @@
                     <el-table-column prop="handleReportor" label="上报人员" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
                             <!--  {{ scope.row.lookup.handleReportor || '--' }} -->
-                            {{ scope.row.createUser || '--' }}
+                            <!-- scope.row.createUser -->
+                            {{ scope.row.reporter || '--' }}
                         </template>
                     </el-table-column>
                     <el-table-column prop="handleReportTime" label="上报时间" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
                             <!--     {{ scope.row.handleReportTime || '--' }} -->
-                            {{ scope.row.createTime || '--' }}
+                            <!-- scope.row.createTime -->
+                            {{ scope.row.reportTime || '--' }}
                         </template>
                     </el-table-column>
                     <el-table-column prop="title" label="所属区域" :show-overflow-tooltip="true">
@@ -104,11 +106,12 @@
                             <el-popover v-if="false" placement="right" width="400" trigger="click">
                                 <div>
                                     <!--       <div>上报时间：{{ scope.row.handleReportTime || '--' }}</div> -->
-
-                                    <div>上报时间：{{ scope.row.createTime || '--' }}</div>
+                                    <!-- scope.row.createTime -->
+                                    <div>上报时间：{{ scope.row.reportTime || '--' }}</div>
                                     <div>隐患类型：{{ scope.row.risksType == 'EQUIPMENT' ? '设备隐患' : '环境隐患' }}</div>
                                     <!--  <div>上报人员：{{ scope.row.lookup.handleReportor || '--' }}</div> -->
-                                    <div>上报人员：{{ scope.row.createUser || '--' }}</div>
+                                    <div>上报人员：{{ scope.row.reporter || '--' }}</div>
+                                    <!-- 上报人员 scope.row.createUser -->
                                     <!--      <div>隐患位置：{{ (scope.row.lookup.building == 'null' || '') + (scope.row.lookup.floor == 'null' || '') + scope.row.address }}</div> -->
                                     <div>隐患位置：{{ scope.row.unitName + scope.row.troubleLocation }}</div>
                                     <div>隐患等级：{{ scope.row.lookup.level == 1 ? '一般隐患' : '重大隐患' }}</div>
@@ -205,7 +208,7 @@ export default {
                     current: _self.pager.pageIndex,
                     patrolStatus: 'NORMAL',
                     sorts: 'completeTime:desc',
-                    transform: 'U:handler;U:handleReportor;OW:owningSystem;B:building;F:floor',
+                    transform: 'U:handler;U:reporter;U:handleReportor;OW:owningSystem;B:building;F:floor',
                     level: radiCode,
                     timeType: 2,
                     troubleType: _self.radio4 == '一般隐患' ? 0 : 1

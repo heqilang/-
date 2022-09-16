@@ -3,7 +3,7 @@
         <div class="firstLevel">
             <div v-if="sign == '中心监控应急物资清单'" style="background-color: #1c2232; color: #fff; padding: 12px; position: relative; overflow: hidden">
                 <div></div>
-                <el-table class="xf-table" :data="testTbale" style="width: 100%; margin-top: 30px">
+                <el-table class="xf-table" :data="testTbale" style="width: 100%; height: 528px; margin-top: 30px">
                     <el-table-column align="center" prop="id" label="序号" :show-overflow-tooltip="true" width="80" />
                     <el-table-column align="center" prop="materialName" label="物品名称" :show-overflow-tooltip="true" width="180" />
                     <el-table-column align="center" prop="specifications" label="规格型号" :show-overflow-tooltip="true" />
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div v-if="sign == '(中心监控)应急救援物资清单'" style="background-color: #1c2232; color: #fff; padding: 12px; position: relative; overflow: hidden">
-                <el-table class="xf-table" :data="testTbale1" style="width: 100%; margin-top: 30px">
+                <el-table class="xf-table" :data="testTbale1" style="width: 100%; height: 528px; margin-top: 30px">
                     <el-table-column align="center" prop="id" label="序号" :show-overflow-tooltip="true" width="80" />
                     <el-table-column align="center" prop="materialName" label="物品名称" :show-overflow-tooltip="true" width="180" />
                     <el-table-column align="center" prop="num" label="数量" :show-overflow-tooltip="true" />
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div v-if="sign == '25号消防车随车装备统计表'" style="background-color: #1c2232; color: #fff; padding: 12px; position: relative; overflow: hidden">
-                <el-table class="xf-table" :data="testTbale2" style="width: 100%; margin-top: 30px">
+                <el-table class="xf-table" :data="testTbale2" style="width: 100%; height: 528px; margin-top: 30px">
                     <el-table-column align="center" prop="id" label="序号" :show-overflow-tooltip="true" width="80" />
                     <el-table-column align="center" prop="materialName" label="器材装备名称" :show-overflow-tooltip="true" width="180" />
                     <el-table-column align="center" prop="unit" label="单位" :show-overflow-tooltip="true" />
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div v-if="sign == '26号消防车随车装备统计表'" style="background-color: #1c2232; color: #fff; padding: 12px; position: relative; overflow: hidden">
-                <el-table class="xf-table" :data="testTbale3" style="width: 100%; margin-top: 30px">
+                <el-table class="xf-table" :data="testTbale3" style="width: 100%; height: 528px; margin-top: 30px">
                     <el-table-column align="center" prop="id" label="序号" :show-overflow-tooltip="true" width="80" />
                     <el-table-column align="center" prop="materialName" label="器材装备名称" :show-overflow-tooltip="true" width="180" />
                     <el-table-column align="center" prop="unit" label="单位" :show-overflow-tooltip="true" />
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div v-if="sign == '28号云梯车随车装备统计表'" style="background-color: #1c2232; color: #fff; padding: 12px; position: relative; overflow: hidden">
-                <el-table class="xf-table" :data="testTbale4" style="width: 100%; margin-top: 30px">
+                <el-table class="xf-table" :data="testTbale4" style="width: 100%; height: 528px; margin-top: 30px">
                     <el-table-column align="center" prop="id" label="序号" :show-overflow-tooltip="true" width="80" />
                     <el-table-column align="center" prop="materialName" label="器材装备名称" :show-overflow-tooltip="true" width="180" />
                     <el-table-column align="center" prop="unit" label="单位" :show-overflow-tooltip="true" />
@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div v-if="sign == 'B12号排烟车随车装备统计表'" style="background-color: #1c2232; color: #fff; padding: 12px; position: relative; overflow: hidden">
-                <el-table class="xf-table" :data="testTbale5" style="width: 100%; margin-top: 30px">
+                <el-table class="xf-table" :data="testTbale5" style="width: 100%; height: 528px; margin-top: 30px">
                     <el-table-column align="center" prop="id" label="序号" :show-overflow-tooltip="true" width="80" />
                     <el-table-column align="center" prop="materialName" label="器材装备名称" :show-overflow-tooltip="true" width="180" />
                     <el-table-column align="center" prop="unit" label="单位" :show-overflow-tooltip="true" />
@@ -1799,6 +1799,7 @@ export default {
 .classReadyDialog {
     width: 100%;
     height: 100%;
+
     .tabelCon {
         background-color: #1c2232;
 

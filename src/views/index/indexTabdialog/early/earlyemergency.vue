@@ -23,10 +23,11 @@
                                         </div>
                                     </div>
                                     <div @click="showLeavelchage('true')">
+                                        <!-- justify-content: space-around -->
                                         <div style="display: flex; justify-content: space-around">
                                             <p>{{ alarmRadio === 'DAY' ? '当日' : '当月' }}已处置数</p>
                                             <p>
-                                                <span style="color: #a0d1fa">{{ firstPageData1.alarmsOver || 0 }}</span> 个
+                                                <span style="color: #a0d1fa; marginleft: 45px">{{ firstPageData1.alarmsOver || 0 }}</span> 个
                                             </p>
                                         </div>
                                     </div>
