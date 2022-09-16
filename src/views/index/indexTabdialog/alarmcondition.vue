@@ -605,7 +605,7 @@ export default {
                 });
             } else if (type == 'alarmanalysis5') {
                 this.$nextTick(() => {
-                    this.getList();
+                    this.getList(0);
                 });
             } else if (type == 'alarmanalysis6') {
                 this.$nextTick(() => {
@@ -1744,7 +1744,7 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
         },
         tabitemchange(val) {
             console.dir(val);
-            this.getList(val);
+            this.getList(0);
             let getDate = '';
             if (val == '报警处置数量') {
                 getDate = true;
@@ -1757,7 +1757,7 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
                 this.drawdangyeCharts1(getDate);
             }
         },
-        getList() {
+        getList(val = 1) {
             let _self = this;
             _self.loading = true;
 
@@ -1797,8 +1797,8 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
             console.dir(searchObj);
             _self.dataTable = [];
             _self._http({
-                url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find
-                //    url: 'api/web/indexCountTwo/find',
+                url: val === 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find', ///api/web/indexCountTwo/find
+                // url: 'api/web/indexCountTwo/find',
                 type: 'get',
                 isBody: true,
                 data: searchObj,

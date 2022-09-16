@@ -9,7 +9,7 @@
                     更新时间：<span> {{ modelDate.addtime }}</span>
                 </li>
                 <li>
-                    设备名称：<span> {{ modelDate.equipmentName }} </span>
+                    设备名称：<span> {{ modelDate.alarmLocation }} </span>
                 </li>
                 <li>
                     所属系统： <span> {{ modelDate.lookup.owningSystem }}</span>
