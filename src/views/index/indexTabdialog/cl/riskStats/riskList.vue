@@ -21,9 +21,9 @@
                     <!-- <el-option v-for="item in dataRiskStatus" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode" /> -->
                 </el-select>
             </el-form-item>
-            <el-form-item label="隐患类型">
-                <el-select v-model="searchModel.riskType" clearable placeholder="隐患类型" @change="changeRiskType">
-                    <!-- <el-option label="用火用电" value="用火用电"></el-option>
+            <!-- <el-form-item label="隐患类型">
+                <el-select v-model="searchModel.riskType" clearable placeholder="隐患类型" @change="changeRiskType"> -->
+            <!-- <el-option label="用火用电" value="用火用电"></el-option>
                     <el-option label="疏散通道" value="疏散通道"></el-option>
                     <el-option label="疏散指示" value="疏散指示"></el-option>
                     <el-option label="应急照明" value="应急照明"></el-option>
@@ -32,21 +32,22 @@
                     <el-option label="重点部位" value="重点部位"></el-option>
                     <el-option label="电动车隐患" value="电动车隐患"></el-option>
                     <el-option label="其他" value="其他"></el-option> -->
-                    <el-option v-for="item in dataRiskType" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode"></el-option>
+            <!-- <el-option v-for="item in dataRiskType" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode"></el-option>
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="">
                 <el-button type="primary" @click="search">查询</el-button>
             </el-form-item>
         </el-form>
         <el-table class="xf-table" :data="dataTable" height="540" style="width: 100%">
             <el-table-column type="index" label="序号" align="center"> </el-table-column>
-            <el-table-column prop="risksType" label="隐患类型" :show-overflow-tooltip="true" width="120">
+            <!-- 迪威没有隐患类型字段 -->
+            <!-- <el-table-column prop="risksType" label="隐患类型" :show-overflow-tooltip="true" width="120">
                 <template slot-scope="scope">
-                    <!-- <div>{{ dataRiskTypeJson[scope.row.risksType] }}</div> -->
+                    <div>{{ dataRiskTypeJson[scope.row.risksType] }}</div>
                     <div>{{ dataRiskLevelJson[scope.row.troubleType] }}</div>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             <!--    <el-table-column prop="handleReportor" label="上报人员" :show-overflow-tooltip="true" width="120" /> -->
             <el-table-column prop="createUser" label="上报人员" :show-overflow-tooltip="true" width="120">
                 <template slot-scope="scope">
@@ -190,6 +191,7 @@ export default {
     },
     methods: {
         search() {
+            console.log('哈哈哈哈哈');
             this.pager.pageIndex = 1;
             this.loadListData();
         },
@@ -206,8 +208,9 @@ export default {
                     current: that.pager.pageIndex,
                     size: that.pager.pageSize,
                     timeType: that.dataRange === '当日' ? 1 : 2,
-                    level: newDate || undefined,
-                    risksType: that.searchModel.riskType || undefined,
+                    // level: newDate || undefined,
+                    // risksType: that.searchModel.riskType || undefined,
+                    troubleType: that.searchModel.riskType || undefined, //隐患级别
                     handel: that.searchModel.riskStatus || undefined,
                     sorts: 'handleReportTime:desc',
                     transform: 'U:reporter,U:handler'
