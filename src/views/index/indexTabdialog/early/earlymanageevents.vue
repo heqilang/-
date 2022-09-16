@@ -42,11 +42,11 @@
                 <div v-show="alarmRadio === 'MONTH'">
                     <el-row>
                         <el-col :span="12">
-                            <!-- 当月巡查平均处理时效 -->
+                            <!-- 当月巡查平均处置时效 -->
                             <div style="height: 200px" id="lineChart2"></div>
                         </el-col>
                         <el-col :span="12">
-                            <!-- 当月隐患平均处理时效 -->
+                            <!-- 当月隐患平均处置时效 -->
                             <div style="height: 200px" id="lineChart3"></div>
                         </el-col>
                     </el-row>
@@ -60,8 +60,8 @@
                     <div style="margin-bottom: 12px">
                         <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
                             <el-radio-button label="0">管理类事件预警</el-radio-button>
-                            <el-radio-button label="true">已处理</el-radio-button>
-                            <el-radio-button label="false">未处理</el-radio-button>
+                            <el-radio-button label="true">已处置</el-radio-button>
+                            <el-radio-button label="false">未处置</el-radio-button>
                         </el-radio-group>
                     </div>
                     <div>
@@ -90,7 +90,7 @@
 
                         <el-table-column prop="state" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '处理完毕' : '待处理' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -125,8 +125,8 @@
                     <div style="margin-bottom: 12px">
                         <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
                             <el-radio-button label="0">管理类事件预警</el-radio-button>
-                            <el-radio-button label="true">已处理</el-radio-button>
-                            <el-radio-button label="false">未处理</el-radio-button>
+                            <el-radio-button label="true">已处置</el-radio-button>
+                            <el-radio-button label="false">未处置</el-radio-button>
                         </el-radio-group>
                     </div>
                     <div>
@@ -154,7 +154,7 @@
                         <el-table-column prop="unitName" label="预警位置" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="state" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '处理完毕' : '待处理' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -204,8 +204,8 @@
                             <el-card style="font-size: 14px">
                                 <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
                                 <p v-else-if="(item.dealName || '') != ''">
-                                    处理人员：{{ item.dealName }} {{ item.dealPhone }}<br />
-                                    处理描述：{{ item.dealDesc }}
+                                    处置人员：{{ item.dealName }} {{ item.dealPhone }}<br />
+                                    处置描述：{{ item.dealDesc }}
                                 </p>
                                 <p v-else-if="(item.pushUserName || '') != ''">
                                     <span style="display: block">{{ item.orgPushDesc }}</span>
@@ -231,12 +231,12 @@ export default {
     data() {
         return {
             chartRadio1: '0',
-            patrolinformation: '您好，这里是消防控制中心，您有一条巡检信息，已超时未处理，请您及时进行巡检。',
-            dangerinformation: '您好，这里是消防控制中心，您有一条隐患信息，已超时未处理，请您及时进行处理。',
+            patrolinformation: '您好，这里是消防控制中心，您有一条巡检信息，已超时未处置，请您及时进行巡检。',
+            dangerinformation: '您好，这里是消防控制中心，您有一条隐患信息，已超时未处置，请您及时进行处置。',
             sourcelist: [],
             alarmanalysis6_params: null,
             timeRadio: '巡查处置时效',
-            radio1: '已处理',
+            radio1: '已处置',
             firstPageData1: {},
             firstPageData2: {},
             showLeavel: 1,
@@ -269,7 +269,7 @@ export default {
             orderStateObj: {
                 '01': '待受理',
                 '02': '待确认',
-                '03': '处理中',
+                '03': '处置中',
                 '04': '完成',
                 '05': '忽略'
             },
@@ -348,6 +348,7 @@ export default {
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 type: 'get',
                 success: function (res) {
+                    console.dir(res);
                     res.data.forEach((item) => {
                         item.everyDay = item.timeName.slice(5, 10);
                     });
@@ -375,7 +376,7 @@ export default {
                     }
 
                     /*     _self.riskData = res.data;
-    _self.drawLineChart3(); */
+_self.drawLineChart3(); */
                 }
             });
         },
@@ -551,12 +552,12 @@ export default {
             let _xData = [];
             let _yData = [];
             for (let i = 0; i < this.checkData.length; i++) {
-                _xData.push(this.checkData[i].timeName);
+                _xData.push(this.checkData[i].everyDay);
                 _yData.push(this.checkData[i].average);
             }
             option = {
                 title: {
-                    text: '当月巡查平均处理时效',
+                    text: '当月巡查平均处置时效',
                     textStyle: {
                         fontSize: '14',
                         color: '#ffffff'
@@ -572,7 +573,7 @@ export default {
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (val) {
-                        return '平均处理时效' + val[0].data + '分钟';
+                        return '平均处置时效' + val[0].data + '分钟';
                     }
                 },
                 color: ['#5aa1fc'],
@@ -619,8 +620,8 @@ export default {
                         }
                     }
                     /*   min: 0,
-  max: 60,
-  interval: 20 */
+max: 60,
+interval: 20 */
                 },
                 series: [
                     {
@@ -661,7 +662,7 @@ export default {
             }
             option = {
                 title: {
-                    text: '当月隐患平均处理时效',
+                    text: '当月隐患平均处置时效',
                     textStyle: {
                         fontSize: '14',
                         color: '#ffffff'
@@ -677,7 +678,7 @@ export default {
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (val) {
-                        return '平均处理时效' + val[0].data + '分钟';
+                        return '平均处置时效' + val[0].data + '分钟';
                     }
                 },
                 color: ['#5aa1fc'],
@@ -784,7 +785,7 @@ export default {
                 current: _self.pager.pageIndex,
                 handle: _self.chartRadio1 == '0' ? '' : _self.chartRadio1,
                 transform: 'U:handler;OW:owningSystem;B:building;F:floor;ES:owningSystem,U:dispatcher,taker,verifier',
-                sorts: 'addtime:desc'
+                sorts: 'sendTime:desc' //'addtime:desc'
             };
             //删除空值
             for (let key in searchObj) {

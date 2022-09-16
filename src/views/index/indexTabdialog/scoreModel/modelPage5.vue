@@ -96,7 +96,7 @@
                     <el-table-column prop="title" label="反馈状态" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
                             <!--         {{ scope.row.feedback ? (scope.row.feedback == 'YES' ? '成功' : '失败') : '--' }} -->
-                            {{ scope.row.completeStatus ? (scope.row.completeStatus == '1' ? '处理中' : '已处理') : '--' }}
+                            {{ scope.row.completeStatus ? (scope.row.completeStatus == '1' ? '处置中' : '已处置') : '--' }}
                         </template>
                     </el-table-column>
                     <el-table-column prop="lookup.handler" label="处置人员" :show-overflow-tooltip="true"> </el-table-column>

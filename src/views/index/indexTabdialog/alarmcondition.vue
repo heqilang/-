@@ -1056,7 +1056,10 @@ export default {
                     }
                 },
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'none'
+                    }
                     // formatter: '时段：{b0}<br />设备警告：{c0} 次'
                 },
                 legend: {

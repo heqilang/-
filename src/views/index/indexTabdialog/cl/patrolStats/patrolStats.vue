@@ -275,8 +275,8 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
             let option = null;
             let _self = this;
 
-            let text1 = _self.overLevel == true ? '当日平均处理时效' : '当日平均处理时效';
-            let text2 = _self.overLevel == true ? '平均处理时效' : '平均处理时效';
+            let text1 = _self.overLevel == true ? '当日平均处置时效' : '当日平均处置时效';
+            let text2 = _self.overLevel == true ? '平均处置时效' : '平均处置时效';
 
             option = {
                 title: {
@@ -391,8 +391,8 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
             let option = null;
             let _self = this;
 
-            let text1 = _self.overLevel == true ? '当月平均处理时效' : '当月平均处理时效';
-            let text2 = _self.overLevel == true ? '平均处理时效' : '平均处理时效';
+            let text1 = _self.overLevel == true ? '当月平均处置时效' : '当月平均处置时效';
+            let text2 = _self.overLevel == true ? '平均处置时效' : '平均处置时效';
 
             option = {
                 title: {

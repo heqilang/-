@@ -27,7 +27,7 @@
                     <el-col :span="6">
                         <div class="third_head_card text_c">
                             <div>
-                                <div>未及时处理数</div>
+                                <div>未及时处置数</div>
                                 <div>
                                     <span>{{ sonData.notOpportunelyAlarm }}</span> 个
                                 </div>
@@ -37,7 +37,7 @@
                     <el-col :span="6">
                         <div class="third_head_card text_c">
                             <div>
-                                <div>已及时处理数</div>
+                                <div>已及时处置数</div>
                                 <div>
                                     <span>{{ sonData.handleOpportunelyAlarm }}</span> 个
                                 </div>

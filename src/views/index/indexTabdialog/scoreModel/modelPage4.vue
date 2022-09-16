@@ -27,7 +27,7 @@
                     <el-col :span="6">
                         <div class="third_head_card text_c">
                             <div>
-                                <div>未处理数</div>
+                                <div>未处置数</div>
                                 <div>
                                     <span>{{ sonData.notHandlePatrol }}</span> 个
                                 </div>
@@ -37,7 +37,7 @@
                     <el-col :span="6">
                         <div class="third_head_card text_c">
                             <div>
-                                <div>已处理数</div>
+                                <div>已处置数</div>
                                 <div>
                                     <span>{{ sonData.handlePatrol }}</span> 个
                                 </div>
@@ -63,7 +63,7 @@
             </div> -->
                 <el-table header-row-class-name="table-header-class" row-class-name="table-row-class" :data="dataTable" ref="treeTable" border style="width: 100%">
                     <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
-                    <el-table-column prop="patrolType" label="巡检类型" :show-overflow-tooltip="true">
+                    <el-table-column prop="patrolType" label="巡查类型" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
                             <!--  <span v-if="scope.row.patrolType == 'DAY'">日检</span>
                         <span v-else-if="scope.row.patrolType == 'WEEK'">周检</span>
@@ -71,17 +71,17 @@
                         <span v-else-if="scope.row.patrolType == 'QUARTER'">季检</span>
                         <span v-else-if="scope.row.patrolType == 'YEAR'">年检</span>
                         <span v-else-if="scope.row.patrolType == 'TEMPORARY'">临时检</span> -->
-                            <span v-if="scope.row.type == '1'">普通巡检</span>
-                            <span v-else>防火巡检</span>
+                            <span v-if="scope.row.type == '1'">普通巡查</span>
+                            <span v-else>防火巡查</span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="result" label="巡检状态" :show-overflow-tooltip="true">
+                    <el-table-column prop="result" label="巡查状态" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
                             <span v-if="scope.row.result == '0'">进行中</span>
                             <span v-else>已完成</span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="location" label="巡检名称" :show-overflow-tooltip="true"> </el-table-column>
+                    <el-table-column prop="location" label="巡查名称" :show-overflow-tooltip="true"> </el-table-column>
                     <el-table-column v-if="false" prop="beginTime" label="开始日期" :show-overflow-tooltip="true"> </el-table-column>
                     <el-table-column v-if="false" prop="addtime" label="截至日期" :show-overflow-tooltip="true"> </el-table-column>
                     <el-table-column label="操作">
@@ -89,20 +89,20 @@
                             <el-popover v-if="false" placement="right" width="400" trigger="click">
                                 <div>
                                     <div>
-                                        巡检类型：<!-- <span v-if="scope.row.patrolType == 'DAY'">日检</span>
+                                        巡查类型：<!-- <span v-if="scope.row.patrolType == 'DAY'">日检</span>
                                     <span v-else-if="scope.row.patrolType == 'WEEK'">周检</span>
                                     <span v-else-if="scope.row.patrolType == 'MONTH'">月检</span>
                                     <span v-else-if="scope.row.patrolType == 'QUARTER'">季检</span>
                                     <span v-else-if="scope.row.patrolType == 'YEAR'">年检</span>
                                     <span v-else-if="scope.row.patrolType == 'TEMPORARY'">临时检</span> -->
-                                        <span v-if="scope.row.type == '1'">普通巡检</span>
-                                        <span v-else>防火巡检</span>
+                                        <span v-if="scope.row.type == '1'">普通巡查</span>
+                                        <span v-else>防火巡查</span>
                                     </div>
-                                    <div>巡检状态：<span v-if="scope.row.result == '0'">进行中</span> <span v-else>已完成</span></div>
+                                    <div>巡查状态：<span v-if="scope.row.result == '0'">进行中</span> <span v-else>已完成</span></div>
                                     <div>模板名称：{{ scope.row.location }}</div>
                                     <div>开始日期：{{ scope.row.beginTime }}</div>
                                     <div>截至日期：{{ null }}</div>
-                                    <div>巡检人员：{{ scope.row.inspectPerson }}</div>
+                                    <div>巡查人员：{{ scope.row.inspectPerson }}</div>
                                     <div>完成时间：{{ scope.row.addtime }}</div>
                                 </div>
                                 <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
@@ -180,7 +180,7 @@ export default {
             _self.loading = true;
             _self.dataTable = [];
             _self._http({
-                url: '/api/web/indexCountV3/findPatrolList', //迪威-巡检列表-3级页面
+                url: '/api/web/indexCountV3/findPatrolList', //迪威-巡查列表-3级页面
                 //   url: '/api/web/indexCountTwo/findPatrol',
                 type: 'get',
                 data: {

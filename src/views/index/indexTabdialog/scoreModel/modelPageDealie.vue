@@ -30,20 +30,20 @@
         <div style="padding-left: 10px" v-else-if="showNumber === 2">
             <ul>
                 <li>
-                    巡检类型：<!-- <span v-if="modelDate.patrolType == 'DAY'">日检</span>
+                    巡查类型：<!-- <span v-if="modelDate.patrolType == 'DAY'">日检</span>
                                     <span v-else-if="modelDate.patrolType == 'WEEK'">周检</span>
                                     <span v-else-if="modelDate.patrolType == 'MONTH'">月检</span>
                                     <span v-else-if="modelDate.patrolType == 'QUARTER'">季检</span>
                                     <span v-else-if="modelDate.patrolType == 'YEAR'">年检</span>
                                     <span v-else-if="modelDate.patrolType == 'TEMPORARY'">临时检</span> -->
-                    <span v-if="modelDate.type == '1'">普通巡检</span>
-                    <span v-else>防火巡检</span>
+                    <span v-if="modelDate.type == '1'">普通巡查</span>
+                    <span v-else>防火巡查</span>
                 </li>
-                <li>巡检状态：<span v-if="modelDate.result == '0'">进行中</span> <span v-else>已完成</span></li>
+                <li>巡查状态：<span v-if="modelDate.result == '0'">进行中</span> <span v-else>已完成</span></li>
                 <li>模板名称：{{ modelDate.location }}</li>
                 <li v-if="false">开始日期：{{ modelDate.beginTime }}</li>
                 <li v-if="false">截至日期：{{ modelDate.addtime }}</li>
-                <li>巡检人员：{{ modelDate.inspectPerson }}</li>
+                <li>巡查人员：{{ modelDate.inspectPerson }}</li>
                 <li>完成时间：{{ modelDate.addtime }}</li>
             </ul>
         </div>
@@ -72,8 +72,8 @@
                             <el-card style="font-size: 14px">
                                 <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
                                 <p v-else-if="(item.dealName || '') != ''">
-                                    处理人员：{{ item.dealName }} {{ item.dealPhone }}<br />
-                                    处理描述：{{ item.dealDesc }}
+                                    处置人员：{{ item.dealName }} {{ item.dealPhone }}<br />
+                                    处置描述：{{ item.dealDesc }}
                                 </p>
                                 <p v-else-if="(item.pushUserName || '') != ''">
                                     <span style="display: block">{{ item.orgPushDesc }}</span>
@@ -92,11 +92,11 @@
                                 <el-timeline-item v-for="(item, index) in sourcelist" :key="index" v-if="item.show && item.title != '被指派了报警工单'" :timestamp="item.addtime" placement="top">
                                     <el-card style="font-size: 14px">
                                         <p>{{ item.targetObjectJob }}</p>
-                                        <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
+                                        <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处置！'">
                                             <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
                                             ><span>语音、短信通知成功</span>
                                         </p>
-                                        <p v-else-if="item.verifyTime">处理人员：{{ item.verifier || '--' }} {{ item.verifierPhone }}<br />处理描述：{{ item.result | confirmResultType }}</p>
+                                        <p v-else-if="item.verifyTime">处置人员：{{ item.verifier || '--' }} {{ item.verifierPhone }}<br />处置描述：{{ item.result | confirmResultType }}</p>
                                         <p v-else-if="item.confirmTime">确认人员：{{ item.confirmor || '--' }} {{ item.confirmorPhone }}<br />确认描述：{{ item.confirmResult | confirmResultType }}</p>
                                     </el-card>
                                 </el-timeline-item> -->
@@ -115,7 +115,7 @@
                             <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.addtime" v-if="item.show && item.title != '被指派了报警工单'" placement="top">
                                 <el-card style="font-size: 14px">
                                     <p>{{ item.targetObjectJob }}</p>
-                                    <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
+                                    <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处置！'">
                                         <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
                                         ><span>语音、短信通知成功</span>
                                     </p>
@@ -127,8 +127,8 @@
                             </el-timeline-item>
                             <!-- <el-timeline-item v-if="(alarmanalysis6_params.verifyTime||'')!=''" :timestamp="alarmanalysis6_params.verifyTime" placement="top">
                                 <el-card style="font-size: 14px">
-                                    <p>处理人员：{{ alarmanalysis6_params.verifier || '--' }}</p>
-                                    <p>处理描述：{{ alarmanalysis6_params.result || '--'}}</p>
+                                    <p>处置人员：{{ alarmanalysis6_params.verifier || '--' }}</p>
+                                    <p>处置描述：{{ alarmanalysis6_params.result || '--'}}</p>
                                 </el-card>
                             </el-timeline-item>
                             <el-timeline-item v-if="(alarmanalysis6_params.confirmTime||'')!=''" :timestamp="alarmanalysis6_params.confirmTime" placement="top">
@@ -153,7 +153,7 @@
                             <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.addtime" v-if="item.show && item.title != '被指派了报警工单'" placement="top">
                                 <el-card style="font-size: 14px">
                                     <p>{{ item.targetObjectJob }}</p>
-                                    <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
+                                    <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处置！'">
                                         <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
                                         ><span>语音、短信通知成功</span>
                                     </p>
@@ -165,8 +165,8 @@
                             </el-timeline-item>
                             <!-- <el-timeline-item v-if="(alarmanalysis6_params.verifyTime||'')!=''" :timestamp="alarmanalysis6_params.verifyTime" placement="top">
                                 <el-card style="font-size: 14px">
-                                    <p>处理人员：{{ alarmanalysis6_params.verifier || '--' }}</p>
-                                    <p>处理描述：{{ alarmanalysis6_params.result || '--'}}</p>
+                                    <p>处置人员：{{ alarmanalysis6_params.verifier || '--' }}</p>
+                                    <p>处置描述：{{ alarmanalysis6_params.result || '--'}}</p>
                                 </el-card>
                             </el-timeline-item>
                             <el-timeline-item v-if="(alarmanalysis6_params.confirmTime||'')!=''" :timestamp="alarmanalysis6_params.confirmTime" placement="top">
@@ -193,21 +193,21 @@
                             <el-timeline-item v-if="(riskId.handleTime || '') != ''" :timestamp="riskId.handleTime" placement="top">
                                 <el-card style="font-size: 14px">
                                     <p>处置人员：{{ riskId.createUser || '--' }} {{ riskId.handlerMobile || '--' }}</p>
-                                    <p>处置结果：已完成隐患处理</p>
+                                    <p>处置结果：已完成隐患处置</p>
                                 </el-card>
                             </el-timeline-item>
                             <!--
                                     reporterMobile 上报人电话
                                     dispatcherMobile 派单人电话
                                     takerMobile 接单人电话
-                                    handlerMobile 处理人电话
-                                    handleReportorMobile 处理上报的人电话
+                                    handlerMobile 处置人电话
+                                    handleReportorMobile 处置上报的人电话
                                     -->
 
                             <!-- <el-timeline-item v-if="(alarmanalysis6_params.verifyTime||'')!=''" :timestamp="alarmanalysis6_params.verifyTime" placement="top">
                                 <el-card style="font-size: 14px">
-                                    <p>处理人员：{{ alarmanalysis6_params.verifier || '--' }}</p>
-                                    <p>处理描述：{{ alarmanalysis6_params.result || '--'}}</p>
+                                    <p>处置人员：{{ alarmanalysis6_params.verifier || '--' }}</p>
+                                    <p>处置描述：{{ alarmanalysis6_params.result || '--'}}</p>
                                 </el-card>
                             </el-timeline-item>
                             <el-timeline-item v-if="(alarmanalysis6_params.confirmTime||'')!=''" :timestamp="alarmanalysis6_params.confirmTime" placement="top">
@@ -319,7 +319,7 @@ export default {
                                 // },
                                 inspectPerson: val.inspectPerson,
                                 inspectStatus: val.inspectStatus,
-                                patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
+                                patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡查',
                                 title: '',
                                 show: true
                             });
@@ -374,7 +374,7 @@ export default {
                                 // },
                                 inspectPerson: val.inspectPerson,
                                 inspectStatus: val.inspectStatus,
-                                patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡检',
+                                patrolStatus: val.patrolStatus == 'NORMAL' ? '正常' : val.patrolStatus == 'TIMEOUT' ? '超时' : '未巡查',
                                 title: '',
                                 show: true
                             });

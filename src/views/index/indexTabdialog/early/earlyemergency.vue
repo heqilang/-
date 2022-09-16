@@ -75,7 +75,7 @@
 
                         <el-table-column prop="completeStatus" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '处理完毕' : '待处理' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -133,7 +133,7 @@
 
                         <el-table-column prop="completeStatus" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处理中' : scope.row.completeStatus == '2' ? '处理完毕' : '待处理' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -187,8 +187,8 @@
                             <el-card style="font-size: 14px">
                                 <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
                                 <p v-else-if="(item.dealName || '') != ''">
-                                    处理人员：{{ item.dealName }} {{ item.dealPhone }}<br />
-                                    处理描述：{{ item.dealDesc }}
+                                    处置人员：{{ item.dealName }} {{ item.dealPhone }}<br />
+                                    处置描述：{{ item.dealDesc }}
                                 </p>
                                 <p v-else-if="(item.pushUserName || '') != ''">
                                     <span style="display: block">{{ item.orgPushDesc }}</span>
@@ -214,11 +214,11 @@ export default {
     data() {
         return {
             chartRadio1: '0',
-            warninginformation: '您好，这里是消防控制中心，您有一条报警信息，已超时未处理，请您及时确认，以免造成更大损失。',
+            warninginformation: '您好，这里是消防控制中心，您有一条报警信息，已超时未处置，请您及时确认，以免造成更大损失。',
             sourcelist: [],
             alarmanalysis6_params: null,
             timeRadio: '巡查处置时效',
-            radio1: '已处理',
+            radio1: '已处置',
             firstPageData1: {},
             firstPageData2: {},
             showLeavel: 1,
@@ -250,7 +250,7 @@ export default {
             orderStateObj: {
                 '01': '待受理',
                 '02': '待确认',
-                '03': '处理中',
+                '03': '处置中',
                 '04': '完成',
                 '05': '忽略'
             },
@@ -484,7 +484,7 @@ export default {
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (val) {
-                        return '平均处理时效' + val[0].data + '分钟';
+                        return '平均处置时效' + val[0].data + '分钟';
                     }
                 },
                 grid: {

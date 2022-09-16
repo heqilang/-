@@ -111,20 +111,35 @@
                         </div>
                     </el-col>
                 </el-row> -->
-                <div id="pieChart" style="height: 360px"></div>
-                <div v-if="systemScoreList.score < 95" style="color: #fff; text-align: center; font-size: 12px">
-                    <div style="padding: 0 0 20px 0">
-                        <ul>
-                            <li>
-                                <span>*</span>
-                                <span>
-                                    当前综合评分为 <span style="color: red"> {{ (systemScoreList.score / 1).toFixed(2) }}</span
-                                    >，
-                                    <span>需要尽快完成<span v-if="sonData.alarmHandlePercent !== 100">报警处置、</span><span v-if="sonData.alarmHandOpportunelyPercent !== 100">报警及时处置、</span> <span v-if="sonData.patrolHandlePercent !== 100"> 巡查计划、</span> <span v-if="sonData.risksPercent !== 100">隐患排查、</span> <span v-if="sonData.risksHandlePercent !== 100">隐患整改、</span> <span v-if="sonData.risksOpportunelyPercent !== 100"> 按时整改隐患</span> </span>
-                                </span>
-                            </li>
-                        </ul>
-                        <!-- <ul style="margin: 10px 0px">
+
+                <div style="width: 100%; height: 360px; position: relative">
+                    <div id="pieChart" style="width: 55%; height: 360px"></div>
+
+                    <div class="pieChart_box" v-if="systemScoreList.score < 95" style="color: #fff; text-align: left; font-size: 15px">
+                        <div style="padding: 0 0 20px 0">
+                            <ul>
+                                <li>
+                                    <span></span>
+                                    <span>
+                                        当前综合评分为 <span style="color: red"> {{ (systemScoreList.score / 1).toFixed(2) }}</span>
+                                        <!-- <span
+                                            >需要尽快完成 <span v-if="sonData.alarmHandlePercent !== 100">报警处置、</span> <span v-if="sonData.alarmHandOpportunelyPercent !== 100">报警及时处置、</span> <span v-if="sonData.patrolHandlePercent !== 100"> 巡查计划 <span v-if="sonData.risksPercent !== 100">、</span> </span> <span v-if="sonData.risksPercent !== 100">隐患排查、</span> <span v-if="sonData.risksHandlePercent !== 100">隐患整改 <span v-if="sonData.risksOpportunelyPercent !== 100">、</span> </span> <span v-if="sonData.risksOpportunelyPercent !== 100"> 按时整改隐患</span>
+                                        </span> -->
+                                    </span>
+                                </li>
+
+                                <li>
+                                    <span
+                                        >需要尽快完成 <span v-if="sonData.alarmHandlePercent !== 100">报警处置、</span> <span v-if="sonData.alarmHandOpportunelyPercent !== 100">报警及时处置、</span> <span v-if="sonData.patrolHandlePercent !== 100"> 巡查计划 <span v-if="sonData.risksPercent !== 100">、</span> </span> <span v-if="sonData.risksPercent !== 100">隐患排查、</span> <span v-if="sonData.risksHandlePercent !== 100">隐患整改 <span v-if="sonData.risksOpportunelyPercent !== 100">、</span> </span> <span v-if="sonData.risksOpportunelyPercent !== 100"> 按时整改隐患</span>
+                                    </span>
+                                </li>
+
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px; margin-top: 30px">*<span>提示</span></li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于95分，发给社区相关人员；</span></li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于90分，发给街道相关人员；</span></li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于85分，发给行业主管部门，消防救援机构，安办相关人员</span></li>
+                            </ul>
+                            <!-- <ul style="margin: 10px 0px">
                             <li><span style="margin-left: 10px">巡查完成率=（巡查总数-未完成总数）/ 巡查总数</span></li>
                         </ul>
                         <ul>
@@ -132,6 +147,7 @@
                             <li><span style="margin-left: 10px">隐患整改率=（隐患总数-未整改总数）/ 隐患总数</span></li>
                             <li><span style="margin-left: 10px">隐患按时整改率=（隐患计划整改数量-隐患未按时整改数量）/ 隐患计划整改数量</span></li>
                         </ul> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -192,7 +208,6 @@ export default {
             this.$emit('closeDialog');
             setTimeout(() => {});
         },
-
         showPageChage(e) {
             this.showPage = 2;
             switch (e) {
@@ -381,5 +396,12 @@ export default {
         background-color: transparent !important;
         border: none !important;
     }
+}
+.pieChart_box {
+    position: absolute;
+    right: 20%;
+    top: 84px;
+    font-size: 16px;
+    font-weight: 700;
 }
 </style>
