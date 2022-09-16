@@ -196,7 +196,6 @@ export default {
         loadListData() {
             const that = this;
             // this.dataTable = equipmentTypeListData;
-            console.dir(this.dataRiskLevelJson);
             let newDate = that.searchModel.riskLevel == 1 ? 'ciaw2awr' : 'nwvl7lvw';
             that._http({
                 url: '/api/web/indexCountV3/findRisksList', ///api/web/indexCountTwo/findRisksList

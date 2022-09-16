@@ -112,12 +112,12 @@
                     </el-col>
                 </el-row> -->
 
-                <div style="width: 100%; height: 360px; position: relative">
+                <div style="width: 100%; height: 360px; position: relative; display: flex">
                     <div id="pieChart" style="width: 55%; height: 360px"></div>
 
-                    <div class="pieChart_box" v-if="systemScoreList.score < 95" style="color: #fff; text-align: left; font-size: 15px">
-                        <div style="padding: 0 0 20px 0">
-                            <ul>
+                    <div class="pieChart_box" v-if="systemScoreList.score < 95" style="color: #fff; text-align: left; font-size: 15px; width: 45%; height: 360px">
+                        <div class="pieChart_box_title" style="padding: 0px 0 20px 0">
+                            <ul style="margin-bottom: 30px">
                                 <li>
                                     <span></span>
                                     <span>
@@ -128,9 +128,14 @@
                                     </span>
                                 </li>
 
-                                <li>
+                                <!--  <li>
                                     <span
-                                        >需要尽快完成 <span v-if="sonData.alarmHandlePercent !== 100">报警处置、</span> <span v-if="sonData.alarmHandOpportunelyPercent !== 100">报警及时处置、</span> <span v-if="sonData.patrolHandlePercent !== 100"> 巡查计划 <span v-if="sonData.risksPercent !== 100">、</span> </span> <span v-if="sonData.risksPercent !== 100">隐患排查、</span> <span v-if="sonData.risksHandlePercent !== 100">隐患整改 <span v-if="sonData.risksOpportunelyPercent !== 100">、</span> </span> <span v-if="sonData.risksOpportunelyPercent !== 100"> 按时整改隐患</span>
+                                        >需要尽快完成<span v-if="sonData.alarmHandlePercent !== 100">报警处置、</span> <span v-if="sonData.alarmHandOpportunelyPercent !== 100">报警及时处置、</span> <span v-if="sonData.patrolHandlePercent !== 100"> 巡查计划 <span v-if="sonData.risksPercent !== 100">、</span> </span> <span v-if="sonData.risksPercent !== 100">隐患排查、</span> <span v-if="sonData.risksHandlePercent !== 100">隐患整改 <span v-if="sonData.risksOpportunelyPercent !== 100">、</span> </span> <span v-if="sonData.risksOpportunelyPercent !== 100"> 按时整改隐患</span>
+                                    </span>
+                                </li> -->
+                                <li>
+                                    <span style="display: flex; flex-wrap: wrap"
+                                        >需要尽快完成 <span v-for="item in totalTitle" :key="item">{{ item.title }}</span>
                                     </span>
                                 </li>
 
@@ -201,6 +206,30 @@ export default {
             showSec7: false,
             systemScoreList: ''
         };
+    },
+    computed: {
+        totalTitle: {
+            get() {
+                let arr = [
+                    { title: '报警处置', showTitle: this.sonData.alarmHandlePercent !== 100 },
+                    { title: '报警及时处置', showTitle: this.sonData.alarmHandOpportunelyPercent !== 100 },
+                    { title: '巡查计划', showTitle: this.sonData.patrolHandlePercent !== 100 },
+                    { title: '隐患排查', showTitle: this.sonData.risksPercent !== 100 },
+                    { title: '隐患整改', showTitle: this.sonData.risksHandlePercent !== 100 },
+                    { title: '按时整改隐患', showTitle: this.sonData.risksOpportunelyPercent !== 100 }
+                ];
+                let newArr = arr.filter((item) => {
+                    return item.showTitle == true;
+                });
+                newArr.forEach((item, index) => {
+                    if (newArr.length - 1 !== index) {
+                        item.title = item.title + '、';
+                    }
+                });
+                return newArr;
+            },
+            set() {}
+        }
     },
     methods: {
         closeDealie(val) {
@@ -398,10 +427,12 @@ export default {
     }
 }
 .pieChart_box {
-    position: absolute;
-    right: 20%;
-    top: 84px;
+    /*  position: absolute;
+    right: 5%;
+    top: 84px; */
     font-size: 16px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
 }
 </style>
