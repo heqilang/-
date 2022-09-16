@@ -1797,8 +1797,8 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
             console.dir(searchObj);
             _self.dataTable = [];
             _self._http({
-                url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find
-                //    url: 'api/web/indexCountTwo/find',
+                //  url: '/api/web/indexCountV3/find', ///api/web/indexCountTwo/find
+                url: 'api/web/indexCountTwo/find',
                 type: 'get',
                 isBody: true,
                 data: searchObj,
