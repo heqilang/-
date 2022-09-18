@@ -135,7 +135,7 @@
                                 </li> -->
                                 <li>
                                     <span style="display: flex; flex-wrap: wrap"
-                                        >需要尽快完成 <span v-for="item in totalTitle" :key="item">{{ item.title }}</span>
+                                        >需要尽快完成 <span v-for="(item, index) in totalTitle" :key="index">{{ item.title }}</span>
                                     </span>
                                 </li>
 
@@ -193,172 +193,172 @@
 <script>
 import * as echarts from 'echarts';
 export default {
-    data() {
-        return {
-            sonData: '',
-            showPage: 1,
-            showSec1: false,
-            showSec2: false,
-            showSec3: false,
-            showSec4: false,
-            showSec5: false,
-            showSec6: false,
-            showSec7: false,
-            systemScoreList: ''
-        };
-    },
-    computed: {
-        totalTitle: {
-            get() {
-                let arr = [
-                    { title: '报警处置', showTitle: this.sonData.alarmHandlePercent !== 100 },
-                    { title: '报警及时处置', showTitle: this.sonData.alarmHandOpportunelyPercent !== 100 },
-                    { title: '巡查计划', showTitle: this.sonData.patrolHandlePercent !== 100 },
-                    { title: '隐患排查', showTitle: this.sonData.risksPercent !== 100 },
-                    { title: '隐患整改', showTitle: this.sonData.risksHandlePercent !== 100 },
-                    { title: '按时整改隐患', showTitle: this.sonData.risksOpportunelyPercent !== 100 }
-                ];
-                let newArr = arr.filter((item) => {
-                    return item.showTitle == true;
-                });
-                newArr.forEach((item, index) => {
-                    if (newArr.length - 1 !== index) {
-                        item.title = item.title + '、';
-                    }
-                });
-                return newArr;
-            },
-            set() {}
-        }
-    },
-    methods: {
-        closeDealie(val) {
-            this.$emit('closeTsCompF');
-            this.$emit('closeDialog');
-            setTimeout(() => {});
-        },
-        showPageChage(e) {
-            this.showPage = 2;
-            switch (e) {
-                case 1:
-                    this.showSec1 = true;
-                    break;
-                case 2:
-                    this.showSec2 = true;
-                    break;
-                case 3:
-                    this.showSec3 = true;
-                    break;
-                case 4:
-                    this.showSec4 = true;
-                    break;
-                case 5:
-                    this.showSec5 = true;
-                    break;
-                case 6:
-                    this.showSec6 = true;
-                    break;
-                case 7:
-                    this.showSec7 = true;
-                    break;
-                default:
-                    break;
-            }
-        },
-        getSonpageData() {
-            // /api/web/indexCountTwo/systemScoreThird
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCountV3/systemScoreThird', //迪威--系统评分--三级级页面--所有统计数据
-                //  url: '/api/web/indexCountTwo/systemScoreThird',
-                type: 'get',
-                success: function (res) {
-                    _self.sonData = res.data;
-
-                    console.log('评分所有数据', res);
-                    _self.drawPieChart();
-                }
-            });
-            _self._http({
-                url: '/api/web/indexCountV3/systemScoreSecond', //迪威--系统评分--二级页面
-                // url: '/api/web/indexCountTwo/systemScore',
-                type: 'get',
-                success: function (res) {
-                    console.log('评分二级页面8条数据', res);
-                    _self.systemScoreList = res.data;
-                }
-            });
-        },
-        drawPieChart() {
-            var chartDom = document.getElementById('pieChart');
-            var myChart = echarts.init(chartDom);
-            var option;
-            let _self = this;
-            option = {
-                title: {
-                    show: true, //显示策略，默认值true,可选为：true（显示） | false（隐藏）
-                    text: '核算维度权重占比', //主标题文本，'\n'指定换行
-                    // left: '48%',
-                    top: '10%',
-                    left: 'center',
-                    textStyle: {
-                        //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
-                        fontSize: 16,
-                        fontWeight: '700',
-                        color: '#fff'
-                    }
-                },
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left'
-                },
-                color: ['#8ef2a7', '#fdfd39', '#325efb', '#d37f8b', '#468080', '#5aa1fc'],
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: '50%',
-                        // data: [
-                        //     // { value: _self.sonData.equipPercent, name: '设备完好率' },
-                        //     { value: _self.sonData.risksPercent, name: '隐患发现率' },
-                        //     { value: _self.sonData.alarmHandOpportunelyPercent, name: '报警处置及时率' },
-                        //     { value: _self.sonData.patrolHandlePercent, name: '巡查完成率 ' },
-                        //     { value: _self.sonData.risksHandlePercent, name: '隐患整改率 ' },
-                        //     { value: _self.sonData.alarmHandlePercent, name: '报警处置率 ' },
-                        //     { value: _self.sonData.risksOpportunelyPercent, name: ' 隐患按时整改率 ' }
-                        // ]
-                        data: [
-                            // { value: _self.sonData.equipPercent, name: '设备完好率' },
-                            { value: 20, name: '隐患发现率' },
-                            { value: 20, name: '报警处置及时率' },
-                            { value: 20, name: '巡查完成率' },
-                            { value: 10, name: '隐患整改率' },
-                            { value: 10, name: '报警处置率' },
-                            { value: 20, name: ' 隐患按时整改率 ' }
-                        ],
-                        label: {
-                            normal: {
-                                show: true,
-                                formatter: '{b}({d}%)'
-                            }
-                        }
-                    }
-                ]
-            };
-
-            option && myChart.setOption(option);
-        }
-    },
-    created() {},
-    mounted() {
-        this.getSonpageData();
-        // this.$nextTick(() => {
-        //     this.drawPieChart();
-        // });
+  data () {
+    return {
+      sonData: '',
+      showPage: 1,
+      showSec1: false,
+      showSec2: false,
+      showSec3: false,
+      showSec4: false,
+      showSec5: false,
+      showSec6: false,
+      showSec7: false,
+      systemScoreList: ''
+    };
+  },
+  computed: {
+    totalTitle: {
+      get () {
+        let arr = [
+          { title: '报警处置', showTitle: this.sonData.alarmHandlePercent !== 100 },
+          { title: '报警及时处置', showTitle: this.sonData.alarmHandOpportunelyPercent !== 100 },
+          { title: '巡查计划', showTitle: this.sonData.patrolHandlePercent !== 100 },
+          { title: '隐患排查', showTitle: this.sonData.risksPercent !== 100 },
+          { title: '隐患整改', showTitle: this.sonData.risksHandlePercent !== 100 },
+          { title: '按时整改隐患', showTitle: this.sonData.risksOpportunelyPercent !== 100 }
+        ];
+        let newArr = arr.filter((item) => {
+          return item.showTitle == true;
+        });
+        newArr.forEach((item, index) => {
+          if (newArr.length - 1 !== index) {
+            item.title = item.title + '、';
+          }
+        });
+        return newArr;
+      },
+      set () { }
     }
+  },
+  methods: {
+    closeDealie (val) {
+      this.$emit('closeTsCompF');
+      this.$emit('closeDialog');
+      setTimeout(() => { });
+    },
+    showPageChage (e) {
+      this.showPage = 2;
+      switch (e) {
+        case 1:
+          this.showSec1 = true;
+          break;
+        case 2:
+          this.showSec2 = true;
+          break;
+        case 3:
+          this.showSec3 = true;
+          break;
+        case 4:
+          this.showSec4 = true;
+          break;
+        case 5:
+          this.showSec5 = true;
+          break;
+        case 6:
+          this.showSec6 = true;
+          break;
+        case 7:
+          this.showSec7 = true;
+          break;
+        default:
+          break;
+      }
+    },
+    getSonpageData () {
+      // /api/web/indexCountTwo/systemScoreThird
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCountV3/systemScoreThird', //迪威--系统评分--三级级页面--所有统计数据
+        //  url: '/api/web/indexCountTwo/systemScoreThird',
+        type: 'get',
+        success: function (res) {
+          _self.sonData = res.data;
+
+          console.log('评分所有数据', res);
+          _self.drawPieChart();
+        }
+      });
+      _self._http({
+        url: '/api/web/indexCountV3/systemScoreSecond', //迪威--系统评分--二级页面
+        // url: '/api/web/indexCountTwo/systemScore',
+        type: 'get',
+        success: function (res) {
+          console.log('评分二级页面8条数据', res);
+          _self.systemScoreList = res.data;
+        }
+      });
+    },
+    drawPieChart () {
+      var chartDom = document.getElementById('pieChart');
+      var myChart = echarts.init(chartDom);
+      var option;
+      let _self = this;
+      option = {
+        title: {
+          show: true, //显示策略，默认值true,可选为：true（显示） | false（隐藏）
+          text: '核算维度权重占比', //主标题文本，'\n'指定换行
+          // left: '48%',
+          top: '10%',
+          left: 'center',
+          textStyle: {
+            //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
+            fontSize: 16,
+            fontWeight: '700',
+            color: '#fff'
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left'
+        },
+        color: ['#8ef2a7', '#fdfd39', '#325efb', '#d37f8b', '#468080', '#5aa1fc'],
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: '50%',
+            // data: [
+            //     // { value: _self.sonData.equipPercent, name: '设备完好率' },
+            //     { value: _self.sonData.risksPercent, name: '隐患发现率' },
+            //     { value: _self.sonData.alarmHandOpportunelyPercent, name: '报警处置及时率' },
+            //     { value: _self.sonData.patrolHandlePercent, name: '巡查完成率 ' },
+            //     { value: _self.sonData.risksHandlePercent, name: '隐患整改率 ' },
+            //     { value: _self.sonData.alarmHandlePercent, name: '报警处置率 ' },
+            //     { value: _self.sonData.risksOpportunelyPercent, name: ' 隐患按时整改率 ' }
+            // ]
+            data: [
+              // { value: _self.sonData.equipPercent, name: '设备完好率' },
+              { value: 20, name: '隐患发现率' },
+              { value: 20, name: '报警处置及时率' },
+              { value: 20, name: '巡查完成率' },
+              { value: 10, name: '隐患整改率' },
+              { value: 10, name: '报警处置率' },
+              { value: 20, name: ' 隐患按时整改率 ' }
+            ],
+            label: {
+              normal: {
+                show: true,
+                formatter: '{b}({d}%)'
+              }
+            }
+          }
+        ]
+      };
+
+      option && myChart.setOption(option);
+    }
+  },
+  created () { },
+  mounted () {
+    this.getSonpageData();
+    // this.$nextTick(() => {
+    //     this.drawPieChart();
+    // });
+  }
 };
 </script>
 <style lang="scss">

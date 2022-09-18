@@ -826,16 +826,79 @@
                 <div style="width: 100px; height: 20px; display: flex; justify-content: space-between" class="clhangImg">
                     <span style="margin-top: 5px; color: #fff" @click="handleClose">{{ showImg ? '查看平面图' : '查看剖面图' }} </span> <i @click="showLCImg = false" class="el-icon-circle-close" style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
                 </div>
-
                 <!-- <a href="http://182.151.21.153:18/enterprise/#/" target="_self">
                     <div  @mouseout="showSvg = false" @mouseover="showSvg = true" class="box imghover">s</div>
                 </a> -->
-                <div @click="showImg = true" @mouseout="showSvg = false" @mouseover="showSvg = true" class="box imghover">s</div>
-
+                <!-- 购物中心 -->
+                <div @click="showImg = true" @mouseout="showSvg = 0" @mouseover="showSvg = 1" class="box imghover"></div>
+                <!-- 购物中心 -->
+                <!-- 东区 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 2" class="box1 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 2" class="box1_1 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 2" class="box1_2 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 2" class="box1_3 imghover"></div>
+                <!-- 东区 -->
+                <!-- 写字楼 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 3" class="box2 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 3" class="box2_1 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 3" class="box2_2 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 3" class="box2_3 imghover"></div>
+                <!-- 写字楼 -->
+                <!-- 乐天百货 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 4" class="box3 imghover"></div>
+                <!-- 乐天百货 -->
+                <!-- 酒店区 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 5" class="box4 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 5" class="box4_1 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 5" class="box4_2 imghover"></div>
+                <!-- 酒店区 -->
+                <!-- 酒店区 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 6" class="box5 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 6" class="box5_1 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 6" class="box5_2 imghover"></div>
+                <!-- 酒店区 -->
+                <!-- 写字楼 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 7" class="box6 imghover"></div>
+                <!-- 写字楼 -->
+                <!-- 酒店区 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 8" class="box7 imghover"></div>
+                <!-- 酒店区 -->
+                <!-- 北区 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 9" class="box8 imghover"></div>
+                <!-- 北区 -->
+                <!-- 西区 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 10" class="box9 imghover"></div>
+                <!-- 西区 -->
+                <!-- 写字楼 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 11" class="box10 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 11" class="box10_1 imghover"></div>
+                <!-- 写字楼 -->
+                <!-- 写字楼 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 12" class="box11 imghover"></div>
+                <!-- 写字楼 -->
+                <!-- 物业 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 13" class="box12 imghover"></div>
+                <!-- 物业 -->
+                <!-- 集团 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 14" class="box13 imghover"></div>
+                <!-- 集团 -->
+                <!-- 员工活动中心 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 15" class="box14 imghover"></div>
+                <!-- 员工活动中心 -->
+                <!-- 员工宿舍 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 16" class="box15 imghover"></div>
+                <!-- 员工宿舍 -->
+                <!-- 海洋乐园 -->
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 17" class="box16 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 17" class="box16_1 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 17" class="box16_2 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 17" class="box16_3 imghover"></div>
+                <div @click="changeImgs" @mouseout="showSvg = 0" @mouseover="showSvg = 17" class="box16_4 imghover"></div>
+                <!-- 海洋乐园 -->
                 <!--   <img @click="changeImg" @mouseover="getImg" v-show="!showImg" style="width: 100%; display: block" src="" alt="" /> -->
                 <img @click="changeImg" @mouseover="getImg" v-show="!showImg" style="width: 100%; display: block" :src="img" alt="" />
                 <!--  <img @mouseover="getImg" @click="changeImg" class="imghover" v-show="!showImg" style="width: 100%" src="../../assets/images/globalCenterNew/20220906-230217.png" alt="" /> -->
-                <img v-show="showImg" style="width: 100%" src="../../assets/images/layer1.png" alt="" />
+                <img v-show="showImg" class="imghover" @click="showTwoImg" style="width: 100%" :src="newImg_1" alt="" />
             </el-dialog>
         </div>
     </div>
@@ -844,1180 +907,1195 @@
 import * as echarts from 'echarts';
 import { Radar } from '@antv/g2plot';
 export default {
-    data() {
-        return {
-            img: require('../../assets/images/globalCenterNew/xxxx.svg'),
-            showSvg: false,
-            showImg: false,
-            text: '查看剖面图',
-            aquifloor: '',
-            showanalysis: 0,
-            /**
-             *   TODO 陈磊: 巡查的2个弹窗和设备统计弹窗的状态控制
-             */
-            equipmentStatsVisible: false,
-            patrolStatsVisible: false,
-            riskStatsVisible: false,
-            /**
-             *   TODO 陈磊20220901: 消防力量弹窗
-             */
-            fireForcesVisible: false,
-            /**
-             *   TODO 陈磊: 巡查的2个弹窗数据范围
-             */
+  data () {
 
-            patrolOrRiskRange: '当日', // 当日 | 当月
-            alarmRadioDate: 'DAY',
-            safetyrespons: '',
-            eventviewshow: '',
-            alatitle: '',
-            homedilogshow: '',
-            showLCImg: false,
-            showFirePowerDia: false,
-            showsafetyresponsi: false,
-            showAlarm1: false,
-            showAlarm1Day: false,
-            showAlarm2: false,
-            showSSImg: false,
-            showReadyAlarm: false,
-            showScoreMark: false,
-            compRadio: '环球中心',
-            personList: [
-                {
-                    id: '1',
-                    job: '安委会主任',
-                    comp: '环球会展集团',
-                    jobLv: '总经理',
-                    uName: '魏东'
-                },
-                {
-                    id: '2',
-                    job: '安委会常务副主任',
-                    comp: '四川大区物业',
-                    jobLv: '董事长',
-                    uName: '赵氢'
-                },
-                {
-                    id: '3',
-                    job: '安委会副主任',
-                    comp: '环球购物中心',
-                    jobLv: '总经理',
-                    uName: '李道海'
-                },
-                {
-                    id: '4',
-                    job: '安委会副主任',
-                    comp: '环球物业公司',
-                    jobLv: '总经理',
-                    uName: '赵海'
-                },
-                {
-                    id: '5',
-                    job: '安委会副主任',
-                    comp: '海洋乐园',
-                    jobLv: '总经理',
-                    uName: '马莉娜'
-                },
-                {
-                    id: '6',
-                    job: '安委会副主任',
-                    comp: '洲际酒店',
-                    jobLv: '总经理',
-                    uName: '谢波'
-                },
-                {
-                    id: '7',
-                    job: '安委会副主任',
-                    comp: '洗衣工厂',
-                    jobLv: '总经理',
-                    uName: '杜庭远'
-                },
-                {
-                    id: '8',
-                    job: '安委会副主任',
-                    comp: '乐天百货',
-                    jobLv: '总经理',
-                    uName: '李灿'
-                },
-                {
-                    id: '9',
-                    job: '安委会副主任',
-                    comp: '能源公司',
-                    jobLv: '总经理',
-                    uName: '刘颖'
-                }
-            ],
-            personList1: [
-                {
-                    id: '1',
-                    job: '安委会主任',
-                    comp: '环球购物',
-                    jobLv: '总经理',
-                    uName: '李道海'
-                },
-                {
-                    id: '2',
-                    job: '安全负责人',
-                    comp: '环球购物',
-                    jobLv: '副总经理',
-                    uName: '宁巍'
-                },
-                {
-                    id: '3',
-                    job: '安全联络人',
-                    comp: '环球购物中心',
-                    jobLv: '物业经理',
-                    uName: '王虎'
-                },
-                {
-                    id: '4',
-                    job: '安全联络人',
-                    comp: '环球物业公司',
-                    jobLv: '安全经理',
-                    uName: '谭天'
-                }
-            ],
-            leftDataTop: '',
-            leftDataMid: '',
-            leftDataBot: '',
-            radio4: '消防设备',
-            timeStr: '',
-            countEquipmentStateList: '',
-            alarmList: '',
-            buildingInfo: '',
-            chartOne: '',
-            chartTwo: '',
-            chartThree: '',
-            chartFour: '',
-            screenWidth: '',
-            alarmMsg: 'first',
-            activeAlarmTabName: 'first',
-            activeEquiTypeName: 'first',
-            showAlarmMsgInfo: false,
-            equipSysCountList: '',
-            alarmEventList: '',
-            countEquipment: '',
-            equipStateList: '',
-            systemScoreList: '',
-            emergencyResourcesList: '',
-            countDutiesList: '',
-            countCheckList: '',
-            countRisksNumberList: '',
-            alarmEventListAll: [],
-            hideTroEventList: [],
-            checkEventList: [],
-            sevenDaysALarmCount: [],
-            timeSliceArr: [],
-            msgTimeLine: '',
-            popEventData: '',
-            alarmEequipInfo: '',
-            configP: {
-                data: [66]
-            },
-            showearlyemergency: false, //1.突发类事件预警show
-            showearlymanageevents: false, //2.管理类事件预警show
-            readyAlarmType: 1, //预警情况：1.突发类事件预警2.管理类事件预警
-            alarmRadio: 'DAY' //预警情况日、月
-        };
-    },
-    watch: {
-        showLCImg: function (newValue, oldvalue) {
-            if (newValue) {
-                this.showImg = false;
-            }
+
+    return {
+      img: require('../../assets/images/globalCenterNew/xxxx.svg'),
+      newImg: require('../../assets/images/globalCenterNew/20220918-224144.png'),
+      newImg_1: require('../../assets/images/layer1.png'),
+      showSvg: false,
+      showImg: false,
+      text: '查看剖面图',
+      aquifloor: '',
+      showanalysis: 0,
+      /**
+       *   TODO 陈磊: 巡查的2个弹窗和设备统计弹窗的状态控制
+       */
+      equipmentStatsVisible: false,
+      patrolStatsVisible: false,
+      riskStatsVisible: false,
+      /**
+       *   TODO 陈磊20220901: 消防力量弹窗
+       */
+      fireForcesVisible: false,
+      /**
+       *   TODO 陈磊: 巡查的2个弹窗数据范围
+       */
+
+      patrolOrRiskRange: '当日', // 当日 | 当月
+      alarmRadioDate: 'DAY',
+      safetyrespons: '',
+      eventviewshow: '',
+      alatitle: '',
+      homedilogshow: '',
+      showLCImg: false,
+      showFirePowerDia: false,
+      showsafetyresponsi: false,
+      showAlarm1: false,
+      showAlarm1Day: false,
+      showAlarm2: false,
+      showSSImg: false,
+      showReadyAlarm: false,
+      showScoreMark: false,
+      compRadio: '环球中心',
+      personList: [
+        {
+          id: '1',
+          job: '安委会主任',
+          comp: '环球会展集团',
+          jobLv: '总经理',
+          uName: '魏东'
         },
-        showSvg: function (newValue) {
-            if (newValue) {
-                this.img = require('../../assets/images/globalCenterNew/Frame 97.svg');
-            } else {
-                this.img = require('../../assets/images/globalCenterNew/xxxx.svg');
-            }
+        {
+          id: '2',
+          job: '安委会常务副主任',
+          comp: '四川大区物业',
+          jobLv: '董事长',
+          uName: '赵氢'
+        },
+        {
+          id: '3',
+          job: '安委会副主任',
+          comp: '环球购物中心',
+          jobLv: '总经理',
+          uName: '李道海'
+        },
+        {
+          id: '4',
+          job: '安委会副主任',
+          comp: '环球物业公司',
+          jobLv: '总经理',
+          uName: '赵海'
+        },
+        {
+          id: '5',
+          job: '安委会副主任',
+          comp: '海洋乐园',
+          jobLv: '总经理',
+          uName: '马莉娜'
+        },
+        {
+          id: '6',
+          job: '安委会副主任',
+          comp: '洲际酒店',
+          jobLv: '总经理',
+          uName: '谢波'
+        },
+        {
+          id: '7',
+          job: '安委会副主任',
+          comp: '洗衣工厂',
+          jobLv: '总经理',
+          uName: '杜庭远'
+        },
+        {
+          id: '8',
+          job: '安委会副主任',
+          comp: '乐天百货',
+          jobLv: '总经理',
+          uName: '李灿'
+        },
+        {
+          id: '9',
+          job: '安委会副主任',
+          comp: '能源公司',
+          jobLv: '总经理',
+          uName: '刘颖'
         }
-    },
-
-    methods: {
-        getImg(event) {
-            let x = Number(event.layerX),
-                y = Number(event.layerY);
-            console.dir(x);
-            console.dir(y);
+      ],
+      personList1: [
+        {
+          id: '1',
+          job: '安委会主任',
+          comp: '环球购物',
+          jobLv: '总经理',
+          uName: '李道海'
         },
-
-        changeImg(event) {
-            //购物中心 x 811 x 842  y 232  y 391
-            let x = Number(event.layerX),
-                y = Number(event.layerY);
-
-            console.dir(x);
-            console.dir(y);
-            if (753 < x && x < 790 && 167 < y && y < 362) {
-                //购物中心
-                this.showImg = true;
-            } else if (666 < x && x < 723 && 132 < y && y < 368) {
-                //东区
-                console.dir('东区');
-            } else if (720 < x && x < 746 && 393 < y && y < 553) {
-                //乐天百货
-                console.dir('乐天百货');
-            } else if (695 < x && x < 719 && 393 < y && y < 553) {
-                //写字楼
-                console.dir('写字楼');
-            } else if (579 < x && x < 616 && 186 < y && y < 326) {
-                //上酒店区
-                console.dir('上酒店区');
-            } else if (568 < x && x < 617 && 364 < y && y < 553) {
-                //下酒店区
-                console.dir('下酒店区');
-            }
-
-            return;
+        {
+          id: '2',
+          job: '安全负责人',
+          comp: '环球购物',
+          jobLv: '副总经理',
+          uName: '宁巍'
         },
-
-        handleClose() {
-            this.showImg = !this.showImg;
+        {
+          id: '3',
+          job: '安全联络人',
+          comp: '环球购物中心',
+          jobLv: '物业经理',
+          uName: '王虎'
         },
-
-        showequipment(val) {
-            this.aquifloor = val;
-            this.homedilogshow = 'equipment';
-            this.showAlarm1 = false;
-        },
-        readyAlarmShow(e) {
-            if (e == 1) {
-                this.showearlyemergency = true;
-            }
-            if (e == 2) {
-                this.showearlymanageevents = true;
-            }
-            this.readyAlarmType = e;
-        },
-        showCopmInfo() {
-            this.showsafetyresponsi = true;
-        },
-        safetyresponsichange(comp) {
-            this.safetyrespons = comp;
-            this.showsafetyresponsi = true;
-        },
-        goPage51Fn1() {
-            this.showSSImg = true;
-        },
-        goPage51Fn2() {
-            // window.open('http://182.151.21.153:18080/#/');
-            window.open('http://182.151.21.153:18/');
-        },
-        viewchange(val, title) {
-            this.alatitle = title;
-            this.eventviewshow = val;
-        },
-        statistics(val) {
-            this.homedilogshow = 'statistics';
-        },
-        gitBuildVideoList() {},
-        goPagesEventFn(type) {
-            if (type == 'equipment1') {
-                this.showanalysis += 1;
-                this.showAlarm1Day = true;
-                this.showAlarm1 = true;
-            }
-            if (type == 'equipment2') {
-                this.showanalysis += 1;
-                this.showAlarm1Day = false;
-                this.showAlarm1 = true;
-            } else if (type == 'patro') {
-                this.showAlarm2 = true;
-            } else {
-                this.homedilogshow = type;
-            }
-            // this.$router.push(url);
-        },
-        goPages(url) {
-            //跳转
-            this.$router.push(url);
-        },
-        getTimeSlice() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/alarmTimeSlice',
-                type: 'get',
-                success: function (res) {
-                    let dayW = 0;
-                    let dayN = 0;
-                    let dayA = 0;
-                    for (let i = 0; i < res.data.length; i++) {
-                        if (i <= 3 || i >= 10) {
-                            for (let key in res.data[i]) {
-                                dayW += res.data[i][key] / 1;
-                                dayA += res.data[i][key] / 1;
-                            }
-                        } else {
-                            for (let key in res.data[i]) {
-                                dayN += res.data[i][key] / 1;
-                                dayA += res.data[i][key] / 1;
-                            }
-                        }
-                    }
-                    res.data.push({
-                        dayW: dayW,
-                        dayN: dayN,
-                        dayWP: ((dayW / dayA) * 100).toFixed(2),
-                        dayNP: ((dayN / dayA) * 100).toFixed(2)
-                    });
-                    _self.timeSliceArr = res.data;
-                    _self.drawAlarmTimePie();
-                }
-            });
-        },
-        get7DayAlarmCount() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countAlarmNumber',
-                type: 'get',
-                data: {
-                    n: 7
-                },
-                success: function (res) {
-                    _self.sevenDaysALarmCount = res.data;
-                    _self.drawIncresChart();
-                }
-            });
-        },
-        getEventListAll() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/webAlarmList/find',
-                type: 'get',
-                data: {
-                    current: 1,
-                    size: 20,
-                    state: '04',
-                    transform: 'B:building,F:floor',
-                    sorts: 'alarmTime:desc'
-                },
-                success: function (res) {
-                    _self.alarmEventListAll = res.data;
-                }
-            });
-
-            _self._http({
-                url: '/api/web/webRisksList/find',
-                type: 'get',
-                data: {
-                    current: 1,
-                    size: 20,
-                    state: '04',
-                    transform: 'B:building,F:floor',
-                    sorts: 'dispatchTime:desc'
-                },
-                success: function (res) {
-                    _self.hideTroEventList = res.data;
-                }
-            });
-            _self._http({
-                url: '/api/web/webPatrolRecord/findList',
-                type: 'get',
-                data: {
-                    current: 1,
-                    size: 20,
-                    state: '04',
-                    sorts: 'completeTime:desc'
-                },
-                success: function (res) {
-                    _self.checkEventList = res.data;
-                }
-            });
-            //
-        },
-        getcountRisksNumber() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countRisksNumber',
-                type: 'get',
-                data: {
-                    n: 7
-                },
-                success: function (res) {
-                    _self.countRisksNumberList = res.data;
-                    _self.drawAlarmLineChart();
-                }
-            });
-        },
-        getcountCheck() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countCheckList',
-                type: 'get',
-                success: function (res) {
-                    // res.data.off = 10;
-                    // res.data.on = 10;
-                    // res.data.total = 20;
-
-                    res.data['offP'] = ((res.data.off / res.data.total) * 100).toFixed(2);
-                    res.data['onP'] = ((res.data.on / res.data.total) * 100).toFixed(2);
-                    if (res.data.offP == 'NaN') {
-                        res.data.offP = 0;
-                    }
-                    if (res.data.onP == 'NaN') {
-                        res.data.onP = 0;
-                    }
-                    _self.countCheckList = res.data;
-
-                    console.log('_self.countCheckList:', _self.countCheckList);
-                    _self.drawCheckDutyChart();
-                }
-            });
-        },
-        getcountDuties() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/radarPic',
-                type: 'get',
-                success: function (res) {
-                    _self.countDutiesList = res.data;
-                    _self.drawRedarChart();
-                }
-            });
-        },
-        getemergencyResources() {
-            let _self = this;
-            _self._http({
-                url: '/api/open/fiveOne/emergencyResources',
-                type: 'get',
-                success: function (res) {
-                    _self.emergencyResourcesList = res.data;
-                }
-            });
-        },
-        getsystemScore() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCountV3/systemScore', //迪威的系统评分
-                //  url: '/api/web/indexCountTwo/systemScore',
-                type: 'get',
-                success: function (res) {
-                    _self.systemScoreList = res.data;
-                    console.log('eeeeeeeeeeeeeeeeeeeeeee');
-                    console.dir(res);
-                }
-            });
-        },
-        getAlarmEventCount() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCountTwo/resourceStatistics',
-                type: 'get',
-                success: function (res) {
-                    _self.alarmEventList = res.data;
-                }
-            });
-        },
-        getSysEquipCount() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/systemType',
-                type: 'get',
-                success: function (res) {
-                    _self.equipSysCountList = res.data;
-                }
-            });
-        },
-        goPageList(type) {
-            let _self = this;
-            // 1，7，3，6，10，11
-            switch (type) {
-                case 1:
-                    _self.$router.push({
-                        path: '/equipManaList/1'
-                    });
-                    break;
-                case 7:
-                    _self.$router.push({
-                        path: '/equipManaList/7'
-                    });
-                    break;
-                case 8:
-                    _self.$router.push({
-                        path: '/equipManaList/8'
-                    });
-                    break;
-                case 3:
-                    _self.$router.push({
-                        path: '/equipManaList/3'
-                    });
-                    break;
-                case 6:
-                    _self.$router.push({
-                        path: '/equipManaList/6'
-                    });
-                    break;
-                case 9:
-                    _self.$router.push({
-                        path: '/equipManaList/9'
-                    });
-                    break;
-                case 10:
-                    _self.$router.push({
-                        path: '/equipManaList/10'
-                    });
-                    break;
-                case 11:
-                    _self.$router.push({
-                        path: '/equipManaList/11'
-                    });
-                    break;
-                default:
-                    break;
-            }
-        },
-        showAlarmMsgInfoFn(e) {
-            this.popEventData = e;
-            this.showAlarmMsgInfo = true;
-            let _self = this;
-            // alarmMsg == 'first'
-            if (_self.alarmMsg == 'first') {
-                _self._http({
-                    url: '/api/web/webEquipment/find',
-                    type: 'get',
-                    data: {
-                        current: 1,
-                        size: 20,
-                        id: e.equipmentId,
-                        transform: 'B:building,F:floor,ES:owningSystem'
-                    },
-                    success: function (res) {
-                        _self.alarmEequipInfo = res.data.records[0];
-                    }
-                });
-            }
-
-            this.getMessagesInfo(e.id);
-        },
-        // /api/web/indexCount/findMessages
-        getMessagesInfo(id) {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/findMessages',
-                type: 'get',
-                data: {
-                    sourceId: id,
-                    sorts: 'addtime:asc'
-                },
-                success: function (res) {
-                    _self.msgTimeLine = res.data.records;
-                }
-            });
-        },
-        getCountEquipmentState() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/webAlarmList/find',
-                type: 'get',
-                data: {
-                    current: 1,
-                    size: 20,
-                    transform: 'F:floor;B:building'
-                },
-                success: function (res) {
-                    _self.alarmList = res.data.records;
-                }
-            });
-        },
-        getEquipStateCount() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countEquipment',
-                type: 'get',
-                success: function (res) {
-                    // 5231
-                    // if (res.data['5']) {
-                    //     res.data['5'] = ((res.data['5'] / res.data.total) * 100).toFixed(1) / 1;
-                    // } else {
-                    //     res.data['5'] = 0;
-                    // }
-                    // if (res.data['2']) {
-                    //     res.data['2'] = ((res.data['2'] / res.data.total) * 100).toFixed(1) / 1;
-                    // } else {
-                    //     res.data['2'] = 0;
-                    // }
-                    // if (res.data['3']) {
-                    //     res.data['3'] = ((res.data['3'] / res.data.total) * 100).toFixed(1) / 1;
-                    // } else {
-                    //     res.data['3'] = 0;
-                    // }
-                    // if (res.data['1']) {
-                    //     res.data['1'] = ((res.data['1'] / res.data.total) * 100).toFixed(1) / 1;
-                    // } else {
-                    //     res.data['1'] = 0;
-                    // }
-                    _self.equipStateList = res.data;
-                }
-            });
-        },
-        getBuildInfo() {
-            let _self = this;
-            // /api/web/webBuilding/find
-            _self._http({
-                url: '/api/web/webBuilding/find',
-                type: 'get',
-                success: function (res) {
-                    if (res.data.records.length > 0) {
-                        _self._http({
-                            url: '/api/web/indexCount/getBuilding',
-                            type: 'get',
-                            data: {
-                                id: res.data.records[0].id
-                            },
-                            success: function (res) {
-                                _self.buildingInfo = res.data;
-                            }
-                        });
-                    }
-                }
-            });
-        },
-        getDutyNUm() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countCheckList',
-                type: 'get',
-                success: function (res) {}
-            });
-        },
-        drawCheckDutyChart() {
-            this.chartFour = echarts.init(document.getElementById('checkDutyChart'));
-            let _thit = this;
-            var option = {
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    show: true,
-                    orient: 'vertical',
-                    top: '10%',
-                    right: '10%',
-                    data: ['查岗次数', '在岗次数', '脱岗次数'],
-                    formatter(v) {
-                        if (v == '查岗次数') {
-                            return `查岗${_thit.countCheckList.total}次`;
-                        } else if (v == '在岗次数') {
-                            return `在岗率：${_thit.countCheckList.onP == 'NaN' ? '0' : _thit.countCheckList.onP}%`;
-                        } else if (v == '脱岗次数') {
-                            return `脱岗率：${_thit.countCheckList.offP == 'NaN' ? '0' : _thit.countCheckList.offP}%`;
-                        }
-                    },
-                    textStyle: {
-                        color: '#aebcd6',
-                        fontSize: '10'
-                    }
-                },
-                grid: {
-                    top: '20%',
-                    left: '10%',
-                    right: '3%',
-                    bottom: '8%'
-                },
-                color: ['#39c6a5', '#3254dd', '#bee5fb'],
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: '60%',
-                        center: ['35%', '55%'],
-                        data: [
-                            { value: _thit.countCheckList.total, name: '查岗次数' },
-                            { value: _thit.countCheckList.on, name: '在岗次数' },
-                            { value: _thit.countCheckList.off, name: '脱岗次数' }
-                        ],
-                        label: {
-                            show: false,
-                            normal: {
-                                show: false
-                            }
-                        }
-                    }
-                ]
-            };
-            _thit.chartFour.setOption(option);
-        },
-        drawRedarChart() {
-            let _thit = this;
-            const data = [
-                {
-                    item: 'A',
-                    user: 'a',
-                    score: _thit.countDutiesList.regulation
-                },
-                {
-                    item: 'B',
-                    user: 'a',
-                    score: _thit.countDutiesList.organization
-                },
-                {
-                    item: 'C',
-                    user: 'a',
-                    score: _thit.countDutiesList.teach
-                },
-                {
-                    item: 'D',
-                    user: 'a',
-                    score: _thit.countDutiesList.yearTraining
-                },
-                {
-                    item: 'E',
-                    user: 'a',
-                    score: _thit.countDutiesList.emergence
-                },
-                {
-                    item: 'F',
-                    user: 'a',
-                    score: _thit.countDutiesList.files
-                }
-            ];
-            const radarPlot = new Radar('raderChart', {
-                data,
-                xField: 'item',
-                yField: 'score',
-                padding: [40, 40, 40, 40],
-                meta: {
-                    score: {
-                        alias: '分数',
-                        min: 0,
-                        max: 100
-                    }
-                },
-                xAxis: {
-                    line: null,
-                    tickLine: null,
-                    title: {
-                        style: {
-                            color: 'red'
-                        }
-                    },
-                    grid: {
-                        line: {
-                            style: {
-                                lineDash: null
-                            }
-                        }
-                    }
-                },
-                yAxis: {
-                    line: null,
-                    tickLine: null,
-                    grid: {
-                        line: {
-                            type: 'line',
-                            style: {
-                                lineDash: null
-                            }
-                        },
-                        // alternateColor: ['#ccc','#cccccc70','#cccccc50','#cccccc30']
-                        alternateColor: 'transparent'
-                    }
-                },
-                // 开启面积
-                area: {},
-                // 开启辅助点
-                point: {
-                    size: 1
-                }
-            });
-            radarPlot.render();
-        },
-        drawAlarmLineChart() {
-            this.chartOne = echarts.init(document.getElementById('alarmLineChart'));
-            let dateArr = [];
-            let findArr = [];
-            let handelArr = [];
-            for (let i = 0; i < this.countRisksNumberList.length; i++) {
-                dateArr.push(this.countRisksNumberList[i].day.slice(5, 10));
-                if (this.countRisksNumberList[i].total) {
-                    findArr.push(this.countRisksNumberList[i].total);
-                } else {
-                    findArr.push(0);
-                }
-                if (this.countRisksNumberList[i].over) {
-                    handelArr.push(this.countRisksNumberList[i].over);
-                } else {
-                    handelArr.push(0);
-                }
-            }
-            var option = {
-                title: {
-                    text: '',
-                    textStyle: {
-                        fontSize: '14',
-                        color: '#73c1d0'
-                    }
-                },
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    show: true,
-                    top: '6%',
-                    data: ['发现隐患', '处理隐患'],
-                    textStyle: {
-                        color: '#aebcd6',
-                        fontSize: '10'
-                    }
-                },
-                grid: {
-                    top: '27%',
-                    left: '10%',
-                    right: '6%',
-                    bottom: '16%'
-                },
-                // color: ['#175ff8', '#10c7c0'],
-                color: ['#10c7c0'],
-                xAxis: [
-                    {
-                        type: 'category',
-                        boundaryGap: false,
-                        splitLine: {
-                            show: false,
-                            lineStyle: {
-                                color: ['#46536f'],
-                                width: 1,
-                                type: 'dashed'
-                            }
-                        },
-                        axisLine: {
-                            lineStyle: { color: '#5e708e' } // 坐标轴颜色
-                        },
-                        data: dateArr
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: 'value',
-                        axisLabel: {
-                            color: '#707B7C'
-                        },
-                        axisLine: {
-                            // symbol: ['none', 'arrow'],
-                            lineStyle: { color: '#707B7C' } // 坐标轴颜色
-                        },
-                        // min: '0',
-                        // max: '6',
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: ['#46536f'],
-                                width: 1,
-                                type: 'dashed'
-                            }
-                        }
-                    }
-                ],
-                series: [
-                    {
-                        name: '发现隐患',
-                        type: 'line',
-                        smooth: true,
-                        // symbol: 'none',
-                        emphasis: {
-                            focus: 'series'
-                        },
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                                    {
-                                        offset: 0,
-                                        color: 'rgba(16,199,192,1)'
-                                    },
-                                    {
-                                        offset: 0.5,
-                                        color: 'rgba(16,199,192,0.3)'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: 'rgba(16,199,192,0.1)'
-                                    }
-                                ])
-                            }
-                        },
-                        data: findArr
-                    },
-                    {
-                        name: '处理隐患',
-                        type: 'bar',
-                        barWidth: 8,
-                        data: handelArr,
-                        itemStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                                    { offset: 0, color: '#3E92EF' },
-                                    { offset: 1, color: '#24F4ED' }
-                                ])
-                            }
-                        }
-                    }
-                ]
-            };
-            this.chartOne.setOption(option);
-        },
-        drawIncresChart() {
-            this.chartTwo = echarts.init(document.getElementById('incresChart'));
-            let dateArr = [];
-            let dataArr = [];
-            for (let i = 0; i < this.sevenDaysALarmCount.length; i++) {
-                dateArr.push(this.sevenDaysALarmCount[i].everyDay.slice(5, 10));
-                dataArr.push(this.sevenDaysALarmCount[i].number);
-            }
-            var option = {
-                title: {
-                    text: '',
-                    textStyle: {
-                        fontSize: '14',
-                        color: '#73c1d0'
-                    }
-                },
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    data: ['报警次数'],
-                    right: '7%',
-                    textStyle: {
-                        color: '#aebcd6',
-                        fontSize: '10'
-                    }
-                },
-                grid: {
-                    top: '17%',
-                    left: '10%',
-                    right: '6%',
-                    bottom: '16%'
-                },
-                // color: ['#175ff8', '#10c7c0'],
-                color: ['#10c7c0'],
-                xAxis: [
-                    {
-                        type: 'category',
-                        boundaryGap: false,
-                        splitLine: {
-                            show: false,
-                            lineStyle: {
-                                color: ['#46536f'],
-                                width: 1,
-                                type: 'dashed'
-                            }
-                        },
-                        axisLine: {
-                            lineStyle: { color: '#5e708e' } // 坐标轴颜色
-                        },
-                        data: dateArr
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: 'value',
-                        axisLabel: {
-                            color: '#707B7C'
-                        },
-                        axisLine: {
-                            lineStyle: { color: '#707B7C' } // 坐标轴颜色
-                        },
-                        // min: '0',
-                        // max: '6',
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: ['#46536f'],
-                                width: 1,
-                                type: 'dashed'
-                            }
-                        }
-                    }
-                ],
-                series: [
-                    {
-                        name: '报警次数',
-                        type: 'line',
-                        smooth: true,
-                        // symbol: 'none',
-                        emphasis: {
-                            focus: 'series'
-                        },
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                                    {
-                                        offset: 0,
-                                        color: 'rgba(16,199,192,1)'
-                                    },
-                                    {
-                                        offset: 0.5,
-                                        color: 'rgba(16,199,192,0.3)'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: 'rgba(16,199,192,0.1)'
-                                    }
-                                ])
-                            }
-                        },
-                        data: dataArr
-                    }
-                ]
-            };
-            this.chartTwo.setOption(option);
-        },
-        drawAlarmTimePie() {
-            this.chartThree = echarts.init(document.getElementById('alarmTimePie'));
-            var option;
-            let nameArr = [];
-            let dataArr = [];
-            for (let i = 0; i < this.timeSliceArr.length - 1; i++) {
-                for (let key in this.timeSliceArr[i]) {
-                    nameArr.push(key);
-                    dataArr.push({
-                        name: key,
-                        value: this.timeSliceArr[i][key]
-                    });
-                }
-            }
-            console.log(nameArr, dataArr);
-            option = {
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    right: 0
-                },
-                color: ['#2b8ef3', '#48e5e5', '#3254dd', '#bee5fb', '#3cd495'],
-                series: [
-                    {
-                        type: 'pie',
-                        radius: [15, 60],
-                        center: ['50%', '60%'],
-                        roseType: 'radius',
-                        itemStyle: {
-                            borderRadius: 2
-                        },
-                        label: {
-                            show: false,
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data: dataArr
-                    }
-                ]
-            };
-
-            option && this.chartThree.setOption(option);
-        },
-        //获取年月日，时分秒并补齐2位格式化
-        getTime() {
-            let date = new Date();
-            let year = date.getFullYear();
-            let month = date.getMonth() + 1;
-            let day = date.getDate();
-            let hour = date.getHours();
-            let minute = date.getMinutes();
-            let second = date.getSeconds();
-            let timeStr = year + '年' + this.addZero(month) + '月' + this.addZero(day) + '日 ' + this.addZero(hour) + ':' + this.addZero(minute) + ':' + this.addZero(second);
-            this.timeStr = timeStr;
-        },
-        //补齐2位格式化
-        addZero(num) {
-            return num < 10 ? '0' + num : num;
-        },
-        getleftNumData() {
-            let _self = this;
-            _self._http({
-                // url: '/api/web/indexCountTwo/alarmStatistics',
-                url: '/api/web/indexCountV3/alarmStatistics',
-                type: 'get',
-                success: function (res) {
-                    _self.leftDataTop = res.data;
-                }
-            });
-            _self._http({
-                // url: '/api/web/indexCountTwo/patrolStatistics',
-                url: '/api/web/indexCountV3/patrolStatistics',
-                type: 'get',
-                success: function (res) {
-                    _self.leftDataMid = res.data;
-                }
-            });
-        },
-        getAlarmStatisticsDate(val) {
-            console.dir(val);
-        },
-        getAlarmStatistics() {
-            const _self = this;
-            _self._http({
-                // url: '/api/web/indexCountTwo/earlyWarningStatistics',
-                url: '/api/web/indexCountV3/earlyWarningStatistics',
-                type: 'get',
-                data: {
-                    option: _self.alarmRadio
-                },
-                success: function (res) {
-                    _self.leftDataBot = res.data;
-                }
-            });
+        {
+          id: '4',
+          job: '安全联络人',
+          comp: '环球物业公司',
+          jobLv: '安全经理',
+          uName: '谭天'
         }
+      ],
+      leftDataTop: '',
+      leftDataMid: '',
+      leftDataBot: '',
+      radio4: '消防设备',
+      timeStr: '',
+      countEquipmentStateList: '',
+      alarmList: '',
+      buildingInfo: '',
+      chartOne: '',
+      chartTwo: '',
+      chartThree: '',
+      chartFour: '',
+      screenWidth: '',
+      alarmMsg: 'first',
+      activeAlarmTabName: 'first',
+      activeEquiTypeName: 'first',
+      showAlarmMsgInfo: false,
+      equipSysCountList: '',
+      alarmEventList: '',
+      countEquipment: '',
+      equipStateList: '',
+      systemScoreList: '',
+      emergencyResourcesList: '',
+      countDutiesList: '',
+      countCheckList: '',
+      countRisksNumberList: '',
+      alarmEventListAll: [],
+      hideTroEventList: [],
+      checkEventList: [],
+      sevenDaysALarmCount: [],
+      timeSliceArr: [],
+      msgTimeLine: '',
+      popEventData: '',
+      alarmEequipInfo: '',
+      configP: {
+        data: [66]
+      },
+      showearlyemergency: false, //1.突发类事件预警show
+      showearlymanageevents: false, //2.管理类事件预警show
+      readyAlarmType: 1, //预警情况：1.突发类事件预警2.管理类事件预警
+      alarmRadio: 'DAY' //预警情况日、月
+    };
+  },
+  watch: {
+    showLCImg: function (newValue, oldvalue) {
+      if (newValue) {
+        this.showImg = false;
+      }
     },
-    created() {},
-    mounted() {
-        let _self = this;
-        _self.screenWidth = document.body.clientWidth;
-        const htmlDom = document.getElementsByTagName('html')[0];
-        let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
-        htmlDom.style.fontSize = `${htmlWidth / 19.2}px`;
-        // 监听class为asideMenu的元素宽度变化
-        let aside = document.querySelectorAll('.globalCenterIndexCon')[0];
-        aside.addEventListener('resize', () => {
-            console.log(123);
-        });
+    showSvg: function (newValue) {
+      let obj = {
+        0: () => { this.img = require('../../assets/images/globalCenterNew/img/0.svg'); },
+        1: () => { this.img = require('../../assets/images/globalCenterNew/img/1.svg'); },
+        2: () => { this.img = require('../../assets/images/globalCenterNew/img/2.svg'); },
+        3: () => { this.img = require('../../assets/images/globalCenterNew/img/3.svg'); },
+        4: () => { this.img = require('../../assets/images/globalCenterNew/img/4.svg'); },
+        5: () => { this.img = require('../../assets/images/globalCenterNew/img/5.svg'); },
+        6: () => { this.img = require('../../assets/images/globalCenterNew/img/6.svg'); },
+        7: () => { this.img = require('../../assets/images/globalCenterNew/img/7.svg'); },
+        8: () => { this.img = require('../../assets/images/globalCenterNew/img/8.svg'); },
+        9: () => { this.img = require('../../assets/images/globalCenterNew/img/9.svg'); },
+        10: () => { this.img = require('../../assets/images/globalCenterNew/img/10.svg'); },
+        11: () => { this.img = require('../../assets/images/globalCenterNew/img/11.svg'); },
+        12: () => { this.img = require('../../assets/images/globalCenterNew/img/12.svg'); },
+        13: () => { this.img = require('../../assets/images/globalCenterNew/img/13.svg'); },
+        14: () => { this.img = require('../../assets/images/globalCenterNew/img/14.svg'); },
+        15: () => { this.img = require('../../assets/images/globalCenterNew/img/15.svg'); },
+        16: () => { this.img = require('../../assets/images/globalCenterNew/img/16.svg'); },
+        17: () => { this.img = require('../../assets/images/globalCenterNew/img/17.svg'); },
+      }
+      obj[newValue]()
+    },
+    showImg: function (newValue) {
+      if (newValue) {
+        this.newImg_1 = require('../../assets/images/layer1.png')
+      }
 
-        setInterval(() => {
-            this.getTime();
-        }, 1000);
-        this.getleftNumData();
-        this.getAlarmEventCount();
-        this.getAlarmStatistics();
-        // this.get7DayAlarmCount();
-        // this.getEventListAll();
-        // this.getSysEquipCount();
-        // this.getCountEquipmentState();
-        // this.getEquipStateCount();
-        this.getBuildInfo();
-        // this.getDutyNUm();
-        this.getsystemScore();
-        // this.getemergencyResources();
-        // this.getcountDuties();
-        // this.getcountCheck();
-        // this.getcountRisksNumber();
-        // this.getTimeSlice();
-        this.$nextTick(() => {
-            // this.drawIncresChart();
-            // this.drawRedarChart();
-            // this.drawAlarmLineChart();
-            // this.drawCheckDutyChart();
-            // this.drawAlarmTimePie();
-        });
-
-        setTimeout(() => {
-            let progArr = document.querySelectorAll('.el-progress__text');
-            //设置文字颜色
-            for (let i = 0; i < progArr.length; i++) {
-                let prog = progArr[i];
-                if (i == 0) {
-                    prog.style.color = '#ed4545';
-                } else if (i == 1) {
-                    prog.style.color = '#fb7a31';
-                } else if (i == 2) {
-                    prog.style.color = '#aa9d9b';
-                } else {
-                    prog.style.color = '#72e260';
-                }
-            }
-        }, 2000);
     }
+  },
+
+  methods: {
+    showTwoImg () {
+      this.newImg_1 = require('../../assets/images/globalCenterNew/20220918-224144.png')
+    },
+
+    changeImgs () {
+
+      this.newImg_1 = require('../../assets/images/globalCenterNew/20220918-224144.png')
+      if (this.showImg) return
+      this.$message({
+        message: '抱歉亲，暂无图片',
+        type: 'warning'
+      });
+
+    },
+
+    getImg (event) {
+      let x = Number(event.layerX),
+        y = Number(event.layerY);
+      console.dir(x);
+      console.dir(y);
+    },
+
+    changeImg (event) {
+    },
+
+    handleClose () {
+      this.showImg = !this.showImg;
+      this.newImg_1 = require('../../assets/images/layer1.png')
+    },
+
+    showequipment (val) {
+      this.aquifloor = val;
+      this.homedilogshow = 'equipment';
+      this.showAlarm1 = false;
+    },
+    readyAlarmShow (e) {
+      if (e == 1) {
+        this.showearlyemergency = true;
+      }
+      if (e == 2) {
+        this.showearlymanageevents = true;
+      }
+      this.readyAlarmType = e;
+    },
+    showCopmInfo () {
+      this.showsafetyresponsi = true;
+    },
+    safetyresponsichange (comp) {
+      this.safetyrespons = comp;
+      this.showsafetyresponsi = true;
+    },
+    goPage51Fn1 () {
+      this.showSSImg = true;
+    },
+    goPage51Fn2 () {
+      // window.open('http://182.151.21.153:18080/#/');
+      window.open('http://182.151.21.153:18/');
+    },
+    viewchange (val, title) {
+      this.alatitle = title;
+      this.eventviewshow = val;
+    },
+    statistics (val) {
+      this.homedilogshow = 'statistics';
+    },
+    gitBuildVideoList () { },
+    goPagesEventFn (type) {
+      if (type == 'equipment1') {
+        this.showanalysis += 1;
+        this.showAlarm1Day = true;
+        this.showAlarm1 = true;
+      }
+      if (type == 'equipment2') {
+        this.showanalysis += 1;
+        this.showAlarm1Day = false;
+        this.showAlarm1 = true;
+      } else if (type == 'patro') {
+        this.showAlarm2 = true;
+      } else {
+        this.homedilogshow = type;
+      }
+      // this.$router.push(url);
+    },
+    goPages (url) {
+      //跳转
+      this.$router.push(url);
+    },
+    getTimeSlice () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/alarmTimeSlice',
+        type: 'get',
+        success: function (res) {
+          let dayW = 0;
+          let dayN = 0;
+          let dayA = 0;
+          for (let i = 0; i < res.data.length; i++) {
+            if (i <= 3 || i >= 10) {
+              for (let key in res.data[i]) {
+                dayW += res.data[i][key] / 1;
+                dayA += res.data[i][key] / 1;
+              }
+            } else {
+              for (let key in res.data[i]) {
+                dayN += res.data[i][key] / 1;
+                dayA += res.data[i][key] / 1;
+              }
+            }
+          }
+          res.data.push({
+            dayW: dayW,
+            dayN: dayN,
+            dayWP: ((dayW / dayA) * 100).toFixed(2),
+            dayNP: ((dayN / dayA) * 100).toFixed(2)
+          });
+          _self.timeSliceArr = res.data;
+          _self.drawAlarmTimePie();
+        }
+      });
+    },
+    get7DayAlarmCount () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/countAlarmNumber',
+        type: 'get',
+        data: {
+          n: 7
+        },
+        success: function (res) {
+          _self.sevenDaysALarmCount = res.data;
+          _self.drawIncresChart();
+        }
+      });
+    },
+    getEventListAll () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/webAlarmList/find',
+        type: 'get',
+        data: {
+          current: 1,
+          size: 20,
+          state: '04',
+          transform: 'B:building,F:floor',
+          sorts: 'alarmTime:desc'
+        },
+        success: function (res) {
+          _self.alarmEventListAll = res.data;
+        }
+      });
+
+      _self._http({
+        url: '/api/web/webRisksList/find',
+        type: 'get',
+        data: {
+          current: 1,
+          size: 20,
+          state: '04',
+          transform: 'B:building,F:floor',
+          sorts: 'dispatchTime:desc'
+        },
+        success: function (res) {
+          _self.hideTroEventList = res.data;
+        }
+      });
+      _self._http({
+        url: '/api/web/webPatrolRecord/findList',
+        type: 'get',
+        data: {
+          current: 1,
+          size: 20,
+          state: '04',
+          sorts: 'completeTime:desc'
+        },
+        success: function (res) {
+          _self.checkEventList = res.data;
+        }
+      });
+      //
+    },
+    getcountRisksNumber () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/countRisksNumber',
+        type: 'get',
+        data: {
+          n: 7
+        },
+        success: function (res) {
+          _self.countRisksNumberList = res.data;
+          _self.drawAlarmLineChart();
+        }
+      });
+    },
+    getcountCheck () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/countCheckList',
+        type: 'get',
+        success: function (res) {
+          // res.data.off = 10;
+          // res.data.on = 10;
+          // res.data.total = 20;
+
+          res.data['offP'] = ((res.data.off / res.data.total) * 100).toFixed(2);
+          res.data['onP'] = ((res.data.on / res.data.total) * 100).toFixed(2);
+          if (res.data.offP == 'NaN') {
+            res.data.offP = 0;
+          }
+          if (res.data.onP == 'NaN') {
+            res.data.onP = 0;
+          }
+          _self.countCheckList = res.data;
+
+          console.log('_self.countCheckList:', _self.countCheckList);
+          _self.drawCheckDutyChart();
+        }
+      });
+    },
+    getcountDuties () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/radarPic',
+        type: 'get',
+        success: function (res) {
+          _self.countDutiesList = res.data;
+          _self.drawRedarChart();
+        }
+      });
+    },
+    getemergencyResources () {
+      let _self = this;
+      _self._http({
+        url: '/api/open/fiveOne/emergencyResources',
+        type: 'get',
+        success: function (res) {
+          _self.emergencyResourcesList = res.data;
+        }
+      });
+    },
+    getsystemScore () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCountV3/systemScore', //迪威的系统评分
+        //  url: '/api/web/indexCountTwo/systemScore',
+        type: 'get',
+        success: function (res) {
+          _self.systemScoreList = res.data;
+          console.log('eeeeeeeeeeeeeeeeeeeeeee');
+          console.dir(res);
+        }
+      });
+    },
+    getAlarmEventCount () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCountTwo/resourceStatistics',
+        type: 'get',
+        success: function (res) {
+          _self.alarmEventList = res.data;
+        }
+      });
+    },
+    getSysEquipCount () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/systemType',
+        type: 'get',
+        success: function (res) {
+          _self.equipSysCountList = res.data;
+        }
+      });
+    },
+    goPageList (type) {
+      let _self = this;
+      // 1，7，3，6，10，11
+      switch (type) {
+        case 1:
+          _self.$router.push({
+            path: '/equipManaList/1'
+          });
+          break;
+        case 7:
+          _self.$router.push({
+            path: '/equipManaList/7'
+          });
+          break;
+        case 8:
+          _self.$router.push({
+            path: '/equipManaList/8'
+          });
+          break;
+        case 3:
+          _self.$router.push({
+            path: '/equipManaList/3'
+          });
+          break;
+        case 6:
+          _self.$router.push({
+            path: '/equipManaList/6'
+          });
+          break;
+        case 9:
+          _self.$router.push({
+            path: '/equipManaList/9'
+          });
+          break;
+        case 10:
+          _self.$router.push({
+            path: '/equipManaList/10'
+          });
+          break;
+        case 11:
+          _self.$router.push({
+            path: '/equipManaList/11'
+          });
+          break;
+        default:
+          break;
+      }
+    },
+    showAlarmMsgInfoFn (e) {
+      this.popEventData = e;
+      this.showAlarmMsgInfo = true;
+      let _self = this;
+      // alarmMsg == 'first'
+      if (_self.alarmMsg == 'first') {
+        _self._http({
+          url: '/api/web/webEquipment/find',
+          type: 'get',
+          data: {
+            current: 1,
+            size: 20,
+            id: e.equipmentId,
+            transform: 'B:building,F:floor,ES:owningSystem'
+          },
+          success: function (res) {
+            _self.alarmEequipInfo = res.data.records[0];
+          }
+        });
+      }
+
+      this.getMessagesInfo(e.id);
+    },
+    // /api/web/indexCount/findMessages
+    getMessagesInfo (id) {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/findMessages',
+        type: 'get',
+        data: {
+          sourceId: id,
+          sorts: 'addtime:asc'
+        },
+        success: function (res) {
+          _self.msgTimeLine = res.data.records;
+        }
+      });
+    },
+    getCountEquipmentState () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/webAlarmList/find',
+        type: 'get',
+        data: {
+          current: 1,
+          size: 20,
+          transform: 'F:floor;B:building'
+        },
+        success: function (res) {
+          _self.alarmList = res.data.records;
+        }
+      });
+    },
+    getEquipStateCount () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/countEquipment',
+        type: 'get',
+        success: function (res) {
+          // 5231
+          // if (res.data['5']) {
+          //     res.data['5'] = ((res.data['5'] / res.data.total) * 100).toFixed(1) / 1;
+          // } else {
+          //     res.data['5'] = 0;
+          // }
+          // if (res.data['2']) {
+          //     res.data['2'] = ((res.data['2'] / res.data.total) * 100).toFixed(1) / 1;
+          // } else {
+          //     res.data['2'] = 0;
+          // }
+          // if (res.data['3']) {
+          //     res.data['3'] = ((res.data['3'] / res.data.total) * 100).toFixed(1) / 1;
+          // } else {
+          //     res.data['3'] = 0;
+          // }
+          // if (res.data['1']) {
+          //     res.data['1'] = ((res.data['1'] / res.data.total) * 100).toFixed(1) / 1;
+          // } else {
+          //     res.data['1'] = 0;
+          // }
+          _self.equipStateList = res.data;
+        }
+      });
+    },
+    getBuildInfo () {
+      let _self = this;
+      // /api/web/webBuilding/find
+      _self._http({
+        url: '/api/web/webBuilding/find',
+        type: 'get',
+        success: function (res) {
+          if (res.data.records.length > 0) {
+            _self._http({
+              url: '/api/web/indexCount/getBuilding',
+              type: 'get',
+              data: {
+                id: res.data.records[0].id
+              },
+              success: function (res) {
+                _self.buildingInfo = res.data;
+              }
+            });
+          }
+        }
+      });
+    },
+    getDutyNUm () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCount/countCheckList',
+        type: 'get',
+        success: function (res) { }
+      });
+    },
+    drawCheckDutyChart () {
+      this.chartFour = echarts.init(document.getElementById('checkDutyChart'));
+      let _thit = this;
+      var option = {
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          show: true,
+          orient: 'vertical',
+          top: '10%',
+          right: '10%',
+          data: ['查岗次数', '在岗次数', '脱岗次数'],
+          formatter (v) {
+            if (v == '查岗次数') {
+              return `查岗${_thit.countCheckList.total}次`;
+            } else if (v == '在岗次数') {
+              return `在岗率：${_thit.countCheckList.onP == 'NaN' ? '0' : _thit.countCheckList.onP}%`;
+            } else if (v == '脱岗次数') {
+              return `脱岗率：${_thit.countCheckList.offP == 'NaN' ? '0' : _thit.countCheckList.offP}%`;
+            }
+          },
+          textStyle: {
+            color: '#aebcd6',
+            fontSize: '10'
+          }
+        },
+        grid: {
+          top: '20%',
+          left: '10%',
+          right: '3%',
+          bottom: '8%'
+        },
+        color: ['#39c6a5', '#3254dd', '#bee5fb'],
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: '60%',
+            center: ['35%', '55%'],
+            data: [
+              { value: _thit.countCheckList.total, name: '查岗次数' },
+              { value: _thit.countCheckList.on, name: '在岗次数' },
+              { value: _thit.countCheckList.off, name: '脱岗次数' }
+            ],
+            label: {
+              show: false,
+              normal: {
+                show: false
+              }
+            }
+          }
+        ]
+      };
+      _thit.chartFour.setOption(option);
+    },
+    drawRedarChart () {
+      let _thit = this;
+      const data = [
+        {
+          item: 'A',
+          user: 'a',
+          score: _thit.countDutiesList.regulation
+        },
+        {
+          item: 'B',
+          user: 'a',
+          score: _thit.countDutiesList.organization
+        },
+        {
+          item: 'C',
+          user: 'a',
+          score: _thit.countDutiesList.teach
+        },
+        {
+          item: 'D',
+          user: 'a',
+          score: _thit.countDutiesList.yearTraining
+        },
+        {
+          item: 'E',
+          user: 'a',
+          score: _thit.countDutiesList.emergence
+        },
+        {
+          item: 'F',
+          user: 'a',
+          score: _thit.countDutiesList.files
+        }
+      ];
+      const radarPlot = new Radar('raderChart', {
+        data,
+        xField: 'item',
+        yField: 'score',
+        padding: [40, 40, 40, 40],
+        meta: {
+          score: {
+            alias: '分数',
+            min: 0,
+            max: 100
+          }
+        },
+        xAxis: {
+          line: null,
+          tickLine: null,
+          title: {
+            style: {
+              color: 'red'
+            }
+          },
+          grid: {
+            line: {
+              style: {
+                lineDash: null
+              }
+            }
+          }
+        },
+        yAxis: {
+          line: null,
+          tickLine: null,
+          grid: {
+            line: {
+              type: 'line',
+              style: {
+                lineDash: null
+              }
+            },
+            // alternateColor: ['#ccc','#cccccc70','#cccccc50','#cccccc30']
+            alternateColor: 'transparent'
+          }
+        },
+        // 开启面积
+        area: {},
+        // 开启辅助点
+        point: {
+          size: 1
+        }
+      });
+      radarPlot.render();
+    },
+    drawAlarmLineChart () {
+      this.chartOne = echarts.init(document.getElementById('alarmLineChart'));
+      let dateArr = [];
+      let findArr = [];
+      let handelArr = [];
+      for (let i = 0; i < this.countRisksNumberList.length; i++) {
+        dateArr.push(this.countRisksNumberList[i].day.slice(5, 10));
+        if (this.countRisksNumberList[i].total) {
+          findArr.push(this.countRisksNumberList[i].total);
+        } else {
+          findArr.push(0);
+        }
+        if (this.countRisksNumberList[i].over) {
+          handelArr.push(this.countRisksNumberList[i].over);
+        } else {
+          handelArr.push(0);
+        }
+      }
+      var option = {
+        title: {
+          text: '',
+          textStyle: {
+            fontSize: '14',
+            color: '#73c1d0'
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          show: true,
+          top: '6%',
+          data: ['发现隐患', '处理隐患'],
+          textStyle: {
+            color: '#aebcd6',
+            fontSize: '10'
+          }
+        },
+        grid: {
+          top: '27%',
+          left: '10%',
+          right: '6%',
+          bottom: '16%'
+        },
+        // color: ['#175ff8', '#10c7c0'],
+        color: ['#10c7c0'],
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            splitLine: {
+              show: false,
+              lineStyle: {
+                color: ['#46536f'],
+                width: 1,
+                type: 'dashed'
+              }
+            },
+            axisLine: {
+              lineStyle: { color: '#5e708e' } // 坐标轴颜色
+            },
+            data: dateArr
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisLabel: {
+              color: '#707B7C'
+            },
+            axisLine: {
+              // symbol: ['none', 'arrow'],
+              lineStyle: { color: '#707B7C' } // 坐标轴颜色
+            },
+            // min: '0',
+            // max: '6',
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: ['#46536f'],
+                width: 1,
+                type: 'dashed'
+              }
+            }
+          }
+        ],
+        series: [
+          {
+            name: '发现隐患',
+            type: 'line',
+            smooth: true,
+            // symbol: 'none',
+            emphasis: {
+              focus: 'series'
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgba(16,199,192,1)'
+                  },
+                  {
+                    offset: 0.5,
+                    color: 'rgba(16,199,192,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(16,199,192,0.1)'
+                  }
+                ])
+              }
+            },
+            data: findArr
+          },
+          {
+            name: '处理隐患',
+            type: 'bar',
+            barWidth: 8,
+            data: handelArr,
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  { offset: 0, color: '#3E92EF' },
+                  { offset: 1, color: '#24F4ED' }
+                ])
+              }
+            }
+          }
+        ]
+      };
+      this.chartOne.setOption(option);
+    },
+    drawIncresChart () {
+      this.chartTwo = echarts.init(document.getElementById('incresChart'));
+      let dateArr = [];
+      let dataArr = [];
+      for (let i = 0; i < this.sevenDaysALarmCount.length; i++) {
+        dateArr.push(this.sevenDaysALarmCount[i].everyDay.slice(5, 10));
+        dataArr.push(this.sevenDaysALarmCount[i].number);
+      }
+      var option = {
+        title: {
+          text: '',
+          textStyle: {
+            fontSize: '14',
+            color: '#73c1d0'
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          data: ['报警次数'],
+          right: '7%',
+          textStyle: {
+            color: '#aebcd6',
+            fontSize: '10'
+          }
+        },
+        grid: {
+          top: '17%',
+          left: '10%',
+          right: '6%',
+          bottom: '16%'
+        },
+        // color: ['#175ff8', '#10c7c0'],
+        color: ['#10c7c0'],
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            splitLine: {
+              show: false,
+              lineStyle: {
+                color: ['#46536f'],
+                width: 1,
+                type: 'dashed'
+              }
+            },
+            axisLine: {
+              lineStyle: { color: '#5e708e' } // 坐标轴颜色
+            },
+            data: dateArr
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisLabel: {
+              color: '#707B7C'
+            },
+            axisLine: {
+              lineStyle: { color: '#707B7C' } // 坐标轴颜色
+            },
+            // min: '0',
+            // max: '6',
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: ['#46536f'],
+                width: 1,
+                type: 'dashed'
+              }
+            }
+          }
+        ],
+        series: [
+          {
+            name: '报警次数',
+            type: 'line',
+            smooth: true,
+            // symbol: 'none',
+            emphasis: {
+              focus: 'series'
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgba(16,199,192,1)'
+                  },
+                  {
+                    offset: 0.5,
+                    color: 'rgba(16,199,192,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(16,199,192,0.1)'
+                  }
+                ])
+              }
+            },
+            data: dataArr
+          }
+        ]
+      };
+      this.chartTwo.setOption(option);
+    },
+    drawAlarmTimePie () {
+      this.chartThree = echarts.init(document.getElementById('alarmTimePie'));
+      var option;
+      let nameArr = [];
+      let dataArr = [];
+      for (let i = 0; i < this.timeSliceArr.length - 1; i++) {
+        for (let key in this.timeSliceArr[i]) {
+          nameArr.push(key);
+          dataArr.push({
+            name: key,
+            value: this.timeSliceArr[i][key]
+          });
+        }
+      }
+      console.log(nameArr, dataArr);
+      option = {
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          right: 0
+        },
+        color: ['#2b8ef3', '#48e5e5', '#3254dd', '#bee5fb', '#3cd495'],
+        series: [
+          {
+            type: 'pie',
+            radius: [15, 60],
+            center: ['50%', '60%'],
+            roseType: 'radius',
+            itemStyle: {
+              borderRadius: 2
+            },
+            label: {
+              show: false,
+              normal: {
+                show: false
+              }
+            },
+            data: dataArr
+          }
+        ]
+      };
+
+      option && this.chartThree.setOption(option);
+    },
+    //获取年月日，时分秒并补齐2位格式化
+    getTime () {
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      let hour = date.getHours();
+      let minute = date.getMinutes();
+      let second = date.getSeconds();
+      let timeStr = year + '年' + this.addZero(month) + '月' + this.addZero(day) + '日 ' + this.addZero(hour) + ':' + this.addZero(minute) + ':' + this.addZero(second);
+      this.timeStr = timeStr;
+    },
+    //补齐2位格式化
+    addZero (num) {
+      return num < 10 ? '0' + num : num;
+    },
+    getleftNumData () {
+      let _self = this;
+      _self._http({
+        // url: '/api/web/indexCountTwo/alarmStatistics',
+        url: '/api/web/indexCountV3/alarmStatistics',
+        type: 'get',
+        success: function (res) {
+          _self.leftDataTop = res.data;
+        }
+      });
+      _self._http({
+        // url: '/api/web/indexCountTwo/patrolStatistics',
+        url: '/api/web/indexCountV3/patrolStatistics',
+        type: 'get',
+        success: function (res) {
+          _self.leftDataMid = res.data;
+        }
+      });
+    },
+    getAlarmStatisticsDate (val) {
+      console.dir(val);
+    },
+    getAlarmStatistics () {
+      const _self = this;
+      _self._http({
+        // url: '/api/web/indexCountTwo/earlyWarningStatistics',
+        url: '/api/web/indexCountV3/earlyWarningStatistics',
+        type: 'get',
+        data: {
+          option: _self.alarmRadio
+        },
+        success: function (res) {
+          _self.leftDataBot = res.data;
+        }
+      });
+    }
+  },
+  created () { },
+  mounted () {
+    let _self = this;
+    _self.screenWidth = document.body.clientWidth;
+    const htmlDom = document.getElementsByTagName('html')[0];
+    let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+    htmlDom.style.fontSize = `${htmlWidth / 19.2}px`;
+    // 监听class为asideMenu的元素宽度变化
+    let aside = document.querySelectorAll('.globalCenterIndexCon')[0];
+    aside.addEventListener('resize', () => {
+      console.log(123);
+    });
+
+    setInterval(() => {
+      this.getTime();
+    }, 1000);
+    this.getleftNumData();
+    this.getAlarmEventCount();
+    this.getAlarmStatistics();
+    // this.get7DayAlarmCount();
+    // this.getEventListAll();
+    // this.getSysEquipCount();
+    // this.getCountEquipmentState();
+    // this.getEquipStateCount();
+    this.getBuildInfo();
+    // this.getDutyNUm();
+    this.getsystemScore();
+    // this.getemergencyResources();
+    // this.getcountDuties();
+    // this.getcountCheck();
+    // this.getcountRisksNumber();
+    // this.getTimeSlice();
+    this.$nextTick(() => {
+      // this.drawIncresChart();
+      // this.drawRedarChart();
+      // this.drawAlarmLineChart();
+      // this.drawCheckDutyChart();
+      // this.drawAlarmTimePie();
+    });
+
+    setTimeout(() => {
+      let progArr = document.querySelectorAll('.el-progress__text');
+      //设置文字颜色
+      for (let i = 0; i < progArr.length; i++) {
+        let prog = progArr[i];
+        if (i == 0) {
+          prog.style.color = '#ed4545';
+        } else if (i == 1) {
+          prog.style.color = '#fb7a31';
+        } else if (i == 2) {
+          prog.style.color = '#aa9d9b';
+        } else {
+          prog.style.color = '#72e260';
+        }
+      }
+    }, 2000);
+  }
 };
 </script>
 <style lang="scss">
@@ -2339,5 +2417,329 @@ export default {
 
 .imghover:hover {
     cursor: pointer;
+}
+
+.el-dialog {
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.el-dialog .el-dialog__body {
+    flex: 1;
+    overflow: auto;
+}
+.box1 {
+    width: 25px;
+    height: 195px;
+    background-color: red;
+    position: absolute;
+    top: 221px;
+    right: 443px;
+    background-color: red;
+    opacity: 0;
+}
+.box1_1 {
+    width: 40px;
+    height: 68px;
+    background-color: red;
+    position: absolute;
+    top: 221px;
+    right: 468px;
+    background-color: green;
+    opacity: 0;
+}
+
+.box1_2 {
+    width: 141px;
+    height: 57px;
+
+    position: absolute;
+    top: 418px;
+    right: 391px;
+    background-color: blue;
+    opacity: 0;
+}
+.box1_3 {
+    width: 63px;
+    height: 19px;
+    position: absolute;
+    top: 399px;
+    right: 469px;
+    background-color: pink;
+    opacity: 0;
+}
+.box2 {
+    width: 63px;
+    height: 19px;
+    position: absolute;
+    top: 535px;
+    right: 469px;
+    background-color: pink;
+    opacity: 0;
+}
+.box2_1 {
+    width: 141px;
+    height: 57px;
+    position: absolute;
+    top: 477px;
+    right: 392px;
+    background-color: blue;
+    opacity: 0;
+}
+.box2_2 {
+    width: 25px;
+    height: 203px;
+    background-color: red;
+    position: absolute;
+    top: 534px;
+    right: 443px;
+    background-color: red;
+    opacity: 0;
+}
+.box2_3 {
+    width: 40px;
+    height: 68px;
+    background-color: red;
+    position: absolute;
+    top: 671px;
+    right: 468px;
+    background-color: green;
+    opacity: 0;
+}
+.box3 {
+    width: 37px;
+    height: 199px;
+    background-color: red;
+    position: absolute;
+    top: 537px;
+    right: 409px;
+    opacity: 0;
+}
+.box4 {
+    width: 56px;
+    height: 96px;
+    background-color: red;
+    position: absolute;
+    top: 643px;
+    right: 563px;
+    background-color: green;
+    opacity: 0;
+}
+
+.box4_1 {
+    width: 22px;
+    height: 138px;
+    background-color: red;
+    position: absolute;
+    top: 505px;
+    right: 559px;
+    background-color: red;
+    opacity: 0;
+}
+.box4_2 {
+    width: 21px;
+    height: 73px;
+    background-color: red;
+    position: absolute;
+    top: 569px;
+    right: 580px;
+    background-color: pink;
+    opacity: 0;
+}
+
+.box5 {
+    width: 35px;
+    height: 73px;
+    background-color: red;
+    position: absolute;
+    top: 291px;
+    right: 575px;
+    background-color: pink;
+    opacity: 0;
+}
+.box5_1 {
+    width: 35px;
+    height: 92px;
+    background-color: red;
+    position: absolute;
+    top: 364px;
+    right: 557px;
+    background-color: red;
+    opacity: 0;
+}
+.box5_2 {
+    width: 10px;
+    height: 49px;
+    background-color: red;
+    position: absolute;
+    top: 315px;
+    right: 565px;
+    background-color: gold;
+    opacity: 0;
+}
+
+.box6 {
+    width: 210px;
+    height: 22px;
+    background-color: red;
+    position: absolute;
+    top: 217px;
+    right: 548px;
+    background-color: gold;
+    opacity: 0;
+}
+.box7 {
+    width: 210px;
+    height: 22px;
+    background-color: red;
+    position: absolute;
+    top: 238px;
+    right: 548px;
+    background-color: gold;
+    opacity: 0;
+}
+.box8 {
+    width: 97px;
+    height: 17px;
+    background-color: red;
+    position: absolute;
+    top: 220px;
+    right: 797px;
+    background-color: gold;
+    opacity: 0;
+}
+.box9 {
+    width: 48px;
+    height: 341px;
+    background-color: red;
+    position: absolute;
+    top: 220px;
+    right: 894px;
+    background-color: gold;
+    opacity: 0;
+}
+.box10 {
+    width: 46px;
+    height: 149px;
+    background-color: red;
+    position: absolute;
+    top: 590px;
+    right: 894px;
+    background-color: gold;
+    opacity: 0;
+}
+.box10_1 {
+    width: 78px;
+    height: 16px;
+    background-color: red;
+    position: absolute;
+    top: 723px;
+    right: 814px;
+    background-color: gold;
+    opacity: 0;
+}
+.box11 {
+    width: 115px;
+    height: 18px;
+    background-color: red;
+    position: absolute;
+    top: 720px;
+    right: 660px;
+    background-color: gold;
+    opacity: 0;
+}
+.box12 {
+    width: 27px;
+    height: 90px;
+    background-color: red;
+    position: absolute;
+    top: 433px;
+    right: 804px;
+    background-color: gold;
+    opacity: 0;
+}
+.box13 {
+    width: 27px;
+    height: 145px;
+    background-color: red;
+    position: absolute;
+    top: 289px;
+    right: 804px;
+    background-color: greenyellow;
+    opacity: 0;
+}
+.box14 {
+    width: 28px;
+    height: 158px;
+    background-color: red;
+    position: absolute;
+    top: 523px;
+    right: 804px;
+    background-color: #2f00ff;
+    opacity: 0;
+}
+.box15 {
+    width: 26px;
+    height: 391px;
+    background-color: red;
+    position: absolute;
+    top: 289px;
+    right: 778px;
+    background-color: greenyellow;
+    opacity: 0;
+}
+.box16 {
+    width: 138px;
+    height: 391px;
+    background-color: red;
+    position: absolute;
+    top: 289px;
+    right: 638px;
+    background-color: greenyellow;
+    opacity: 0;
+}
+.box16_1 {
+    width: 35px;
+    height: 391px;
+    background-color: red;
+    position: absolute;
+    top: 289px;
+    right: 603px;
+    background-color: red;
+    opacity: 0;
+}
+.box16_2 {
+    width: 12px;
+    height: 182px;
+    background-color: red;
+    position: absolute;
+    top: 391px;
+    right: 593px;
+    background-color: greenyellow;
+    opacity: 0;
+}
+.box16_3 {
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    position: absolute;
+    top: 283px;
+    right: 642px;
+    background-color: greenyellow;
+    opacity: 0;
+}
+.box16_4 {
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    position: absolute;
+    top: 674px;
+    right: 636px;
+    background-color: red;
+    opacity: 0;
 }
 </style>

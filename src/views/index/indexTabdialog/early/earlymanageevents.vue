@@ -70,7 +70,7 @@
                             <el-tab-pane label="隐患预警" name="yinghuan"></el-tab-pane>
                         </el-tabs>
                     </div>
-                    <el-table class="xf-table" :data="dataTable" max-height="340">
+                    <el-table class="xf-table" :data="dataTable" height="340">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
@@ -227,715 +227,715 @@
 <script>
 import * as echarts from 'echarts';
 export default {
-    props: ['readyAlarmType', 'alarmRadiofu'],
-    data() {
-        return {
-            chartRadio1: '0',
-            patrolinformation: '您好，这里是消防控制中心，您有一条巡检信息，已超时未处置，请您及时进行巡检。',
-            dangerinformation: '您好，这里是消防控制中心，您有一条隐患信息，已超时未处置，请您及时进行处置。',
-            sourcelist: [],
-            alarmanalysis6_params: null,
-            timeRadio: '巡查处置时效',
-            radio1: '已处置',
-            firstPageData1: {},
-            firstPageData2: {},
-            showLeavel: 1,
-            activeName: 'first',
-            activeSenName: 'xiaofang',
-            pager: {
-                pageSize: 10,
-                pageIndex: 1,
-                total: null
-            },
-            pager2: {
-                pageSize: 10,
-                pageIndex: 1,
-                total: null
-            },
-            tabitemindex: 0,
-            dialogFormVisible: true,
-            dataTable: [],
-            dataTable2: [],
-            timeLineData: [],
-            dellData: [],
-            suddenData: [],
-            suddenData2: [],
-            checkData: [],
-            riskData: [],
-            alarmRadio: 'DAY',
-            // manageRadio: 'DAY',
-            suddenDataStatistic: {}, // 突发类事件统计
-            manageDataStatistic: {}, // 管理类事件统计
-            orderStateObj: {
-                '01': '待受理',
-                '02': '待确认',
-                '03': '处置中',
-                '04': '完成',
-                '05': '忽略'
-            },
-            currentRow: {}
-        };
+  props: ['readyAlarmType', 'alarmRadiofu'],
+  data () {
+    return {
+      chartRadio1: '0',
+      patrolinformation: '您好，这里是消防控制中心，您有一条巡检信息，已超时未处置，请您及时进行巡检。',
+      dangerinformation: '您好，这里是消防控制中心，您有一条隐患信息，已超时未处置，请您及时进行处置。',
+      sourcelist: [],
+      alarmanalysis6_params: null,
+      timeRadio: '巡查处置时效',
+      radio1: '已处置',
+      firstPageData1: {},
+      firstPageData2: {},
+      showLeavel: 1,
+      activeName: 'first',
+      activeSenName: 'xiaofang',
+      pager: {
+        pageSize: 10,
+        pageIndex: 1,
+        total: null
+      },
+      pager2: {
+        pageSize: 10,
+        pageIndex: 1,
+        total: null
+      },
+      tabitemindex: 0,
+      dialogFormVisible: true,
+      dataTable: [],
+      dataTable2: [],
+      timeLineData: [],
+      dellData: [],
+      suddenData: [],
+      suddenData2: [],
+      checkData: [],
+      riskData: [],
+      alarmRadio: 'DAY',
+      // manageRadio: 'DAY',
+      suddenDataStatistic: {}, // 突发类事件统计
+      manageDataStatistic: {}, // 管理类事件统计
+      orderStateObj: {
+        '01': '待受理',
+        '02': '待确认',
+        '03': '处置中',
+        '04': '完成',
+        '05': '忽略'
+      },
+      currentRow: {}
+    };
+  },
+  watch: {},
+  created () { },
+  filters: {
+    equipmentStateType (val) {
+      if (val == '1') return '正常';
+      if (val == '2') return '故障';
+      if (val == '3') return '离线';
+      if (val == '4') return '预警';
+      if (val == '9') return '火警';
     },
-    watch: {},
-    created() {},
-    filters: {
-        equipmentStateType(val) {
-            if (val == '1') return '正常';
-            if (val == '2') return '故障';
-            if (val == '3') return '离线';
-            if (val == '4') return '预警';
-            if (val == '9') return '火警';
-        },
-        alarmStateType(val) {
-            if (val == '0') return '无';
-            if (val == '6') return '温度高报';
-            if (val == '7') return '温度低报';
-            if (val == '8') return '压力高报';
-            if (val == '9') return '压力低报';
-            if (val == '10') return '液位高报';
-            if (val == '11') return '液位低报';
-            if (val == '12') return '主电故障';
-            if (val == '13') return '备电故障';
-            if (val == '14') return '总线故障';
-            if (val == '15') return '总线短路';
-            if (val == '16') return '短路';
-            if (val == '17') return '开路';
-            if (val == '18') return '漏电高报';
-            if (val == '19') return '漏电低报';
-            if (val == '20') return '电流高报';
-            if (val == '21') return '电流低报';
-            if (val == '22') return '断线';
-        },
-        confirmResultType(val) {
-            if (val == '01') return '误报';
-            if (val == '02') return '真实报警';
-            if (val == '03') return '故障';
-        }
+    alarmStateType (val) {
+      if (val == '0') return '无';
+      if (val == '6') return '温度高报';
+      if (val == '7') return '温度低报';
+      if (val == '8') return '压力高报';
+      if (val == '9') return '压力低报';
+      if (val == '10') return '液位高报';
+      if (val == '11') return '液位低报';
+      if (val == '12') return '主电故障';
+      if (val == '13') return '备电故障';
+      if (val == '14') return '总线故障';
+      if (val == '15') return '总线短路';
+      if (val == '16') return '短路';
+      if (val == '17') return '开路';
+      if (val == '18') return '漏电高报';
+      if (val == '19') return '漏电低报';
+      if (val == '20') return '电流高报';
+      if (val == '21') return '电流低报';
+      if (val == '22') return '断线';
     },
-    mounted() {
-        this.alarmRadio = this.alarmRadiofu; //当日、当月
-        if (this.alarmRadiofu == 'MONTH') {
-            this.$nextTick(() => {
-                this.changeTabsSeco();
-            });
-        }
-        if (this.readyAlarmType == 1) {
-            this.activeName = 'first';
-            this.getFirstData();
-        } else {
-            this.activeName = 'second';
-            this.getFirstData();
-        }
-        this.getList();
+    confirmResultType (val) {
+      if (val == '01') return '误报';
+      if (val == '02') return '真实报警';
+      if (val == '03') return '故障';
+    }
+  },
+  mounted () {
+    this.alarmRadio = this.alarmRadiofu; //当日、当月
+    if (this.alarmRadiofu == 'MONTH') {
+      this.$nextTick(() => {
+        this.changeTabsSeco();
+      });
+    }
+    if (this.readyAlarmType == 1) {
+      this.activeName = 'first';
+      this.getFirstData();
+    } else {
+      this.activeName = 'second';
+      this.getFirstData();
+    }
+    this.getList();
+  },
+  methods: {
+    closeDialog () {
+      this.$emit('update:visible', false);
+      // this.turntopage('alarmanalysis1');
     },
-    methods: {
-        closeDialog() {
-            this.$emit('update:visible', false);
-            // this.turntopage('alarmanalysis1');
-        },
-        showLeavelchage(value) {
-            this.showLeavel = 2;
-            this.chartRadio1 = value;
-            this.getList();
-        },
-        changeTabsSeco() {
-            let _self = this;
-            // 清空id的innerHTML
-            // document.getElementById('lineChart3').innerHTML = '';
-            _self._http({
-                //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
-                url: '/api/web/indexCountV3/countPatrolManageMinute',
-                //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
-                type: 'get',
-                success: function (res) {
-                    console.dir(res);
-                    res.data.forEach((item) => {
-                        item.everyDay = item.timeName.slice(5, 10);
-                    });
+    showLeavelchage (value) {
+      this.showLeavel = 2;
+      this.chartRadio1 = value;
+      this.getList();
+    },
+    changeTabsSeco () {
+      let _self = this;
+      // 清空id的innerHTML
+      // document.getElementById('lineChart3').innerHTML = '';
+      _self._http({
+        //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
+        url: '/api/web/indexCountV3/countPatrolManageMinute',
+        //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
+        type: 'get',
+        success: function (res) {
+          console.dir(res);
+          res.data.forEach((item) => {
+            item.everyDay = item.timeName.slice(5, 10);
+          });
 
-                    _self.checkData = res.data;
-                    _self.drawLineChart2();
-                }
+          _self.checkData = res.data;
+          _self.drawLineChart2();
+        }
+      });
+      // 隐患时效统计
+      // document.getElementById('lineChart2').innerHTML = '';
+      _self._http({
+        url: '/api/web/indexCountV3/countRisksDay', //迪威隐患时效图
+        // url: '/api/web/indexCountTwo/countRisksDay',
+        type: 'get',
+        success: function (res) {
+          if (res.data.length > 0) {
+            res.data.forEach((item) => {
+              item.everyDay = item.timeName.slice(5, 10);
             });
-            // 隐患时效统计
-            // document.getElementById('lineChart2').innerHTML = '';
-            _self._http({
-                url: '/api/web/indexCountV3/countRisksDay', //迪威隐患时效图
-                // url: '/api/web/indexCountTwo/countRisksDay',
-                type: 'get',
-                success: function (res) {
-                    if (res.data.length > 0) {
-                        res.data.forEach((item) => {
-                            item.everyDay = item.timeName.slice(5, 10);
-                        });
-                        _self.riskData = res.data;
-                        _self.drawLineChart3();
-                    } else {
-                        _self.riskData = res.data;
-                        _self.drawLineChart3();
-                    }
+            _self.riskData = res.data;
+            _self.drawLineChart3();
+          } else {
+            _self.riskData = res.data;
+            _self.drawLineChart3();
+          }
 
-                    /*     _self.riskData = res.data;
+          /*     _self.riskData = res.data;
 _self.drawLineChart3(); */
-                }
-            });
-        },
-        updateOrDeleteInfo(type, row) {
-            // console.log("************************************************************************************")
-            this.showLeavel = 3;
-            this.alarmanalysis6_params = row;
-            // this.getMessageList(row);
-            this.getfindMessages(row);
-        },
-        changeRadio(val) {
-            this.getList();
-        },
+        }
+      });
+    },
+    updateOrDeleteInfo (type, row) {
+      // console.log("************************************************************************************")
+      this.showLeavel = 3;
+      this.alarmanalysis6_params = row;
+      // this.getMessageList(row);
+      this.getfindMessages(row);
+    },
+    changeRadio (val) {
+      this.getList();
+    },
 
-        getFirstData() {
-            let _self = this;
-            _self._http({
-                url: '/api/web/indexCountV3/earlyWarningStatistics', ///api/web/indexCountTwo/earlyWarningStatistics
-                type: 'get',
-                data: {
-                    option: _self.alarmRadio
-                },
-                success: function (res) {
-                    _self.firstPageData1 = res.data;
-                    _self.suddenData = [res.data.manages, res.data.managesOver];
-                    _self.drawLineSuddenChart();
-                }
-            });
-            _self._http({
-                url: '/api/web/indexCountV3/managesStatistics',
-                type: 'get',
-                data: {
-                    option: _self.alarmRadio
-                },
-                success: function (res) {
-                    _self.firstPageData2 = res.data;
-                    _self.suddenData2 = [
-                        [res.data.patrol || 0, res.data.risks || 0],
-                        [res.data.patrolOver || 0, res.data.risksOver || 0]
-                    ];
-                    _self.drawLineSuddenChart();
-                }
-            });
+    getFirstData () {
+      let _self = this;
+      _self._http({
+        url: '/api/web/indexCountV3/earlyWarningStatistics', ///api/web/indexCountTwo/earlyWarningStatistics
+        type: 'get',
+        data: {
+          option: _self.alarmRadio
         },
+        success: function (res) {
+          _self.firstPageData1 = res.data;
+          _self.suddenData = [res.data.manages, res.data.managesOver];
+          _self.drawLineSuddenChart();
+        }
+      });
+      _self._http({
+        url: '/api/web/indexCountV3/managesStatistics',
+        type: 'get',
+        data: {
+          option: _self.alarmRadio
+        },
+        success: function (res) {
+          _self.firstPageData2 = res.data;
+          _self.suddenData2 = [
+            [res.data.patrol || 0, res.data.risks || 0],
+            [res.data.patrolOver || 0, res.data.risksOver || 0]
+          ];
+          _self.drawLineSuddenChart();
+        }
+      });
+    },
 
-        // 留
-        drawLineSuddenChart(val) {
-            console.dir(val);
-            let changLengthLeft = '',
-                changLengthriht = '';
-            if (val == 'false') {
-                changLengthLeft = false;
-                changLengthriht = false;
-            } else if (val == 'true') {
-                changLengthLeft = false;
-                changLengthriht = true;
-            } else {
-                changLengthLeft = true;
-                changLengthriht = true;
+    // 留
+    drawLineSuddenChart (val) {
+      console.dir(val);
+      let changLengthLeft = '',
+        changLengthriht = '';
+      if (val == 'false') {
+        changLengthLeft = false;
+        changLengthriht = false;
+      } else if (val == 'true') {
+        changLengthLeft = false;
+        changLengthriht = true;
+      } else {
+        changLengthLeft = true;
+        changLengthriht = true;
+      }
+
+      let _self = this;
+      var chartDom = document.getElementById('barChartSudden');
+      var myChart = echarts.init(chartDom);
+      var option;
+      let _xData = ['管理类事件预警', '已处置数'];
+      let _yData = this.suddenData2;
+      console.log(_yData);
+      option = {
+        title: {
+          text: '',
+          textStyle: {
+            color: 'rgb(255,255,255)',
+            fontWeight: 'bolder',
+            fontSize: '14'
+          }
+        },
+        tooltip: {
+          trigger: 'axis'
+          // formatter: '时段：{b0}<br />设备警告：{c0} 次'
+        },
+        legend: {
+          data: _xData,
+          right: '5%',
+          textStyle: {
+            color: '#ffffff'
+          },
+          icon: 'circle',
+          selected: { 管理类事件预警: changLengthLeft, 已处置数: changLengthriht }
+        },
+        grid: {
+          left: '5%',
+          right: '5%',
+          bottom: '5%',
+          containLabel: true
+        },
+        //  color: ['#25A6FF', '#E7745B'],
+        color: ['#e16b2b', '#178cea'],
+        xAxis: {
+          type: 'category',
+          data: ['消防巡查预警', '隐患预警'],
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677'
             }
-
-            let _self = this;
-            var chartDom = document.getElementById('barChartSudden');
-            var myChart = echarts.init(chartDom);
-            var option;
-            let _xData = ['管理类事件预警', '已处置数'];
-            let _yData = this.suddenData2;
-            console.log(_yData);
-            option = {
-                title: {
-                    text: '',
-                    textStyle: {
-                        color: 'rgb(255,255,255)',
-                        fontWeight: 'bolder',
-                        fontSize: '14'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis'
-                    // formatter: '时段：{b0}<br />设备警告：{c0} 次'
-                },
-                legend: {
-                    data: _xData,
-                    right: '5%',
-                    textStyle: {
-                        color: '#ffffff'
-                    },
-                    icon: 'circle',
-                    selected: { 管理类事件预警: changLengthLeft, 已处置数: changLengthriht }
-                },
-                grid: {
-                    left: '5%',
-                    right: '5%',
-                    bottom: '5%',
-                    containLabel: true
-                },
-                //  color: ['#25A6FF', '#E7745B'],
-                color: ['#e16b2b', '#178cea'],
-                xAxis: {
-                    type: 'category',
-                    data: ['消防巡查预警', '隐患预警'],
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLine: {
-                        show: false,
-                        lineStyle: {
-                            color: '#596677'
-                        }
-                    },
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#C9CED5'
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#596677',
-                            type: 'dotted'
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: '管理类事件预警',
-                        data: _yData[0], // [{value:leftDataTop.monthAlarms || 0,name:'设备报警数量'}]
-                        type: 'bar',
-                        barMaxWidth: 20
-                    },
-                    {
-                        name: '已处置数',
-                        data: _yData[1], // [{value:leftDataTop.monthAlarmsOver || 0,name:'报警处置数量'}]
-                        type: 'bar',
-                        barMaxWidth: 20
-                    }
-                ]
-            };
-            option && myChart.setOption(option);
-            myChart.on('click', (d) => {
-                _self.showLeavel = 2;
-                d.seriesIndex == 0 ? (_self.chartRadio1 = '0') : (_self.chartRadio1 = 'true');
-                this.getList();
-            });
-        },
-        drawLineChart2() {
-            var chartDom = document.getElementById('lineChart2');
-            var myChart = echarts.init(chartDom);
-            var option;
-            // dellData
-            // average: 166
-            // everyDay: "2022-09-01"
-            let _xData = [];
-            let _yData = [];
-            for (let i = 0; i < this.checkData.length; i++) {
-                _xData.push(this.checkData[i].everyDay);
-                _yData.push(this.checkData[i].average);
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
             }
-            option = {
-                title: {
-                    text: '当月巡查平均处置时效',
-                    textStyle: {
-                        fontSize: '14',
-                        color: '#ffffff'
-                    }
-                },
-                grid: {
-                    top: '25%',
-                    left: '0%',
-                    right: '5%',
-                    bottom: '5%',
-                    containLabel: true
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: function (val) {
-                        return '平均处置时效' + val[0].data + '分钟';
-                    }
-                },
-                color: ['#5aa1fc'],
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    axisLabel: {
-                        interval: 0,
-                        rotate: 45,
-                        textStyle: {
-                            color: '#FFFFFF'
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#BBF6FF',
-                            width: 2
-                        },
-                        symbol: ['none', 'arrow']
-                    },
-                    data: _xData
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLabel: {
-                        formatter: '{value}min',
-                        textStyle: {
-                            color: '#FFFFFF'
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#BBF6FF00',
-                            width: 2
-                        },
-                        symbol: ['none', 'arrow']
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: ['#BBF6FF'],
-                            width: 1,
-                            type: 'dashed'
-                        }
-                    }
-                    /*   min: 0,
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#596677'
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#C9CED5'
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#596677',
+              type: 'dotted'
+            }
+          }
+        },
+        series: [
+          {
+            name: '管理类事件预警',
+            data: _yData[0], // [{value:leftDataTop.monthAlarms || 0,name:'设备报警数量'}]
+            type: 'bar',
+            barMaxWidth: 20
+          },
+          {
+            name: '已处置数',
+            data: _yData[1], // [{value:leftDataTop.monthAlarmsOver || 0,name:'报警处置数量'}]
+            type: 'bar',
+            barMaxWidth: 20
+          }
+        ]
+      };
+      option && myChart.setOption(option);
+      myChart.on('click', (d) => {
+        _self.showLeavel = 2;
+        d.seriesIndex == 0 ? (_self.chartRadio1 = '0') : (_self.chartRadio1 = 'true');
+        this.getList();
+      });
+    },
+    drawLineChart2 () {
+      var chartDom = document.getElementById('lineChart2');
+      var myChart = echarts.init(chartDom);
+      var option;
+      // dellData
+      // average: 166
+      // everyDay: "2022-09-01"
+      let _xData = [];
+      let _yData = [];
+      for (let i = 0; i < this.checkData.length; i++) {
+        _xData.push(this.checkData[i].everyDay);
+        _yData.push(this.checkData[i].average);
+      }
+      option = {
+        title: {
+          text: '当月巡查平均处置时效',
+          textStyle: {
+            fontSize: '14',
+            color: '#ffffff'
+          }
+        },
+        grid: {
+          top: '25%',
+          left: '0%',
+          right: '5%',
+          bottom: '5%',
+          containLabel: true
+        },
+        tooltip: {
+          trigger: 'axis',
+          formatter: function (val) {
+            return '平均处置时效' + val[0].data + '分钟';
+          }
+        },
+        color: ['#5aa1fc'],
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          axisLabel: {
+            interval: 0,
+            rotate: 45,
+            textStyle: {
+              color: '#FFFFFF'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#BBF6FF',
+              width: 2
+            },
+            symbol: ['none', 'arrow']
+          },
+          data: _xData
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: '{value}min',
+            textStyle: {
+              color: '#FFFFFF'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#BBF6FF00',
+              width: 2
+            },
+            symbol: ['none', 'arrow']
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: ['#BBF6FF'],
+              width: 1,
+              type: 'dashed'
+            }
+          }
+          /*   min: 0,
 max: 60,
 interval: 20 */
-                },
-                series: [
-                    {
-                        data: _yData,
-                        type: 'line',
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                                    {
-                                        offset: 0,
-                                        color: '#2e486e'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#2e486e'
-                                    }
-                                ])
-                            }
-                        }
-                    }
-                ]
-            };
-            option && myChart.setOption(option);
-            console.log('pxpxpx1', option);
         },
-        drawLineChart3() {
-            var chartDom = document.getElementById('lineChart3');
-            var myChart = echarts.init(chartDom);
-            var option;
-            // dellData
-            // average: 166
-            // everyDay: "2022-09-01"
-            let _xData = [];
-            let _yData = [];
-            for (let i = 0; i < this.riskData.length; i++) {
-                _xData.push(this.riskData[i].everyDay);
-                _yData.push(this.riskData[i].average);
+        series: [
+          {
+            data: _yData,
+            type: 'line',
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  {
+                    offset: 0,
+                    color: '#2e486e'
+                  },
+                  {
+                    offset: 1,
+                    color: '#2e486e'
+                  }
+                ])
+              }
             }
-            option = {
-                title: {
-                    text: '当月隐患平均处置时效',
-                    textStyle: {
-                        fontSize: '14',
-                        color: '#ffffff'
-                    }
-                },
-                grid: {
-                    top: '25%',
-                    left: '0%',
-                    right: '8%',
-                    bottom: '0%',
-                    containLabel: true
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: function (val) {
-                        return '平均处置时效' + val[0].data + '分钟';
-                    }
-                },
-                color: ['#5aa1fc'],
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    axisLabel: {
-                        interval: 0,
-                        rotate: 45,
-                        textStyle: {
-                            color: '#FFFFFF'
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#BBF6FF',
-                            width: 2
-                        },
-                        symbol: ['none', 'arrow']
-                    },
-                    data: _xData
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLabel: {
-                        formatter: '{value}天',
-                        textStyle: {
-                            color: '#FFFFFF'
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#BBF6FF00',
-                            width: 2
-                        },
-                        symbol: ['none', 'arrow']
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: ['#BBF6FF'],
-                            width: 1,
-                            type: 'dashed'
-                        }
-                    },
-                    min: 0,
-                    max: 60,
-                    interval: 20
-                },
-                series: [
-                    {
-                        data: _yData,
-                        type: 'line',
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                                    {
-                                        offset: 0,
-                                        color: '#2e486e'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#2e486e'
-                                    }
-                                ])
-                            }
-                        }
-                    }
-                ]
-            };
-            option && myChart.setOption(option);
-            console.log('pxpxpx1', option);
-        },
-        tabitemchange(val) {
-            console.dir(val);
-            this.chartRadio1 = val;
-            this.pager.pageSize = 10;
-            this.pager.pageIndex = 1;
-            this.getList();
-            console.dir(val);
-            this.drawLineSuddenChart(val);
-        },
-        indexMethod(index) {
-            let _self = this;
-            if (_self.pager.pageIndex * _self.pager.pageSize > _self.dataTable.totalCount) {
-                let tempIndex = index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
-                if (tempIndex < _self.dataTable.totalCount) {
-                    return tempIndex;
-                } else {
-                    return _self.dataTable.totalCount;
-                }
-            } else {
-                return index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
-            }
-        },
-        // 留
-        getList() {
-            let _self = this;
-            _self.loading = true;
-            _self.dataTable = [];
-            let searchObj = {
-                option: _self.alarmRadio,
-                size: _self.pager.pageSize,
-                current: _self.pager.pageIndex,
-                handle: _self.chartRadio1 == '0' ? '' : _self.chartRadio1,
-                transform: 'U:handler;OW:owningSystem;B:building;F:floor;ES:owningSystem,U:dispatcher,taker,verifier',
-                sorts: 'sendTime:desc' //'addtime:desc'
-            };
-            //删除空值
-            for (let key in searchObj) {
-                if (searchObj[key] == '') {
-                    delete searchObj[key];
-                }
-            }
-            _self._http({
-                // url: _self.activeSenName == 'yinghuan' ? '/api/web/indexCountTwo/manageRisks' : '/api/web/indexCountTwo/findPatrols',
-                url: _self.activeSenName == 'yinghuan' ? '/api/web/indexCountV3/manageRisks' : '/api/web/indexCountV3/findPatrols',
-                type: 'get',
-                data: searchObj,
-                success: function (res) {
-                    _self.dataTable = res.data.records;
-                    _self.pager.total = res.data.total;
-                    _self.loading = false;
-                }
-            });
-        },
-        changeSenName() {
-            const _self = this;
-            _self.pager.pageSize = 10;
-            _self.pager.pageIndex = 1;
-            _self.getList();
-        },
-        getMessageList(row) {
-            const _self = this;
-            _self._http({
-                url: '/api/web/indexCountTwo/findMessages',
-                type: 'get',
-                data: {
-                    sourceId: row.id,
-                    transform: 'U:targetObject',
-                    sorts: 'addtime:desc'
-                },
-                success: function (res) {
-                    // _self.timeLineData = [{ targetObjectJob: '' }];
-                    // let sorlist = _self.sortKey(res.data.records, 'messageDate');
-                    // _self.timeLineData.push(...sorlist);
-                    _self.currentRow = row;
-
-                    _self.sourcelist = res.data.records || [];
-
-                    if ((_self.alarmanalysis6_params.verifyTime || '') != '') {
-                        _self.sourcelist.push({
-                            addtime: _self.alarmanalysis6_params.verifyTime,
-                            verifyTime: _self.alarmanalysis6_params.verifyTime,
-                            lookup: {
-                                targetObject: _self.alarmanalysis6_params.lookup.verifier
-                            },
-                            verifier: _self.alarmanalysis6_params.lookup.verifier,
-                            result: _self.alarmanalysis6_params.result
-                        });
-                    }
-                    if ((_self.alarmanalysis6_params.confirmTime || '') != '') {
-                        _self.sourcelist.push({
-                            addtime: _self.alarmanalysis6_params.confirmTime,
-                            confirmTime: _self.alarmanalysis6_params.confirmTime,
-                            lookup: {
-                                targetObject: _self.alarmanalysis6_params.lookup.confirmor
-                            },
-                            confirmor: _self.alarmanalysis6_params.lookup.confirmor,
-                            confirmResult: _self.alarmanalysis6_params.confirmResult
-                        });
-                    }
-                    // _self.sourcelist = _self.sourcelist.sort((a, b) => {
-                    //     return a.addtime > b.addtime ? 1 : -1;
-                    // });
-                }
-            });
-        },
-        sortKey(array, key) {
-            return array.sort(function (a, b) {
-                var x = a[key];
-                var y = b[key];
-                return x < y ? -1 : x > y ? 1 : 0;
-            });
-        },
-        getfindMessages(val) {
-            let _self = this;
-            _self.sourcelist = [];
-            _self._http({
-                url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
-                type: 'get',
-                isBody: true,
-                data: {
-                    waringId: val.id
-                    // sourceId: val.id,
-                    // transform: 'U:targetObject'
-                },
-                success: function (res) {
-                    _self.sourcelist = res.data.data || [];
-                    // let arr = [];
-                    // _self.sourcelist.forEach((item, index) => {
-                    //     item.targetObjectJob = item.targetObjectJob || '';
-                    //     if (item.targetObjectJob.indexOf('责任人') == -1) {
-                    //         item.show = false;
-                    //     } else {
-                    //         let has = false;
-                    //         for (let i = 0; i < arr.length; i++) {
-                    //             if (item.targetObjectJob == arr[i]) {
-                    //                 has = true;
-                    //                 break;
-                    //             }
-                    //         }
-                    //         if (!has) {
-                    //             item.show = true;
-                    //             arr.push(item.targetObjectJob);
-                    //         } else {
-                    //             item.show = false;
-                    //         }
-                    //     }
-                    // });
-                    // if ((_self.alarmanalysis6_params.verifyTime || '') != '') {
-                    //     _self.sourcelist.push({
-                    //         addtime: _self.alarmanalysis6_params.verifyTime,
-                    //         verifyTime: _self.alarmanalysis6_params.verifyTime,
-                    //         lookup: {
-                    //             targetObject: _self.alarmanalysis6_params.lookup.verifier
-                    //         },
-                    //         verifier: _self.alarmanalysis6_params.lookup.verifier,
-                    //         result: _self.alarmanalysis6_params.result,
-                    //         title: '',
-                    //         verifierPhone: _self.alarmanalysis6_params.verifierPhone || '',
-                    //         show: true
-                    //     });
-                    // }
-                    // if ((_self.alarmanalysis6_params.confirmTime || '') != '') {
-                    //     _self.sourcelist.push({
-                    //         addtime: _self.alarmanalysis6_params.confirmTime,
-                    //         confirmTime: _self.alarmanalysis6_params.confirmTime,
-                    //         lookup: {
-                    //             targetObject: _self.alarmanalysis6_params.lookup.confirmor
-                    //         },
-                    //         confirmor: _self.alarmanalysis6_params.lookup.confirmor,
-                    //         confirmResult: _self.alarmanalysis6_params.confirmResult,
-                    //         confirmorPhone: _self.alarmanalysis6_params.confirmorPhone || '',
-                    //         title: '',
-                    //         show: true
-                    //     });
-                    // }
-                    // _self.sourcelist = _self.sourcelist.sort((a, b) => {
-                    //     return a.addtime > b.addtime ? 1 : -1;
-                    // });
-                }
-            });
-        }
+          }
+        ]
+      };
+      option && myChart.setOption(option);
+      console.log('pxpxpx1', option);
     },
-    computed: {},
-    components: {}
+    drawLineChart3 () {
+      var chartDom = document.getElementById('lineChart3');
+      var myChart = echarts.init(chartDom);
+      var option;
+      // dellData
+      // average: 166
+      // everyDay: "2022-09-01"
+      let _xData = [];
+      let _yData = [];
+      for (let i = 0; i < this.riskData.length; i++) {
+        _xData.push(this.riskData[i].everyDay);
+        _yData.push(this.riskData[i].average);
+      }
+      option = {
+        title: {
+          text: '当月隐患平均处置时效',
+          textStyle: {
+            fontSize: '14',
+            color: '#ffffff'
+          }
+        },
+        grid: {
+          top: '25%',
+          left: '0%',
+          right: '8%',
+          bottom: '0%',
+          containLabel: true
+        },
+        tooltip: {
+          trigger: 'axis',
+          formatter: function (val) {
+            return '平均处置时效' + val[0].data + '分钟';
+          }
+        },
+        color: ['#5aa1fc'],
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          axisLabel: {
+            interval: 0,
+            rotate: 45,
+            textStyle: {
+              color: '#FFFFFF'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#BBF6FF',
+              width: 2
+            },
+            symbol: ['none', 'arrow']
+          },
+          data: _xData
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: '{value}天',
+            textStyle: {
+              color: '#FFFFFF'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#BBF6FF00',
+              width: 2
+            },
+            symbol: ['none', 'arrow']
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: ['#BBF6FF'],
+              width: 1,
+              type: 'dashed'
+            }
+          },
+          min: 0,
+          max: 60,
+          interval: 20
+        },
+        series: [
+          {
+            data: _yData,
+            type: 'line',
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  {
+                    offset: 0,
+                    color: '#2e486e'
+                  },
+                  {
+                    offset: 1,
+                    color: '#2e486e'
+                  }
+                ])
+              }
+            }
+          }
+        ]
+      };
+      option && myChart.setOption(option);
+      console.log('pxpxpx1', option);
+    },
+    tabitemchange (val) {
+      console.dir(val);
+      this.chartRadio1 = val;
+      this.pager.pageSize = 10;
+      this.pager.pageIndex = 1;
+      this.getList();
+      console.dir(val);
+      this.drawLineSuddenChart(val);
+    },
+    indexMethod (index) {
+      let _self = this;
+      if (_self.pager.pageIndex * _self.pager.pageSize > _self.dataTable.totalCount) {
+        let tempIndex = index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
+        if (tempIndex < _self.dataTable.totalCount) {
+          return tempIndex;
+        } else {
+          return _self.dataTable.totalCount;
+        }
+      } else {
+        return index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
+      }
+    },
+    // 留
+    getList () {
+      let _self = this;
+      _self.loading = true;
+      _self.dataTable = [];
+      let searchObj = {
+        option: _self.alarmRadio,
+        size: _self.pager.pageSize,
+        current: _self.pager.pageIndex,
+        handle: _self.chartRadio1 == '0' ? '' : _self.chartRadio1,
+        transform: 'U:handler;OW:owningSystem;B:building;F:floor;ES:owningSystem,U:dispatcher,taker,verifier',
+        sorts: 'sendTime:desc' //'addtime:desc'
+      };
+      //删除空值
+      for (let key in searchObj) {
+        if (searchObj[key] == '') {
+          delete searchObj[key];
+        }
+      }
+      _self._http({
+        // url: _self.activeSenName == 'yinghuan' ? '/api/web/indexCountTwo/manageRisks' : '/api/web/indexCountTwo/findPatrols',
+        url: _self.activeSenName == 'yinghuan' ? '/api/web/indexCountV3/manageRisks' : '/api/web/indexCountV3/findPatrols',
+        type: 'get',
+        data: searchObj,
+        success: function (res) {
+          _self.dataTable = res.data.records;
+          _self.pager.total = res.data.total;
+          _self.loading = false;
+        }
+      });
+    },
+    changeSenName () {
+      const _self = this;
+      _self.pager.pageSize = 10;
+      _self.pager.pageIndex = 1;
+      _self.getList();
+    },
+    getMessageList (row) {
+      const _self = this;
+      _self._http({
+        url: '/api/web/indexCountTwo/findMessages',
+        type: 'get',
+        data: {
+          sourceId: row.id,
+          transform: 'U:targetObject',
+          sorts: 'addtime:desc'
+        },
+        success: function (res) {
+          // _self.timeLineData = [{ targetObjectJob: '' }];
+          // let sorlist = _self.sortKey(res.data.records, 'messageDate');
+          // _self.timeLineData.push(...sorlist);
+          _self.currentRow = row;
+
+          _self.sourcelist = res.data.records || [];
+
+          if ((_self.alarmanalysis6_params.verifyTime || '') != '') {
+            _self.sourcelist.push({
+              addtime: _self.alarmanalysis6_params.verifyTime,
+              verifyTime: _self.alarmanalysis6_params.verifyTime,
+              lookup: {
+                targetObject: _self.alarmanalysis6_params.lookup.verifier
+              },
+              verifier: _self.alarmanalysis6_params.lookup.verifier,
+              result: _self.alarmanalysis6_params.result
+            });
+          }
+          if ((_self.alarmanalysis6_params.confirmTime || '') != '') {
+            _self.sourcelist.push({
+              addtime: _self.alarmanalysis6_params.confirmTime,
+              confirmTime: _self.alarmanalysis6_params.confirmTime,
+              lookup: {
+                targetObject: _self.alarmanalysis6_params.lookup.confirmor
+              },
+              confirmor: _self.alarmanalysis6_params.lookup.confirmor,
+              confirmResult: _self.alarmanalysis6_params.confirmResult
+            });
+          }
+          // _self.sourcelist = _self.sourcelist.sort((a, b) => {
+          //     return a.addtime > b.addtime ? 1 : -1;
+          // });
+        }
+      });
+    },
+    sortKey (array, key) {
+      return array.sort(function (a, b) {
+        var x = a[key];
+        var y = b[key];
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+    },
+    getfindMessages (val) {
+      let _self = this;
+      _self.sourcelist = [];
+      _self._http({
+        url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
+        type: 'get',
+        isBody: true,
+        data: {
+          waringId: val.id
+          // sourceId: val.id,
+          // transform: 'U:targetObject'
+        },
+        success: function (res) {
+          _self.sourcelist = res.data.data || [];
+          // let arr = [];
+          // _self.sourcelist.forEach((item, index) => {
+          //     item.targetObjectJob = item.targetObjectJob || '';
+          //     if (item.targetObjectJob.indexOf('责任人') == -1) {
+          //         item.show = false;
+          //     } else {
+          //         let has = false;
+          //         for (let i = 0; i < arr.length; i++) {
+          //             if (item.targetObjectJob == arr[i]) {
+          //                 has = true;
+          //                 break;
+          //             }
+          //         }
+          //         if (!has) {
+          //             item.show = true;
+          //             arr.push(item.targetObjectJob);
+          //         } else {
+          //             item.show = false;
+          //         }
+          //     }
+          // });
+          // if ((_self.alarmanalysis6_params.verifyTime || '') != '') {
+          //     _self.sourcelist.push({
+          //         addtime: _self.alarmanalysis6_params.verifyTime,
+          //         verifyTime: _self.alarmanalysis6_params.verifyTime,
+          //         lookup: {
+          //             targetObject: _self.alarmanalysis6_params.lookup.verifier
+          //         },
+          //         verifier: _self.alarmanalysis6_params.lookup.verifier,
+          //         result: _self.alarmanalysis6_params.result,
+          //         title: '',
+          //         verifierPhone: _self.alarmanalysis6_params.verifierPhone || '',
+          //         show: true
+          //     });
+          // }
+          // if ((_self.alarmanalysis6_params.confirmTime || '') != '') {
+          //     _self.sourcelist.push({
+          //         addtime: _self.alarmanalysis6_params.confirmTime,
+          //         confirmTime: _self.alarmanalysis6_params.confirmTime,
+          //         lookup: {
+          //             targetObject: _self.alarmanalysis6_params.lookup.confirmor
+          //         },
+          //         confirmor: _self.alarmanalysis6_params.lookup.confirmor,
+          //         confirmResult: _self.alarmanalysis6_params.confirmResult,
+          //         confirmorPhone: _self.alarmanalysis6_params.confirmorPhone || '',
+          //         title: '',
+          //         show: true
+          //     });
+          // }
+          // _self.sourcelist = _self.sourcelist.sort((a, b) => {
+          //     return a.addtime > b.addtime ? 1 : -1;
+          // });
+        }
+      });
+    }
+  },
+  computed: {},
+  components: {}
 };
 </script>
 <style lang="scss">
