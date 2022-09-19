@@ -13,9 +13,9 @@
             </el-form-item>
             <el-form-item label="整改状态">
                 <el-select v-model="searchModel.riskStatus" clearable placeholder="整改状态" @change="changeRiskStatus">
-                    <el-option label="逾期未整改" value="1"></el-option>
+                    <!-- <el-option label="逾期未整改" value="1"></el-option>
                     <el-option label="限期未整改" value="2"></el-option>
-                    <el-option label="逾期已整改" value="3"></el-option>
+                    <el-option label="逾期已整改" value="3"></el-option> -->
                     <el-option label="未整改" value="4"></el-option>
                     <el-option label="已整改" value="5"></el-option>
                     <!-- <el-option v-for="item in dataRiskStatus" :key="item.dictCode" :label="item.dictValue" :value="item.dictCode" /> -->
@@ -203,6 +203,7 @@ export default {
         },
         loadListData() {
             const that = this;
+            console.log('啊哈哈哈哈：', that.searchModel.riskLevel);
             // this.dataTable = equipmentTypeListData;
             // let newDate = that.searchModel.riskLevel == 1 ? 'ciaw2awr' : 'nwvl7lvw';
             that._http({
@@ -215,8 +216,8 @@ export default {
                     timeType: that.dataRange === '当日' ? 1 : 2,
                     // level: newDate || undefined,
                     // risksType: that.searchModel.riskType || undefined,
-                    troubleType: that.searchModel.riskLevel, //隐患级别
-                    handel: that.searchModel.riskStatus || undefined,
+                    troubleType: that.searchModel.riskLevel !== '' ? that.searchModel.riskLevel : undefined, //隐患级别
+                    handle: that.searchModel.riskStatus || undefined,
                     sorts: 'handleReportTime:desc',
                     transform: 'U:reporter,U:handler'
                 },
