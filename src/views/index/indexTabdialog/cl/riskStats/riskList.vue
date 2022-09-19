@@ -170,7 +170,13 @@ export default {
         riskStatus: {
             immediate: true,
             handler: function (newVal, oldVal) {
-                this.searchModel.riskStatus = newVal;
+                let newValtype = '';
+                this.dataRiskStatus.map((item) => {
+                    if (newVal == item.dictValue) {
+                        newValtype = item.dictCode;
+                    }
+                });
+                this.searchModel.riskStatus = newValtype;
             }
         },
         riskType: {
@@ -198,7 +204,7 @@ export default {
         loadListData() {
             const that = this;
             // this.dataTable = equipmentTypeListData;
-            let newDate = that.searchModel.riskLevel == 1 ? 'ciaw2awr' : 'nwvl7lvw';
+            // let newDate = that.searchModel.riskLevel == 1 ? 'ciaw2awr' : 'nwvl7lvw';
             that._http({
                 url: '/api/web/indexCountV3/findRisksList', ///api/web/indexCountTwo/findRisksList
                 type: 'get',
@@ -209,7 +215,7 @@ export default {
                     timeType: that.dataRange === '当日' ? 1 : 2,
                     // level: newDate || undefined,
                     // risksType: that.searchModel.riskType || undefined,
-                    troubleType: that.searchModel.riskType || undefined, //隐患级别
+                    troubleType: that.searchModel.riskLevel, //隐患级别
                     handel: that.searchModel.riskStatus || undefined,
                     sorts: 'handleReportTime:desc',
                     transform: 'U:reporter,U:handler'
