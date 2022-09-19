@@ -956,7 +956,7 @@ export default {
                     }
                 },
                 tooltip: {
-                    trigger: 'axis',
+                    trigger: 'item',
                     axisPointer: {
                         type: 'none'
                     }
@@ -1068,7 +1068,7 @@ export default {
                     }
                 },
                 tooltip: {
-                    trigger: 'axis',
+                    trigger: 'item',
                     axisPointer: {
                         type: 'none'
                     }
