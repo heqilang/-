@@ -956,7 +956,7 @@ export default {
                     }
                 },
                 tooltip: {
-                    trigger: 'axis',
+                    trigger: 'item',
                     axisPointer: {
                         type: 'none'
                     }
@@ -968,8 +968,8 @@ export default {
                     textStyle: {
                         color: '#ffffff'
                     },
-                    icon: 'circle',
-                    selected: { 设备报警数量: !val, 报警处置数量: val }
+                    icon: 'circle'
+                    /*   selected: { 设备报警数量: !val, 报警处置数量: val } */
                 },
                 grid: {
                     top: '20%',
@@ -1068,7 +1068,7 @@ export default {
                     }
                 },
                 tooltip: {
-                    trigger: 'axis',
+                    trigger: 'item',
                     axisPointer: {
                         type: 'none'
                     }
@@ -1080,8 +1080,8 @@ export default {
                     textStyle: {
                         color: '#ffffff'
                     },
-                    icon: 'circle',
-                    selected: { 设备报警数量: !val, 报警处置数量: val }
+                    icon: 'circle'
+                    /*  selected: { 设备报警数量: !val, 报警处置数量: val } */
                 },
                 grid: {
                     top: '20%',

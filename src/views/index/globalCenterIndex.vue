@@ -408,7 +408,7 @@
                                                     <div style="height: 100%; padding-left: 12%; display: flex; align-items: center; text-align: center">
                                                         <!--TODO 陈磊: 巡查情况-->
                                                         <el-row style="height: 100%" @click.native="(patrolOrRiskRange = '当月'), (patrolStatsVisible = true)">
-                                                            <el-col style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center" :span="24"> 当月巡查情况</el-col>
+                                                            <el-col style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center" :span="24"> 当月巡查次数</el-col>
                                                             <el-col :span="24" style="height: 50%">
                                                                 <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.patrolCountMonth || 0 }}</span> 次
                                                             </el-col>
