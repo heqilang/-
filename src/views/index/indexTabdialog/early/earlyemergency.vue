@@ -27,7 +27,7 @@
                                         <div style="display: flex; justify-content: space-around">
                                             <p>{{ alarmRadio === 'DAY' ? '当日' : '当月' }}已处置数</p>
                                             <p>
-                                                <span style="color: #a0d1fa; marginleft: 45px">{{ firstPageData1.alarmsOver || 0 }}</span> 个
+                                                <span style="color: #a0d1fa; margin-left: 25px">{{ firstPageData1.alarmsOver || 0 }}</span> 个
                                             </p>
                                         </div>
                                     </div>
@@ -186,7 +186,7 @@
                     <el-timeline style="margin-top: 20px">
                         <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
                             <el-card style="font-size: 14px">
-                                <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
+                                <p v-if="(item.alarmDate || '') != ''">{{ '设备报警' }}：{{ item.alarmDate }}</p>
                                 <p v-else-if="(item.dealName || '') != ''">
                                     处置人员：{{ item.dealName }} {{ item.dealPhone }}<br />
                                     处置描述：{{ item.dealDesc }}

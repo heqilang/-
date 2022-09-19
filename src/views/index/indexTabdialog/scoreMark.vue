@@ -140,9 +140,9 @@
                                 </li>
 
                                 <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px; margin-top: 30px">*<span>提示</span></li>
-                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于95分，发给社区相关人员；</span></li>
-                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于90分，发给街道相关人员；</span></li>
-                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于85分，发给行业主管部门，消防救援机构，安办相关人员</span></li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于95分，发送给社区相关人员；</span></li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于90分，发送给街道相关人员；</span></li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于85分，发送给行业主管部门，消防救援机构，安办相关人员</span></li>
                             </ul>
                             <!-- <ul style="margin: 10px 0px">
                             <li><span style="margin-left: 10px">巡查完成率=（巡查总数-未完成总数）/ 巡查总数</span></li>
