@@ -447,8 +447,8 @@ export default {
 
             leftDataTop: '',
 
-            DAYdrawLeftLineList: { everyHour: [], number: [] },
-            MONTHdrawLeftLineList: { everyDay: [], number: [] },
+            DAYdrawLeftLineList: { everyHour: [], number: [], every: '' },
+            MONTHdrawLeftLineList: { everyDay: [], number: [], every: '' },
 
             DAYcountByType: { equipmentTypeCN: [], number: [] },
             MONTHcountByType: { equipmentTypeCN: [], number: [] },
@@ -839,7 +839,7 @@ export default {
             if (_self.showAlarm1Day) {
                 _self.DAYdrawLeftLineList.everyHour = [];
                 _self.DAYdrawLeftLineList.number = [];
-
+                _self.DAYdrawLeftLineList.every = '';
                 _self._http({
                     url: '/api/web/indexCountV3/countAlarms', ///api/web/indexCountTwo/countAlarms
                     type: 'get',
@@ -850,8 +850,9 @@ export default {
                     },
                     success: function (res) {
                         res.data = res.data || [];
+                        _self.DAYdrawLeftLineList.every = res.data[0].everyHour.substring(11, 2);
                         res.data.forEach((item) => {
-                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour);
+                            _self.DAYdrawLeftLineList.everyHour.push(item.everyHour.substring(item.everyHour.length, item.everyHour.length - 2));
                             _self.DAYdrawLeftLineList.number.push(item.number);
                         });
                         _self.drawLeftLine();
@@ -860,6 +861,7 @@ export default {
             } else {
                 _self.MONTHdrawLeftLineList.everyDay = [];
                 _self.MONTHdrawLeftLineList.number = [];
+                _self.MONTHdrawLeftLineList.every = '';
                 _self._http({
                     // url: '/api/web/indexCountTwo/countAlarms',
                     url: '/api/web/indexCountV3/countAlarms',
@@ -871,6 +873,7 @@ export default {
                     },
                     success: function (res) {
                         res.data = res.data || [];
+                        _self.MONTHdrawLeftLineList.every = res.data[0].everyDay.substring(0, 5);
                         res.data.forEach((item) => {
                             _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
                             _self.MONTHdrawLeftLineList.number.push(item.number);
@@ -885,6 +888,7 @@ export default {
             let _self = this;
             _self.MONTHdrawLeftLineList.everyDay = [];
             _self.MONTHdrawLeftLineList.number = [];
+            _self.MONTHdrawLeftLineList.every = '';
 
             _self.countAlarmByFloorlist.floorCN = [];
             _self.countAlarmByFloorlist.number = [];
@@ -899,6 +903,7 @@ export default {
                 },
                 success: function (res) {
                     res.data = res.data || [];
+                    _self.MONTHdrawLeftLineList.every = res.data[0].everyDay.substring(0, 5);
                     res.data.map((item) => {
                         _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
                         _self.MONTHdrawLeftLineList.number.push(item.number);
@@ -947,7 +952,10 @@ export default {
                     }
                 },
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'none'
+                    }
                     // formatter: '时段：{b0}<br />设备警告：{c0} 次'
                 },
                 legend: {
@@ -1157,11 +1165,11 @@ export default {
             quxianChart.off('click');
             let option = null;
             let _self = this;
-            /* 
-let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
-let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
-            let text1 = '',
-                text2 = '';
+
+            let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
+            let text2 = _self.overLevel == true ? '报警处置' : '设备报警';
+            // let text1 = '';
+            // text2 = '';
             option = {
                 title: {
                     text: text1,
@@ -1173,7 +1181,7 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
+                    formatter: `时段：${_self.DAYdrawLeftLineList.every}{b0}<br />` + text2 + '：{c0} 次'
                 },
                 legend: {
                     data: [text2],
@@ -1381,10 +1389,10 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
             let option = null;
             let _self = this;
 
-            /*     let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
-let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
-            let text1 = '',
-                text2 = '';
+            let text1 = _self.overLevel == true ? '处置时段分析' : '报警时段分析';
+            let text2 = _self.overLevel == true ? '报警处置' : '设备报警';
+            // let text1 = '',
+            //     text2 = '';
             option = {
                 title: {
                     text: text1,
@@ -1396,7 +1404,7 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
+                    formatter: `时段：${_self.MONTHdrawLeftLineList.every}{b0}<br />` + text2 + '：{c0} 次'
                 },
                 legend: {
                     data: [text2],
@@ -1761,7 +1769,7 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
             let _self = this;
             _self.loading = true;
 
-            console.dir('切换');
+            console.dir('切换', val);
             if (_self.showanalysis == 'alarmanalysis1') {
                 if (_self.showAlarm1Day) {
                     _self.chartRadio = '当日';
@@ -1797,8 +1805,9 @@ let text2 = _self.overLevel == true ? '报警处置' : '设备报警'; */
             console.dir(searchObj);
             _self.dataTable = [];
             _self._http({
-                url: val === 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find', ///api/web/indexCountTwo/find
+                // url: val === 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find',
                 // url: 'api/web/indexCountTwo/find',
+                url: '/api/web/indexCountV3/find',
                 type: 'get',
                 isBody: true,
                 data: searchObj,
