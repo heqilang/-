@@ -3,8 +3,7 @@
         <div class="alarmHead">
             <el-row>
                 <el-col :span="20"
-                    ><span style="font-size: 15px; padding-left: 10px">共有 {{ totalAlarm }} 条报警</span> <span style="padding-left: 30px; cursor: pointer" @click="lookMore">查看更多</span>
-                    <span style="padding-left: 30px; cursor: pointer" @click="vdiochange">报警测试</span>
+                    ><span style="font-size: 15px; padding-left: 10px">共有 {{ totalAlarm }} 条报警</span> <span style="padding-left: 30px; cursor: pointer" @click="lookMore">查看更多</span> <span style="padding-left: 30px; cursor: pointer" @click="vdiochange">报警测试</span><span style="padding-left: 30px; cursor: pointer" @click="vdioYiluchange">视频</span>
                 </el-col>
                 <el-col :span="4" class="text_r">
                     <i v-if="voiceFlag" @click="voiceFlag = !voiceFlag" class="el-icon-message-solid pointer" style="font-size: 26px; margin-right: 20px; color: #fff"></i>
@@ -47,12 +46,20 @@
                 </div>
             </el-dialog>
         </div>
+        <div class="alertModel">
+            <el-dialog top="20vh" :modal-append-to-body="false" height="1100px" width="600px" title="视频" :visible.sync="showYiluvdio" :close-on-click-modal="true" class="unit-edit-con">
+                <div style="position: relative">
+                    <component :videoid="videoid" :is="require('./homeYiluvideo.vue')"></component>
+                </div>
+            </el-dialog>
+        </div>
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
+            showYiluvdio: false,
             showvdio: false,
             voiceFlag: true,
             alarmList: [],
@@ -61,6 +68,10 @@ export default {
         };
     },
     methods: {
+        vdioYiluchange() {
+            this.showYiluvdio = true;
+            this.videoid += 1;
+        },
         vdiochange() {
             this.showvdio = true;
             this.videoid += 1;
