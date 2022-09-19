@@ -511,6 +511,7 @@ export default {
     watch: {
         visible: function (val) {
             this.showanalysis = 'alarmanalysis1';
+            this.chartRadio1 = '设备报警数量';
             this.Month30 = false;
             this.getleftNumData();
             this.pager.pageIndex = 1;
