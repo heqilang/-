@@ -222,7 +222,7 @@
             <div class="classReadyDialogBox">
                 <div class="firstLevel">
                     <div style="color: #fff; padding: 12px">
-                        <div @click="turntopage('alarmanalysis4')" style="display: flex; justify-content: center">
+                        <div @click="turntopage('alarmanalysis4',)" style="display: flex; justify-content: center">
                             <div v-for="(item, index) in MONTHcountByType.number" :key="index" style="margin: 0 10px; text-align: center; padding: 30px; background-image: linear-gradient(to bottom, #162542, #1a3d63)">
                                 <div style="line-height: 30px">{{ item.name || '--' }}</div>
                                 <div style="color: #ffffff">
@@ -568,6 +568,7 @@ export default {
     methods: {
         turntopage(type, option) {
             console.dir('什么情况');
+            console.log(type,option);
             let _self = this;
             this.showanalysis = type;
             if (option == 'overLevel') {
@@ -585,7 +586,11 @@ export default {
             } else if (type == 'alarmanalysis3') {
                 this.analysischange(type, _self.alarmanalysis3_params, _self.alarmanalysis3_optin);
             } else if (type == 'alarmanalysis4') {
-                this.analysischange(type, _self.alarmanalysis4_params);
+                console.dir(_self.showAlarm1Day)
+
+                
+
+                this.analysischange(type, _self.alarmanalysis4_params,_self.showAlarm1Day?"DAY":'MONTH');
             } else if (type == 'alarmanalysis5') {
                 this.equipmentType = option;
                 this.equipmentName = option;

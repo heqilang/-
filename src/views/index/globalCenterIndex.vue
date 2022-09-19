@@ -910,7 +910,6 @@ export default {
     data() {
         return {
             img: require('../../assets/images/globalCenterNew/xxxx.svg'),
-            newImg: require('../../assets/images/globalCenterNew/20220918-224144.png'),
             newImg_1: require('../../assets/images/layer1.png'),
             showSvg: false,
             showImg: false,
@@ -1159,11 +1158,11 @@ export default {
 
     methods: {
         showTwoImg() {
-            this.newImg_1 = require('../../assets/images/globalCenterNew/20220918-224144.png');
+            this.newImg_1 = require('../../assets/images/globalCenterNew/homepage.svg');
         },
 
         changeImgs() {
-            this.newImg_1 = require('../../assets/images/globalCenterNew/20220918-224144.png');
+            this.newImg_1 = require('../../assets/images/globalCenterNew/homepage.svg');
             if (this.showImg) return;
             this.$message({
                 message: '抱歉亲，暂无图片',
