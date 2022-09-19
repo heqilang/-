@@ -62,7 +62,8 @@
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
-                                <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div>
+                                <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
+                                <div>{{ scope.row.sendName.split(':')[scope.row.sendName.split(':').length - 1] }}</div>
                             </template>
                         </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
@@ -120,7 +121,8 @@
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column label="预警人员" width="160" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
-                                <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div>
+                                <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
+                                <div>{{ scope.row.sendName.split(':')[scope.row.sendName.split(':').length - 1] }}</div>
                             </template>
                         </el-table-column>
                         <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
