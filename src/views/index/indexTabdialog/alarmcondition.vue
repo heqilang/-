@@ -352,7 +352,7 @@
             </div>
             <div class="classReadyDialogBox">
                 <div class="eventMsgInfo">
-                    <div class="box1">
+                    <div class="box01">
                         <div v-if="alarmanalysis6_optin == '设备报警情况'">
                             <div style="display: flex">
                                 <div>报警时间：</div>
@@ -382,7 +382,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box2">流程追溯</div>
+                    <div class="box02">流程追溯</div>
                     <div style="height: 450px">
                         <el-scrollbar style="height: 100%; width: 90%">
                             <el-timeline>
@@ -1746,7 +1746,7 @@ export default {
         viewchange(row, title) {
             // this.$emit('viewchange', row, title);
 
-            console.dir('报警页面');
+            console.log('报警页面:', row);
             this.alarmanalysis6_params = row;
             this.alarmanalysis6_optin = title;
             this.analysischange('alarmanalysis6', row, title);
@@ -2048,18 +2048,18 @@ export default {
     .el-card__body {
         padding: 10px 20px !important;
     }
-    .box1 {
+    .box01 {
         padding: 10px 15px 0 15px;
         color: rgb(255, 255, 255);
         font-size: 16px;
         line-height: 30px;
     }
-    .box2 {
+    .box02 {
         color: rgb(255, 255, 255);
         font-size: 16px;
         padding: 30px 20px;
     }
-    .box2::before {
+    .box02::before {
         content: '';
         position: absolute;
         width: 6px;
