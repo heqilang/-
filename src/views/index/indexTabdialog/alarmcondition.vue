@@ -492,6 +492,7 @@ export default {
 
             isLevel1: false,
 
+            areaid: '', //报警情况area
             floor: undefined, //楼层参数
             equipmentName: undefined, //设备名称
             equipmentNameOther: [], //其它
@@ -740,12 +741,12 @@ export default {
                         _self.DAYcountByType.equipmentTypeCN.push(item.name);
                         _self.DAYcountByType.number.push({ value: item.value, name: item.name });
                     });
-                    _self.drawEquipment();
+                    _self.drawEquipment(data);
                 }
             });
         },
         //设备类型
-        drawEquipment() {
+        drawEquipment(data) {
             var chartDom = document.getElementById('EquipmentCharts');
             var myChart = echarts.init(chartDom);
             var option;
@@ -796,7 +797,7 @@ export default {
                 _self.equipmentType = params.data.equipmentType || undefined;
                 _self.equipmentName = params.data.name || undefined;
                 // console.log(params)
-                _self.showequipment();
+                _self.showequipment(data);
             });
             option && myChart.setOption(option);
         },
@@ -1734,9 +1735,10 @@ export default {
             };
             option && myChart.setOption(option);
         },
-        showequipment() {
+        showequipment(data) {
             // this.$emit('showequipment');
-            this.analysischange('alarmanalysis5');
+            this.areaid = data.area || null;
+            this.analysischange('alarmanalysis5', data);
         },
         handleMonthChange(value) {
             this.Month30 = value;
@@ -1801,6 +1803,7 @@ export default {
                 current: _self.pager.pageIndex,
                 option: _self.chartRadio == '当日' ? 'DAY' : 'MONTH', //DAY：当日，MONTH：当月
                 floor: _self.floor,
+                area: _self.areaid,
                 equipmentType: _self.equipmentType,
                 equipmentName: _self.equipmentName == '其它' ? _self.equipmentNameOther.join(',') : _self.equipmentName,
                 'equipmentName.symbol': _self.equipmentName == '其它' ? 'IN' : undefined,
