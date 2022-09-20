@@ -874,7 +874,7 @@ interval: 20 */
                 type: 'get',
                 isBody: true,
                 data: {
-                    waringId: val.id
+                    waringId: val.waringRecordId
                     // sourceId: val.id,
                     // transform: 'U:targetObject'
                 },

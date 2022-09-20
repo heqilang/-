@@ -268,7 +268,7 @@ export default {
                     type: 'get',
                     isBody: true,
                     data: {
-                        alarmId: val.id,
+                        alarmId: val.alarmId,
                         sourceId: val.id,
                         transform: 'U:targetObject'
                     },
@@ -337,7 +337,7 @@ export default {
                     type: 'get',
                     isBody: true,
                     data: {
-                        hiddenTroubleId: val.id,
+                        hiddenTroubleId: val.hiddenTroubleId,
                         transform: 'U:targetObject'
                     },
                     success: function (res) {

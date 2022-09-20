@@ -1830,7 +1830,7 @@ export default {
                 type: 'get',
                 isBody: true,
                 data: {
-                    alarmId: val.id,
+                    alarmId: val.alarmId,
                     sourceId: val.id,
                     transform: 'U:targetObject'
                 },
