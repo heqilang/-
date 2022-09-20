@@ -473,35 +473,35 @@
                                         </div>
                                     </div>
                                 </div>
-                                <el-row class="height100 text_c">
-                                    <el-col style="width: 20%; height: 100">
+                                <el-row style="text-align: left" class="height100 text_c">
+                                    <el-col style="width: 20%; height: 100; margin-left: 25px">
                                         <div>建筑面积</div>
                                         <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.area }}</span> 万平方米
+                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.area }}</span> <span class="textColor">万平方米</span>
                                         </div>
                                     </el-col>
                                     <el-col style="width: 20%; height: 100">
                                         <div>建筑高度</div>
                                         <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.buildingHeight }}</span> 米
+                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.buildingHeight }}</span> <span class="textColor">米</span>
                                         </div>
                                     </el-col>
                                     <el-col style="width: 20%; height: 100">
                                         <div>地上层数</div>
                                         <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsOnGround }}</span> 层
+                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsOnGround }}</span> <span class="textColor">层</span>
                                         </div>
                                     </el-col>
                                     <el-col style="width: 20%; height: 100">
                                         <div>地下层数</div>
                                         <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsUnderground }}</span> 层
+                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsUnderground }}</span> <span class="textColor">层</span>
                                         </div>
                                     </el-col>
                                     <el-col style="width: 20%; height: 100">
                                         <div>建筑类别</div>
                                         <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ 1 }}</span> 类高层公共建筑
+                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ 1 }}</span> <span class="textColor"> 类高层公共建筑</span>
                                         </div>
                                     </el-col>
                                 </el-row>
@@ -766,7 +766,7 @@
         <!-- 消防安全运行综合评分 -->
         <div class="alertModel">
             <el-dialog top="5vh" @closed="showScoreMark = false" :modal-append-to-body="false" width="1200px" title="隐患清单" :visible.sync="showScoreMark" :close-on-click-modal="true" class="unit-edit-con">
-                <component @closeDialog="homedilogshow = ''" @closeTsCompF="showScoreMark = false" :is="require('./indexTabdialog/scoreMark')"></component>
+                <component @closeDialog="homedilogshow = ''" @closeTsCompF="showScoreMark = false" :showScoreMark="showScoreMark" :is="require('./indexTabdialog/scoreMark')"></component>
             </el-dialog>
         </div>
         <div v-if="showSSImg" class="showSSVideo">
@@ -1112,6 +1112,15 @@ export default {
     },
 
     methods: {
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+                .then((_) => {
+                    done();
+                })
+                .catch((_) => {});
+            console.dir('eeeeee');
+        },
+
         showTwoImg() {
             this.newImg_1 = require('../../assets/images/globalCenterNew/homepage.svg');
         },

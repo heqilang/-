@@ -375,7 +375,7 @@ export default {
                     }
                 },
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'item'
                     // formatter: '时段：{b0}<br />设备警告：{c0} 次'
                 },
                 legend: {

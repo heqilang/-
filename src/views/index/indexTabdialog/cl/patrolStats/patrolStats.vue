@@ -88,8 +88,8 @@ export default {
         activePatrolStatus: '', //当前激活的 巡查状态(正常 或 超时)
         activePartolPointId: undefined, //当前激活的 巡查点位id
 
-        DAYdrawLeftLineList: { everyHour: [], number: [] },
-        MONTHdrawLeftLineList: { everyDay: [], number: [] }
+        DAYdrawLeftLineList: { everyHour: [], number: [], every: '' },
+        MONTHdrawLeftLineList: { everyDay: [], number: [], every: '' }
     }),
     created() {
         console.dir(this.statsData);
@@ -230,6 +230,8 @@ _self.MONTHdrawLeftLineList.number = []; */
                     },
                     success: function (res) {
                         res.data = res.data || [];
+
+                        _self.DAYdrawLeftLineList.every = res.data[0].timeName.substring(0, 10);
                         res.data.forEach((item) => {
                             _self.DAYdrawLeftLineList.everyHour.push(item.timeName.substring(11, 13));
                             _self.DAYdrawLeftLineList.number.push(item.average);
@@ -255,6 +257,8 @@ _self.DAYdrawLeftLineList.number.push(item.number); */
                     success: function (res) {
                         console.dir(res);
                         res.data = res.data || [];
+
+                        _self.MONTHdrawLeftLineList.every = res.data[0].timeName.substring(0, 5);
 
                         res.data.forEach((item) => {
                             _self.MONTHdrawLeftLineList.everyDay.push(item.timeName.substring(5, 10));
@@ -289,15 +293,16 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 次'
+                    /*  formatter: '时段：{b0}<br />' + text2 + '：{c0} 次', */
+                    formatter: `时段： ${_self.DAYdrawLeftLineList.every}   {b0}<br />` + text2 + '：{c0} 分钟'
                 },
-                legend: {
+                /*   legend: {
                     data: [text2],
                     right: '5%',
                     textStyle: {
                         color: '#ffffff'
                     }
-                },
+                }, */
                 grid: {
                     left: '1%',
                     right: '5%',
@@ -405,15 +410,17 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: '时段：{b0}<br />' + text2 + '：{c0} 分钟'
+                    formatter: `时段:${_self.MONTHdrawLeftLineList.every}{b0}<br />` + text2 + '：{c0} 分钟'
+                    //formatter: '时段：{b0}<br />' + text2 + '：{c0} 分钟'
                 },
-                legend: {
+                /*    legend: {
                     data: [text2],
                     right: '5%',
+                    
                     textStyle: {
                         color: '#ffffff'
                     }
-                },
+                }, */
                 grid: {
                     left: '1%',
                     right: '1%',

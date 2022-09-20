@@ -140,9 +140,15 @@
                                 </li>
 
                                 <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px; margin-top: 30px">*<span>提示</span></li>
-                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于95分，发送给社区相关人员；</span></li>
-                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于90分，发送给街道相关人员；</span></li>
-                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px"><span>低于85分，发送给行业主管部门，消防救援机构，安办相关人员</span></li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                                    <span>低于95分，发送给社区相关人员；</span>
+                                </li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                                    <span>低于90分，发送给街道相关人员；</span>
+                                </li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                                    <span>低于85分，发送给行业主管部门，消防救援机构，安办相关人员</span>
+                                </li>
                             </ul>
                             <!-- <ul style="margin: 10px 0px">
                             <li><span style="margin-left: 10px">巡查完成率=（巡查总数-未完成总数）/ 巡查总数</span></li>
@@ -193,6 +199,7 @@
 <script>
 import * as echarts from 'echarts';
 export default {
+    props: ['showScoreMark'],
     data() {
         return {
             sonData: '',
@@ -206,6 +213,13 @@ export default {
             showSec7: false,
             systemScoreList: ''
         };
+    },
+    watch: {
+        showScoreMark: function (newOlde) {
+            if (newOlde) {
+                this.showPage = 1;
+            }
+        }
     },
     computed: {
         totalTitle: {
@@ -371,6 +385,7 @@ export default {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+
     .total_head_card {
         height: 200px;
         margin: 10px;
@@ -379,12 +394,14 @@ export default {
         background: linear-gradient(180deg, rgba(33, 57, 90, 0) 0%, #1c3e61 100%);
         border-radius: 6px 6px 6px 6px;
     }
+
     .third_head_card {
         width: 88%;
         margin-left: 6%;
         height: 150px;
         background: linear-gradient(180deg, rgba(33, 57, 90, 0) 0%, #1c3e61 100%);
         border-radius: 6px 6px 6px 6px;
+
         span {
             font-size: 0.42rem;
             font-family: Alibaba PuHuiTi 2-85 Bold, Alibaba PuHuiTi 20;
@@ -395,6 +412,7 @@ export default {
             -webkit-text-fill-color: transparent;
         }
     }
+
     .tabelCon {
         // background-color: #2a3b5c;
         .el-table th,
@@ -403,29 +421,36 @@ export default {
             background-color: #2b488c00 !important;
             border: none !important;
         }
+
         .el-table td {
             color: #fff;
         }
+
         .el-table::before {
             background-color: #2b488c00 !important;
         }
+
         .el-table--border::after {
             width: 0 !important;
         }
+
         .table-header-class th {
             color: #666c76 !important;
         }
     }
+
     .el-input__inner {
         background-color: transparent !important;
         border-color: #707683 !important;
     }
+
     .pagination-container button,
     .pagination-container li {
         background-color: transparent !important;
         border: none !important;
     }
 }
+
 .pieChart_box {
     /*  position: absolute;
     right: 5%;

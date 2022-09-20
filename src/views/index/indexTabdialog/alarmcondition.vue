@@ -11,7 +11,7 @@
                     <el-row>
                         <el-col :span="10">
                             <div class="alarmanalysis1Title">
-                                <div @click="turntopage('alarmanalysis2', 'overLevel')">
+                                <div @click="turntopage('alarmanalysis5', 'overLevel')">
                                     <div style="display: flex; justify-content: space-around">
                                         <p>当日设备报警数量</p>
                                         <p>
@@ -19,7 +19,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div @click="turntopage('alarmanalysis2', 'overLevel1')">
+                                <div @click="turntopage('alarmanalysis5', 'overLevel1')">
                                     <div style="display: flex; justify-content: space-around">
                                         <p>当日报警处置数量</p>
                                         <p>
@@ -96,7 +96,7 @@
                     <el-row>
                         <el-col :span="10">
                             <div class="alarmanalysis1Title">
-                                <div @click="turntopage('alarmanalysis2', 'overLevel')">
+                                <div @click="turntopage('alarmanalysis5', 'overLevel')">
                                     <div style="display: flex; justify-content: space-around">
                                         <p>当月设备报警数量</p>
                                         <p>
@@ -104,7 +104,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div @click="turntopage('alarmanalysis2', 'overLevel1')">
+                                <div @click="turntopage('alarmanalysis5', 'overLevel1')">
                                     <div style="display: flex; justify-content: space-around">
                                         <p>当月报警处置数量</p>
                                         <p>
@@ -583,6 +583,8 @@ export default {
                 this.pager.pageSize = 5;
                 this.getleftNumData();
             } else if (type == 'alarmanalysis2') {
+                console.dir('执行这里');
+
                 this.getcountAlarms();
                 this.getcountAlarmByFloor();
             } else if (type == 'alarmanalysis3') {
@@ -1187,7 +1189,16 @@ export default {
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: `时段：${_self.DAYdrawLeftLineList.every}{b0}<br />` + text2 + '：{c0} 次'
+
+                    formatter: function (params) {
+                        let str = '&nbsp;&nbsp;&nbsp;&nbsp;' + _self.DAYdrawLeftLineList.every + params[0].axisValue + '<br />';
+                        params.forEach((item) => {
+                            str += '<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;left:5px;background-color:' + item.color + '"></span>' + item.seriesName + ' : ' + item.value + '次' + '<br />';
+                        });
+                        return str;
+                    }
+
+                    /*   formatter: `时段：${_self.DAYdrawLeftLineList.every}{b0}<br />` + text2 + '：{c0} 次' */
                 },
                 legend: {
                     data: [text2],
@@ -1410,7 +1421,16 @@ export default {
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: `时段：${_self.MONTHdrawLeftLineList.every}{b0}<br />` + text2 + '：{c0} 次'
+                    /*    formatter: `${_self.MONTHdrawLeftLineList.every}{b0}<br />` + text2 + '：{c0} 次', */
+                    formatter: function (params) {
+                        _self.MONTHdrawLeftLineList.every;
+                        let str = '&nbsp;&nbsp;&nbsp;&nbsp;' + _self.MONTHdrawLeftLineList.every + params[0].axisValue + '<br />';
+
+                        params.forEach((item) => {
+                            str += '<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;left:5px;background-color:' + item.color + '"></span>' + item.seriesName + ' : ' + item.value + '次' + '<br />';
+                        });
+                        return str;
+                    }
                 },
                 legend: {
                     data: [text2],
