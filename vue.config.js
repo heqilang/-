@@ -22,9 +22,9 @@ module.exports = {
             }
         },
 
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        chainWebpack: (config) => {
-            config.resolve.alias.set('@', resolve('src'));
-        }
+        headers: { 'Access-Control-Allow-Origin': '*' }
+    },
+    chainWebpack: (config) => {
+        config.resolve.alias.set('@', resolve('src'));
     }
 };

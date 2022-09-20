@@ -1756,6 +1756,7 @@ export default {
             this.turntopage('alarmanalysis1');
         },
         tabitemchange(val) {
+            this.pager.pageIndex = 1;
             console.dir(val);
             this.getList(0);
             let getDate = '';
