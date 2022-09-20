@@ -222,8 +222,8 @@
             <div class="classReadyDialogBox">
                 <div class="firstLevel">
                     <div style="color: #fff; padding: 12px">
-                        <div @click="turntopage('alarmanalysis4')" style="display: flex; justify-content: center">
-                            <div v-for="(item, index) in MONTHcountByType.number" :key="index" style="margin: 0 10px; text-align: center; padding: 30px; background-image: linear-gradient(to bottom, #162542, #1a3d63)">
+                        <div style="display: flex; justify-content: center">
+                            <div v-for="(item, index) in MONTHcountByType.number" :key="index" @click="analysischange('alarmanalysis4', item, chartRadio == '当日' ? 'DAY' : 'MONTH')" style="margin: 0 10px; text-align: center; padding: 30px; background-image: linear-gradient(to bottom, #162542, #1a3d63)">
                                 <div style="line-height: 30px">{{ item.name || '--' }}</div>
                                 <div style="color: #ffffff">
                                     <span class="numColorN">{{ item.value }}</span> 个
@@ -605,7 +605,7 @@ export default {
             } else if (type == 'alarmanalysis4') {
                 this.$nextTick(() => {
                     console.log(optin);
-                    this.getcountByType(optin);
+                    this.getcountByType(data, optin);
                 });
             } else if (type == 'alarmanalysis5') {
                 this.$nextTick(() => {
@@ -692,7 +692,7 @@ export default {
             }
         },
         //设备类型
-        getcountByType(optin) {
+        getcountByType(data, optin) {
             let _self = this;
             _self.DAYcountByType.equipmentTypeCN = [];
             _self.DAYcountByType.number = [];
@@ -703,7 +703,8 @@ export default {
                 data: {
                     option: optin,
                     floor: _self.floor,
-                    over: _self.overLevel
+                    over: _self.overLevel,
+                    area: data.area
                 },
                 success: function (res) {
                     _self.equipmentTypeList = [
@@ -827,7 +828,7 @@ export default {
                         let index = Math.floor(Math.random() * 7);
                         let name = arr[index] || '第一防火分区报警';
                         _self.MONTHcountByType.equipmentTypeCN.push(`${item.areaCN || name}`);
-                        let number = { value: item.number, name: `${item.areaCN || name}`, optin: optin };
+                        let number = { value: item.number, name: `${item.areaCN || name}`, optin: optin, area: item.area || null };
                         _self.MONTHcountByType.number.push(number);
                         arr.splice(index, 1);
                     });
