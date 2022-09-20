@@ -1,3 +1,7 @@
+let path = require('path');
+function resolve(dir) {
+    return path.join(__dirname, dir);
+}
 module.exports = {
     lintOnSave: false, // 取消格式化
     devServer: {
@@ -18,6 +22,9 @@ module.exports = {
             }
         },
 
-        headers: { 'Access-Control-Allow-Origin': '*' }
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        chainWebpack: (config) => {
+            config.resolve.alias.set('@', resolve('src'));
+        }
     }
 };
