@@ -25,7 +25,8 @@
 
                     <div class="risk-stats-charts-wrapper">
                         <div class="risk-stats-charts-header">
-                            {{ activeRiskLevel == '0' ? '一般隐患' : activeRiskLevel == '1' ? '重大隐患' : activeRiskLevel }}
+                            <!-- {{ activeRiskLevel == '0' ? '一般隐患' : activeRiskLevel == '1' ? '重大隐患' : activeRiskLevel }} -->
+                            {{ activeRiskLevel == '0' ? '一般隐患' : activeRiskLevel == '1' ? '重大隐患' : '全部隐患' }}
                         </div>
                         <div class="risk-stats-charts-body">
                             <div class="risk-stats-charts-stats">
