@@ -1161,11 +1161,13 @@ export default {
             this.showsafetyresponsi = true;
         },
         goPage51Fn1() {
-            this.showSSImg = true;
+            //   this.showSSImg = true;
+            window.open('http://8.130.166.128:8092/Sites/Command/Evacuate.aspx?token=f3dc1c50624a498f91766cee13dea7c6');
         },
         goPage51Fn2() {
             // window.open('http://182.151.21.153:18080/#/');
-            window.open('http://182.151.21.153:18/');
+            // window.open('http://182.151.21.153:18/');
+            window.open('http://8.130.166.128:8092/Sites/Command/Rescue.aspx?token=f3dc1c50624a498f91766cee13dea7c6');
         },
         viewchange(val, title) {
             this.alatitle = title;
