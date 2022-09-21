@@ -26,7 +26,7 @@
                     <div class="risk-stats-charts-wrapper">
                         <div class="risk-stats-charts-header">
                             <!-- {{ activeRiskLevel == '0' ? '一般隐患' : activeRiskLevel == '1' ? '重大隐患' : activeRiskLevel }} -->
-                            {{ activeRiskLevel == '0' ? '一般隐患' : activeRiskLevel == '1' ? '重大隐患' : '全部隐患' }}
+                            {{ activeRiskLevel == '0' ? '一般隐患' : activeRiskLevel == '1' ? '重大隐患' : activeRiskLevel }}
                         </div>
                         <div class="risk-stats-charts-body">
                             <div class="risk-stats-charts-stats">
@@ -55,7 +55,8 @@
                 </div>
                 <div class="stats-layer-container" v-if="currentLayerLevel === 1.5">
                     <a class="return-upper-level-btn" v-on:click="intoLayer1()"><<</a>
-                    <riskTypeChart :data-range="dataRange" :newLevel="riskLevel" :risk-status="activeRiskStatus" v-on:viewDetailOnclick="intoLayer2" />
+                    <!-- riskLevel -->
+                    <riskTypeChart :data-range="dataRange" :newLevel="activeRiskLevel" :risk-status="activeRiskStatus" v-on:viewDetailOnclick="intoLayer2" />
                 </div>
 
                 <div class="stats-layer-container" v-if="currentLayerLevel === 2">
@@ -195,6 +196,7 @@ export default {
             this.currentLayerLevel = 1.5;
         },
         intoLayer2(prevLayerLevel, riskLevel, riskStatus, riskType) {
+            console.log(prevLayerLevel, riskLevel, riskStatus, riskType);
             let arr = this.dataRiskLevel || [];
             let level = undefined;
             for (let i in arr) {
@@ -208,7 +210,9 @@ export default {
             } else if (riskLevel == '重大隐患') {
                 level = 1;
             }
-            this.activeRiskLevel = level;
+            // this.activeRiskLevel = level;
+            this.activeRiskLevel = riskLevel;
+
             this.activeRiskStatus = riskStatus;
             this.activeRiskType = riskType;
 
