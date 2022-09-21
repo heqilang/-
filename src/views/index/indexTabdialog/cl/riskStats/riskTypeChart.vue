@@ -132,7 +132,8 @@ export default {
             myChart.setOption(option);
 
             myChart.on('click', (d) => {
-                this.$emit('viewDetailOnclick', 1.5, '', that.riskStatus, d.name);
+                console.log(this);
+                this.$emit('viewDetailOnclick', 1.5, this.newLevel, that.riskStatus, d.name);
             });
         }
     }
