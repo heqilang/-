@@ -247,7 +247,7 @@ export default {
             activeName: 'first',
             activeSenName: 'xiaofang',
             pager: {
-                pageSize: 10,
+                pageSize: 5,
                 pageIndex: 1,
                 total: null
             },
@@ -812,7 +812,7 @@ interval: 20 */
         },
         changeSenName() {
             const _self = this;
-            _self.pager.pageSize = 10;
+            _self.pager.pageSize = 5;
             _self.pager.pageIndex = 1;
             _self.getList();
         },
