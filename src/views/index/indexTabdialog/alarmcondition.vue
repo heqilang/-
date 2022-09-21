@@ -1834,9 +1834,9 @@ export default {
             console.dir(searchObj);
             _self.dataTable = [];
             _self._http({
-                // url: val === 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find',
+                url: val === 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find',
                 // url: 'api/web/indexCountTwo/find',
-                url: '/api/web/indexCountV3/find',
+                // url: '/api/web/indexCountV3/find',
                 type: 'get',
                 isBody: true,
                 data: searchObj,
