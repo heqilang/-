@@ -221,6 +221,43 @@
                 </div>
             </div>
         </div>
+
+        <div v-if="showNumber == 4" class="secendLevel" style="background-color: #2b4b6b; color: #fff">
+            <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; padding: 30px">
+                <div>
+                    <div style="display: flex">
+                        <div>预警时间：</div>
+                        <div>{{ modelDate.sendTime }}</div>
+                    </div>
+                    <div style="display: flex">
+                        <div>预警位置：</div>
+                        <div>{{ modelDate.unitName }}</div>
+                    </div>
+                </div>
+                <div class="box2">流程追溯</div>
+                <el-scrollbar v-if="sourcelist.length > 0" style="height: 100%; width: 90%">
+                    <el-timeline style="margin-top: 20px">
+                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
+                            <el-card style="font-size: 14px">
+                                <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
+                                <p v-else-if="(item.dealName || '') != ''">
+                                    处置人员：{{ item.dealName }} {{ item.dealPhone }}<br />
+                                    处置描述：{{ item.dealDesc }}
+                                </p>
+                                <p v-else-if="(item.pushUserName || '') != ''">
+                                    <span style="display: block">{{ item.orgPushDesc }}</span>
+                                    <span style="display: flex; justify-content: space-between">
+                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
+                                        ><span>{{ item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
+                                    </span>
+                                </p>
+                            </el-card>
+                        </el-timeline-item>
+                    </el-timeline>
+                </el-scrollbar>
+                <div v-if="sourcelist.length < 1" style="text-align: center; padding: 100px 0">暂时无数据哦.....</div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -329,6 +366,22 @@ export default {
                         });
 
                         console.dir(_self.sourcelist);
+                    }
+                });
+            } else if (_self.showNumber == 4) {
+                let _self = this;
+                _self.sourcelist = [];
+                _self._http({
+                    url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
+                    type: 'get',
+                    isBody: true,
+                    data: {
+                        waringId: val.waringRecordId
+                        // sourceId: val.id,
+                        // transform: 'U:targetObject'
+                    },
+                    success: function (res) {
+                        _self.sourcelist = res.data.data || [];
                     }
                 });
             } else {

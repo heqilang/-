@@ -35,6 +35,10 @@
                                 <span style="font-size: 30px; color: #325efb">■</span>
                                 <span> &nbsp; &nbsp;巡查完成率 &nbsp; &nbsp; {{ sonData.patrolHandlePercent }}%</span>
                             </div>
+                            <div @click="showPageChage(8)" style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
+                                <span style="font-size: 30px; color: #ffd700">■</span>
+                                <span> &nbsp; &nbsp;巡查按时完成率 &nbsp; &nbsp; {{ sonData.patrolHandleOpportunelyPercent }}%</span>
+                            </div>
                         </div>
                     </el-col>
                     <el-col class="text_c" :span="6">
@@ -193,6 +197,7 @@
             <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec5" :visible.sync="showSec5" @closeTsComp="(showSec5 = false), (showPage = 1)" :is="require('./scoreModel/modelPage5')"></component>
             <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec6" :visible.sync="showSec6" @closeTsComp="(showSec6 = false), (showPage = 1)" :is="require('./scoreModel/modelPage6')"></component>
             <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec7" :visible.sync="showSec7" @closeTsComp="(showSec7 = false), (showPage = 1)" :is="require('./scoreModel/modelPage7')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec8" :visible.sync="showSec8" @closeTsComp="(showSec8 = false), (showPage = 1)" :is="require('./scoreModel/modelPage8')"></component>
         </div>
     </div>
 </template>
@@ -211,6 +216,7 @@ export default {
             showSec5: false,
             showSec6: false,
             showSec7: false,
+            showSec8: false,
             systemScoreList: ''
         };
     },
@@ -228,6 +234,7 @@ export default {
                     { title: '报警处置', showTitle: this.sonData.alarmHandlePercent !== 100 },
                     { title: '报警及时处置', showTitle: this.sonData.alarmHandOpportunelyPercent !== 100 },
                     { title: '巡查计划', showTitle: this.sonData.patrolHandlePercent !== 100 },
+                    { title: '巡查按时完成率', showTitle: this.sonData.patrolHandleOpportunelyPercent !== 100 },
                     { title: '隐患排查', showTitle: this.sonData.risksPercent !== 100 },
                     { title: '隐患整改', showTitle: this.sonData.risksHandlePercent !== 100 },
                     { title: '按时整改隐患', showTitle: this.sonData.risksOpportunelyPercent !== 100 }
@@ -274,6 +281,9 @@ export default {
                     break;
                 case 7:
                     this.showSec7 = true;
+                    break;
+                case 8:
+                    this.showSec8 = true;
                     break;
                 default:
                     break;
@@ -329,7 +339,7 @@ export default {
                     orient: 'vertical',
                     left: 'left'
                 },
-                color: ['#8ef2a7', '#fdfd39', '#325efb', '#d37f8b', '#468080', '#5aa1fc'],
+                color: ['#8ef2a7', '#fdfd39', '#325efb', '#d37f8b', '#468080', '#5aa1fc', '#ffd700'],
                 series: [
                     {
                         name: '',
@@ -346,12 +356,13 @@ export default {
                         // ]
                         data: [
                             // { value: _self.sonData.equipPercent, name: '设备完好率' },
-                            { value: 20, name: '隐患发现率' },
+                            { value: 10, name: '隐患发现率' },
                             { value: 20, name: '报警处置及时率' },
                             { value: 20, name: '巡查完成率' },
                             { value: 10, name: '隐患整改率' },
                             { value: 10, name: '报警处置率' },
-                            { value: 20, name: ' 隐患按时整改率 ' }
+                            { value: 20, name: ' 隐患按时整改率 ' },
+                            { value: 10, name: '巡查按时完成率' }
                         ],
                         label: {
                             normal: {
