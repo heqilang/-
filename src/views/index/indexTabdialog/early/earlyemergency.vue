@@ -174,7 +174,7 @@
                     {{ activeName == 'first' ? '突发类事件预警' : '管理类事件预警' }}
                 </span>
             </div> -->
-            <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; position: relative; padding: 30px">
+            <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; padding: 30px">
                 <div>
                     <div style="display: flex">
                         <div>预警时间：</div>
