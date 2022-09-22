@@ -9,7 +9,8 @@
                 <div>二次码：{{ '6554154413.3021614' }}</div>
             </el-col>
         </el-row>
-        <div style="margin-top: 20px">报警位置：{{ '新世纪环球中心1楼1FB09外侧通道' }}</div>
+        <!-- <div style="margin-top: 20px">报警位置：{{ '新世纪环球中心1楼1FB09外侧通道' }}</div> -->
+        <div style="margin-top: 20px">报警位置：{{ '新世纪环球中心1楼1FC03外左侧通道' }}</div>
         <div style="margin-top: 5px">火源类型：其他</div>
         <div style="text-align: center">
             <div id="homeYiluvideo" style="margin-top: 20px; background-color: #fff"></div>
@@ -34,7 +35,7 @@ export default {
         videoid: function (val) {
             document.getElementById('homeYiluvideo').innerHTML = '';
             // this.getVideoInfo();
-            this.playVideo('K27020363');
+            this.playVideo('K27019861');
         }
     },
     methods: {
