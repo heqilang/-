@@ -91,7 +91,7 @@
                     <el-table-column prop="times" label="操作" width="80" align="center">
                         <template slot-scope="scope">
                             <!-- <i class="el-icon-edit fs-16"></i>  -->
-                            <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                            <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -149,10 +149,10 @@
                                         <img style="width: 120px" :src="scope.row.risksImages" alt="" />
                                     </div>
                                 </div>
-                                <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                                <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                                 <!-- <el-button >click 激活</el-button> -->
                             </el-popover>
-                            <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                            <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                         </template>
                     </el-table-column>
                 </el-table>

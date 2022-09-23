@@ -105,10 +105,10 @@
                                     <div>巡查人员：{{ scope.row.inspectPerson }}</div>
                                     <div>完成时间：{{ scope.row.addtime }}</div>
                                 </div>
-                                <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                                <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                                 <!-- <el-button >click 激活</el-button> -->
                             </el-popover>
-                            <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                            <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
