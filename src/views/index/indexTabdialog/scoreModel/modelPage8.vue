@@ -62,7 +62,7 @@
                     </el-radio-group>
                 </div>
 
-                <el-table v-if="radio4 === '消防巡查预警'" header-row-class-name="table-header-class" row-class-name="table-row-class" ref="treeTable" border style="width: 100%" :data="dataTable">
+                <el-table height="400" v-if="radio4 === '消防巡查预警'" header-row-class-name="table-header-class" row-class-name="table-row-class" ref="treeTable" border style="width: 100%" :data="dataTable">
                     <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                     <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                     <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
@@ -96,7 +96,7 @@
                     </el-table-column>
                 </el-table>
 
-                <el-table v-else header-row-class-name="table-header-class" row-class-name="table-row-class" :data="dataTable" ref="treeTable" border style="width: 100%">
+                <el-table height="400" v-else header-row-class-name="table-header-class" row-class-name="table-row-class" :data="dataTable" ref="treeTable" border style="width: 100%">
                     <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                     <el-table-column prop="risksType" label="巡查类型" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
@@ -222,6 +222,7 @@ export default {
             }
         },
         getList() {
+            console.log('getList');
             let _self = this;
             _self.loading = true;
             _self.dataTable = [];

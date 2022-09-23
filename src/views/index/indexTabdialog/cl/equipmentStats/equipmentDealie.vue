@@ -21,7 +21,7 @@
                     所属系统： <span> {{ systemName }}</span>
                 </li>
                 <li>
-                    m 安装位置： <span>{{ activeDealie.lookup.building + activeDealie.lookup.floor }}</span>
+                    安装位置： <span>{{ activeDealie.lookup.building + activeDealie.lookup.floor }}</span>
                 </li>
                 <li>
                     详细地址： <span>{{ activeDealie.address }}</span>
