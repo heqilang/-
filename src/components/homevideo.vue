@@ -46,7 +46,7 @@ export default {
                     equipId: '00eed3514f544ad495c60f3fdd015001'
                 },
                 success: function (res) {
-                    _self.playVideo(res.data.serialNumber);
+                    _self.playVideo('K27019861');
                 }
             });
         },
@@ -61,7 +61,7 @@ export default {
                         autoplay: true,
                         id: 'homeVideo', // 视频容器ID
                         accessToken: res.data,
-                        url: 'ezopen://open.ys7.com/' + (serialNumber ? serialNumber : 'J63364396') + '/1.live',
+                        url: 'ezopen://open.ys7.com/' + (serialNumber ? serialNumber : 'K27019861') + '/1.live',
                         // template: 'simple', // simple - 极简版;standard-标准版;security - 安防版(预览回放);voice-语音版；
                         // // 视频上方头部控件
                         // header: ['capturePicture', 'save', 'zoom'], // 如果templete参数不为simple,该字段将被覆盖

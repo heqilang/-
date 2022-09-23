@@ -69,7 +69,7 @@
                     <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
                             <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
-                            <div>{{ Inchange(scope.row.sendName) }}</div>
+                            <div  v-if="scope.row.sendName" >{{ Inchange(scope.row.sendName) }}</div>
                         </template>
                     </el-table-column>
                     <!-- <el-table-column prop="equipmentState" label="报警类型" width="140">
@@ -237,6 +237,7 @@ export default {
                     size: that.pager.pageSize,
                     current: that.pager.pageIndex,
                     // patrolStatus: 'NORMAL',
+                    inspectStatus:  _self.radio4 === '巡查总数' ?   "巡查完成":null,
                     option: 'MONTH',
                     patrolStatus: that.patrolStatus,
                     timeType: that.dataRange == '当日' ? 1 : 2,
