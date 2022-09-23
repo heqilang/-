@@ -35,7 +35,7 @@ export default {
         videoid: function (val) {
             document.getElementById('homeYiluvideo').innerHTML = '';
             // this.getVideoInfo();
-            this.playVideo('K27019861');
+            this.playVideo('K27020363');
         }
     },
     methods: {
@@ -93,7 +93,7 @@ export default {
     created() {},
     mounted() {
         // this.getVideoInfo();
-        this.playVideo('K27019861');
+        this.playVideo('K27020363');
     }
 };
 </script>
