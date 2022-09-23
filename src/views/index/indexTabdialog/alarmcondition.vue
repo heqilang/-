@@ -307,19 +307,19 @@
                             <template slot-scope="scope">
                                 <!--   <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
                                 <div v-else>--</div> -->
-                                <div>{{ scope.row.alarmType }}</div>
+                                <div>{{ scope.row.equipmentStateName }}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
-                                <span>--</span>
+                                <span>{{ scope.row.equipmentName }}</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
                                 <!-- <div v-if="scope.row.lookup.building">{{ scope.row.lookup.building }} - {{ scope.row.lookup.floor }} - {{ scope.row.address }}</div>
                                 <div v-else>--</div> -->
-                                <div>{{ scope.row.alarmLocation }}</div>
+                                <div>{{ scope.row.lookup.building + scope.row.lookup.floor + scope.row.address }}</div>
                             </template>
                         </el-table-column>
 
@@ -327,7 +327,7 @@
                             <template slot-scope="scope">
                                 <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
                                 <div v-else>--</div> -->
-                                <div>{{ scope.row.alarmStatus == '1' ? '处置中' : scope.row.alarmStatus == '2' ? '已处置' : '未处置' }}</div>
+                                <div>{{ scope.row.state === '01' ? '待受理' : scope.row.state === '02' ? '待确认' : scope.row.state === '03' ? '处理中' : scope.row.state === '04' ? '完成' : '忽略' }}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="times" label="操作" width="80" align="center">
@@ -339,6 +339,7 @@
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
                         <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                        <div style="height: 32px" v-else></div>
                     </div>
                 </div>
             </div>
@@ -444,7 +445,7 @@ export default {
             showanalysis: 'alarmanalysis1',
             floorname: '',
             floornamenumber: '',
-
+            showAlar: 1,
             leftDataTop: '',
 
             DAYdrawLeftLineList: { everyHour: [], number: [], every: '' },
@@ -596,7 +597,8 @@ export default {
             } else if (type == 'alarmanalysis5') {
                 this.equipmentType = option;
                 this.equipmentName = option;
-                this.getList();
+                this.showAlar = 0;
+                this.getList(0);
             }
         },
         analysischange(type, data, optin) {
@@ -611,6 +613,7 @@ export default {
                     this.getcountByType(data, optin);
                 });
             } else if (type == 'alarmanalysis5') {
+                this.showAlar = 0;
                 this.$nextTick(() => {
                     this.getList(0);
                 });
@@ -1794,6 +1797,8 @@ export default {
             }
         },
         getList(val = 1) {
+            console.dir(val);
+
             let _self = this;
             _self.loading = true;
 
@@ -1834,7 +1839,7 @@ export default {
             console.dir(searchObj);
             _self.dataTable = [];
             _self._http({
-                url: val === 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find',
+                url: _self.showAlar === 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find',
                 // url: 'api/web/indexCountTwo/find',
                 // url: '/api/web/indexCountV3/find',
                 type: 'get',
