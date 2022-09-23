@@ -93,7 +93,7 @@ router.beforeEach((to, from, next) => {
     if (storage.LStorage.get('_t')) {
         next();
     } else {
-        if (to.path == '/login') {
+        if (to.path == '/login' || to.path == '/authLogin') {
             next();
         } else {
             router.push({
