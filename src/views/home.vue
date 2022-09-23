@@ -58,7 +58,7 @@
             </el-col>
         </div>
         <div v-if="$route.path == '/index'" class="clopsMenu" :style="'left:' + asideWidth + 'px'">
-            <i class="el-icon-s-fold" @click="showMenus"></i>
+            <!-- <i class="el-icon-s-fold" @click="showMenus"></i> -->
         </div>
 
         <el-dialog :modal-append-to-body="false" title="修改密码" :visible.sync="dialogFormVisibleResetPwd" :close-on-click-modal="false" class="unit-edit-con" :destroy-on-close="true" :before-close="closeDialog">

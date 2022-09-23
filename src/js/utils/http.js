@@ -126,6 +126,16 @@ export const _http = (opt) => {
                         callback: (action) => {}
                     });
                     opt.success_false && opt.success_false();
+                } else if (httpRes.code == '500') {
+                    MessageBox.alert(httpRes.msg || '网络异常', '系统提示', {
+                        confirmButtonText: '确定',
+                        callback: (action) => {
+                            comm.logout(() => {
+                                location.href = '/';
+                            });
+                        }
+                    });
+                    opt.success_false && opt.success_false();
                 } else if (httpRes.code == '441') {
                     console.log('httpRes.message->' + httpRes.message);
                     MessageBox.alert(httpRes.msg || '数据验证失败', '系统提示', {
