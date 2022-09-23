@@ -523,8 +523,14 @@ export default {
         showAlarm1Day: function (val) {
             this.showanalysis = 'alarmanalysis1';
             this.Month30 = false;
+            console.dir(val);
+
             // this.getleftNumData();
             // this.getList();
+        },
+        showAlarm1Day: function () {
+            console.dir('eeeee');
+            this.showAlar = 1;
         }
     },
     created() {},
@@ -583,6 +589,7 @@ export default {
             if (type == 'alarmanalysis1') {
                 this.pager.pageSize = 5;
                 this.getleftNumData();
+                this.showAlar = 1;
             } else if (type == 'alarmanalysis2') {
                 console.dir('执行这里');
 
@@ -1839,7 +1846,7 @@ export default {
             console.dir(searchObj);
             _self.dataTable = [];
             _self._http({
-                url: _self.showAlar === 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find',
+                url: _self.showAlar == 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find',
                 // url: 'api/web/indexCountTwo/find',
                 // url: '/api/web/indexCountV3/find',
                 type: 'get',
