@@ -93,7 +93,7 @@ export default {
     created() {},
     mounted() {
         // this.getVideoInfo();
-        this.playVideo('K27020363');
+        this.playVideo('K27019861');
     }
 };
 </script>
