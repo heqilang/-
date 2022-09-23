@@ -137,7 +137,7 @@
                             <el-tab-pane label="隐患预警" name="yinghuan"></el-tab-pane>
                         </el-tabs>
                     </div>
-                    <el-table class="xf-table" :data="dataTable" height="600">
+                    <el-table class="xf-table" :data="dataTable">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
@@ -760,7 +760,7 @@ interval: 20 */
         tabitemchange(val) {
             console.dir(val);
             this.chartRadio1 = val;
-            this.pager.pageSize = 10;
+            this.pager.pageSize = 5;
             this.pager.pageIndex = 1;
             this.getList();
             console.dir(val);

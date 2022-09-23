@@ -42,9 +42,9 @@
                     <div v-if="radio4 == '消防器材物资清单'">
                         <el-table class="xf-table" :data="dataTable3" height="400" style="width: 100%">
                             <el-table-column align="center" prop="no" label="序号" :show-overflow-tooltip="true" width="180" />
-                            <el-table-column align="center" prop="lx" label="名称" :show-overflow-tooltip="true" width="180" />
-                            <el-table-column align="center" prop="mc" label="品牌" :show-overflow-tooltip="true" />
-                            <el-table-column align="center" prop="xh" label="数量" :show-overflow-tooltip="true" />
+                            <el-table-column align="center" prop="lx" label="类型" :show-overflow-tooltip="true" width="180" />
+                            <el-table-column align="center" prop="mc" label="名称" :show-overflow-tooltip="true" />
+                            <el-table-column align="center" prop="xh" label="型号" :show-overflow-tooltip="true" />
                         </el-table>
                     </div>
                 </div>
