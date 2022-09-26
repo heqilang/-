@@ -34,7 +34,8 @@
             <el-table-column prop="firePartition" label="防火分区" />
             <el-table-column label="操作" width="180">
                 <template slot-scope="scope">
-                    <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo(scope.row)"> <i class="el-icon-edit fs-16"></i> 查看 </el-button>
+                    <!-- <i class="el-icon-edit fs-16"></i> -->
+                    <el-button slot="reference" type="text" size="mini" @click="updateOrDeleteInfo(scope.row)">查看</el-button>
                 </template>
             </el-table-column>
 
@@ -148,4 +149,7 @@ export default {
 
 <style lang="scss">
 @import './equipmentTypeList.scss';
+.el-button {
+    padding: 10px 3px
+}
 </style>

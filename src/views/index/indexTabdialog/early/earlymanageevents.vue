@@ -41,14 +41,14 @@
 
                 <div v-show="alarmRadio === 'MONTH'">
                     <el-row>
-                        <el-col :span="12">
+                        <el-col :span="24">
                             <!-- 当月巡查平均处置时效 -->
                             <div style="height: 200px" id="lineChart2"></div>
                         </el-col>
-                        <el-col :span="12">
-                            <!-- 当月隐患平均处置时效 -->
+                      <!--   <el-col :span="12">
+                            当月隐患平均处置时效 
                             <div style="height: 200px" id="lineChart3"></div>
-                        </el-col>
+                        </el-col> -->
                     </el-row>
                 </div>
             </div>
