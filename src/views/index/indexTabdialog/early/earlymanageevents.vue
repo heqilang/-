@@ -482,7 +482,7 @@ _self.drawLineChart3(); */
                 color: ['#e16b2b', '#178cea'],
                 xAxis: {
                     type: 'category',
-                    data: ['消防巡查预警', '隐患预警'],
+                    data: ['消防巡查预警'],
                     axisLine: {
                         show: true,
                         lineStyle: {
