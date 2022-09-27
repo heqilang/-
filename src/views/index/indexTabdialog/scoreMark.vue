@@ -347,7 +347,7 @@ export default {
                     left: 'left',
                     show: false
                 },
-                color: ['#25A6FF', '#E4AF3D', '#CD685B', '#25A6FF', '#83BDBF', '#A259BC', '#ffd700'],
+                color: ['#25A6FF', '#E4AF3D', '#CD685B', '#83BDBF', '#6bd0ca', '#A259BC', '#ffd700'],
                 series: [
                     {
                         name: '',
@@ -383,7 +383,7 @@ export default {
                             { value: 20, name: '隐患按时整改率' },
                             { value: 10, name: '巡查按时完成率' }
                         ].map((item, index) => {
-                            let color = ['#25A6FF', '#E4AF3D', '#CD685B', '#25A6FF', '#83BDBF', '#A259BC', '#ffd700'];
+                            let color = ['#25A6FF', '#E4AF3D', '#CD685B', '#83BDBF', '#6bd0ca', '#A259BC', '#ffd700'];
                             item.label = {
                                 color: color[index]
                             };
@@ -404,7 +404,7 @@ export default {
                             color: (params) => {
                                 var index = params.dataIndex;
 
-                                let color = ['#25A6FF', '#E4AF3D', '#CD685B', '#25A6FF', '#83BDBF', '#A259BC', '#ffd700'];
+                                let color = ['#25A6FF', '#E4AF3D', '#CD685B', '#83BDBF', '#6bd0ca', '#A259BC', '#ffd700'];
 
                                 return color[index];
                             }
