@@ -45,7 +45,7 @@
                             <!-- 当月巡查平均处置时效 -->
                             <div style="height: 200px" id="lineChart2"></div>
                         </el-col>
-                      <!--   <el-col :span="12">
+                        <!--   <el-col :span="12">
                             当月隐患平均处置时效 
                             <div style="height: 200px" id="lineChart3"></div>
                         </el-col> -->

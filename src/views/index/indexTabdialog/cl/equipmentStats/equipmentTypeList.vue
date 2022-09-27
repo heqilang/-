@@ -150,6 +150,6 @@ export default {
 <style lang="scss">
 @import './equipmentTypeList.scss';
 .el-button {
-    padding: 10px 3px
+    padding: 10px 3px;
 }
 </style>

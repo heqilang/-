@@ -332,7 +332,7 @@
                         </el-table-column>
                         <el-table-column prop="times" label="操作" width="80" align="center">
                             <template slot-scope="scope">
-                                <el-button type="text" size="mini" @click="viewchange(scope.row, '设备报警情况',1)"> 查看 </el-button>
+                                <el-button type="text" size="mini" @click="viewchange(scope.row, '设备报警情况', 1)"> 查看 </el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -608,7 +608,7 @@ export default {
                 this.getList(0);
             }
         },
-        analysischange(type, data, optin,val) {
+        analysischange(type, data, optin, val) {
             this.showanalysis = type;
             if (type == 'alarmanalysis3') {
                 this.$nextTick(() => {
@@ -625,10 +625,8 @@ export default {
                     this.getList(0);
                 });
             } else if (type == 'alarmanalysis6') {
-                      
-
                 this.$nextTick(() => {
-                    this.getfindMessages(data,val);
+                    this.getfindMessages(data, val);
                 });
             }
         },
@@ -1777,14 +1775,14 @@ export default {
             this.getMothAlarms();
         },
 
-        viewchange(row, title,val) {
+        viewchange(row, title, val) {
             // this.$emit('viewchange', row, title);
-               console.dir(val)      
+            console.dir(val);
             console.log('报警页面:', row);
-     
+
             this.alarmanalysis6_params = row;
             this.alarmanalysis6_optin = title;
-            this.analysischange('alarmanalysis6', row, title,val);
+            this.analysischange('alarmanalysis6', row, title, val);
         },
         closeDialog() {
             this.$emit('update:visible', false);
@@ -1861,16 +1859,16 @@ export default {
                 }
             });
         },
-        getfindMessages(val,vals=0) {
-            console.dir(vals)
+        getfindMessages(val, vals = 0) {
+            console.dir(vals);
             let _self = this;
             _self.sourcelist = [];
             _self._http({
-                url:  vals?"api/web/indexCountTwo/findMessages" : '/api/web/indexCountV3/alarmFlow', ///api/web/indexCountTwo/findMessages
+                url: vals ? 'api/web/indexCountTwo/findMessages' : '/api/web/indexCountV3/alarmFlow', ///api/web/indexCountTwo/findMessages
                 type: 'get',
                 isBody: true,
                 data: {
-                    alarmId: vals?val.id : val.alarmId,
+                    alarmId: vals ? val.id : val.alarmId,
                     sourceId: val.id,
                     transform: 'U:targetObject'
                 },

@@ -7,8 +7,7 @@
                 </el-col>
                 <el-col :span="6">
                     <div class="text_r">
-                        <i @click="$emit('closeTsCompF')" class="el-icon-circle-close"
-                            style="font-size: 26px; margin: 12px 20px; color: #5e9ffb; cursor: pointer"> </i>
+                        <i @click="$emit('closeTsCompF')" class="el-icon-circle-close" style="font-size: 26px; margin: 12px 20px; color: #5e9ffb; cursor: pointer"> </i>
                         <!-- <span @click="$emit('closeTsComp')" style="margin: 12px 20px; display: inline-block; padding: 3px 6px; border: 1px solid #616266; color: #616266; cursor: pointer"><<</span> -->
                     </div>
                 </el-col>
@@ -18,18 +17,14 @@
                 <el-row>
                     <el-col class="text_c" :span="6">
                         <div class="total_head_card">
-                            <div
-                                style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">
-                                报警处置情况</div>
-                            <div @click="showPageChage(6)" class="scoreMark_topIcon"
-                                style="text-align: left; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
-                                <span class="Icon" style="font-size: 30px;  color: #6BD0CA ">■</span>
+                            <div style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">报警处置情况</div>
+                            <div @click="showPageChage(6)" class="scoreMark_topIcon" style="text-align: left; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
+                                <span class="Icon" style="font-size: 30px; color: #6bd0ca">■</span>
                                 <span class="Icon_Span">报警处置率</span>
                                 <span>{{ sonData.alarmHandlePercent }}%</span>
                             </div>
-                            <div @click="showPageChage(3)" class="scoreMark_topIcon"
-                                style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
-                                <span class="Icon" style="font-size: 30px; color: #E4AF3D">■</span>
+                            <div @click="showPageChage(3)" class="scoreMark_topIcon" style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
+                                <span class="Icon" style="font-size: 30px; color: #e4af3d">■</span>
                                 <span class="Icon_Span">报警处置及时率</span>
                                 <span>{{ sonData.alarmHandOpportunelyPercent }}%</span>
                             </div>
@@ -37,44 +32,34 @@
                     </el-col>
                     <el-col class="text_c" :span="6">
                         <div class="total_head_card">
-                            <div
-                                style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">
-                                巡查完成情况</div>
-                            <div @click="showPageChage(4)" class="scoreMark_topIcon"
-                                style="text-align: left; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
-                                <span class="Icon" style="font-size: 30px; color: #CD685B">■</span>
+                            <div style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">巡查完成情况</div>
+                            <div @click="showPageChage(4)" class="scoreMark_topIcon" style="text-align: left; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
+                                <span class="Icon" style="font-size: 30px; color: #cd685b">■</span>
                                 <span class="Icon_Span">巡查完成率</span>
                                 <span>{{ sonData.patrolHandlePercent }}%</span>
                             </div>
-                            <div @click="showPageChage(8)" class="scoreMark_topIcon"
-                                style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
+                            <div @click="showPageChage(8)" class="scoreMark_topIcon" style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
                                 <span class="Icon" style="font-size: 30px; color: #ffd700">■</span>
                                 <span class="Icon_Span"> 巡查按时完成率 </span>
-                                <span> {{ sonData.patrolHandleOpportunelyPercent
-                                }}%</span>
+                                <span> {{ sonData.patrolHandleOpportunelyPercent }}%</span>
                             </div>
                         </div>
                     </el-col>
                     <el-col class="text_c" :span="6">
                         <div class="total_head_card">
-                            <div
-                                style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">
-                                隐患整治情况</div>
-                            <div @click="showPageChage(2)" class="scoreMark_topIcon"
-                                style="text-align: left; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
-                                <span class="Icon" style="font-size: 30px; color: #25A6FF">■</span>
+                            <div style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">隐患整治情况</div>
+                            <div @click="showPageChage(2)" class="scoreMark_topIcon" style="text-align: left; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
+                                <span class="Icon" style="font-size: 30px; color: #25a6ff">■</span>
                                 <span class="Icon_Span">隐患发现率 </span>
                                 <span> {{ sonData.risksPercent }}%</span>
                             </div>
-                            <div @click="showPageChage(5)" class="scoreMark_topIcon"
-                                style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
-                                <span class="Icon" style="font-size: 30px; color: #83BDBF">■</span>
+                            <div @click="showPageChage(5)" class="scoreMark_topIcon" style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
+                                <span class="Icon" style="font-size: 30px; color: #83bdbf">■</span>
                                 <span class="Icon_Span">隐患整改率 </span>
                                 <span>{{ sonData.risksHandlePercent }}%</span>
                             </div>
-                            <div @click="showPageChage(7)" class="scoreMark_topIcon"
-                                style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
-                                <span class="Icon" style="font-size: 30px; color: #A259BC">■</span>
+                            <div @click="showPageChage(7)" class="scoreMark_topIcon" style="text-align: left; margin-top: 12px; height: 38px; line-height: 38px; background: linear-gradient(to right, #2b4b6b 0%, #2b4b6b00 100%); padding: 0 12px; border-radius: 38px 0 0 38px; color: #fff">
+                                <span class="Icon" style="font-size: 30px; color: #a259bc">■</span>
                                 <span class="Icon_Span"> 隐患按时整改率 </span>
                                 <span> {{ sonData.risksOpportunelyPercent }}%</span>
                             </div>
@@ -82,12 +67,8 @@
                     </el-col>
                     <el-col :span="6" class="text_c">
                         <div class="total_head_card">
-                            <div
-                                style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">
-                                综合评分</div>
-                            <div class="textColor"
-                                style="line-height: 140px; font-size: 0.36rem; text-align: center; font-weight: 700">{{
-                                (systemScoreList.score / 1).toFixed(2) }}</div>
+                            <div style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">综合评分</div>
+                            <div class="textColor" style="line-height: 140px; font-size: 0.36rem; text-align: center; font-weight: 700">{{ (systemScoreList.score / 1).toFixed(2) }}</div>
                         </div>
                     </el-col>
                 </el-row>
@@ -145,15 +126,13 @@
                 <div style="width: 100%; height: 360px; position: relative; display: flex">
                     <div id="pieChart" style="width: 55%; height: 360px"></div>
 
-                    <div class="pieChart_box" v-if="systemScoreList.score < 95"
-                        style="color: #fff; text-align: left; font-size: 15px; width: 45%; height: 360px">
+                    <div class="pieChart_box" v-if="systemScoreList.score < 95" style="color: #fff; text-align: left; font-size: 15px; width: 45%; height: 360px">
                         <div class="pieChart_box_title" style="padding: 0px 0 20px 0">
                             <ul style="margin-bottom: 30px">
                                 <li>
                                     <span></span>
                                     <span>
-                                        当前综合评分为 <span style="color: red"> {{ (systemScoreList.score / 1).toFixed(2)
-                                        }}</span>
+                                        当前综合评分为 <span style="color: red"> {{ (systemScoreList.score / 1).toFixed(2) }}</span>
                                         <!-- <span
                                             >需要尽快完成 <span v-if="sonData.alarmHandlePercent !== 100">报警处置、</span> <span v-if="sonData.alarmHandOpportunelyPercent !== 100">报警及时处置、</span> <span v-if="sonData.patrolHandlePercent !== 100"> 巡查计划 <span v-if="sonData.risksPercent !== 100">、</span> </span> <span v-if="sonData.risksPercent !== 100">隐患排查、</span> <span v-if="sonData.risksHandlePercent !== 100">隐患整改 <span v-if="sonData.risksOpportunelyPercent !== 100">、</span> </span> <span v-if="sonData.risksOpportunelyPercent !== 100"> 按时整改隐患</span>
                                         </span> -->
@@ -166,24 +145,19 @@
                                     </span>
                                 </li> -->
                                 <li>
-                                    <span style="display: flex; flex-wrap: wrap">需要尽快完成 <span
-                                            v-for="(item, index) in totalTitle" :key="index">{{ item.title }}</span>
+                                    <span style="display: flex; flex-wrap: wrap"
+                                        >需要尽快完成 <span v-for="(item, index) in totalTitle" :key="index">{{ item.title }}</span>
                                     </span>
                                 </li>
 
-                                <li
-                                    style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px; margin-top: 30px">
-                                    *<span>提示</span></li>
-                                <li
-                                    style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px; margin-top: 30px">*<span>提示</span></li>
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
                                     <span>低于95分，发送给社区相关人员；</span>
                                 </li>
-                                <li
-                                    style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
                                     <span>低于90分，发送给街道相关人员；</span>
                                 </li>
-                                <li
-                                    style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                                <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
                                     <span>低于85分，发送给行业主管部门，消防救援机构，安办相关人员</span>
                                 </li>
                             </ul>
@@ -223,29 +197,14 @@
             <el-dialog :modal-append-to-body="false" width="1200px" top="5vh" title="隐患清单" :visible.sync="showSec7" :close-on-click-modal="false" class="unit-edit-con">
                 <component :sonData="sonData" @closeDialog="homedilogshow = ''" @closeTsComp="(showSec7 = false), (showPage = 1)" :is="require('./scoreModel/modelPage7')"></component>
             </el-dialog> -->
-            <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-if="showSec1" :visible.sync="showSec1"
-                @closeTsComp="(showSec1 = false), (showPage = 1)" :is="require('./scoreModel/modelPage1')"></component>
-            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''"
-                v-else-if="showSec2" :visible.sync="showSec2" @closeTsComp="(showSec2 = false), (showPage = 1)"
-                :is="require('./scoreModel/modelPage2')"></component>
-            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''"
-                v-else-if="showSec3" :visible.sync="showSec3" @closeTsComp="(showSec3 = false), (showPage = 1)"
-                :is="require('./scoreModel/modelPage3')"></component>
-            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''"
-                v-else-if="showSec4" :visible.sync="showSec4" @closeTsComp="(showSec4 = false), (showPage = 1)"
-                :is="require('./scoreModel/modelPage4')"></component>
-            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''"
-                v-else-if="showSec5" :visible.sync="showSec5" @closeTsComp="(showSec5 = false), (showPage = 1)"
-                :is="require('./scoreModel/modelPage5')"></component>
-            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''"
-                v-else-if="showSec6" :visible.sync="showSec6" @closeTsComp="(showSec6 = false), (showPage = 1)"
-                :is="require('./scoreModel/modelPage6')"></component>
-            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''"
-                v-else-if="showSec7" :visible.sync="showSec7" @closeTsComp="(showSec7 = false), (showPage = 1)"
-                :is="require('./scoreModel/modelPage7')"></component>
-            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''"
-                v-else-if="showSec8" :visible.sync="showSec8" @closeTsComp="(showSec8 = false), (showPage = 1)"
-                :is="require('./scoreModel/modelPage8')"></component>
+            <component :sonData="sonData" @closeDialog="homedilogshow = ''" v-if="showSec1" :visible.sync="showSec1" @closeTsComp="(showSec1 = false), (showPage = 1)" :is="require('./scoreModel/modelPage1')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec2" :visible.sync="showSec2" @closeTsComp="(showSec2 = false), (showPage = 1)" :is="require('./scoreModel/modelPage2')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec3" :visible.sync="showSec3" @closeTsComp="(showSec3 = false), (showPage = 1)" :is="require('./scoreModel/modelPage3')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec4" :visible.sync="showSec4" @closeTsComp="(showSec4 = false), (showPage = 1)" :is="require('./scoreModel/modelPage4')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec5" :visible.sync="showSec5" @closeTsComp="(showSec5 = false), (showPage = 1)" :is="require('./scoreModel/modelPage5')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec6" :visible.sync="showSec6" @closeTsComp="(showSec6 = false), (showPage = 1)" :is="require('./scoreModel/modelPage6')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec7" :visible.sync="showSec7" @closeTsComp="(showSec7 = false), (showPage = 1)" :is="require('./scoreModel/modelPage7')"></component>
+            <component @closeDealie="closeDealie" :sonData="sonData" @closeDialog="homedilogshow = ''" v-else-if="showSec8" :visible.sync="showSec8" @closeTsComp="(showSec8 = false), (showPage = 1)" :is="require('./scoreModel/modelPage8')"></component>
         </div>
     </div>
 </template>
@@ -297,14 +256,14 @@ export default {
                 });
                 return newArr;
             },
-            set() { }
+            set() {}
         }
     },
     methods: {
         closeDealie(val) {
             this.$emit('closeTsCompF');
             this.$emit('closeDialog');
-            setTimeout(() => { });
+            setTimeout(() => {});
         },
         showPageChage(e) {
             this.showPage = 2;
@@ -386,8 +345,7 @@ export default {
                 legend: {
                     orient: 'vertical',
                     left: 'left',
-                    show: false,
-
+                    show: false
                 },
                 color: ['#25A6FF', '#E4AF3D', '#CD685B', '#25A6FF', '#83BDBF', '#A259BC', '#ffd700'],
                 series: [
@@ -396,18 +354,15 @@ export default {
                         type: 'pie',
                         radius: '50%',
 
-
                         labelLine: {
-
                             normal: {
                                 length: 20, //第一条线
-                                length2: 130, //第二条线
+                                length2: 150, //第二条线
                                 lineStyle: {
                                     width: 1, // 线条的宽度
-                                    //线的颜色设置， 如没有设置颜色则线条的颜色跟随饼状图的颜色
+                                    color: '#fff' //线的颜色设置， 如没有设置颜色则线条的颜色跟随饼状图的颜色
                                 }
                             }
-
                         },
                         // data: [
                         //     // { value: _self.sonData.equipPercent, name: '设备完好率' },
@@ -425,9 +380,15 @@ export default {
                             { value: 20, name: '巡查完成率' },
                             { value: 10, name: '隐患整改率' },
                             { value: 10, name: '报警处置率' },
-                            { value: 20, name: ' 隐患按时整改率 ' },
+                            { value: 20, name: '隐患按时整改率' },
                             { value: 10, name: '巡查按时完成率' }
-                        ],
+                        ].map((item, index) => {
+                            let color = ['#25A6FF', '#E4AF3D', '#CD685B', '#25A6FF', '#83BDBF', '#A259BC', '#ffd700'];
+                            item.label = {
+                                color: color[index]
+                            };
+                            return item;
+                        }),
                         /*     label: {
                               position: 'outer',
                               alignTo: 'labelLine',  // 'labelLine'：label line 的末端对齐，其中最短的长度由 labelLine.length2 决定
@@ -439,40 +400,52 @@ export default {
                                  
                              }  */
 
+                        itemStyle: {
+                            color: (params) => {
+                                var index = params.dataIndex;
+
+                                let color = ['#25A6FF', '#E4AF3D', '#CD685B', '#25A6FF', '#83BDBF', '#A259BC', '#ffd700'];
+
+                                return color[index];
+                            }
+                        },
+
                         label: {
                             position: 'outer',
-                            alignTo: 'labelLine',  // 'labelLine'：label line 的末端对齐，其中最短的长度由 labelLine.length2 决定
+                            alignTo: 'labelLine', // 'labelLine'：label line 的末端对齐，其中最短的长度由 labelLine.length2 决定
                             bleedMargin: 5,
                             normal: {
                                 alignTo: 'labelLine',
                                 show: true,
                                 formatter: function (params, ticket, callback) {
-                                    console.log(params)
-
-                                    return  /*  '{a|' +    '■' + ' }' */'{a|' + params.data.name + ' ' + ' }' +  '{b|'  + params.percent + '% }'                  // params.name + params.percent+"%"
+                                    console.dir(params);
+                                    console.dir(params.name.length);
+                                    if (params.name.length < 7) {
+                                        return '{per|' + '■' + ' }' + '{a|' + params.data.name + '       ' + ' }' + '{b|' + params.percent + '% }';
+                                    } else {
+                                        return '{per|' + '■' + ' }' + '{a|' + params.data.name + ' ' + ' }' + '{b|' + params.percent + '% }'; // params.name + params.percent+"%"
+                                    }
                                 },
-
-
 
                                 borderWidth: 20,
                                 borderRadius: 4,
-                                padding: [0, -120, 20, -120],
+                                padding: [0, -145, 20, -130],
                                 rich: {
                                     a: {
                                         fontSize: 12,
                                         color: '#fff',
                                         fontWeight: 500,
                                         lineHeight: 32,
-                                        align: "right",
+                                        align: 'right'
                                     },
                                     b: {
-                                        color: "#fff",
+                                        color: '#fff',
                                         fontSize: 12,
                                         lineHeight: 33
                                     },
                                     per: {
-                                        fontSize: 12,
-                                        padding: [2, 4],
+                                        fontSize: 18,
+                                        padding: [2, 4, 5, 0],
                                         borderRadius: 2
                                     }
                                 }
@@ -490,30 +463,16 @@ export default {
                                                                         align: "right",
                                                                     },
                                                                 }, */
-
-
-
-
-
-
                             }
-
-
-                        },
-
-
-
-                    },
-
-
-
+                        }
+                    }
                 ]
             };
 
             option && myChart.setOption(option);
         }
     },
-    created() { },
+    created() {},
     mounted() {
         this.getSonpageData();
         // this.$nextTick(() => {
@@ -524,7 +483,6 @@ export default {
 </script>
 <style lang="scss">
 .scoreMark {
-
     // height: 300px;
     .textColor {
         color: #ffffff;
@@ -562,7 +520,6 @@ export default {
     }
 
     .tabelCon {
-
         // background-color: #2a3b5c;
         .el-table th,
         .el-table td,
