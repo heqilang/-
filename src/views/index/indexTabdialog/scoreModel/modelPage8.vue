@@ -191,6 +191,13 @@ export default {
             dataTable: []
         };
     },
+
+    watch: {
+        radio4: function () {
+            this.pager.pageIndex = 1;
+            this.pager.pageSize = 5;
+        }
+    },
     methods: {
         Inchange(val) {
             return val.split(':')[val.split(':').length - 1];
@@ -222,7 +229,6 @@ export default {
             }
         },
         getList() {
-            console.log('getList');
             let _self = this;
             _self.loading = true;
             _self.dataTable = [];

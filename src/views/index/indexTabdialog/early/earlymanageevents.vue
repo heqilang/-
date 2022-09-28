@@ -138,7 +138,7 @@
                             <el-tab-pane label="隐患预警" name="yinghuan"></el-tab-pane>
                         </el-tabs>
                     </div>
-                    <el-table class="xf-table" :data="dataTable">
+                    <el-table height="340" class="xf-table" :data="dataTable">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>

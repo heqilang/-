@@ -117,7 +117,7 @@
                             <el-radio-button label="false">未处置</el-radio-button>
                         </el-radio-group>
                     </div>
-                    <el-table class="xf-table" :data="dataTable" max-height="540">
+                    <el-table class="xf-table" :data="dataTable" height="340">
                         <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
