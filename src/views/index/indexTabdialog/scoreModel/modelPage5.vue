@@ -61,7 +61,7 @@
                         <el-radio-button label="已整改"></el-radio-button>
                     </el-radio-group>
                 </div>
-                <el-table header-row-class-name="table-header-class" row-class-name="table-row-class" :data="dataTable" ref="treeTable" border style="width: 100%">
+                <el-table height="340" header-row-class-name="table-header-class" row-class-name="table-row-class" :data="dataTable" ref="treeTable" border style="width: 100%">
                     <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
                     <el-table-column prop="risksType" label="隐患类型" :show-overflow-tooltip="true">
                         <template slot-scope="scope">

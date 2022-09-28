@@ -106,6 +106,7 @@
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
                         <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                        <div v-else style="height: 32px"></div>
                     </div>
                 </el-col>
             </el-row>
@@ -172,6 +173,7 @@
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
                         <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                        <div v-else style="height: 32px"></div>
                     </div>
                 </el-col>
             </el-row>
