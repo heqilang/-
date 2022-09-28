@@ -3,7 +3,7 @@ import qs from 'qs';
 import config from './config';
 import storage from '@/js/utils/storage';
 import comm from '@/js/utils/common';
-import { MessageBox, Loading } from 'element-ui';
+import { MessageBox, Loading, Message } from 'element-ui';
 // axios.defaults.baseURL = config.api;
 axios.defaults.withCredentials = false;
 const _axios = function (opt) {
@@ -105,19 +105,30 @@ export const _http = (opt) => {
                 if (httpRes.success || opt.isVideo) {
                     opt.success && opt.success(httpRes);
                 } else if (httpRes.code == '403') {
-                    opt.success_false && opt.success_false();
-                    MessageBox.alert('登录超时请重新登录', '系统提示', {
-                        confirmButtonText: '确定',
-                        callback: (action) => {
-                            // 登录超时，退回登录页
-                            comm.logout(() => {
-                                location.href = '/';
-                            });
-                        },
-                        beforeClose: (action, instance, done) => {
-                            //避免重复弹框
-                            done();
-                        }
+                    // opt.success_false && opt.success_false();
+                    // MessageBox.alert('登录超时请重新登录', '系统提示', {
+                    //     confirmButtonText: '确定',
+                    //     callback: (action) => {
+                    //         // 登录超时，退回登录页
+                    //         comm.logout(() => {
+                    //             location.href = '/';
+                    //         });
+                    //     },
+                    //     beforeClose: (action, instance, done) => {
+                    //         //避免重复弹框
+                    //         done();
+                    //     }
+                    // });
+                    // 登录超时，退回登录页
+                    throw comm.logout(() => {
+                        Message({
+                            showClose: true,
+                            message: '登录超时请重新登录',
+                            type: 'warning'
+                        });
+                        setTimeout(() => {
+                            location.href = '/';
+                        }, 3000);
                     });
                     opt.success_false && opt.success_false();
                 } else if (httpRes.code == '502') {
