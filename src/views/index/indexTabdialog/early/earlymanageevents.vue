@@ -105,7 +105,7 @@
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                         <div v-else style="height: 32px"></div>
                     </div>
                 </el-col>
@@ -172,7 +172,7 @@
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                         <div v-else style="height: 32px"></div>
                     </div>
                 </el-col>
@@ -463,6 +463,7 @@ _self.drawLineChart3(); */
                 tooltip: {
                     //  trigger: 'axis'
                     trigger: 'item'
+
                     // formatter: '时段：{b0}<br />设备警告：{c0} 次'
                 },
                 legend: {
@@ -562,6 +563,50 @@ _self.drawLineChart3(); */
                 _xData.push(this.checkData[i].everyDay);
                 _yData.push(this.checkData[i].average);
             }
+
+            /*  function formatData(arr){
+	let newHashArray = []
+    for(var i=0;i<arr.length;i++){
+		let obj={}
+		let temp = arr[i]
+        if(arr[i]>0&&arr[i]<10){
+       
+        
+			arr[i]=0+ arr[i]*(300/10)
+         
+            
+        }else if(arr[i]>10&&arr[i]<50){
+  
+   
+            arr[i]=arr[i]*(600/50)
+          
+            
+        }else if(arr[i]>50&&arr[i]<100){
+    
+            arr[i]=arr[i]*(900/100)
+        }else if(arr[i]>100&&arr[i]<200){
+       
+            arr[i]=arr[i]*(1200/200)
+        }else if(arr[i]>200&&arr[i]<400){
+       
+            arr[i]=arr[i]*(1500/400)
+        }else if(arr[i]>400&&arr[i]<1200){
+      
+            arr[i]=arr[i]*(1800/1200)
+	    }else if(arr[i]>1200&&arr[i]<2100){
+       
+            arr[i]=arr[i]*(2100/2100)
+	    }
+		obj.value = arr[i]
+		obj.formatV = temp
+		newHashArray.push(obj)
+          }
+          return newHashArray;
+      } 
+
+
+      let wxArray = formatData(_yData) */
+
             option = {
                 title: {
                     text: '当月巡查平均处置时效',
@@ -580,6 +625,7 @@ _self.drawLineChart3(); */
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (val) {
+                        console.dir(val);
                         return '平均处置时效' + val[0].data + '分钟';
                     }
                 },
@@ -605,8 +651,39 @@ _self.drawLineChart3(); */
                 },
                 yAxis: {
                     type: 'value',
+
+                    /*    min: 0,
+                    max: 2400,
+                    splitNumber: 8, */
+
                     axisLabel: {
                         formatter: '{value}min',
+                        type: 'log',
+
+                        /*     formatter: (v, i) => {
+                    let item = ''
+				if(v===0){
+					item='0'
+				}else if(v==300){
+					item = '10min'
+				}else if(v==600){
+					item = '50min'
+				}else if(v==900){
+					item = '100'
+				}else if(v==1200){
+					item = '200'
+				}else if(v==1500){
+					item = '400'
+				}else if(v==1800){
+					item = '1200'
+				}else if(v==2100){
+					item = '2100'
+				}else if(v==24000){
+					item = '30000'
+				}
+				return item
+
+                        }, */
                         textStyle: {
                             color: '#FFFFFF'
                         }
@@ -634,6 +711,7 @@ interval: 20 */
                     {
                         data: _yData,
                         type: 'line',
+
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
@@ -948,9 +1026,11 @@ interval: 20 */
 <style lang="scss">
 .classReadyDialog {
     box-sizing: border-box;
+
     .el-scrollbar__wrap {
         margin-right: -30px !important;
     }
+
     .headerCon {
         // background-color: #2b4b6b;
         // 从左至右渐变色
@@ -958,33 +1038,41 @@ interval: 20 */
         // background: linear-gradient(to right, red 0%, #2b4b6b 100%);
         padding: 0 10px;
     }
+
     .el-input__inner {
         background-color: transparent !important;
         border-color: #6f7682 !important;
     }
+
     .pagination-container button,
     .pagination-container li {
         background-color: transparent !important;
         border: none !important;
     }
+
     .tabelCon {
         background-color: #1e2841;
+
         .el-table th,
         .el-table td,
         .el-table--border {
             background-color: #1e2841 !important;
             border: none !important;
         }
+
         .el-table td {
             color: #fff;
         }
+
         .el-table::before {
             background-color: #1e2841 !important;
         }
+
         .el-table--border::after {
             width: 0 !important;
         }
     }
+
     .numColorN {
         font-weight: normal;
         font-size: 56px;
@@ -993,15 +1081,18 @@ interval: 20 */
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+
     .el-card {
         background-color: #232c47 !important;
         color: #fff !important;
         border: none !important;
     }
+
     .el-radio-group .is-active .el-radio-button__orig-radio:checked + .el-radio-button__inner {
         background-color: #3869a4 !important;
         border-color: #3869a4 !important;
     }
+
     // .tabelCon {
     //     tr,
     //     th {
@@ -1043,16 +1134,20 @@ interval: 20 */
     .el-dialog__header {
         display: none !important;
     }
+
     .el-dialog {
         border-radius: 8px !important;
         // overflow: hidden;
     }
+
     .el-tabs__item.is-active {
         color: #fff !important;
     }
+
     .el-tabs__item {
         color: #fff !important;
     }
+
     .el-dialog__body {
         padding: 0 !important;
         border-radius: 8px !important;
@@ -1060,11 +1155,13 @@ interval: 20 */
         border: none;
     }
 }
+
 .box2 {
     color: rgb(255, 255, 255);
     font-size: 16px;
     padding: 30px 20px;
 }
+
 .box2::before {
     content: '';
     position: absolute;

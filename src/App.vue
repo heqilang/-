@@ -14,6 +14,10 @@ export default {
 </script>
 
 <style lang="scss">
+/deep/.messageIndex {
+    z-index: 99999 !important; // 设置的值一定要比2007大，因为dialog的层级是2007
+}
+
 body {
     margin: 0px;
     padding: 0px;

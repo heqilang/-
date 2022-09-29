@@ -19,6 +19,13 @@ module.exports = {
 
                 pathRewrite: { '^/api': 'http://localhost:26168' }
                 // 当后端服务器中没有以/api开头的路径时，以空字符代替
+            },
+            '/apli': {
+                target: 'http://pv.sohu.com', //这里是域名，不是完整地址
+                changeOrigin: true, //是否跨域
+                pathRewrite: {
+                    '^/apli': ''
+                }
             }
         },
 
