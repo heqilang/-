@@ -318,6 +318,29 @@ export default {
                         radius: ['40%', '70%'],
                         center: ['40%', '50%'],
                         data: data,
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: '  {ng|{b}    }',
+                                //标识内容；若要设置标识内容的样式，则需要像这样设置一个变量per或者ng，在rich配置项里去设置这2个变量的样式，则会改变对应标识内容的样式
+                                rich: {
+                                    //设置标识内容样式
+                                    per: {
+                                        color: 'rgba(133, 138, 155, 1)', //设置变量per的颜色，即设置{d}%的颜色
+                                        padding: [2, 4],
+                                        borderRadius: 2
+                                    },
+                                    ng: {
+                                        fontSize: 14,
+                                        color: '#fff',
+                                        fontWeight: 500,
+                                        lineHeight: 32,
+                                        align: 'right'
+                                        //设置变量ng的颜色，即设置{c}的颜色
+                                    }
+                                }
+                            }
+                        },
                         emphasis: {
                             itemStyle: {
                                 shadowBlur: 10,

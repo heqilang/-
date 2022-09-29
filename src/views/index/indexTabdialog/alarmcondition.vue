@@ -174,7 +174,7 @@
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPaginationNoSizes>
+                        <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPaginationNoSizes>
                     </div>
                 </div>
             </div>
@@ -338,7 +338,7 @@
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                         <div style="height: 32px" v-else></div>
                     </div>
                 </div>
@@ -788,17 +788,44 @@ export default {
                         color: '#ffffff'
                     }
                 },
+                grid: { x: 'right' },
                 color: _self.colors,
                 series: [
                     {
                         name: '',
                         type: 'pie',
                         radius: '60%',
+                        center: ['55%', '50%'],
+                        labelLine: {
+                            normal: {
+                                lineStyle: {
+                                    width: 1, // 线条的宽度
+                                    color: '#fff' //线的颜色设置， 如没有设置颜色则线条的颜色跟随饼状图的颜色
+                                }
+                            }
+                        },
                         data: _self.DAYcountByType.number,
                         label: {
                             normal: {
                                 show: true,
-                                formatter: '{b}({d}%)'
+                                formatter: '  {ng|{b}    {d}% }',
+                                //标识内容；若要设置标识内容的样式，则需要像这样设置一个变量per或者ng，在rich配置项里去设置这2个变量的样式，则会改变对应标识内容的样式
+                                rich: {
+                                    //设置标识内容样式
+                                    per: {
+                                        color: 'rgba(133, 138, 155, 1)', //设置变量per的颜色，即设置{d}%的颜色
+                                        padding: [2, 4],
+                                        borderRadius: 2
+                                    },
+                                    ng: {
+                                        fontSize: 12,
+                                        color: '#fff',
+                                        fontWeight: 500,
+                                        lineHeight: 32,
+                                        align: 'right'
+                                        //设置变量ng的颜色，即设置{c}的颜色
+                                    }
+                                }
                             }
                         }
                     }
@@ -1689,7 +1716,24 @@ export default {
                         label: {
                             normal: {
                                 show: true,
-                                formatter: '{b}({d}%)'
+                                formatter: '  {ng|{b}    {d}% }',
+                                //标识内容；若要设置标识内容的样式，则需要像这样设置一个变量per或者ng，在rich配置项里去设置这2个变量的样式，则会改变对应标识内容的样式
+                                rich: {
+                                    //设置标识内容样式
+                                    per: {
+                                        color: 'rgba(133, 138, 155, 1)', //设置变量per的颜色，即设置{d}%的颜色
+                                        padding: [2, 4],
+                                        borderRadius: 2
+                                    },
+                                    ng: {
+                                        fontSize: 12,
+                                        color: '#fff',
+                                        fontWeight: 500,
+                                        lineHeight: 32,
+                                        align: 'right'
+                                        //设置变量ng的颜色，即设置{c}的颜色
+                                    }
+                                }
                             }
                         }
                     }
@@ -1938,20 +1982,25 @@ export default {
 .el-switch__label {
     color: rgba(255, 255, 255, 0.6);
 }
+
 .el-switch__label.is-active {
     color: #25a6ff;
 }
+
 //全局表格样式
 .el-table {
     background-image: linear-gradient(#19253e, #223e61);
 }
+
 .el-table::before {
     width: 0;
 }
+
 .el-table th {
     background-color: #2a3953 !important;
     color: rgba(255, 255, 255, 0.8);
 }
+
 //全局表格样式
 .el-table tr {
     background-color: transparent !important;
@@ -1977,34 +2026,41 @@ export default {
     border: 1px #2a3953 solid !important;
     color: #ffffff;
 }
+
 .el-pagination__total,
 .el-pagination__jump {
     color: rgba(255, 255, 255, 0.5);
 }
+
 .classReadyDialog {
     box-sizing: border-box;
     background-image: linear-gradient(#162542, #1a3d63);
+
     .classReadyDialogTitle {
         position: relative;
         padding-left: 20px;
         height: 42px;
         line-height: 42px;
         background-color: #364b6a;
+
         span {
             font-size: 16px;
             display: inline-block;
             color: #fff;
         }
     }
+
     .classReadyDialogBox {
         padding: 20px;
     }
+
     .headerCon {
         font-size: 16px;
         color: #fff;
         padding: 15px 10px;
         font-weight: bold;
     }
+
     .headerCon::before {
         content: '';
         position: absolute;
@@ -2015,14 +2071,17 @@ export default {
         margin-top: 2px;
         border-radius: 2px;
     }
+
     .returnbtn {
         cursor: pointer;
         color: rgb(255, 255, 255);
         padding-right: 5px;
+
         i {
             font-size: 20px;
         }
     }
+
     .returnbtn1 {
         cursor: pointer;
         float: right;
@@ -2030,10 +2089,12 @@ export default {
         border: 1px rgba(36, 244, 237, 0.5) solid;
         padding: 5px 10px;
         border-radius: 10px;
+
         i {
             margin-right: 5px;
         }
     }
+
     .returnbtn2 {
         position: absolute;
         right: 20px;
@@ -2042,6 +2103,7 @@ export default {
         color: rgb(255, 255, 255);
         display: flex;
         align-items: center;
+
         i {
             font-size: 24px;
         }
@@ -2052,16 +2114,20 @@ export default {
     .el-dialog__header {
         display: none !important;
     }
+
     .el-dialog {
         border-radius: 8px !important;
         // overflow: hidden;
     }
+
     .el-tabs__item.is-active {
         color: #fff !important;
     }
+
     .el-tabs__item {
         color: #fff !important;
     }
+
     .el-dialog__body {
         padding: 0 !important;
         border-radius: 8px !important;
@@ -2072,6 +2138,7 @@ export default {
 
 .eventMsgInfo {
     border-radius: 8px;
+
     .el-card {
         background-color: #264365;
         border: none;
@@ -2079,23 +2146,28 @@ export default {
         font-size: 14px;
         line-height: 24px;
     }
+
     .el-tabs__item {
         color: #fff;
     }
+
     .el-card__body {
         padding: 10px 20px !important;
     }
+
     .box01 {
         padding: 10px 15px 0 15px;
         color: rgb(255, 255, 255);
         font-size: 16px;
         line-height: 30px;
     }
+
     .box02 {
         color: rgb(255, 255, 255);
         font-size: 16px;
         padding: 30px 20px;
     }
+
     .box02::before {
         content: '';
         position: absolute;
@@ -2107,6 +2179,7 @@ export default {
         border-radius: 2px;
     }
 }
+
 .el-timeline-item__timestamp.is-top {
     position: absolute;
     margin-left: -120px;
@@ -2115,14 +2188,17 @@ export default {
     font-size: 14px;
     text-align: center;
 }
+
 .el-timeline-item {
     margin-left: 110px;
 }
+
 .el-timeline-item__node {
     background-color: rgb(0, 166, 255);
     box-shadow: 0 0 3px 2px rgba(0, 166, 255, 0.5);
     border: 1px rgba(0, 0, 0, 0.5) solid;
 }
+
 .el-timeline-item__tail {
     border-color: rgb(0, 166, 255);
 }
@@ -2134,6 +2210,7 @@ export default {
     flex-flow: column;
     height: 400px;
 }
+
 .textBox1 {
     padding: 5px 10px;
     margin: 10px 0;
@@ -2145,6 +2222,7 @@ export default {
     color: rgb(255, 255, 255);
     border-radius: 15px;
 }
+
 .textBox1 i {
     display: inline-block;
     width: 12px;
@@ -2161,12 +2239,14 @@ export default {
         color: rgb(255, 255, 255);
         text-align: center;
         line-height: 30px;
+
         span {
             font-size: 24px;
             font-weight: bold;
         }
     }
 }
+
 .numColorN {
     font-weight: normal;
     font-size: 56px;
@@ -2175,6 +2255,7 @@ export default {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .backColorPage {
     //background-color: #07203b;
     .el-pagination span {
@@ -2184,18 +2265,22 @@ export default {
     .el-pagination .el-select .el-input .el-input__inner {
         background-color: #213c5e !important;
     }
+
     .el-pager {
         background-color: #213c5e !important;
     }
+
     li.number {
         background-color: #213c5e !important;
     }
+
     .btn-prev,
     .btn-next,
     .el-input__inner {
         background-color: #213c5e !important;
     }
 }
+
 .failed {
     position: fixed !important;
     top: 0 !important;
