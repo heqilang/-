@@ -31,6 +31,7 @@ module.exports = {
         proxyTable: {
             '/api': {
                 changeOrigin: true,
+
                 // target: 'http://118.114.172.18:26188/api', //开发环境
                 // target: 'http://118.114.172.18:47090/api', //测试环境
                 target: 'http://118.114.172.18:41080/api', //迪威数据的环境

@@ -6,6 +6,7 @@ import comm from '@/js/utils/common';
 import { MessageBox, Loading } from 'element-ui';
 import { Message, Notify } from './resetPopup'; //重置弹窗
 // axios.defaults.baseURL = config.api;
+
 axios.defaults.withCredentials = false;
 const _axios = function (opt) {
     let options = opt.data;
@@ -165,10 +166,18 @@ export const _http = (opt) => {
                 // 接口调用错误提示
                 else {
                     if (httpRes.code != '200') {
-                        MessageBox.alert(httpRes.msg, '系统提示', {
+                        /*  MessageBox.alert(httpRes.msg, '系统提示', {
                             confirmButtonText: '确定',
                             callback: (action) => {}
+                        }); */
+
+                        Message({
+                            message: httpRes.msg,
+                            type: 'error',
+                            duration: 1000,
+                            customClass: 'messageIndex'
                         });
+
                         opt.success_false && opt.success_false();
                     }
                 }
