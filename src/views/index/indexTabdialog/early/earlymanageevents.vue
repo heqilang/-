@@ -3,8 +3,8 @@
         <div v-show="showLeavel == 1" class="firstLevel">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类')
-                    }}</span>事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警列表
                     <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a>
                 </span>
             </div>
@@ -26,8 +26,7 @@
                                         <div style="display: flex; justify-content: space-around">
                                             <p>{{ alarmRadio === 'DAY' ? '当日' : '当月' }}已处置数</p>
                                             <p>
-                                                <span style="color: #a0d1fa; margin-left: 25px">{{
-                                                firstPageData1.managesOver || 0 }}</span> 个
+                                                <span style="color: #a0d1fa; margin-left: 25px">{{ firstPageData1.managesOver || 0 }}</span> 个
                                             </p>
                                         </div>
                                     </div>
@@ -72,12 +71,9 @@
                         </el-tabs>
                     </div>
                     <el-table class="xf-table" :data="dataTable" height="340">
-                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod">
-                        </el-table-column>
-                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
-                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
                                 <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
@@ -95,8 +91,7 @@
 
                         <el-table-column prop="state" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' :
-                                scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -104,15 +99,13 @@
                         <el-table-column prop="times" label="操作" width="80" align="center">
                             <template slot-scope="scope">
                                 <!-- <i class="el-icon-edit fs-16"></i>  -->
-                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看
-                                </el-button>
+                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList">
-                        </customPagination>
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                         <div v-else style="height: 32px"></div>
                     </div>
                 </el-col>
@@ -122,8 +115,8 @@
         <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类')
-                    }}</span>事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警列表
                     <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
                 </span>
                 <span @click="showLeavel = 1" style="float: right; margin-right: 20px; cursor: pointer">
@@ -146,12 +139,9 @@
                         </el-tabs>
                     </div>
                     <el-table height="340" class="xf-table" :data="dataTable">
-                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod">
-                        </el-table-column>
-                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
-                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
                                 <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
@@ -168,8 +158,7 @@
                         <el-table-column prop="unitName" label="预警位置" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="state" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' :
-                                scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -177,15 +166,13 @@
                         <el-table-column prop="times" label="操作" width="80" align="center">
                             <template slot-scope="scope">
                                 <!-- <i class="el-icon-edit fs-16"></i>  -->
-                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看
-                                </el-button>
+                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList">
-                        </customPagination>
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                         <div v-else style="height: 32px"></div>
                     </div>
                 </el-col>
@@ -197,7 +184,8 @@
                 <span style="cursor: pointer">
                     <!--   <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
                     >事件预警列表 -->
-                    <span>{{ activeName == 'first' ? '突发类' : '管理类' }}</span>事件预警
+                    <span>{{ activeName == 'first' ? '突发类' : '管理类' }}</span
+                    >事件预警
                 </span>
                 <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
                 <span @click="showLeavel = 2" style="float: right; margin-right: 20px; cursor: pointer">
@@ -218,8 +206,7 @@
                 <div class="box2">流程追溯</div>
                 <el-scrollbar v-if="sourcelist.length > 0" style="height: 100%; width: 90%">
                     <el-timeline style="margin-top: 20px">
-                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate"
-                            placement="top">
+                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
                             <el-card style="font-size: 14px">
                                 <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
                                 <p v-else-if="(item.dealName || '') != ''">
@@ -229,8 +216,8 @@
                                 <p v-else-if="(item.pushUserName || '') != ''">
                                     <span style="display: block">{{ item.orgPushDesc }}</span>
                                     <span style="display: flex; justify-content: space-between">
-                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span><span>{{
-                                        item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
+                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
+                                        ><span>{{ item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
                                     </span>
                                 </p>
                             </el-card>
@@ -297,7 +284,7 @@ export default {
         };
     },
     watch: {},
-    created() { },
+    created() {},
     filters: {
         equipmentStateType(val) {
             if (val == '1') return '正常';
@@ -372,10 +359,10 @@ export default {
                     res.data.forEach((item) => {
                         item.everyDay = item.timeName;
                     });
-                    const nowDdate = new Date()
-                    console.log(nowDdate, "今天的日期");
-                    const Day = nowDdate.getDate()
-                    console.log(Day, "今天的日期");
+                    const nowDdate = new Date();
+                    console.log(nowDdate, '今天的日期');
+                    const Day = nowDdate.getDate();
+                    console.log(Day, '今天的日期');
                     _self.checkData = res.data;
                     _self.drawLineChart2();
                 }
@@ -389,7 +376,7 @@ export default {
                 success: function (res) {
                     if (res.data.length > 0) {
                         res.data.forEach((item) => {
-                            console.dir(item.timeName)
+                            console.dir(item.timeName);
                             item.everyDay = item.timeName.slice(5, 10);
                         });
                         _self.riskData = res.data;
@@ -583,39 +570,28 @@ _self.drawLineChart3(); */
             }
 
             function formatData(arr) {
-                let newHashArray = []
+                let newHashArray = [];
                 for (var i = 0; i < arr.length; i++) {
-                    let obj = {}
-                    let temp = arr[i]
+                    let obj = {};
+                    let temp = arr[i];
                     if (arr[i] > 0 && arr[i] < 50) {
-
-
-                        arr[i] = 0 + arr[i] * (500 / 50)
-
-
+                        arr[i] = 0 + arr[i] * (500 / 50);
                     } else if (arr[i] > 50 && arr[i] < 300) {
-
-
-                        arr[i] = 500 + (arr[i] - 50) * ((1000 - 500) / (300 - 50))
-
-
+                        arr[i] = 500 + (arr[i] - 50) * ((1000 - 500) / (300 - 50));
                     } else if (arr[i] > 300 && arr[i] < 900) {
-
-                        arr[i] = 1000 + (arr[i] - 300) * ((1500 - 1000) / (900 - 300))
+                        arr[i] = 1000 + (arr[i] - 300) * ((1500 - 1000) / (900 - 300));
                     } else if (arr[i] > 900 && arr[i] < 2100) {
-
-                        arr[i] = 1500 + (arr[i] - 900) * ((2000 - 1500) / (2100 - 900))
+                        arr[i] = 1500 + (arr[i] - 900) * ((2000 - 1500) / (2100 - 900));
                     }
-                    obj.value = arr[i]
-                    obj.formatV = temp
-                    newHashArray.push(obj)
+                    obj.value = arr[i];
+                    obj.formatV = temp;
+                    newHashArray.push(obj);
                 }
                 return newHashArray;
             }
 
-
-            let wxArray = formatData(_yData)
-            console.dir(_yData)
+            let wxArray = formatData(_yData);
+            console.dir(_yData);
 
             option = {
                 title: {
@@ -637,9 +613,9 @@ _self.drawLineChart3(); */
                     formatter: function (val) {
                         console.dir(val);
                         var s = '';
-                        s += '查询时间:' + val[0].axisValue + '<br/>'
+                        s += '查询时间:' + val[0].axisValue + '<br/>';
                         s += '平均处置时效' + val[0].data.formatV + '分钟';
-                        return s
+                        return s;
                     }
                 },
                 color: ['#5aa1fc'],
@@ -653,8 +629,8 @@ _self.drawLineChart3(); */
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
-                            console.dir(params)
-                            return params.slice(8, 10) + "日"
+                            console.dir(params);
+                            return params.slice(8, 10) + '日';
                         }
                     },
                     axisLine: {
@@ -678,20 +654,19 @@ _self.drawLineChart3(); */
                         type: 'log',
 
                         formatter: (v, i) => {
-                            let item = ''
+                            let item = '';
                             if (i === 0) {
-                                item = '0'
+                                item = '0';
                             } else if (i == 1) {
-                                item = '50'
+                                item = '50';
                             } else if (i == 2) {
-                                item = '300'
+                                item = '300';
                             } else if (i == 3) {
-                                item = '900'
+                                item = '900';
                             } else if (i == 4) {
-                                item = '2100'
+                                item = '2100';
                             }
-                            return item
-
+                            return item;
                         },
                         textStyle: {
                             color: '#FFFFFF'
@@ -740,17 +715,15 @@ interval: 20 */
             };
             option && myChart.setOption(option);
 
-
-
             setTimeout(() => {
                 myChart.dispatchAction({
                     type: 'showTip',
                     seriesIndex: 0, // 针对series下第几个数据
                     dataIndex: new Date().getDate() - 1 // 第几个数据
-                })
-            }, 1000)// 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
+                });
+            }, 1000); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
             console.log('pxpxpx1', option);
-            this.chartNew = myChart
+            this.chartNew = myChart;
         },
         drawLineChart3() {
             var chartDom = document.getElementById('lineChart3');
@@ -1044,7 +1017,7 @@ interval: 20 */
     beforeDestory() {
         if (!this.chartNew) return; //页面销毁钩子销毁chart释放资源
         this.chartNew.dispose();
-        this.chartNew = null
+        this.chartNew = null;
     }
 };
 </script>
@@ -1113,7 +1086,7 @@ interval: 20 */
         border: none !important;
     }
 
-    .el-radio-group .is-active .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+    .el-radio-group .is-active .el-radio-button__orig-radio:checked + .el-radio-button__inner {
         background-color: #3869a4 !important;
         border-color: #3869a4 !important;
     }

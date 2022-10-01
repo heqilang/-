@@ -368,15 +368,13 @@
             line-height: 23px;
             font-size: 12px;
             font-family: PingFang SC-Bold, PingFang SC;
-           // background-image: url('../../assets/images/globalCenterNew/spintLeft.png');
+            // background-image: url('../../assets/images/globalCenterNew/spintLeft.png');
             background-size: 100% 100%;
             cursor: pointer;
             font-weight: bold;
 
-            
-          
-            span{
-                background: linear-gradient(180deg, #FFFFFF 0%, #48E5E5 100%);
+            span {
+                background: linear-gradient(180deg, #ffffff 0%, #48e5e5 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
@@ -384,8 +382,7 @@
         .swipBtnBox2 {
             position: absolute;
             z-index: 1;
-          
-           
+
             right: 20.8%;
             top: 0.6rem;
             width: 160px;
@@ -395,15 +392,13 @@
             font-size: 12px;
 
             font-family: PingFang SC-Bold, PingFang SC;
-         //   background-image: url('../../assets/images/globalCenterNew/spintRight.png');
+            //   background-image: url('../../assets/images/globalCenterNew/spintRight.png');
             background-size: 100% 100%;
             cursor: pointer;
             font-weight: bold;
 
-
-            
-            span{
-                background: linear-gradient(180deg, #FFFFFF 0%, #48E5E5 100%);
+            span {
+                background: linear-gradient(180deg, #ffffff 0%, #48e5e5 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
@@ -671,9 +666,8 @@
     overflow: auto;
 }
 .globalCenterIndexCon .headerConb {
-    height: 1rem;
+    height: 0.8rem;
 }
-
 
 .globalCenterIndexCon .mainConb {
     height: calc(100% - 0.5rem);
