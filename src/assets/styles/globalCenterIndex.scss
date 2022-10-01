@@ -360,24 +360,53 @@
         .swipBtnBox1 {
             position: absolute;
             z-index: 1;
-            left: 13.8%;
-            top: 0.08rem;
+            left: 21.7%;
+            top: 0.6rem;
             width: 160px;
-            height: 30px;
-            background-image: url('../../assets/images/globalCenterNew/swipBtn1.png');
+            height: 23px;
+            text-align: center;
+            line-height: 23px;
+            font-size: 12px;
+            font-family: PingFang SC-Bold, PingFang SC;
+           // background-image: url('../../assets/images/globalCenterNew/spintLeft.png');
             background-size: 100% 100%;
             cursor: pointer;
+            font-weight: bold;
+
+            
+          
+            span{
+                background: linear-gradient(180deg, #FFFFFF 0%, #48E5E5 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
         }
         .swipBtnBox2 {
             position: absolute;
             z-index: 1;
-            right: 13.8%;
-            top: 0.08rem;
-            width: 180px;
-            height: 30px;
-            background-image: url('../../assets/images/globalCenterNew/swipBtn2.png');
+          
+           
+            right: 20.8%;
+            top: 0.6rem;
+            width: 160px;
+            height: 23px;
+            text-align: center;
+            line-height: 23px;
+            font-size: 12px;
+
+            font-family: PingFang SC-Bold, PingFang SC;
+         //   background-image: url('../../assets/images/globalCenterNew/spintRight.png');
             background-size: 100% 100%;
             cursor: pointer;
+            font-weight: bold;
+
+
+            
+            span{
+                background: linear-gradient(180deg, #FFFFFF 0%, #48E5E5 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
         }
         .midConb {
             .dataMainCount {
@@ -445,7 +474,7 @@
     }
     .headerConb {
         height: 0.8rem;
-        background-image: url('../../assets/images/globalCenter/headerBG.png');
+        background-image: url('../../assets/images/globalCenter/headerBG2.png');
         background-size: 100% 220%;
     }
     .mainConb {
@@ -640,4 +669,16 @@
 .el-dialog .el-dialog__body {
     flex: 1;
     overflow: auto;
+}
+.globalCenterIndexCon .headerConb {
+    height: 1rem;
+}
+
+
+.globalCenterIndexCon .mainConb {
+    height: calc(100% - 0.5rem);
+    box-sizing: border-box;
+    padding: 0.2rem;
+    padding-bottom: 0;
+    margin-top: -0.15rem;
 }
