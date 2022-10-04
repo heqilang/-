@@ -279,7 +279,8 @@ export default {
                 '04': '完成',
                 '05': '忽略'
             },
-            currentRow: {}
+            currentRow: {},
+            chartNew: ''
         };
     },
     watch: {},
@@ -356,9 +357,12 @@ export default {
                 success: function (res) {
                     console.dir(res);
                     res.data.forEach((item) => {
-                        item.everyDay = item.timeName.slice(5, 10);
+                        item.everyDay = item.timeName;
                     });
-
+                    const nowDdate = new Date();
+                    console.log(nowDdate, '今天的日期');
+                    const Day = nowDdate.getDate();
+                    console.log(Day, '今天的日期');
                     _self.checkData = res.data;
                     _self.drawLineChart2();
                 }
@@ -372,6 +376,7 @@ export default {
                 success: function (res) {
                     if (res.data.length > 0) {
                         res.data.forEach((item) => {
+                            console.dir(item.timeName);
                             item.everyDay = item.timeName.slice(5, 10);
                         });
                         _self.riskData = res.data;
@@ -564,48 +569,29 @@ _self.drawLineChart3(); */
                 _yData.push(this.checkData[i].average);
             }
 
-            /*  function formatData(arr){
-	let newHashArray = []
-    for(var i=0;i<arr.length;i++){
-		let obj={}
-		let temp = arr[i]
-        if(arr[i]>0&&arr[i]<10){
-       
-        
-			arr[i]=0+ arr[i]*(300/10)
-         
-            
-        }else if(arr[i]>10&&arr[i]<50){
-  
-   
-            arr[i]=arr[i]*(600/50)
-          
-            
-        }else if(arr[i]>50&&arr[i]<100){
-    
-            arr[i]=arr[i]*(900/100)
-        }else if(arr[i]>100&&arr[i]<200){
-       
-            arr[i]=arr[i]*(1200/200)
-        }else if(arr[i]>200&&arr[i]<400){
-       
-            arr[i]=arr[i]*(1500/400)
-        }else if(arr[i]>400&&arr[i]<1200){
-      
-            arr[i]=arr[i]*(1800/1200)
-	    }else if(arr[i]>1200&&arr[i]<2100){
-       
-            arr[i]=arr[i]*(2100/2100)
-	    }
-		obj.value = arr[i]
-		obj.formatV = temp
-		newHashArray.push(obj)
-          }
-          return newHashArray;
-      } 
+            function formatData(arr) {
+                let newHashArray = [];
+                for (var i = 0; i < arr.length; i++) {
+                    let obj = {};
+                    let temp = arr[i];
+                    if (arr[i] > 0 && arr[i] < 50) {
+                        arr[i] = 0 + arr[i] * (500 / 50);
+                    } else if (arr[i] > 50 && arr[i] < 300) {
+                        arr[i] = 500 + (arr[i] - 50) * ((1000 - 500) / (300 - 50));
+                    } else if (arr[i] > 300 && arr[i] < 900) {
+                        arr[i] = 1000 + (arr[i] - 300) * ((1500 - 1000) / (900 - 300));
+                    } else if (arr[i] > 900 && arr[i] < 2100) {
+                        arr[i] = 1500 + (arr[i] - 900) * ((2000 - 1500) / (2100 - 900));
+                    }
+                    obj.value = arr[i];
+                    obj.formatV = temp;
+                    newHashArray.push(obj);
+                }
+                return newHashArray;
+            }
 
-
-      let wxArray = formatData(_yData) */
+            let wxArray = formatData(_yData);
+            console.dir(_yData);
 
             option = {
                 title: {
@@ -626,7 +612,10 @@ _self.drawLineChart3(); */
                     trigger: 'axis',
                     formatter: function (val) {
                         console.dir(val);
-                        return '平均处置时效' + val[0].data + '分钟';
+                        var s = '';
+                        s += '查询时间:' + val[0].axisValue + '<br/>';
+                        s += '平均处置时效' + val[0].data.formatV + '分钟';
+                        return s;
                     }
                 },
                 color: ['#5aa1fc'],
@@ -635,9 +624,13 @@ _self.drawLineChart3(); */
                     boundaryGap: false,
                     axisLabel: {
                         interval: 0,
-                        rotate: 45,
+
                         textStyle: {
                             color: '#FFFFFF'
+                        },
+                        formatter: function (params) {
+                            console.dir(params);
+                            return params.slice(8, 10) + '日';
                         }
                     },
                     axisLine: {
@@ -652,38 +645,29 @@ _self.drawLineChart3(); */
                 yAxis: {
                     type: 'value',
 
-                    /*    min: 0,
-                    max: 2400,
-                    splitNumber: 8, */
+                    min: 0,
+                    max: 2000,
+                    splitNumber: 5,
 
                     axisLabel: {
-                        formatter: '{value}min',
+                        //  formatter: '{value}min',
                         type: 'log',
 
-                        /*     formatter: (v, i) => {
-                    let item = ''
-				if(v===0){
-					item='0'
-				}else if(v==300){
-					item = '10min'
-				}else if(v==600){
-					item = '50min'
-				}else if(v==900){
-					item = '100'
-				}else if(v==1200){
-					item = '200'
-				}else if(v==1500){
-					item = '400'
-				}else if(v==1800){
-					item = '1200'
-				}else if(v==2100){
-					item = '2100'
-				}else if(v==24000){
-					item = '30000'
-				}
-				return item
-
-                        }, */
+                        formatter: (v, i) => {
+                            let item = '';
+                            if (i === 0) {
+                                item = '0';
+                            } else if (i == 1) {
+                                item = '50';
+                            } else if (i == 2) {
+                                item = '300';
+                            } else if (i == 3) {
+                                item = '900';
+                            } else if (i == 4) {
+                                item = '2100';
+                            }
+                            return item;
+                        },
                         textStyle: {
                             color: '#FFFFFF'
                         }
@@ -709,7 +693,7 @@ interval: 20 */
                 },
                 series: [
                     {
-                        data: _yData,
+                        data: wxArray,
                         type: 'line',
 
                         areaStyle: {
@@ -730,7 +714,16 @@ interval: 20 */
                 ]
             };
             option && myChart.setOption(option);
+
+            setTimeout(() => {
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0, // 针对series下第几个数据
+                    dataIndex: new Date().getDate() - 1 // 第几个数据
+                });
+            }, 1000); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
             console.log('pxpxpx1', option);
+            this.chartNew = myChart;
         },
         drawLineChart3() {
             var chartDom = document.getElementById('lineChart3');
@@ -1020,7 +1013,12 @@ interval: 20 */
         }
     },
     computed: {},
-    components: {}
+    components: {},
+    beforeDestory() {
+        if (!this.chartNew) return; //页面销毁钩子销毁chart释放资源
+        this.chartNew.dispose();
+        this.chartNew = null;
+    }
 };
 </script>
 <style lang="scss">

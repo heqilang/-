@@ -4,8 +4,8 @@
             <iframe src="http://182.151.21.153:18080/enterprise/#/" frameborder="0"></iframe>
         </div>
         <div class="mainClas">
-            <div class="swipBtnBox1" @click="goPage51Fn1"></div>
-            <div class="swipBtnBox2" @click="goPage51Fn2"></div>
+            <div class="swipBtnBox1" @click="goPage51Fn1"><span></span></div>
+            <div class="swipBtnBox2" @click="goPage51Fn2"><span></span></div>
             <div class="alarmMsgInfo" v-if="showAlarmMsgInfo">
                 <div style="height: 46px; line-height: 46px; padding: 0 0.12rem; color: #eee; font-size: 0.14rem; background-color: #17548e">
                     <el-row>
@@ -259,18 +259,18 @@
                                                 <el-col class="height100" :span="17">
                                                     <div style="height: 50%; padding-left: 12%">
                                                         <el-row>
-                                                            <el-col :span="16" style="margin-top: 0.06rem">设备报警数量</el-col>
+                                                            <el-col :span="16" style="margin-top: 0.06rem">设备报警数量 </el-col>
                                                             <el-col :span="8">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataTop.dayAlarms || 0 }}</span> 次</el-col
-                                                            >
+                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataTop.dayAlarms || 0 }}</span> 次
+                                                            </el-col>
                                                         </el-row>
                                                     </div>
                                                     <div style="height: 50%; padding-left: 12%">
                                                         <el-row>
-                                                            <el-col :span="16" style="margin-top: 0.06rem">报警处置数量</el-col>
+                                                            <el-col :span="16" style="margin-top: 0.06rem">报警处置数量 </el-col>
                                                             <el-col :span="8">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataTop.dayAlarmsOver || 0 }}</span> 个</el-col
-                                                            >
+                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataTop.dayAlarmsOver || 0 }}</span> 个
+                                                            </el-col>
                                                         </el-row>
                                                     </div>
                                                 </el-col>
@@ -285,18 +285,18 @@
                                                 <el-col class="height100" :span="17">
                                                     <div style="height: 50%; padding-left: 12%">
                                                         <el-row>
-                                                            <el-col :span="16" style="margin-top: 0.06rem">设备报警数量</el-col>
+                                                            <el-col :span="16" style="margin-top: 0.06rem">设备报警数量 </el-col>
                                                             <el-col :span="8">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataTop.monthAlarms || 0 }}</span> 次</el-col
-                                                            >
+                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataTop.monthAlarms || 0 }}</span> 次
+                                                            </el-col>
                                                         </el-row>
                                                     </div>
                                                     <div style="height: 50%; padding-left: 12%">
                                                         <el-row>
-                                                            <el-col :span="16" style="margin-top: 0.06rem">报警处置数量</el-col>
+                                                            <el-col :span="16" style="margin-top: 0.06rem">报警处置数量 </el-col>
                                                             <el-col :span="8">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataTop.monthAlarmsOver || 0 }}</span> 个</el-col
-                                                            >
+                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataTop.monthAlarmsOver || 0 }}</span> 个
+                                                            </el-col>
                                                         </el-row>
                                                     </div>
                                                 </el-col>
@@ -332,8 +332,8 @@
                                                         <!--TODO 陈磊: 巡查情况-->
                                                         <el-row style="height: 100%" @click.native="(patrolOrRiskRange = '当日'), (patrolStatsVisible = true)">
                                                             <el-col style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center" :span="24"> 当日巡查次数 </el-col>
-                                                            <el-col :span="24" style="height: 50%"
-                                                                ><!-- 巡查情况 -->
+                                                            <el-col :span="24" style="height: 50%">
+                                                                <!-- 巡查情况 -->
                                                                 <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.patrolCountDay || 0 }}</span
                                                                 >次
                                                             </el-col>
@@ -345,10 +345,13 @@
                                                     <div style="height: 100%; padding-left: 12%; display: flex; align-items: center; text-align: center">
                                                         <!--TODO 陈磊: 巡查情况-->
                                                         <el-row style="height: 100%" @click.native="(patrolOrRiskRange = '当日'), (riskStatsVisible = true)">
-                                                            <el-col :span="24" style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center"> 当前隐患数量<!-- 隐患数量 --></el-col>
+                                                            <el-col :span="24" style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center">
+                                                                当前隐患数量
+                                                                <!-- 隐患数量 -->
+                                                            </el-col>
                                                             <el-col style="height: 50%" :span="24">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.risksCountDay || 0 }}</span> 个</el-col
-                                                            >
+                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.risksCountDay || 0 }}</span> 个
+                                                            </el-col>
                                                         </el-row>
                                                     </div>
                                                 </el-col>
@@ -375,10 +378,10 @@
                                                     <div style="height: 100%; padding-left: 12%; display: flex; align-items: center; text-align: center">
                                                         <!--TODO 陈磊: 巡查情况-->
                                                         <el-row style="height: 100%" @click.native="(patrolOrRiskRange = '当月'), (riskStatsVisible = true)">
-                                                            <el-col :span="24" style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center">当前隐患数量</el-col>
+                                                            <el-col :span="24" style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center"> 当前隐患数量</el-col>
                                                             <el-col style="height: 50%" :span="24">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.risksCountMonth || 0 }}</span> 个</el-col
-                                                            >
+                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.risksCountMonth || 0 }}</span> 个
+                                                            </el-col>
                                                         </el-row>
                                                     </div>
                                                 </el-col>
@@ -409,7 +412,7 @@
                                                 <el-col class="height100" :span="17">
                                                     <div style="height: 50%; padding-left: 12%">
                                                         <el-row>
-                                                            <el-col :span="16" style="margin-top: 0.06rem">突发类事件预警</el-col>
+                                                            <el-col :span="16" style="margin-top: 0.06rem">突发类事件预警 </el-col>
                                                             <el-col :span="8">
                                                                 <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataBot.alarms || 0 }}</span> 次
                                                                 <!-- <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ alarmRadio == 'DAY' ? '9' : '19' }}</span> 次 -->
@@ -437,7 +440,7 @@
                                                 <el-col class="height100" :span="17">
                                                     <div style="height: 50%; padding-left: 12%">
                                                         <el-row>
-                                                            <el-col :span="16" style="margin-top: 0.06rem">管理类事件预警</el-col>
+                                                            <el-col :span="16" style="margin-top: 0.06rem">管理类事件预警 </el-col>
                                                             <el-col :span="8">
                                                                 <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataBot.manages || 0 }}</span> 次
                                                                 <!-- <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ 0 }}</span> 次 -->
