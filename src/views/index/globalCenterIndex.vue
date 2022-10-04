@@ -509,6 +509,35 @@
                                     </el-col>
                                 </el-row>
                             </div>
+
+                            <div class="dataMainCountBottom">
+                                <!-- <span @click="showLCImg = true" style="border: 1px solid #ccc; padding: 0.06rem 0.12rem; cursor: pointer">建筑概况</span> -->
+                                <div class="cardItemB">
+                                    <div class="cardItemS" style="height: 0px">
+                                        <div class="cardTit" style="background: transparent">
+                                            <div class="navIconC"></div>
+                                            <span>消防安全运行综合评分 </span>
+
+                                            <el-radio-group style="transform: scale(0.73); float: right" v-model="charRadio" @change="getCharRadio">
+                                                <el-radio-button label="min">近30天</el-radio-button>
+                                                <el-radio-button label="MONTH">当月</el-radio-button>
+                                                <el-radio-button label="YEAR">当年</el-radio-button>
+                                            </el-radio-group>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--      <el-row style="text-align: left">
+
+
+                                    我是图图片
+
+
+                                </el-row> -->
+
+                                <div class="cardItem_box">
+                                    <component :charRadio="charRadio" :is="require('@/components/echarts/pie.vue')" />
+                                </div>
+                            </div>
                         </div>
                     </el-col>
                     <el-col class="height100" :span="6">
@@ -867,6 +896,7 @@ import { Radar } from '@antv/g2plot';
 export default {
     data() {
         return {
+            charRadio: 'min',
             img: require('../../assets/images/globalCenterNew/xxxx.svg'),
             newImg_1: require('../../assets/images/layer1.png'),
             showSvg: false,
@@ -1115,6 +1145,9 @@ export default {
     },
 
     methods: {
+        getCharRadio(val) {
+            console.log(val, this.charRadio);
+        },
         handleClose(done) {
             this.$confirm('确认关闭？')
                 .then((_) => {

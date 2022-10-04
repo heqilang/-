@@ -23,8 +23,36 @@
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
                         <div class="patrol-stats-charts-content">
                             <div class="patrol-stats-chart" id="patrol-stats-chart1"></div>
-                            <div v-if="dataRange == '当日'" style="height: 200px" id="quxianChart"></div>
-                            <div v-else style="height: 200px" id="dangyeCharts"></div>
+
+                            <div style="width: 208px">
+                                <el-tabs v-model="activeName" @tab-click="handleClick">
+                                    <el-tab-pane :label="dataRange + '平均处置时效'" name="first"></el-tab-pane>
+                                    <el-tab-pane label="点位列表" name="second"></el-tab-pane>
+                                </el-tabs>
+                            </div>
+
+                            <div v-show="activeName == 'first'">
+                                <div v-if="dataRange == '当日'" style="height: 200px" id="quxianChart"></div>
+                                <div v-else style="height: 200px" id="dangyeCharts"></div>
+                            </div>
+
+                            <div v-show="activeName !== 'first'" class="patroLabel" style="height: 200px">
+                                <ul>
+                                    <li class="box_li" v-for="n in 3" :key="n">
+                                        <div class="box_li_title_left">3#消防通道</div>
+                                        <div class="box_li_title_right">
+                                            <div style="height: 100%; width: 357px">
+                                                <div style="height: 50%; width: 357px; padding: 10px 10px"><span>详细地址：环球中心购物中心</span></div>
+                                                <div style="height: 50%; width: 357px; padding: 10px 10px"><span>巡查区域：消防通道</span></div>
+                                            </div>
+
+                                            <div class="box_patroLbaelww">
+                                                <component :is="require('./patroLable.vue')" />
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
@@ -76,6 +104,7 @@ export default {
         }
     },
     data: () => ({
+        activeName: 'first',
         showAmep: false,
         statsData: {
             notOpportunelyFinish: 0,
@@ -142,6 +171,8 @@ export default {
     },
 
     methods: {
+        handleClick() {},
+
         intoLayer1() {
             this.currentLayerLevel = 1;
         },
@@ -549,5 +580,58 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
     transform: translate(-50%, -50%);
     font-weight: normal;
     font-size: 20px;
+}
+.el-tabs__active-bar {
+    background: #48e5e5;
+}
+.el-tabs__nav-wrap::after {
+    position: static !important;
+}
+.patroLabel {
+    overflow: auto;
+    position: relative;
+
+    .box_li {
+        width: 99%;
+        height: 90px;
+
+        margin-bottom: 10px;
+        border-radius: 12px 12px 12px 12px;
+        overflow: hidden;
+        opacity: 1;
+        border: 2px solid #5c88a7;
+
+        display: flex;
+
+        .box_li_title_left {
+            width: 274px;
+            height: 92px;
+            background: #4f6f98;
+            border-radius: 12px 0px 0px 12px;
+            opacity: 1;
+            border: 2px solid #5c88a7;
+            text-align: center;
+            line-height: 92px;
+
+            font-size: 22px;
+            font-family: Alibaba PuHuiTi 2-85 Bold, Alibaba PuHuiTi 20;
+            font-weight: normal;
+            color: #ffffff;
+        }
+
+        .box_li_title_right {
+            width: calc(99% - 274px);
+            display: flex;
+            font-size: 18px;
+            font-family: Alibaba PuHuiTi 2-55 Regular, Alibaba PuHuiTi 20;
+            font-weight: normal;
+            color: #ffffff;
+            .box_patroLbaelww {
+                flex: 1;
+                height: 100%;
+                float: right;
+            }
+        }
+    }
 }
 </style>
