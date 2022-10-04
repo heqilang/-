@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="height: 244px" id="lineChar_1"></div>
+        <div style="height: 180%" id="lineChar_1"></div>
     </div>
 </template>
 <script>
@@ -105,7 +105,7 @@ export default {
                     orient: 'rect',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
-                    padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                    padding: [18, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
                     data: ['综合评分'],
                     textStyle: {
                         fontSize: '12px',
@@ -316,7 +316,7 @@ interval: 20 */
                     orient: 'horizontal',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
-                    padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                    padding: [18, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
                     data: ['当月', '上月'],
                     textStyle: {
                         fontSize: '12px',
@@ -518,7 +518,7 @@ interval: 20 */
                     orient: 'horizontal',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
-                    padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                    padding: [18, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
                     data: ['当年', '上一年'],
                     textStyle: {
                         fontSize: '12px',
@@ -659,6 +659,7 @@ interval: 20 */
 .a {
     border-right: 2px dashed #ccc;
 }
+
 #lineChar_1 {
     background: linear-gradient(180deg, #1e2e41 0%, #234676 100%);
 }
