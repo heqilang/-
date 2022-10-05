@@ -684,7 +684,7 @@ _self.drawLineChart3(); */
                         lineStyle: {
                             color: ['#BBF6FF'],
                             width: 1,
-                            type: 'dashed'
+                            type: 'solid'
                         }
                     }
                     /*   min: 0,
