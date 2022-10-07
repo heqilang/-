@@ -2,20 +2,19 @@
     <div class="aquiDialog">
         <div style="overflow: auto">
             <el-table :data="dataTable" height="346px">
-                <el-table-column type="index" label="序号"> </el-table-column>
-                <el-table-column prop="eventId" :show-overflow-tooltip="false" label="事件ID"></el-table-column>
+                <el-table-column type="index" align="center" label="序号"> </el-table-column>
+                <el-table-column prop="eventId" align="center" :show-overflow-tooltip="false" label="事件ID"> </el-table-column>
                 <!-- <el-table-column prop="equipmentState" label="设备状态">
                         <template slot-scope="scope">
                             <div v-if="scope.row.equipmentState">{{ scope.row.equipmentState | equipmentStateType }}</div>
                             <div v-else>--</div>
                         </template>
                     </el-table-column> -->
-                <el-table-column prop="alarmTime" label="报警时间"> </el-table-column>
-                <el-table-column prop="building" :show-overflow-tooltip="false" label="建筑"> </el-table-column>
-                <el-table-column prop="floor" :show-overflow-tooltip="false" label="楼层"> </el-table-column>
-                <el-table-column prop="area" :show-overflow-tooltip="false" label="防火分区"> </el-table-column>
-
-                <el-table-column prop="address" :show-overflow-tooltip="false" label="详细地址"> </el-table-column>
+                <el-table-column prop="alarmTime" align="center" label="报警时间"> </el-table-column>
+                <el-table-column prop="building" align="center" :show-overflow-tooltip="false" label="建筑"> </el-table-column>
+                <el-table-column prop="floor" align="center" width="50" :show-overflow-tooltip="false" label="楼层"> </el-table-column>
+                <el-table-column prop="area" align="center" :show-overflow-tooltip="false" label="防火分区"> </el-table-column>
+                <el-table-column prop="address" align="center" :show-overflow-tooltip="false" label="详细地址"> </el-table-column>
                 <el-table-column prop="times" align="center" label="操作">
                     <template slot-scope="scope">
                         <el-button type="text" size="mini" @click="viewchange(scope.row)">结束火情</el-button>
@@ -57,15 +56,7 @@ export default {
     mounted() {
         this.getList();
     },
-    filters: {
-        equipmentStateType(val) {
-            if (val == '1') return '正常';
-            if (val == '2') return '故障';
-            if (val == '3') return '离线';
-            if (val == '4') return '预警';
-            if (val == '9') return '火警';
-        }
-    },
+
     methods: {
         viewchange(val) {
             this.$emit('getFireDate', val);
