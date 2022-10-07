@@ -14,7 +14,7 @@
                 <el-table-column prop="building" :show-overflow-tooltip="false" label="建筑"> </el-table-column>
                 <el-table-column prop="floor" :show-overflow-tooltip="false" label="楼层"> </el-table-column>
                 <el-table-column prop="area" :show-overflow-tooltip="false" label="防火分区"> </el-table-column>
-                <el-table-column prop="x_type" :show-overflow-tooltip="false" label="场所类型"> </el-table-column>
+
                 <el-table-column prop="address" :show-overflow-tooltip="false" label="详细地址"> </el-table-column>
                 <el-table-column prop="times" align="center" label="操作">
                     <template slot-scope="scope">
