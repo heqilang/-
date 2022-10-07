@@ -41,7 +41,7 @@ export default {
             let _yData = [];
             for (let i = 0; i < this.checkData.length; i++) {
                 _xData.push(this.checkData[i].everyDay);
-                _yData.push(this.checkData[i].average);
+                _yData.push(this.checkData[i].nowScore);
             }
 
             /*     function formatData(arr) {
@@ -120,12 +120,12 @@ export default {
                     boundaryGap: false,
                     axisLabel: {
                         interval: 0,
-
+                        rotate: 40,
                         textStyle: {
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
-                            return params.slice(8, 10);
+                            return params.slice(5, 10);
                         }
                     },
                     axisLine: {
@@ -229,9 +229,11 @@ interval: 20 */
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
                 //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
-                url: '/api/web/indexCountV3/countPatrolManageMinute',
+                url: '/api/web/indexCountV3/getScoreTrend',
+                data: { timeType: 'DAY' },
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 type: 'get',
+                data: { timeType: 'DAY' },
                 success: function (res) {
                     console.dir(res);
                     res.data.forEach((item) => {
@@ -250,7 +252,8 @@ interval: 20 */
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
                 //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
-                url: '/api/web/indexCountV3/countPatrolManageMinute',
+                url: '/api/web/indexCountV3/getScoreTrend',
+                data: { timeType: 'MONTH' },
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 type: 'get',
                 success: function (res) {
@@ -274,8 +277,8 @@ interval: 20 */
             let _yData_1 = [];
             for (let i = 0; i < this.checkData.length; i++) {
                 _xData.push(this.checkData[i].everyDay);
-                _yData.push(this.checkData[i].average);
-                _yData_1.push(this.checkData[i].average + 10);
+                _yData.push(this.checkData[i].nowScore);
+                _yData_1.push(this.checkData[i].oldScore);
             }
             console.dir(_yData);
             option = {
@@ -331,12 +334,12 @@ interval: 20 */
                     boundaryGap: false,
                     axisLabel: {
                         interval: 0,
-
+                        rotate: 40,
                         textStyle: {
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
-                            return params.slice(8, 10);
+                            return params.slice(5, 10);
                         }
                     },
                     axisLine: {
@@ -452,7 +455,8 @@ interval: 20 */
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
                 //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
-                url: '/api/web/indexCountV3/countPatrolManageMinute',
+                url: '/api/web/indexCountV3/getScoreTrend',
+                data: { timeType: 'YEAR' },
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 type: 'get',
                 success: function (res) {
@@ -475,8 +479,8 @@ interval: 20 */
             let _yData_1 = [];
             for (let i = 0; i < this.checkData.length; i++) {
                 _xData.push(this.checkData[i].everyDay);
-                _yData.push(this.checkData[i].average);
-                _yData_1.push(this.checkData[i].average + 20);
+                _yData.push(this.checkData[i].nowScore);
+                _yData_1.push(this.checkData[i].oldScore);
             }
             console.dir(_yData);
             option = {
@@ -538,7 +542,7 @@ interval: 20 */
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
-                            return params.slice(8, 10);
+                            return params;
                         }
                     },
                     axisLine: {
