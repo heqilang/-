@@ -4,13 +4,11 @@
 
 <template>
     <div>
-        <div class="diaHeadStandardC"
-            style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
+        <div class="diaHeadStandardC" style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
             {{ title }}
 
             <div style="height: 20px; display: flex; justify-content: space-between" class="clhangImg">
-                <i class="el-icon-circle-close" @click="$emit('closeRiskStats')"
-                    style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
+                <i class="el-icon-circle-close" @click="$emit('closeRiskStats')" style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
             </div>
         </div>
 
@@ -18,12 +16,9 @@
             <div class="xf-stats-wrapper">
                 <div class="patrol-stats-wrapper" v-if="currentLayerLevel === 1">
                     <div class="patrol-stats-indicators">
-                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次"
-                            v-on:onclick="intoLayer2('')" />
-                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次"
-                            v-on:onclick="intoLayer2('NORMAL')" />
-                        <XfIndicator title="逾期未巡查次数" :num="statsData.notOpportunelyFinish" unit="次"
-                            v-on:onclick="intoLayer2('TIMEOUT')" />
+                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次" v-on:onclick="intoLayer2('')" />
+                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次" v-on:onclick="intoLayer2('NORMAL')" />
+                        <XfIndicator title="逾期未巡查次数" :num="statsData.notOpportunelyFinish" unit="次" v-on:onclick="intoLayer2('TIMEOUT')" />
                     </div>
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
                         <div class="patrol-stats-charts-content">
@@ -43,8 +38,8 @@
 
                             <div v-show="activeName !== 'first'" class="patroLabel" style="height: 200px">
                                 <ul>
-                                    <li class="box_li" v-for="(item,index) in list" :key="index">
-                                        <div class="box_li_title_left">{{item.pointName}}</div>
+                                    <li class="box_li" v-for="(item, index) in list" :key="index">
+                                        <div class="box_li_title_left">{{ item.pointName }}</div>
                                         <div class="box_li_title_right">
                                             <div style="height: 100%; width: 357px">
                                                 <div style="height: 50%; width: 357px; padding: 10px 10px">
@@ -70,15 +65,12 @@
                     </div>
                 </div>
                 <div class="stats-layer-container" v-if="currentLayerLevel === 2">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer1()">
-                        << </a>
-                            <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange"
-                                :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer1()"> << </a>
+                    <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange" :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
                 </div>
                 <div class="stats-layer-container" v-if="currentLayerLevel === 3">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)">
-                        << </a>
-                            <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)"> << </a>
+                    <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
                 </div>
             </div>
         </div>
@@ -146,13 +138,10 @@ export default {
             type: 'get',
 
             success: function (res) {
-                _self.list = res.data
+                _self.list = res.data;
                 console.dir(res);
-
             }
         });
-
-
     },
     mounted() {
         this.loadStatsData();
@@ -202,10 +191,7 @@ export default {
     },
 
     methods: {
-
         getDate() {
-
-
             var myDate = new Date();
             var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
             var myMonth = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
@@ -215,14 +201,13 @@ export default {
             var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
             var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
 
-            let MONTH = (myDate.getMonth() + 1) < 10 ? "0" + (myDate.getMonth() + 1) : (myDate.getMonth() + 1)
-            let DATE = myDate.getDate() < 10 ? "0" + myDate.getDate() : myDate.getDate()
-            var nowDate = myDate.getFullYear() + '-' + MONTH + '-' + DATE
-            return nowDate
-
+            let MONTH = myDate.getMonth() + 1 < 10 ? '0' + (myDate.getMonth() + 1) : myDate.getMonth() + 1;
+            let DATE = myDate.getDate() < 10 ? '0' + myDate.getDate() : myDate.getDate();
+            var nowDate = myDate.getFullYear() + '-' + MONTH + '-' + DATE;
+            return nowDate;
         },
 
-        handleClick() { },
+        handleClick() {},
 
         intoLayer1() {
             this.currentLayerLevel = 1;

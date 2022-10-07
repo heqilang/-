@@ -1,34 +1,38 @@
 <template>
     <div id="apps">
         <ul class="steps">
-            <li v-for="(item, index) in list" :key="index" :class="{
-                step_pass: item.zt == 1,
-                step_active: item.zt == 3,
+            <li
+                v-for="(item, index) in list"
+                :key="index"
+                :class="{
+                    step_pass: item.zt == 1,
+                    step_active: item.zt == 3,
 
-                step_edd: list.length == index + 1
-            }">
+                    step_edd: list.length == index + 1
+                }"
+            >
                 <div class="step-line"></div>
                 <div :class="{ 'step-content': true, sort: index === list.length - 1 }">
                     <el-tooltip placement="top-start" style="color: white; border: none" popper-class="tip-class">
                         <div class="tip-class" slot="content">
                             <div class="box_content_tip">
-                                <div>巡查状态：{{item.status}} </div>
+                                <div>巡查状态：{{ item.status }}</div>
                                 <br />
-                                <div>巡查人员：{{item.inspectPerson}}</div>
+                                <div>巡查人员：{{ item.inspectPerson }}</div>
                                 <br />
-                                <div>巡查时间：{{item.beginTime}}</div>
+                                <div>巡查时间：{{ item.beginTime }}</div>
                             </div>
                         </div>
 
                         <div v-if="!item.show" @mousemove="mouseList(item)" class="step-num_border">
                             <div class="step-num">
-                                <img width="100%" :src="item.img" alt="">
+                                <img width="100%" :src="item.img" alt="" />
                             </div>
                         </div>
 
                         <div v-else @mouseleave="mouseleft(item)" class="show step-num_border">
                             <div class="step-num">
-                                <img width="100%" :src="item.hoverImg" alt="">
+                                <img width="100%" :src="item.hoverImg" alt="" />
                             </div>
                         </div>
                     </el-tooltip>
@@ -53,7 +57,7 @@
 <script>
 export default {
     name: 'patroLable',
-    props: ["chlidList"],
+    props: ['chlidList'],
     components: {},
     data() {
         return {
@@ -168,32 +172,22 @@ export default {
         };
     },
 
-
-    created() {
-
-
-    },
+    created() {},
     mounted() {
-
         console.dir(this.chlidList);
-        this.list = this.chlidList.map(((item, index) => {
-
+        this.list = this.chlidList.map((item, index) => {
             return {
                 id: index,
                 name: '审核',
-                zt: item.status,//等于1 正常色 等于2 灰色 等于三 红的
+                zt: item.status, //等于1 正常色 等于2 灰色 等于三 红的
                 show: 0,
                 inspectPerson: item.inspectPerson,
                 beginTime: item.beginTime,
-                status: item.status == 1 ? "正常巡查" : item.status == 2 ? "未巡查" : "未开始巡查",
-                img: item.status == 1 ? require("../../../../../assets/patroLableImg/green.png") : item.status == 2 ? require("../../../../../assets/patroLableImg/grey.png") : require("../../../../../assets/patroLableImg/red.png"),
-                hoverImg: item.status == 1 ? require("../../../../../assets/patroLableImg/green_1.png") : item.status == 2 ? require("../../../../../assets/patroLableImg/grey_1.png") : require("../../../../../assets/patroLableImg/red_1.png"),
-            }
-
-        }))
-
-
-
+                status: item.status == 1 ? '正常巡查' : item.status == 2 ? '未巡查' : '未开始巡查',
+                img: item.status == 1 ? require('../../../../../assets/patroLableImg/green.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/grey.png') : require('../../../../../assets/patroLableImg/red.png'),
+                hoverImg: item.status == 1 ? require('../../../../../assets/patroLableImg/green_1.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/grey_1.png') : require('../../../../../assets/patroLableImg/red_1.png')
+            };
+        });
     },
 
     methods: {
@@ -203,8 +197,7 @@ export default {
         },
         mouseleft(val) {
             val.show = 0;
-        },
-
+        }
     }
 };
 </script>
@@ -244,7 +237,6 @@ export default {
     border-radius: 50%;
     text-align: center;
 
-
     width: 24px;
     height: 24px;
     //  background: #5c88a7;
@@ -256,9 +248,6 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
-
-
-
 }
 
 /* .step_active .step-num {
@@ -307,7 +296,6 @@ export default {
     height: 40px;
     width: 40px;
     color: #fff;
-
 
     border-radius: 50%;
     text-align: center;

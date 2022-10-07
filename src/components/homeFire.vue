@@ -1,46 +1,32 @@
 <template>
     <div class="aquiDialog">
-
         <div style="overflow: auto">
             <el-table :data="dataTable" height="346px">
                 <el-table-column type="index" label="序号"> </el-table-column>
-                <el-table-column prop="eventId" :show-overflow-tooltip="true" label="事件ID"></el-table-column>
+                <el-table-column prop="eventId" :show-overflow-tooltip="false" label="事件ID"></el-table-column>
                 <!-- <el-table-column prop="equipmentState" label="设备状态">
                         <template slot-scope="scope">
                             <div v-if="scope.row.equipmentState">{{ scope.row.equipmentState | equipmentStateType }}</div>
                             <div v-else>--</div>
                         </template>
                     </el-table-column> -->
-                <el-table-column prop="alarmTime" label="报警时间">
-                </el-table-column>
-                <el-table-column prop="building" :show-overflow-tooltip="true" label="建筑">
+                <el-table-column prop="alarmTime" label="报警时间"> </el-table-column>
+                <el-table-column prop="building" :show-overflow-tooltip="false" label="建筑"> </el-table-column>
+                <el-table-column prop="floor" :show-overflow-tooltip="false" label="楼层"> </el-table-column>
+                <el-table-column prop="area" :show-overflow-tooltip="false" label="防火分区"> </el-table-column>
+                <el-table-column prop="x_type" :show-overflow-tooltip="false" label="场所类型"> </el-table-column>
+                <el-table-column prop="address" :show-overflow-tooltip="false" label="详细地址"> </el-table-column>
+                <el-table-column prop="times" align="center" label="操作">
                     <template slot-scope="scope">
-                        <div v-if="scope.row.lookup.building">{{ scope.row.lookup.building }}-{{
-                        scope.row.lookup.floor }}</div>
-                        <div v-else>--</div>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="floor" :show-overflow-tooltip="true" label="楼层"> </el-table-column>
-                <el-table-column prop="area" :show-overflow-tooltip="true" label="防火分区"> </el-table-column>
-                <el-table-column prop="address" :show-overflow-tooltip="true" label="房间"> </el-table-column>
-                <el-table-column prop="address" :show-overflow-tooltip="true" label="场所类型"> </el-table-column>
-                <el-table-column prop="address" :show-overflow-tooltip="true" label="详细地址"> </el-table-column>
-                <el-table-column prop="times" label="操作">
-                    <template slot-scope="scope">
-                        <el-button type="text" size="mini" @click="viewchange(scope.row, '设备报警情况')"> 结束火情 </el-button>
+                        <el-button type="text" size="mini" @click="viewchange(scope.row)">结束火情</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <div class="text_c mar-t-18">
                 <!-- 分页 -->
-                <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList">
-                </customPagination>
+                <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
             </div>
         </div>
-
-
-
-
     </div>
 </template>
 
@@ -67,7 +53,7 @@ export default {
         };
     },
     watch: {},
-    created() { },
+    created() {},
     mounted() {
         this.getList();
     },
@@ -82,20 +68,16 @@ export default {
     },
     methods: {
         viewchange(val) {
-
-
-            this.$emit("getFireDate", val)
+            this.$emit('getFireDate', val);
         },
-
 
         getList() {
             let _self = this;
             _self.loading = true;
             let searchObj = {
-
                 size: _self.pager.pageSize,
                 current: _self.pager.pageIndex,
-                transform: 'B:building,F:floor'
+                transform: 'B:building,F:floor,A:area,E:eventId'
             };
             _self.dataTable = [];
             _self._http({
@@ -104,6 +86,13 @@ export default {
                 isBody: true,
                 data: searchObj,
                 success: function (res) {
+                    res.data.records.forEach((item) => {
+                        item.floor = item.lookup.floor;
+                        item.x_type = '购物中心';
+                        item.building = item.lookup.building;
+                        item.area = item.lookup.area;
+                    });
+
                     _self.dataTable = res.data.records;
                     _self.pager.total = res.data.total;
                 }
@@ -115,7 +104,7 @@ export default {
     components: {}
 };
 </script>
-<style lang="scss"  scoped  >
+<style lang="scss" scoped>
 .aquiDialog {
     .el-dialog__body {
         overflow: auto;
@@ -125,5 +114,9 @@ export default {
         background: red;
         color: #fff;
     }
+}
+
+.aquiDialog .el-button {
+    padding: 10px 14px !important;
 }
 </style>
