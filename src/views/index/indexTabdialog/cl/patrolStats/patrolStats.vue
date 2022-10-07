@@ -4,11 +4,13 @@
 
 <template>
     <div>
-        <div class="diaHeadStandardC" style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
+        <div class="diaHeadStandardC"
+            style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
             {{ title }}
 
             <div style="height: 20px; display: flex; justify-content: space-between" class="clhangImg">
-                <i class="el-icon-circle-close" @click="$emit('closeRiskStats')" style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
+                <i class="el-icon-circle-close" @click="$emit('closeRiskStats')"
+                    style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
             </div>
         </div>
 
@@ -16,9 +18,12 @@
             <div class="xf-stats-wrapper">
                 <div class="patrol-stats-wrapper" v-if="currentLayerLevel === 1">
                     <div class="patrol-stats-indicators">
-                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次" v-on:onclick="intoLayer2('')" />
-                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次" v-on:onclick="intoLayer2('NORMAL')" />
-                        <XfIndicator title="逾期未巡查次数" :num="statsData.notOpportunelyFinish" unit="次" v-on:onclick="intoLayer2('TIMEOUT')" />
+                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次"
+                            v-on:onclick="intoLayer2('')" />
+                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次"
+                            v-on:onclick="intoLayer2('NORMAL')" />
+                        <XfIndicator title="逾期未巡查次数" :num="statsData.notOpportunelyFinish" unit="次"
+                            v-on:onclick="intoLayer2('TIMEOUT')" />
                     </div>
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
                         <div class="patrol-stats-charts-content">
@@ -38,16 +43,20 @@
 
                             <div v-show="activeName !== 'first'" class="patroLabel" style="height: 200px">
                                 <ul>
-                                    <li class="box_li" v-for="n in 3" :key="n">
-                                        <div class="box_li_title_left">3#消防通道</div>
+                                    <li class="box_li" v-for="(item,index) in list" :key="index">
+                                        <div class="box_li_title_left">{{item.pointName}}</div>
                                         <div class="box_li_title_right">
                                             <div style="height: 100%; width: 357px">
-                                                <div style="height: 50%; width: 357px; padding: 10px 10px"><span>详细地址：环球中心购物中心</span></div>
-                                                <div style="height: 50%; width: 357px; padding: 10px 10px"><span>巡查区域：消防通道</span></div>
+                                                <div style="height: 50%; width: 357px; padding: 10px 10px">
+                                                    <span>详细地址：环球中心购物中心</span>
+                                                </div>
+                                                <div style="height: 50%; width: 357px; padding: 10px 10px">
+                                                    <span>巡查区域：消防通道</span>
+                                                </div>
                                             </div>
 
                                             <div class="box_patroLbaelww">
-                                                <component :is="require('./patroLable.vue')" />
+                                                <component :chlidList="item.datas" :is="require('./patroLable.vue')" />
                                             </div>
                                         </div>
                                     </li>
@@ -61,12 +70,15 @@
                     </div>
                 </div>
                 <div class="stats-layer-container" v-if="currentLayerLevel === 2">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer1()"><<</a>
-                    <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange" :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer1()">
+                        << </a>
+                            <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange"
+                                :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
                 </div>
                 <div class="stats-layer-container" v-if="currentLayerLevel === 3">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)"><<</a>
-                    <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)">
+                        << </a>
+                            <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
                 </div>
             </div>
         </div>
@@ -104,6 +116,7 @@ export default {
         }
     },
     data: () => ({
+        list: [],
         activeName: 'first',
         showAmep: false,
         statsData: {
@@ -122,6 +135,24 @@ export default {
     }),
     created() {
         console.dir(this.statsData);
+        let _self = this;
+        // 清空id的innerHTML
+        // document.getElementById('lineChart3').innerHTML = '';
+        _self._http({
+            //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
+            url: '/api/web/indexCountV3/listPointCheckStatus',
+            data: { timeName: _self.getDate() },
+            //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
+            type: 'get',
+
+            success: function (res) {
+                _self.list = res.data
+                console.dir(res);
+
+            }
+        });
+
+
     },
     mounted() {
         this.loadStatsData();
@@ -171,7 +202,27 @@ export default {
     },
 
     methods: {
-        handleClick() {},
+
+        getDate() {
+
+
+            var myDate = new Date();
+            var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+            var myMonth = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+            var myToday = myDate.getDate(); //获取当前日(1-31)
+            var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+            var myHour = myDate.getHours(); //获取当前小时数(0-23)
+            var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+            var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+
+            let MONTH = (myDate.getMonth() + 1) < 10 ? "0" + (myDate.getMonth() + 1) : (myDate.getMonth() + 1)
+            let DATE = myDate.getDate() < 10 ? "0" + myDate.getDate() : myDate.getDate()
+            var nowDate = myDate.getFullYear() + '-' + MONTH + '-' + DATE
+            return nowDate
+
+        },
+
+        handleClick() { },
 
         intoLayer1() {
             this.currentLayerLevel = 1;
@@ -568,11 +619,13 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
 
 <style lang="scss">
 @import './patrolStats.scss';
+
 .clhangImg {
     position: absolute;
     right: 27px;
     top: 8px;
 }
+
 .centerText {
     position: absolute;
     left: 50%;
@@ -581,12 +634,15 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
     font-weight: normal;
     font-size: 20px;
 }
+
 .el-tabs__active-bar {
     background: #48e5e5;
 }
+
 .el-tabs__nav-wrap::after {
     position: static !important;
 }
+
 .patroLabel {
     overflow: auto;
     position: relative;
@@ -626,6 +682,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
             font-family: Alibaba PuHuiTi 2-55 Regular, Alibaba PuHuiTi 20;
             font-weight: normal;
             color: #ffffff;
+
             .box_patroLbaelww {
                 flex: 1;
                 height: 100%;

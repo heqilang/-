@@ -1,34 +1,35 @@
 <template>
     <div id="apps">
         <ul class="steps">
-            <li
-                v-for="(item, index) in list"
-                :key="index"
-                :class="{
-                    step_pass: item.zt == 1,
-                    step_active: item.zt == 2,
-                    step_edd: list.length == index + 1
-                }"
-            >
+            <li v-for="(item, index) in list" :key="index" :class="{
+                step_pass: item.zt == 1,
+                step_active: item.zt == 3,
+
+                step_edd: list.length == index + 1
+            }">
                 <div class="step-line"></div>
                 <div :class="{ 'step-content': true, sort: index === list.length - 1 }">
                     <el-tooltip placement="top-start" style="color: white; border: none" popper-class="tip-class">
                         <div class="tip-class" slot="content">
                             <div class="box_content_tip">
-                                <div>巡查状态：正常</div>
+                                <div>巡查状态：{{item.status}} </div>
                                 <br />
-                                <div>巡查人员：正常</div>
+                                <div>巡查人员：{{item.inspectPerson}}</div>
                                 <br />
-                                <div>巡查时间：</div>
+                                <div>巡查时间：{{item.beginTime}}</div>
                             </div>
                         </div>
 
                         <div v-if="!item.show" @mousemove="mouseList(item)" class="step-num_border">
-                            <div class="step-num"></div>
+                            <div class="step-num">
+                                <img width="100%" :src="item.img" alt="">
+                            </div>
                         </div>
 
                         <div v-else @mouseleave="mouseleft(item)" class="show step-num_border">
-                            <div class="step-num"></div>
+                            <div class="step-num">
+                                <img width="100%" :src="item.hoverImg" alt="">
+                            </div>
                         </div>
                     </el-tooltip>
 
@@ -52,6 +53,7 @@
 <script>
 export default {
     name: 'patroLable',
+    props: ["chlidList"],
     components: {},
     data() {
         return {
@@ -165,6 +167,35 @@ export default {
             ]
         };
     },
+
+
+    created() {
+
+
+    },
+    mounted() {
+
+        console.dir(this.chlidList);
+        this.list = this.chlidList.map(((item, index) => {
+
+            return {
+                id: index,
+                name: '审核',
+                zt: item.status,//等于1 正常色 等于2 灰色 等于三 红的
+                show: 0,
+                inspectPerson: item.inspectPerson,
+                beginTime: item.beginTime,
+                status: item.status == 1 ? "正常巡查" : item.status == 2 ? "未巡查" : "未开始巡查",
+                img: item.status == 1 ? require("../../../../../assets/patroLableImg/green.png") : item.status == 2 ? require("../../../../../assets/patroLableImg/grey.png") : require("../../../../../assets/patroLableImg/red.png"),
+                hoverImg: item.status == 1 ? require("../../../../../assets/patroLableImg/green_1.png") : item.status == 2 ? require("../../../../../assets/patroLableImg/grey_1.png") : require("../../../../../assets/patroLableImg/red_1.png"),
+            }
+
+        }))
+
+
+
+    },
+
     methods: {
         mouseList(val) {
             val.show = 1;
@@ -172,7 +203,8 @@ export default {
         },
         mouseleft(val) {
             val.show = 0;
-        }
+        },
+
     }
 };
 </script>
@@ -182,6 +214,7 @@ export default {
     width: 100%;
     height: 100%;
 }
+
 .flow_com {
     width: 100%;
     height: 70%;
@@ -206,32 +239,35 @@ export default {
     height: 30px;
     width: 30px;
     color: #fff;
-    background-color: #b9b9b9;
+    //  background-color: #b9b9b9;
     line-height: 30px;
     border-radius: 50%;
     text-align: center;
-    border: 2px solid rgba(224, 224, 224, 1);
 
-    width: 16px;
-    height: 16px;
-    background: #5c88a7;
+
+    width: 24px;
+    height: 24px;
+    //  background: #5c88a7;
     opacity: 1;
-    line-height: 16px;
+    line-height: 24px;
 
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
+
+
+
 }
 
-.step_active .step-num {
+/* .step_active .step-num {
     background-color: #e55050;
 }
-
-.step_pass .step-num {
+ */
+/* .step_pass .step-num {
     background-color: #56b754;
-}
+} */
 
 /* .step-num:after {
     content: "";
@@ -258,27 +294,27 @@ export default {
     left: 50%;
 }
 
-.step_active .step-num_border {
+/*  .step_active .step-num_border {
     background-color: #e55050;
-}
+}  */
 
-.step_pass .step-num_border {
+/* .step_pass .step-num_border {
     background-color: #56b754;
 }
-
+ */
 .step-num_border {
     display: inline-block;
     height: 40px;
     width: 40px;
     color: #fff;
-    background-color: #b9b9b9;
+
 
     border-radius: 50%;
     text-align: center;
     border: none;
-    width: 18px;
-    height: 18px;
-    background: #5c88a7;
+    width: 24px;
+    height: 24px;
+    //  background: #5c88a7;
     opacity: 1;
 
     position: relative;
@@ -302,13 +338,12 @@ export default {
 
 .step-content:after {
     content: '';
-    width: 84%;
+    width: 39%;
     height: 5px;
     background-color: #5c88a7;
-
     position: absolute;
     top: 12px;
-    margin-left: 24%;
+    margin-left: 20%;
 }
 
 .step_pass .step-num:after {
@@ -317,6 +352,10 @@ export default {
 
 .step_pass .step-content:after {
     background-color: #56b754;
+}
+
+.step_active .step-content:after {
+    background-color: #e55050;
 }
 
 /* .step_pass .step-num:after {
@@ -342,14 +381,14 @@ export default {
     margin: auto;
 }
 
-.show {
+/* .show {
     width: 20px;
     height: 20px;
-}
+} */
 
 .show .step-num {
-    width: 18px;
-    height: 18px;
+    width: 30px;
+    height: 30px;
 }
 
 .sort:after {
@@ -363,9 +402,11 @@ export default {
     width: 242px;
     height: 80px;
 }
+
 .el-tooltip__popper[x-placement^='top'] .popper__arrow:after {
     border-top-color: #3e5e99 !important;
 }
+
 .box_content_tip {
     margin-top: 20px;
     margin: auto;
