@@ -318,9 +318,19 @@
     font-size: 0.15rem;
     // background-image: url('../../assets/images/globalCenter/maxBg.png');
     // background-size: 100% 100%;
-    background-image: url('../../assets/images/globalCenter/buildBg.png');
+    background-image: url('../../assets/images/globalCenter/buildBg3.png');
     background-size: 100% 100%;
     position: relative;
+
+.globalCenterIndexCon_backcolor{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    
+}
+
     .showSSVideo {
         .el-dialog__body {
             padding: 0 !important;
@@ -683,17 +693,23 @@
 
     opacity: 1;
     border-radius: 8px 8px 0px 0px;
-    bottom: 23px;
+    bottom: 3.2%;
     width: 49%;
     height: 30.5%;
     border-radius: 8px;
     overflow: hidden;
-    background: linear-gradient(180deg, #1b2944 0%, #213b57 100%);
+   // background: linear-gradient(180deg, #1b2944 0%, #213b57 100%);
+   box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
+  // background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
+   background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
+  // box-shadow: inset 0px 0px 30px 0px rgba(37 166 255 / 50%);
+
 }
 .dataMainCountBottom .cardItemB .cardTit {
-    background: linear-gradient(90deg, #0c4283 0%, rgba(30, 56, 86, 0) 100%) !important;
+
     z-index: 99;
     opacity: 1;
+    background: linear-gradient(90deg, rgba(0, 95, 201, 0.5) 0%, rgba(0, 95, 201, 0) 100%)!important;
 }
 .cardItem_box {
     width: 100%;
@@ -707,4 +723,30 @@
     height: 10%;
     box-sizing: border-box;
     padding-bottom: 2.5;
+}
+
+
+
+
+.dataMainCount_top{
+    box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
+    background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
+.cardTit{
+    background: linear-gradient(90deg, rgba(0, 95, 201, 0.5) 0%, rgba(0, 95, 201, 0) 100%)!important;
+
+}
+} 
+.globalCenterIndexCon .mainClas .midConb .dataMainCount_top {
+    height: 1.6rem;
+    background: linear-gradient(360deg, rgba(23, 71, 126, 0) 0%, #28589f90 100%);
+    border-radius: 8px 8px 8px 8px;
+    padding-bottom: 20px;
+  
+   
+}
+.dataMainCount_bottom_1{
+    height: 100px;
+}
+.midConb{
+    overflow: hidden;
 }

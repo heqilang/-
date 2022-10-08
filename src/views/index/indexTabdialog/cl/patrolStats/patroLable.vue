@@ -6,7 +6,7 @@
                 :key="index"
                 :class="{
                     step_pass: item.zt == 1,
-                    step_active: item.zt == 3,
+                    step_active: item.zt == 2,
 
                     step_edd: list.length == index + 1
                 }"
@@ -184,8 +184,8 @@ export default {
                 inspectPerson: item.inspectPerson,
                 beginTime: item.beginTime,
                 status: item.status == 1 ? '正常巡查' : item.status == 2 ? '未巡查' : '未开始巡查',
-                img: item.status == 1 ? require('../../../../../assets/patroLableImg/green.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/grey.png') : require('../../../../../assets/patroLableImg/red.png'),
-                hoverImg: item.status == 1 ? require('../../../../../assets/patroLableImg/green_1.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/grey_1.png') : require('../../../../../assets/patroLableImg/red_1.png')
+                img: item.status == 1 ? require('../../../../../assets/patroLableImg/green.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red.png')  : require('../../../../../assets/patroLableImg/grey.png') ,
+                hoverImg: item.status == 1 ? require('../../../../../assets/patroLableImg/green_1.png') : item.status == 2 ?  require('../../../../../assets/patroLableImg/red_1.png'):  require('../../../../../assets/patroLableImg/grey_1.png') 
             };
         });
     },

@@ -224,14 +224,15 @@
                     <div style="color: #fff; padding: 12px">
                         <div style="display: flex; justify-content: center">
                             <div v-for="(item, index) in MONTHcountByType.number" :key="index" @click="analysischange('alarmanalysis4', item, chartRadio == '当日' ? 'DAY' : 'MONTH')" style="margin: 0 10px; text-align: center; padding: 30px; background-image: linear-gradient(to bottom, #162542, #1a3d63)">
-                                <div style="line-height: 30px">{{ item.name || '--' }}</div>
+                                <div class="alarmanalysis3_hidden"   :title='item.name'  style="line-height: 30px;width:120px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">{{ item.name || '--' }}</div>
                                 <div style="color: #ffffff">
                                     <span class="numColorN">{{ item.value }}</span> 个
                                 </div>
+                    
                             </div>
                         </div>
                         <el-row align="middle">
-                            <el-col :span="14">
+                            <el-col :span="12">
                                 <div style="height: 350px" id="dangyuepieCharts"></div>
                                 <div style="text-align: center; font-size: 16px">{{ floorname }}报警</div>
                                 <div style="text-align: center">
@@ -239,7 +240,7 @@
                                     >个
                                 </div>
                             </el-col>
-                            <el-col :span="10">
+                            <el-col :span="12">
                                 <div class="textBox">
                                     <div class="textBox1" v-for="(item, index) in MONTHcountByType.number" :key="index">
                                         <!-- @click="turntopage('alarmanalysis4')" -->
@@ -1704,7 +1705,8 @@ export default {
                     // data: _self.MONTHcountByType.equipmentTypeCN,
                     textStyle: {
                         color: '#ffffff'
-                    }
+                    },
+                    show:false
                 },
                 color: _self.colors,
                 series: [
@@ -2214,7 +2216,7 @@ export default {
 .textBox1 {
     padding: 5px 10px;
     margin: 10px 0;
-    width: 40%;
+    width: 55%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2289,4 +2291,10 @@ export default {
     right: 0 !important;
     margin: auto !important;
 }
+
+.alarmanalysis3_hidden{
+
+
+}
+
 </style>

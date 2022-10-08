@@ -43,10 +43,10 @@
                                         <div class="box_li_title_right">
                                             <div style="height: 100%; width: 357px">
                                                 <div style="height: 50%; width: 357px; padding: 10px 10px">
-                                                    <span>详细地址：环球中心购物中心</span>
+                                                    <span>详细地址：{{ item.pointName}} </span>
                                                 </div>
                                                 <div style="height: 50%; width: 357px; padding: 10px 10px">
-                                                    <span>巡查区域：消防通道</span>
+                                                    <span>巡查区域：环球中心购物中心</span>
                                                 </div>
                                             </div>
 

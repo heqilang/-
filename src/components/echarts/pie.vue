@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div style="height: 180%" id="lineChar_1"></div>
+    <div style="height: 100%">
+        <div style="height: 85%" id="lineChar_1"></div>
     </div>
 </template>
 <script>
@@ -83,6 +83,16 @@ export default {
                     containLabel: true
                 },
                 tooltip: {
+                    axisPointer: {
+                        type: 'line', // 指示器类型（'line' 直线指示器；'shadow' 阴影指示器；'none' 无指示器；'cross' 十字准星指示器。）
+                        snap: false, // 坐标轴指示器是否自动吸附到点上。默认自动判断。
+                        lineStyle: {
+                            color: '#EF6F38',
+                            type: 'solid',
+                            width: 2
+                        }
+                    },
+
                     trigger: 'axis',
                     backgroundColor: '#1F7093', //设置背景颜色
                     color: '#fff',
@@ -95,7 +105,7 @@ export default {
                         console.dir(val);
                         var s = '';
                         s += '查询时间:' + val[0].axisValue + '<br/>';
-                        s += '消防安全运行综合评分:' + val[0].data;
+                        s += `消防安全运行综合评分:  <span  class='textColor'   >${val[0].data}分</span> `;
                         return s;
                     }
                 },
@@ -105,7 +115,7 @@ export default {
                     orient: 'rect',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
-                    padding: [18, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                    padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
                     data: ['综合评分'],
                     textStyle: {
                         fontSize: '12px',
@@ -122,6 +132,10 @@ export default {
                         interval: 0,
                         rotate: 40,
                         textStyle: {
+                            color: '#FFFFFF',
+                            fontSize: '12px',
+                            fontFamily: 'PingFang SC-Medium, PingFang SC',
+                            fontWeight: 500,
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
@@ -164,7 +178,10 @@ export default {
                                 return item;
                             }, */
                         textStyle: {
-                            color: '#FFFFFF'
+                            fontSize: '12px',
+                            fontFamily: ' PingFang SC-Medium, PingFang SC',
+                            fontWeight: 500,
+                            color: ' #FFFFFF'
                         }
                     },
                     axisLine: {
@@ -177,7 +194,7 @@ export default {
                     splitLine: {
                         show: true,
                         lineStyle: {
-                            color: ['#BBF6FF'],
+                            color: ['#999999'],
                             width: 1,
                             type: 'dashed'
                         }
@@ -192,28 +209,52 @@ interval: 20 */
 
                         data: _yData,
                         type: 'line',
+                        smooth: true, //面积图改成弧形状
+                        showSymbol: false, //去除面积图节点圆
+              // showSymbol: true,//是否默认展示圆点
+                           // symbol: 'circle',     //设定为实心点
+                          //  symbolSize: 5,   //设定实心点的大小 */
+                      
+                     /*    itemStyle: {
+                            normal: {
+                                color: '#2BADFF', //拐点颜色
+                                borderColor: '#2BADFF', //拐点边框颜色
+                                borderWidth: 3 //拐点边框大小
+                            },
+                            emphasis: {
+                                 // 鼠标移上去的时候，拐点的颜色和样式
+                                color: '#FFF' ,//hover拐点颜色定义
+                                borderColor: '#FFFFFF99', //图形的描边颜色
+                                borderWidth: 5, // 描边的线宽
+                                shadowBlur: 10, // 图形的阴影大小
+                                shadowColor: '#FFFFFF99' // 图形的阴影颜色
+                            }
+                        }, */
+
+                   
+
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#56AFF9' // 折线线条颜色:
+                                color: '#2BADFF' // 折线线条颜色:
                             }
                         },
-                        itemStyle: {
+                           itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#56AFF9' // 折线线条颜色:
+                                color: '#2BADFF' // 折线线条颜色:
                             }
-                        },
+                        }, 
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
                                     {
                                         offset: 0,
-                                        color: '#053457'
+                                        color: '#2563EB00'
                                     },
                                     {
                                         offset: 1,
-                                        color: '#005695 '
+                                        color: '#3EB0FF4D'
                                     }
                                 ])
                             }
@@ -277,8 +318,8 @@ interval: 20 */
             let _yData_1 = [];
             for (let i = 0; i < this.checkData.length; i++) {
                 _xData.push(this.checkData[i].everyDay);
-                _yData.push(this.checkData[i].nowScore);
-                _yData_1.push(this.checkData[i].oldScore);
+                _yData.push(this.checkData[i].nowScore ? this.checkData[i].nowScore : '');
+                _yData_1.push(this.checkData[i].oldScore ? this.checkData[i].oldScore : '');
             }
             console.dir(_yData);
             option = {
@@ -297,6 +338,16 @@ interval: 20 */
                 },
                 tooltip: {
                     trigger: 'axis',
+                    axisPointer: {
+                        type: 'line', // 指示器类型（'line' 直线指示器；'shadow' 阴影指示器；'none' 无指示器；'cross' 十字准星指示器。）
+                        snap: false, // 坐标轴指示器是否自动吸附到点上。默认自动判断。
+                        lineStyle: {
+                            color: '#EF6F38',
+                            type: 'solid',
+                            width: 2
+                        }
+                    },
+
                     backgroundColor: '#1F7093', //设置背景颜色
                     color: '#fff',
                     borderWidth: '0', //边框宽度设置1
@@ -308,8 +359,9 @@ interval: 20 */
                         console.dir(val);
                         var s = '';
                         s += '查询时间:' + val[0].axisValue + '<br/>';
-                        s += '当月消防安全运行综合评分:' + val[0].data + '<br/>';
-                        s += '上月消防安全运行综合评分:' + val[1].data;
+                        s += `当月消防安全运行综合评分:  <span  class='textColor'   >${val[0].data ? val[0].data : 0}分</span><br/> `;
+                        s += `上月消防安全运行综合评分:  <span  class='textColor'   >${val[1].data ? val[1].data : 0}分</span> `;
+
                         return s;
                     }
                 },
@@ -319,7 +371,7 @@ interval: 20 */
                     orient: 'horizontal',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
-                    padding: [18, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                    padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
                     data: ['当月', '上月'],
                     textStyle: {
                         fontSize: '12px',
@@ -336,6 +388,10 @@ interval: 20 */
                         interval: 0,
                         rotate: 40,
                         textStyle: {
+                            color: '#FFFFFF',
+                            fontSize: '12px',
+                            fontFamily: 'PingFang SC-Medium, PingFang SC',
+                            fontWeight: 500,
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
@@ -357,7 +413,10 @@ interval: 20 */
                         formatter: '{value}',
                         type: 'log',
                         textStyle: {
-                            color: '#FFFFFF'
+                            fontSize: '12px',
+                            fontFamily: ' PingFang SC-Medium, PingFang SC',
+                            fontWeight: 500,
+                            color: ' #FFFFFF'
                         }
                     },
                     axisLine: {
@@ -370,7 +429,7 @@ interval: 20 */
                     splitLine: {
                         show: true,
                         lineStyle: {
-                            color: ['#BBF6FF'],
+                            color: ['#999999'],
                             width: 1,
                             type: 'dashed'
                         }
@@ -385,28 +444,45 @@ interval: 20 */
 
                         data: _yData,
                         type: 'line',
+                        smooth: true, //面积图改成弧形状
+                        showSymbol: false, //去除面积图节点圆
+                       /*  itemStyle: {
+                            normal: {
+                                color: '#2BADFF', //拐点颜色
+                                borderColor: '#2BADFF', //拐点边框颜色
+                                borderWidth: 3 //拐点边框大小
+                            },
+                            emphasis: {
+                                 // 鼠标移上去的时候，拐点的颜色和样式
+                                color: '#FFF' ,//hover拐点颜色定义
+                                borderColor: '#FFFFFF99', //图形的描边颜色
+                                borderWidth: 5, // 描边的线宽
+                                shadowBlur: 10, // 图形的阴影大小
+                                shadowColor: '#FFFFFF99' // 图形的阴影颜色
+                            }
+                        }, */
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#56AFF9' // 折线线条颜色:
+                                color: '#2BADFF' // 折线线条颜色:
                             }
                         },
                         itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#56AFF9' // 折线线条颜色:
+                                color: '#2BADFF' // 折线线条颜色:
                             }
-                        },
+                        }, 
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
                                     {
                                         offset: 0,
-                                        color: '#03253E '
+                                        color: '#2563EB00'
                                     },
                                     {
                                         offset: 1,
-                                        color: '#005695 '
+                                        color: '#3EB0FF4D'
                                     }
                                 ])
                             }
@@ -417,16 +493,18 @@ interval: 20 */
 
                         data: _yData_1,
                         type: 'line',
+                        smooth: true, //面积图改成弧形状
+                        showSymbol: false, //去除面积图节点圆
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#F5773F ' // 折线线条颜色:
+                                color: '#6BD0CA ' // 折线线条颜色:
                             }
                         },
                         itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#F5773F' // 折线线条颜色:
+                                color: '#6BD0CA' // 折线线条颜色:
                             }
                         }
                         /*    areaStyle: {
@@ -479,9 +557,12 @@ interval: 20 */
             let _yData_1 = [];
             for (let i = 0; i < this.checkData.length; i++) {
                 _xData.push(this.checkData[i].everyDay);
-                _yData.push(this.checkData[i].nowScore);
-                _yData_1.push(this.checkData[i].oldScore);
+
+                _yData.push(this.checkData[i].nowScore ? this.checkData[i].nowScore : '');
+
+                _yData_1.push(this.checkData[i].oldScore ? this.checkData[i].oldScore : '');
             }
+
             console.dir(_yData);
             option = {
                 title: {
@@ -499,6 +580,7 @@ interval: 20 */
                 },
                 tooltip: {
                     trigger: 'axis',
+
                     backgroundColor: '#1F7093', //设置背景颜色
                     color: '#fff',
 
@@ -511,9 +593,18 @@ interval: 20 */
                         console.dir(val);
                         var s = '';
                         s += '查询时间:' + val[0].axisValue + '<br/>';
-                        s += '当年消防安全运行综合评分:' + val[0].data + '<br/>';
-                        s += '上一年消防安全运行综合评分:' + (val[1] ? val[1].data : 0);
+                        s += `当年消防安全运行综合评分:  <span  class='textColor'   >${val[0].data ? val[0].data : 0}分</span> <br/>`;
+                        s += `上一年消防安全运行综合评分:  <span  class='textColor'   >${val[1].data ? val[1].data : 0}分</span> `;
                         return s;
+                    },
+                    axisPointer: {
+                        type: 'line', // 指示器类型（'line' 直线指示器；'shadow' 阴影指示器；'none' 无指示器；'cross' 十字准星指示器。）
+                        snap: false, // 坐标轴指示器是否自动吸附到点上。默认自动判断。
+                        lineStyle: {
+                            color: '#EF6F38',
+                            type: 'solid',
+                            width: 2
+                        }
                     }
                 },
 
@@ -522,7 +613,7 @@ interval: 20 */
                     orient: 'horizontal',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
-                    padding: [18, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                    padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
                     data: ['当年', '上一年'],
                     textStyle: {
                         fontSize: '12px',
@@ -539,6 +630,10 @@ interval: 20 */
                         interval: 0,
 
                         textStyle: {
+                            color: '#FFFFFF',
+                            fontSize: '12px',
+                            fontFamily: 'PingFang SC-Medium, PingFang SC',
+                            fontWeight: 500,
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
@@ -560,7 +655,10 @@ interval: 20 */
                         formatter: '{value}',
                         type: 'log',
                         textStyle: {
-                            color: '#FFFFFF'
+                            fontSize: '12px',
+                            fontFamily: ' PingFang SC-Medium, PingFang SC',
+                            fontWeight: 500,
+                            color: ' #FFFFFF'
                         }
                     },
                     axisLine: {
@@ -573,7 +671,7 @@ interval: 20 */
                     splitLine: {
                         show: true,
                         lineStyle: {
-                            color: ['#BBF6FF'],
+                            color: ['#999999'],
                             width: 1,
                             type: 'dashed'
                         }
@@ -588,28 +686,45 @@ interval: 20 */
 
                         data: _yData,
                         type: 'line',
+                        smooth: true, //面积图改成弧形状
+                        showSymbol: false, //去除面积图节点圆
+                     /*    itemStyle: {
+                            normal: {
+                                color: '#2BADFF', //拐点颜色
+                                borderColor: '#2BADFF', //拐点边框颜色
+                                borderWidth: 3 //拐点边框大小
+                            },
+                            emphasis: {
+                                 // 鼠标移上去的时候，拐点的颜色和样式
+                                color: '#FFF' ,//hover拐点颜色定义
+                                borderColor: '#FFFFFF99', //图形的描边颜色
+                                borderWidth: 5, // 描边的线宽
+                                shadowBlur: 10, // 图形的阴影大小
+                                shadowColor: '#FFFFFF99' // 图形的阴影颜色
+                            }
+                        }, */
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#56AFF9' // 折线线条颜色:
+                                color: '#2BADFF' // 折线线条颜色:
                             }
                         },
-                        itemStyle: {
+                     itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#56AFF9' // 折线线条颜色:
+                                color: '#2BADFF' // 折线线条颜色:
                             }
-                        },
+                        }, 
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
                                     {
                                         offset: 0,
-                                        color: '#053457'
+                                        color: '#2563EB00'
                                     },
                                     {
                                         offset: 1,
-                                        color: '#005695 '
+                                        color: '#3EB0FF4D'
                                     }
                                 ])
                             }
@@ -620,16 +735,18 @@ interval: 20 */
 
                         data: _yData_1,
                         type: 'line',
+                        smooth: true, //面积图改成弧形状
+                        showSymbol: false, //去除面积图节点圆
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#F5773F ' // 折线线条颜色:
+                                color: '#6BD0CA ' // 折线线条颜色:
                             }
                         },
                         itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#F5773F' // 折线线条颜色:
+                                color: '#6BD0CA' // 折线线条颜色:
                             }
                         }
                         /*        areaStyle: {
@@ -665,6 +782,6 @@ interval: 20 */
 }
 
 #lineChar_1 {
-    background: linear-gradient(180deg, #1e2e41 0%, #234676 100%);
+    //  background: linear-gradient(180deg, #1e2e41 0%, #234676 100%);
 }
 </style>

@@ -656,15 +656,15 @@ _self.drawLineChart3(); */
                         formatter: (v, i) => {
                             let item = '';
                             if (i === 0) {
-                                item = '0';
+                                item = '0min';
                             } else if (i == 1) {
-                                item = '50';
+                                item = '50min';
                             } else if (i == 2) {
-                                item = '300';
+                                item = '300min';
                             } else if (i == 3) {
-                                item = '900';
+                                item = '900min';
                             } else if (i == 4) {
-                                item = '2100';
+                                item = '2100min';
                             }
                             return item;
                         },
@@ -682,9 +682,11 @@ _self.drawLineChart3(); */
                     splitLine: {
                         show: true,
                         lineStyle: {
-                            color: ['#BBF6FF'],
+                           // color: ['#cfc'],
+                            color: '#596677',
+                            type: 'dotted',
                             width: 1,
-                            type: 'solid'
+                          //  type: 'solid'
                         }
                     }
                     /*   min: 0,
@@ -721,7 +723,7 @@ interval: 20 */
                     seriesIndex: 0, // 针对series下第几个数据
                     dataIndex: new Date().getDate() - 1 // 第几个数据
                 });
-            }, 1000); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
+            }, 500); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
             console.log('pxpxpx1', option);
             this.chartNew = myChart;
         },
