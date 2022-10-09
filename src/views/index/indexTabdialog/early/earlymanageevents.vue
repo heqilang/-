@@ -364,6 +364,10 @@ export default {
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 url: '/api/web/indexCountV3/countPointCheck',
                 type: 'get',
+                isBody: true,
+                data: {
+                    timeRange: 'MONTH'
+                },
                 success: function (res) {
                     console.dir(res);
                     res.data.forEach((item) => {
@@ -567,9 +571,17 @@ _self.drawLineChart3(); */
             });
         },
         drawLineChartfu2() {
+            let that = this;
             var chartDom = document.getElementById('lineChart2');
             var myChart = echarts.init(chartDom);
             var option;
+            myChart.on('click', function (param) {
+                //  myChart.off('click') // 这里很重要 ，防止重复点击事件！！！
+                console.dir(param);
+                that.showLeavel = 4;
+
+                //X轴的值
+            });
             let _xData = [];
             let _yData = [];
             for (let i = 0; i < this.checkData.length; i++) {
@@ -577,29 +589,29 @@ _self.drawLineChart3(); */
                 _yData.push(this.checkData[i].normalNum);
             }
 
-            function formatData(arr) {
-                let newHashArray = [];
-                for (var i = 0; i < arr.length; i++) {
-                    let obj = {};
-                    let temp = arr[i];
-                    if (arr[i] > 0 && arr[i] < 50) {
-                        arr[i] = 0 + arr[i] * (500 / 50);
-                    } else if (arr[i] > 50 && arr[i] < 300) {
-                        arr[i] = 500 + (arr[i] - 50) * ((1000 - 500) / (300 - 50));
-                    } else if (arr[i] > 300 && arr[i] < 900) {
-                        arr[i] = 1000 + (arr[i] - 300) * ((1500 - 1000) / (900 - 300));
-                    } else if (arr[i] > 900 && arr[i] < 2100) {
-                        arr[i] = 1500 + (arr[i] - 900) * ((2000 - 1500) / (2100 - 900));
-                    }
-                    obj.value = arr[i];
-                    obj.formatV = temp;
-                    newHashArray.push(obj);
-                }
-                return newHashArray;
-            }
+            // function formatData(arr) {
+            //     let newHashArray = [];
+            //     for (var i = 0; i < arr.length; i++) {
+            //         let obj = {};
+            //         let temp = arr[i];
+            //         if (arr[i] > 0 && arr[i] < 50) {
+            //             arr[i] = 0 + arr[i] * (500 / 50);
+            //         } else if (arr[i] > 50 && arr[i] < 300) {
+            //             arr[i] = 500 + (arr[i] - 50) * ((1000 - 500) / (300 - 50));
+            //         } else if (arr[i] > 300 && arr[i] < 900) {
+            //             arr[i] = 1000 + (arr[i] - 300) * ((1500 - 1000) / (900 - 300));
+            //         } else if (arr[i] > 900 && arr[i] < 2100) {
+            //             arr[i] = 1500 + (arr[i] - 900) * ((2000 - 1500) / (2100 - 900));
+            //         }
+            //         obj.value = arr[i];
+            //         obj.formatV = temp;
+            //         newHashArray.push(obj);
+            //     }
+            //     return newHashArray;
+            // }
 
-            let wxArray = formatData(_yData);
-            console.dir(_yData);
+            // let wxArray = formatData(_yData);
+            // console.dir(_yData);
 
             option = {
                 title: {
@@ -618,15 +630,15 @@ _self.drawLineChart3(); */
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: function (val) {
+                    formatter: function (val, index, e) {
                         console.dir(val);
                         var s = '';
                         // s += '查询时间:' + val[0].axisValue + '<br/>';
                         // s += '平均处置时效' + val[0].data.formatV + '分钟';
                         s += '查询时间:' + val[0].axisValue + '<br/>';
-                        s += '正常巡查数' + val[0].data.formatV + '次' + '<br/>';
-                        s += '超时巡查数' + val[0].data.formatV + '次' + '<br/>';
-                        s += '未执行巡查' + val[0].data.formatV + '次' + '<br/>';
+                        s += '正常巡查数' + val[0].data + '次' + '<br/>';
+                        s += '超时巡查数' + val[1].data.timeoutNum + '次' + '<br/>';
+                        s += '未执行巡查' + val[1].data.leakNum + '次' + '<br/>';
                         return s;
                     }
                 },
@@ -641,7 +653,7 @@ _self.drawLineChart3(); */
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
-                            console.dir(params);
+                            console.log('params:', params);
                             return params.slice(8, 10) + '日';
                         }
                     },
@@ -657,29 +669,29 @@ _self.drawLineChart3(); */
                 yAxis: {
                     type: 'value',
 
-                    min: 0,
-                    max: 2000,
+                    // min: 0,
+                    // max: 2000,
                     splitNumber: 5,
 
                     axisLabel: {
-                        //  formatter: '{value}min',
+                        formatter: '{value}',
                         type: 'log',
 
-                        formatter: (v, i) => {
-                            let item = '';
-                            if (i === 0) {
-                                item = '0min';
-                            } else if (i == 1) {
-                                item = '50min';
-                            } else if (i == 2) {
-                                item = '300min';
-                            } else if (i == 3) {
-                                item = '900min';
-                            } else if (i == 4) {
-                                item = '2100min';
-                            }
-                            return item;
-                        },
+                        // formatter: (v, i) => {
+                        //     let item = '';
+                        //     if (i === 0) {
+                        //         item = '0min';
+                        //     } else if (i == 1) {
+                        //         item = '50min';
+                        //     } else if (i == 2) {
+                        //         item = '300min';
+                        //     } else if (i == 3) {
+                        //         item = '900min';
+                        //     } else if (i == 4) {
+                        //         item = '2100min';
+                        //     }
+                        //     return item;
+                        // },
                         textStyle: {
                             color: '#FFFFFF'
                         }
@@ -702,11 +714,31 @@ _self.drawLineChart3(); */
                         }
                     }
                 },
+                // legend: {
+                //     formatter: name
+                // },
                 series: [
                     {
-                        data: wxArray,
+                        data: _yData,
                         type: 'line',
-
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                                    {
+                                        offset: 0,
+                                        color: '#2e486e'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#2e486e'
+                                    }
+                                ])
+                            }
+                        }
+                    },
+                    {
+                        data: this.checkData,
+                        type: 'line',
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
