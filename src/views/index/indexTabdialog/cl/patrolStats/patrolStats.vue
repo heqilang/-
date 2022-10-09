@@ -120,6 +120,9 @@ export default {
         },
         datatype: {
             required: false
+        },
+        nameTime: {
+            required: false
         }
     },
     data: () => ({
@@ -142,21 +145,7 @@ export default {
     }),
     created() {
         this.activeName = this.datatype ? 'second' : 'first';
-        let _self = this;
-        // 清空id的innerHTML
-        // document.getElementById('lineChart3').innerHTML = '';
-        _self._http({
-            //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
-            url: '/api/web/indexCountV3/listPointCheckStatus',
-            data: { timeName: _self.getDate() },
-            //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
-            type: 'get',
-
-            success: function (res) {
-                _self.list = res.data;
-                console.dir(res);
-            }
-        });
+        this.getPostion(this.nameTime);
     },
     mounted() {
         this.loadStatsData();
@@ -210,6 +199,31 @@ export default {
             //传给父组件的
             console.dir('222222222222');
             this.$emit('getNewPage');
+        },
+
+        getPostion(val) {
+            let time = null;
+            let _self = this;
+            if (val) {
+                time = val;
+            } else {
+                time = _self.getDate();
+            }
+
+            // 清空id的innerHTML
+            // document.getElementById('lineChart3').innerHTML = '';
+            _self._http({
+                //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
+                url: '/api/web/indexCountV3/listPointCheckStatus',
+                data: { timeName: time },
+                //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
+                type: 'get',
+
+                success: function (res) {
+                    _self.list = res.data;
+                    console.dir(res);
+                }
+            });
         },
 
         getDate() {

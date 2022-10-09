@@ -228,7 +228,7 @@
             </div>
         </div>
 
-        <div v-if="showLeavel == 4"><patrolstats @closeRiskStats="closeDialog" @getNewPage="getNewPages" :datatype="'预警情况'" :dataRange="'当日'" /></div>
+        <div v-if="showLeavel == 4"><patrolstats :nameTime="nameTime" @closeRiskStats="closeDialog" @getNewPage="getNewPages" :datatype="'预警情况'" :dataRange="'当日'" /></div>
     </div>
 </template>
 
@@ -240,6 +240,7 @@ export default {
     props: ['readyAlarmType', 'alarmRadiofu'],
     data() {
         return {
+            nameTime: '',
             chartRadio1: '0',
             patrolinformation: '您好，这里是消防控制中心，您有一条巡检信息，已超时未处置，请您及时进行巡检。',
             dangerinformation: '您好，这里是消防控制中心，您有一条隐患信息，已超时未处置，请您及时进行处置。',
@@ -341,7 +342,6 @@ export default {
     },
     methods: {
         getNewPages() {
-            console.dir('3222222');
             this.showLeavel = 1;
         },
 
@@ -369,7 +369,6 @@ export default {
                     timeRange: 'MONTH'
                 },
                 success: function (res) {
-                    console.dir(res);
                     res.data.forEach((item) => {
                         item.everyDay = item.timeName;
                     });
@@ -391,7 +390,6 @@ export default {
                 success: function (res) {
                     if (res.data.length > 0) {
                         res.data.forEach((item) => {
-                            console.dir(item.timeName);
                             item.everyDay = item.timeName.slice(5, 10);
                         });
                         _self.riskData = res.data;
@@ -450,7 +448,6 @@ _self.drawLineChart3(); */
 
         // 留
         drawLineSuddenChart(val) {
-            console.dir(val);
             let changLengthLeft = '',
                 changLengthriht = '';
             if (val == 'false') {
@@ -579,6 +576,7 @@ _self.drawLineChart3(); */
                 //  myChart.off('click') // 这里很重要 ，防止重复点击事件！！！
                 console.dir(param);
                 that.showLeavel = 4;
+                that.nameTime = param.name;
 
                 //X轴的值
             });
@@ -631,7 +629,6 @@ _self.drawLineChart3(); */
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (val, index, e) {
-                        console.dir(val);
                         var s = '';
                         // s += '查询时间:' + val[0].axisValue + '<br/>';
                         // s += '平均处置时效' + val[0].data.formatV + '分钟';
@@ -1047,12 +1044,11 @@ _self.drawLineChart3(); */
             console.log('pxpxpx1', option);
         },
         tabitemchange(val) {
-            console.dir(val);
             this.chartRadio1 = val;
             this.pager.pageSize = 5;
             this.pager.pageIndex = 1;
             this.getList();
-            console.dir(val);
+
             this.drawLineSuddenChart(val);
         },
         indexMethod(index) {
