@@ -184,8 +184,8 @@ export default {
                 inspectPerson: item.inspectPerson,
                 beginTime: item.beginTime,
                 status: item.status == 1 ? '正常巡查' : item.status == 2 ? '未巡查' : '未开始巡查',
-                img: item.status == 1 ? require('../../../../../assets/patroLableImg/green.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red.png')  : require('../../../../../assets/patroLableImg/grey.png') ,
-                hoverImg: item.status == 1 ? require('../../../../../assets/patroLableImg/green_1.png') : item.status == 2 ?  require('../../../../../assets/patroLableImg/red_1.png'):  require('../../../../../assets/patroLableImg/grey_1.png') 
+                img: item.status == 1 ? require('../../../../../assets/patroLableImg/green.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red.png') : require('../../../../../assets/patroLableImg/grey.png'),
+                hoverImg: item.status == 1 ? require('../../../../../assets/patroLableImg/green_1.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red_1.png') : require('../../../../../assets/patroLableImg/grey_1.png')
             };
         });
     },

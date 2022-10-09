@@ -224,11 +224,10 @@
                     <div style="color: #fff; padding: 12px">
                         <div style="display: flex; justify-content: center">
                             <div v-for="(item, index) in MONTHcountByType.number" :key="index" @click="analysischange('alarmanalysis4', item, chartRadio == '当日' ? 'DAY' : 'MONTH')" style="margin: 0 10px; text-align: center; padding: 30px; background-image: linear-gradient(to bottom, #162542, #1a3d63)">
-                                <div class="alarmanalysis3_hidden"   :title='item.name'  style="line-height: 30px;width:120px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">{{ item.name || '--' }}</div>
+                                <div class="alarmanalysis3_hidden" :title="item.name" style="line-height: 30px; width: 120px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden">{{ item.name || '--' }}</div>
                                 <div style="color: #ffffff">
                                     <span class="numColorN">{{ item.value }}</span> 个
                                 </div>
-                    
                             </div>
                         </div>
                         <el-row align="middle">
@@ -1706,7 +1705,7 @@ export default {
                     textStyle: {
                         color: '#ffffff'
                     },
-                    show:false
+                    show: false
                 },
                 color: _self.colors,
                 series: [
@@ -2292,9 +2291,6 @@ export default {
     margin: auto !important;
 }
 
-.alarmanalysis3_hidden{
-
-
+.alarmanalysis3_hidden {
 }
-
 </style>

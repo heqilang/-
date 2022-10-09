@@ -17,7 +17,7 @@
                 <el-table-column prop="address" align="center" :show-overflow-tooltip="false" label="详细地址"> </el-table-column>
                 <el-table-column prop="times" align="center" label="操作">
                     <template slot-scope="scope">
-                        <el-button type="text"   size="mini" @click="viewchange(scope.row)">结束火情</el-button>
+                        <el-button type="text" size="mini" @click="viewchange(scope.row)">结束火情</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -81,7 +81,7 @@ export default {
                         item.floor = item.lookup.floor;
                         item.x_type = '购物中心';
                         item.building = item.lookup.building;
-                        item.area = item.lookup.area.slice(item.lookup.area.length - 6,item.lookup.area.length);
+                        item.area = item.lookup.area.slice(item.lookup.area.length - 6, item.lookup.area.length);
                     });
 
                     _self.dataTable = res.data.records;
@@ -109,10 +109,10 @@ export default {
 
 .aquiDialog .el-button {
     padding: 10px 14px !important;
-    background-color: #086ed9
+    background-color: #086ed9;
 }
 
-.el-button--text{
+.el-button--text {
     border-color: #086ed9;
     color: #fff;
 }

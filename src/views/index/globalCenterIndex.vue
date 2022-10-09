@@ -1,8 +1,7 @@
 <template>
     <div class="globalCenterIndexCon">
-
-        <div   class="globalCenterIndexCon_backcolor" >
-           <img   height="100%" width="100%"   src="../../assets/images/globalCenter/backcolor.png" alt="">
+        <div class="globalCenterIndexCon_backcolor">
+            <img height="100%" width="100%" src="../../assets/images/globalCenter/backcolor.png" alt="" />
         </div>
 
         <div class="iframeBox">
@@ -470,8 +469,8 @@
                         </div>
                     </el-col>
                     <el-col class="height100" :span="12">
-                        <div class="height100 midConb" >
-                            <div class="dataMainCount dataMainCount_top"   >
+                        <div class="height100 midConb">
+                            <div class="dataMainCount dataMainCount_top">
                                 <!-- <span @click="showLCImg = true" style="border: 1px solid #ccc; padding: 0.06rem 0.12rem; cursor: pointer">建筑概况</span> -->
                                 <div class="cardItemB" @click="showLCImg = true">
                                     <div class="cardItemS" style="height: 0px">
@@ -481,8 +480,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <el-row style="text-align: left" class="height100 text_c  dataMainCount_bottom_1   ">
-                                    <el-col style="width: 20%;  margin-left: 25px">
+                                <el-row style="text-align: left" class="height100 text_c dataMainCount_bottom_1">
+                                    <el-col style="width: 20%; margin-left: 25px">
                                         <div>建筑面积</div>
                                         <div style="margin-top: 12px">
                                             <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.area }}</span> <span class="textColor">万平方米</span>

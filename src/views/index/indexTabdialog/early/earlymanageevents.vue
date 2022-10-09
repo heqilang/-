@@ -351,8 +351,9 @@ export default {
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
                 //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
-                url: '/api/web/indexCountV3/countPatrolManageMinute',
+                // url: '/api/web/indexCountV3/countPatrolManageMinute',
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
+                url: '/api/web/indexCountV3/countPointCheck',
                 type: 'get',
                 success: function (res) {
                     console.dir(res);
@@ -364,7 +365,8 @@ export default {
                     const Day = nowDdate.getDate();
                     console.log(Day, '今天的日期');
                     _self.checkData = res.data;
-                    _self.drawLineChart2();
+                    // _self.drawLineChart2();
+                    _self.drawLineChartfu2();
                 }
             });
             // 隐患时效统计
@@ -555,13 +557,180 @@ _self.drawLineChart3(); */
                 this.getList();
             });
         },
+        drawLineChartfu2() {
+            var chartDom = document.getElementById('lineChart2');
+            var myChart = echarts.init(chartDom);
+            var option;
+            let _xData = [];
+            let _yData = [];
+            for (let i = 0; i < this.checkData.length; i++) {
+                _xData.push(this.checkData[i].timeName);
+                _yData.push(this.checkData[i].normalNum);
+            }
+
+            function formatData(arr) {
+                let newHashArray = [];
+                for (var i = 0; i < arr.length; i++) {
+                    let obj = {};
+                    let temp = arr[i];
+                    if (arr[i] > 0 && arr[i] < 50) {
+                        arr[i] = 0 + arr[i] * (500 / 50);
+                    } else if (arr[i] > 50 && arr[i] < 300) {
+                        arr[i] = 500 + (arr[i] - 50) * ((1000 - 500) / (300 - 50));
+                    } else if (arr[i] > 300 && arr[i] < 900) {
+                        arr[i] = 1000 + (arr[i] - 300) * ((1500 - 1000) / (900 - 300));
+                    } else if (arr[i] > 900 && arr[i] < 2100) {
+                        arr[i] = 1500 + (arr[i] - 900) * ((2000 - 1500) / (2100 - 900));
+                    }
+                    obj.value = arr[i];
+                    obj.formatV = temp;
+                    newHashArray.push(obj);
+                }
+                return newHashArray;
+            }
+
+            let wxArray = formatData(_yData);
+            console.dir(_yData);
+
+            option = {
+                title: {
+                    text: '当月巡查平均处置时效',
+                    textStyle: {
+                        fontSize: '14',
+                        color: '#ffffff'
+                    }
+                },
+                grid: {
+                    top: '25%',
+                    left: '0%',
+                    right: '5%',
+                    bottom: '5%',
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (val) {
+                        console.dir(val);
+                        var s = '';
+                        // s += '查询时间:' + val[0].axisValue + '<br/>';
+                        // s += '平均处置时效' + val[0].data.formatV + '分钟';
+                        s += '查询时间:' + val[0].axisValue + '<br/>';
+                        s += '正常巡查数' + val[0].data.formatV + '次' + '<br/>';
+                        s += '超时巡查数' + val[0].data.formatV + '次' + '<br/>';
+                        s += '未执行巡查' + val[0].data.formatV + '次' + '<br/>';
+                        return s;
+                    }
+                },
+                color: ['#5aa1fc'],
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLabel: {
+                        interval: 0,
+
+                        textStyle: {
+                            color: '#FFFFFF'
+                        },
+                        formatter: function (params) {
+                            console.dir(params);
+                            return params.slice(8, 10) + '日';
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#BBF6FF',
+                            width: 2
+                        },
+                        symbol: ['none', 'arrow']
+                    },
+                    data: _xData
+                },
+                yAxis: {
+                    type: 'value',
+
+                    min: 0,
+                    max: 2000,
+                    splitNumber: 5,
+
+                    axisLabel: {
+                        //  formatter: '{value}min',
+                        type: 'log',
+
+                        formatter: (v, i) => {
+                            let item = '';
+                            if (i === 0) {
+                                item = '0min';
+                            } else if (i == 1) {
+                                item = '50min';
+                            } else if (i == 2) {
+                                item = '300min';
+                            } else if (i == 3) {
+                                item = '900min';
+                            } else if (i == 4) {
+                                item = '2100min';
+                            }
+                            return item;
+                        },
+                        textStyle: {
+                            color: '#FFFFFF'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#BBF6FF00',
+                            width: 2
+                        },
+                        symbol: ['none', 'arrow']
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            // color: ['#cfc'],
+                            color: '#596677',
+                            type: 'dotted',
+                            width: 1
+                            //  type: 'solid'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        data: wxArray,
+                        type: 'line',
+
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                                    {
+                                        offset: 0,
+                                        color: '#2e486e'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#2e486e'
+                                    }
+                                ])
+                            }
+                        }
+                    }
+                ]
+            };
+            option && myChart.setOption(option);
+
+            setTimeout(() => {
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0, // 针对series下第几个数据
+                    dataIndex: new Date().getDate() - 1 // 第几个数据
+                });
+            }, 500); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
+            console.log('pxpxpx1', option);
+            this.chartNew = myChart;
+        },
         drawLineChart2() {
             var chartDom = document.getElementById('lineChart2');
             var myChart = echarts.init(chartDom);
             var option;
-            // dellData
-            // average: 166
-            // everyDay: "2022-09-01"
             let _xData = [];
             let _yData = [];
             for (let i = 0; i < this.checkData.length; i++) {
@@ -682,16 +851,13 @@ _self.drawLineChart3(); */
                     splitLine: {
                         show: true,
                         lineStyle: {
-                           // color: ['#cfc'],
+                            // color: ['#cfc'],
                             color: '#596677',
                             type: 'dotted',
-                            width: 1,
-                          //  type: 'solid'
+                            width: 1
+                            //  type: 'solid'
                         }
                     }
-                    /*   min: 0,
-max: 60,
-interval: 20 */
                 },
                 series: [
                     {
