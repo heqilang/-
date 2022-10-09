@@ -227,12 +227,16 @@
                 <div v-if="sourcelist.length < 1" style="text-align: center; padding: 100px 0">暂时无数据哦.....</div>
             </div>
         </div>
+
+        <div v-if="showLeavel == 4"><patrolstats @closeRiskStats="closeDialog" @getNewPage="getNewPages" :datatype="'预警情况'" :dataRange="'当日'" /></div>
     </div>
 </template>
 
 <script>
 import * as echarts from 'echarts';
+import patrolstats from '../cl/patrolStats/patrolStats.vue';
 export default {
+    components: { patrolstats },
     props: ['readyAlarmType', 'alarmRadiofu'],
     data() {
         return {
@@ -336,6 +340,11 @@ export default {
         this.getList();
     },
     methods: {
+        getNewPages() {
+            console.dir('3222222');
+            this.showLeavel = 1;
+        },
+
         closeDialog() {
             this.$emit('update:visible', false);
             // this.turntopage('alarmanalysis1');
@@ -556,6 +565,7 @@ _self.drawLineChart3(); */
             });
         },
         drawLineChart2() {
+            let that = this;
             var chartDom = document.getElementById('lineChart2');
             var myChart = echarts.init(chartDom);
             var option;
@@ -564,6 +574,15 @@ _self.drawLineChart3(); */
             // everyDay: "2022-09-01"
             let _xData = [];
             let _yData = [];
+
+            myChart.on('click', function (param) {
+                //  myChart.off('click') // 这里很重要 ，防止重复点击事件！！！
+                console.dir(param);
+                that.showLeavel = 4;
+
+                //X轴的值
+            });
+
             for (let i = 0; i < this.checkData.length; i++) {
                 _xData.push(this.checkData[i].everyDay);
                 _yData.push(this.checkData[i].average);
@@ -591,7 +610,6 @@ _self.drawLineChart3(); */
             }
 
             let wxArray = formatData(_yData);
-            console.dir(_yData);
 
             option = {
                 title: {
@@ -611,7 +629,6 @@ _self.drawLineChart3(); */
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (val) {
-                        console.dir(val);
                         var s = '';
                         s += '查询时间:' + val[0].axisValue + '<br/>';
                         s += '平均处置时效' + val[0].data.formatV + '分钟';
@@ -629,7 +646,6 @@ _self.drawLineChart3(); */
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
-                            console.dir(params);
                             return params.slice(8, 10) + '日';
                         }
                     },
@@ -682,11 +698,11 @@ _self.drawLineChart3(); */
                     splitLine: {
                         show: true,
                         lineStyle: {
-                           // color: ['#cfc'],
+                            // color: ['#cfc'],
                             color: '#596677',
                             type: 'dotted',
-                            width: 1,
-                          //  type: 'solid'
+                            width: 1
+                            //  type: 'solid'
                         }
                     }
                     /*   min: 0,
@@ -1015,7 +1031,7 @@ interval: 20 */
         }
     },
     computed: {},
-    components: {},
+
     beforeDestory() {
         if (!this.chartNew) return; //页面销毁钩子销毁chart释放资源
         this.chartNew.dispose();

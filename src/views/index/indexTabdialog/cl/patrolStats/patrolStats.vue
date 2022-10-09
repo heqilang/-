@@ -22,30 +22,42 @@
                     </div>
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
                         <div class="patrol-stats-charts-content">
-                            <div class="patrol-stats-chart" id="patrol-stats-chart1"></div>
+                            <div class="patrol-stats-charts-content_box">
+                                <div style="width: 208px" v-if="dataRange == '当日'">
+                                    <el-tabs v-model="activeName" @tab-click="handleClick">
+                                        <el-tab-pane :label="dataRange + '平均处置时效'" name="first"></el-tab-pane>
+                                        <el-tab-pane label="点位列表" name="second"></el-tab-pane>
+                                    </el-tabs>
+                                </div>
+                                <div v-if="datatype">
+                                    <el-button type="text" @click="getNewPage" size="mini">查看当月点位</el-button>
+                                </div>
+                            </div>
 
+                            <div v-show="activeName == 'first'" class="patrol-stats-chart" id="patrol-stats-chart1"></div>
+                            <!-- 
                             <div style="width: 208px">
                                 <el-tabs v-model="activeName" @tab-click="handleClick">
                                     <el-tab-pane :label="dataRange + '平均处置时效'" name="first"></el-tab-pane>
                                     <el-tab-pane label="点位列表" name="second"></el-tab-pane>
                                 </el-tabs>
-                            </div>
+                            </div -->
 
                             <div v-show="activeName == 'first'">
                                 <div v-if="dataRange == '当日'" style="height: 200px" id="quxianChart"></div>
                                 <div v-else style="height: 200px" id="dangyeCharts"></div>
                             </div>
 
-                            <div v-show="activeName !== 'first'" class="patroLabel" style="height: 200px">
+                            <div v-show="activeName !== 'first'" class="patroLabel" style="height: 600px">
                                 <ul>
                                     <li class="box_li" v-for="(item, index) in list" :key="index">
                                         <div class="box_li_title_left">{{ item.pointName }}</div>
                                         <div class="box_li_title_right">
                                             <div style="height: 100%; width: 357px">
-                                                <div style="height: 50%; width: 357px; padding: 10px 10px">
-                                                    <span>详细地址：{{ item.pointName}} </span>
+                                                <div style="height: 50%; width: 357px; padding: 5px 5px">
+                                                    <span>详细地址：{{ item.pointName }} </span>
                                                 </div>
-                                                <div style="height: 50%; width: 357px; padding: 10px 10px">
+                                                <div style="height: 50%; width: 357px; padding: 5px 5px">
                                                     <span>巡查区域：环球中心购物中心</span>
                                                 </div>
                                             </div>
@@ -105,6 +117,9 @@ export default {
         dataRange: {
             //数据范围 (当月 | 当日)
             required: true
+        },
+        datatype: {
+            required: false
         }
     },
     data: () => ({
@@ -126,7 +141,7 @@ export default {
         MONTHdrawLeftLineList: { everyDay: [], number: [], every: '' }
     }),
     created() {
-        console.dir(this.statsData);
+        this.activeName = this.datatype ? 'second' : 'first';
         let _self = this;
         // 清空id的innerHTML
         // document.getElementById('lineChart3').innerHTML = '';
@@ -191,6 +206,12 @@ export default {
     },
 
     methods: {
+        getNewPage() {
+            //传给父组件的
+            console.dir('222222222222');
+            this.$emit('getNewPage');
+        },
+
         getDate() {
             var myDate = new Date();
             var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
@@ -200,7 +221,6 @@ export default {
             var myHour = myDate.getHours(); //获取当前小时数(0-23)
             var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
             var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
-
             let MONTH = myDate.getMonth() + 1 < 10 ? '0' + (myDate.getMonth() + 1) : myDate.getMonth() + 1;
             let DATE = myDate.getDate() < 10 ? '0' + myDate.getDate() : myDate.getDate();
             var nowDate = myDate.getFullYear() + '-' + MONTH + '-' + DATE;
@@ -634,36 +654,38 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
 
     .box_li {
         width: 99%;
-        height: 90px;
+        height: 51px;
 
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         border-radius: 12px 12px 12px 12px;
         overflow: hidden;
         opacity: 1;
         border: 2px solid #5c88a7;
 
         display: flex;
+        overflow: hidden;
 
         .box_li_title_left {
             width: 274px;
-            height: 92px;
+            height: 51px;
             background: #4f6f98;
             border-radius: 12px 0px 0px 12px;
             opacity: 1;
             border: 2px solid #5c88a7;
             text-align: center;
-            line-height: 92px;
+            line-height: 51px;
 
-            font-size: 22px;
+            font-size: 14px;
             font-family: Alibaba PuHuiTi 2-85 Bold, Alibaba PuHuiTi 20;
             font-weight: normal;
             color: #ffffff;
+            box-sizing: border-box;
         }
 
         .box_li_title_right {
             width: calc(99% - 274px);
             display: flex;
-            font-size: 18px;
+            font-size: 12px;
             font-family: Alibaba PuHuiTi 2-55 Regular, Alibaba PuHuiTi 20;
             font-weight: normal;
             color: #ffffff;
@@ -675,5 +697,17 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
             }
         }
     }
+}
+.patrol-stats-charts-content_box {
+    display: flex;
+    justify-content: space-between;
+}
+.patrol-stats-charts-content_box .el-button {
+    padding: 10px 14px !important;
+    background-color: rgb(54, 75, 106);
+}
+.patrol-stats-charts-content_box .el-button--text {
+    border-color: rgb(54, 75, 106);
+    color: #fff;
 }
 </style>

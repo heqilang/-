@@ -211,11 +211,11 @@ interval: 20 */
                         type: 'line',
                         smooth: true, //面积图改成弧形状
                         showSymbol: false, //去除面积图节点圆
-              // showSymbol: true,//是否默认展示圆点
-                           // symbol: 'circle',     //设定为实心点
-                          //  symbolSize: 5,   //设定实心点的大小 */
-                      
-                     /*    itemStyle: {
+                        // showSymbol: true,//是否默认展示圆点
+                        // symbol: 'circle',     //设定为实心点
+                        //  symbolSize: 5,   //设定实心点的大小 */
+
+                        /*    itemStyle: {
                             normal: {
                                 color: '#2BADFF', //拐点颜色
                                 borderColor: '#2BADFF', //拐点边框颜色
@@ -231,20 +231,18 @@ interval: 20 */
                             }
                         }, */
 
-                   
-
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
                                 color: '#2BADFF' // 折线线条颜色:
                             }
                         },
-                           itemStyle: {
+                        itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
                                 color: '#2BADFF' // 折线线条颜色:
                             }
-                        }, 
+                        },
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
@@ -446,7 +444,7 @@ interval: 20 */
                         type: 'line',
                         smooth: true, //面积图改成弧形状
                         showSymbol: false, //去除面积图节点圆
-                       /*  itemStyle: {
+                        /*  itemStyle: {
                             normal: {
                                 color: '#2BADFF', //拐点颜色
                                 borderColor: '#2BADFF', //拐点边框颜色
@@ -472,7 +470,7 @@ interval: 20 */
                             normal: {
                                 color: '#2BADFF' // 折线线条颜色:
                             }
-                        }, 
+                        },
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
@@ -688,7 +686,7 @@ interval: 20 */
                         type: 'line',
                         smooth: true, //面积图改成弧形状
                         showSymbol: false, //去除面积图节点圆
-                     /*    itemStyle: {
+                        /*    itemStyle: {
                             normal: {
                                 color: '#2BADFF', //拐点颜色
                                 borderColor: '#2BADFF', //拐点边框颜色
@@ -709,12 +707,12 @@ interval: 20 */
                                 color: '#2BADFF' // 折线线条颜色:
                             }
                         },
-                     itemStyle: {
+                        itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
                                 color: '#2BADFF' // 折线线条颜色:
                             }
-                        }, 
+                        },
                         areaStyle: {
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
