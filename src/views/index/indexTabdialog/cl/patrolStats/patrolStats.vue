@@ -5,7 +5,7 @@
 <template>
     <div>
         <div class="diaHeadStandardC" style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
-            {{ title }}
+            {{ nameTime ? nameTime : title }}
 
             <div style="height: 20px; display: flex; justify-content: space-between" class="clhangImg">
                 <i class="el-icon-circle-close" @click="$emit('closeRiskStats')" style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
@@ -15,7 +15,7 @@
         <div style="position: relative">
             <div class="xf-stats-wrapper">
                 <div class="patrol-stats-wrapper" v-if="currentLayerLevel === 1">
-                    <div class="patrol-stats-indicators">
+                    <div class="patrol-stats-indicators" v-if="!nameTime">
                         <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次" v-on:onclick="intoLayer2('')" />
                         <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次" v-on:onclick="intoLayer2('NORMAL')" />
                         <XfIndicator title="逾期未巡查次数" :num="statsData.notOpportunelyFinish" unit="次" v-on:onclick="intoLayer2('TIMEOUT')" />
@@ -25,7 +25,7 @@
                             <div class="patrol-stats-charts-content_box">
                                 <div style="width: 208px" v-if="dataRange == '当日'">
                                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                                        <el-tab-pane :label="dataRange + '平均处置时效'" name="first"></el-tab-pane>
+                                        <el-tab-pane v-if="!nameTime" :label="dataRange + '平均处置时效'" name="first"></el-tab-pane>
                                         <el-tab-pane label="点位列表" name="second"></el-tab-pane>
                                     </el-tabs>
                                 </div>
