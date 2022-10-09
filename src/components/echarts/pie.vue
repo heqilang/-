@@ -209,9 +209,9 @@ interval: 20 */
 
                         data: _yData,
                         type: 'line',
-                        smooth: true, //面积图改成弧形状
-                        showSymbol: false, //去除面积图节点圆
-                        // showSymbol: true,//是否默认展示圆点
+                      //  smooth: true, //面积图改成弧形状
+                  //   showSymbol: false, //去除面积图节点圆
+                        showSymbol: true,//是否默认展示圆点
                         // symbol: 'circle',     //设定为实心点
                         //  symbolSize: 5,   //设定实心点的大小 */
 
@@ -234,13 +234,17 @@ interval: 20 */
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#2BADFF' // 折线线条颜色:
+                                color: '#2BADFF' ,//折线线条颜色:
+                                width: 3, // 描边的线宽// 
                             }
                         },
                         itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#2BADFF' // 折线线条颜色:
+                              //  color: '#2BADFF' ,// 折线线条颜色:
+                                color: '#2BADFF', //拐点颜色
+                                borderColor: '#2BADFF', //拐点边框颜色
+                                borderWidth: 3 //拐点边框大小
                             }
                         },
                         areaStyle: {
@@ -369,7 +373,7 @@ interval: 20 */
                     orient: 'horizontal',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
-                    padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                    padding: [22, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
                     data: ['当月', '上月'],
                     textStyle: {
                         fontSize: '12px',
@@ -442,8 +446,8 @@ interval: 20 */
 
                         data: _yData,
                         type: 'line',
-                        smooth: true, //面积图改成弧形状
-                        showSymbol: false, //去除面积图节点圆
+                     //   smooth: true, //面积图改成弧形状
+                      //  showSymbol: false, //去除面积图节点圆
                         /*  itemStyle: {
                             normal: {
                                 color: '#2BADFF', //拐点颜色
@@ -462,13 +466,15 @@ interval: 20 */
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#2BADFF' // 折线线条颜色:
+                                color: '#2BADFF' ,// 折线线条颜色:
+                                width: 3, // 描边的线宽
                             }
                         },
                         itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#2BADFF' // 折线线条颜色:
+                                color: '#2BADFF', // 折线线条颜色:
+                                width: 3, // 描边的线宽
                             }
                         },
                         areaStyle: {
@@ -491,18 +497,20 @@ interval: 20 */
 
                         data: _yData_1,
                         type: 'line',
-                        smooth: true, //面积图改成弧形状
-                        showSymbol: false, //去除面积图节点圆
+                      //  smooth: true, //面积图改成弧形状
+                     //   showSymbol: false, //去除面积图节点圆
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#6BD0CA ' // 折线线条颜色:
+                                color: '#F5773F ', // 折线线条颜色:
+                                width: 3, // 描边的线宽
                             }
                         },
                         itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#6BD0CA' // 折线线条颜色:
+                                color: '#F5773F' ,// 折线线条颜色:
+                                width: 3, // 描边的线宽
                             }
                         }
                         /*    areaStyle: {
@@ -611,7 +619,7 @@ interval: 20 */
                     orient: 'horizontal',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
-                    padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                    padding: [22, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
                     data: ['当年', '上一年'],
                     textStyle: {
                         fontSize: '12px',
@@ -684,8 +692,8 @@ interval: 20 */
 
                         data: _yData,
                         type: 'line',
-                        smooth: true, //面积图改成弧形状
-                        showSymbol: false, //去除面积图节点圆
+                     //   smooth: true, //面积图改成弧形状
+                      //  showSymbol: false, //去除面积图节点圆
                         /*    itemStyle: {
                             normal: {
                                 color: '#2BADFF', //拐点颜色
@@ -733,18 +741,19 @@ interval: 20 */
 
                         data: _yData_1,
                         type: 'line',
-                        smooth: true, //面积图改成弧形状
-                        showSymbol: false, //去除面积图节点圆
+                       //    smooth: true, //面积图改成弧形状
+                        //showSymbol: false, //去除面积图节点圆
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
-                                color: '#6BD0CA ' // 折线线条颜色:
+                                color: '#F5773F ', // 折线线条颜色:
+                                width: 3, // 描边的线宽
                             }
                         },
                         itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
                             normal: {
-                                color: '#6BD0CA' // 折线线条颜色:
+                                color: '#F5773F' // 折线线条颜色:
                             }
                         }
                         /*        areaStyle: {

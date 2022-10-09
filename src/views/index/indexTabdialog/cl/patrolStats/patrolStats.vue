@@ -4,11 +4,13 @@
 
 <template>
     <div>
-        <div class="diaHeadStandardC" style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
+        <div class="diaHeadStandardC"
+            style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
             {{ nameTime ? nameTime : title }}
 
             <div style="height: 20px; display: flex; justify-content: space-between" class="clhangImg">
-                <i class="el-icon-circle-close" @click="$emit('closeRiskStats')" style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
+                <i class="el-icon-circle-close" @click="$emit('closeRiskStats')"
+                    style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
             </div>
         </div>
 
@@ -16,16 +18,20 @@
             <div class="xf-stats-wrapper">
                 <div class="patrol-stats-wrapper" v-if="currentLayerLevel === 1">
                     <div class="patrol-stats-indicators" v-if="!nameTime">
-                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次" v-on:onclick="intoLayer2('')" />
-                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次" v-on:onclick="intoLayer2('NORMAL')" />
-                        <XfIndicator title="逾期未巡查次数" :num="statsData.notOpportunelyFinish" unit="次" v-on:onclick="intoLayer2('TIMEOUT')" />
+                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次"
+                            v-on:onclick="intoLayer2('')" />
+                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次"
+                            v-on:onclick="intoLayer2('NORMAL')" />
+                        <XfIndicator title="漏检次数" :num="statsData.notOpportunelyFinish" unit="次"
+                            v-on:onclick="intoLayer2('TIMEOUT')" />
                     </div>
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
                         <div class="patrol-stats-charts-content">
                             <div class="patrol-stats-charts-content_box">
                                 <div style="width: 208px" v-if="dataRange == '当日'">
                                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                                        <el-tab-pane v-if="!nameTime" :label="dataRange + '平均处置时效'" name="first"></el-tab-pane>
+                                        <el-tab-pane v-if="!nameTime" :label="dataRange + '平均处置时效'" name="first">
+                                        </el-tab-pane>
                                         <el-tab-pane label="点位列表" name="second"></el-tab-pane>
                                     </el-tabs>
                                 </div>
@@ -34,7 +40,8 @@
                                 </div>
                             </div>
 
-                            <div v-show="activeName == 'first'" class="patrol-stats-chart" id="patrol-stats-chart1"></div>
+                            <div v-show="activeName == 'first'" class="patrol-stats-chart" id="patrol-stats-chart1">
+                            </div>
                             <!-- 
                             <div style="width: 208px">
                                 <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -63,7 +70,8 @@
                                             </div>
 
                                             <div class="box_patroLbaelww">
-                                                <component :chlidList="item.datas" :is="require('./patroLable.vue')" />
+                                                <component @getPatroLable="getPatroLable" :chlidList="item.datas"
+                                                    :is="require('./patroLable.vue')" />
                                             </div>
                                         </div>
                                     </li>
@@ -77,12 +85,20 @@
                     </div>
                 </div>
                 <div class="stats-layer-container" v-if="currentLayerLevel === 2">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer1()"> << </a>
-                    <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange" :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer1()">
+                        << </a>
+                            <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange"
+                                :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
                 </div>
                 <div class="stats-layer-container" v-if="currentLayerLevel === 3">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)"> << </a>
-                    <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)">
+                        << </a>
+                            <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
+                </div>
+                <div class="stats-layer-container" v-if="currentLayerLevel === 4">
+                    <a class="return-upper-level-btn" v-on:click="intoLayer4(activePatrolStatus)">
+                        << </a>
+                            <patrolPointDetail v-if="currentLayerLevel === 4" :patrolPointId="activePartolPointId" />
                 </div>
             </div>
         </div>
@@ -195,6 +211,23 @@ export default {
     },
 
     methods: {
+
+        getPatroLable(val) {
+            //从点位那边穿过来
+            console.log(val, '点位传过来');
+
+            if(val.zt==1){
+             this.currentLayerLevel=4
+             this.activePartolPointId='7c232a48338c2ba2db25b3da0a1f2c63'
+            }else{
+                this.$emit('getPatroLable',val)
+            }
+          
+            
+
+        },
+
+
         getNewPage() {
             //传给父组件的
             console.dir('222222222222');
@@ -241,7 +274,7 @@ export default {
             return nowDate;
         },
 
-        handleClick() {},
+        handleClick() { },
 
         intoLayer1() {
             this.currentLayerLevel = 1;
@@ -253,6 +286,10 @@ export default {
         intoLayer3(partolItem) {
             this.activePartolPointId = partolItem;
             this.currentLayerLevel = 3;
+        },
+        intoLayer4(val){
+            console.log(val);
+            this.currentLayerLevel = 1;
         },
         loadStatsData() {
             const that = this;
@@ -712,14 +749,17 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
         }
     }
 }
+
 .patrol-stats-charts-content_box {
     display: flex;
     justify-content: space-between;
 }
+
 .patrol-stats-charts-content_box .el-button {
     padding: 10px 14px !important;
     background-color: rgb(54, 75, 106);
 }
+
 .patrol-stats-charts-content_box .el-button--text {
     border-color: rgb(54, 75, 106);
     color: #fff;

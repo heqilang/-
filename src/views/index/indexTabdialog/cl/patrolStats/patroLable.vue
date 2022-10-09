@@ -1,18 +1,13 @@
 <template>
     <div id="apps">
         <ul class="steps">
-            <li
-                v-for="(item, index) in list"
-                :key="index"
-                :class="{
-                    step_pass: item.zt == 1,
-                    step_active: item.zt == 2,
-
-                    step_edd: list.length == index + 1
-                }"
-            >
+            <li v-for="(item, index) in list" :key="index" :class="{
+                step_pass: item.zt == 1,
+                step_active: item.zt == 2,
+                step_edd: list.length == index + 1
+            }">
                 <div class="step-line"></div>
-                <div :class="{ 'step-content': true, sort: index === list.length - 1 }">
+                <div :class="{ 'step-content': true, sort: index === list.length - 1 }" @click="getPost(item)">
                     <el-tooltip placement="top-start" style="color: white; border: none" popper-class="tip-class">
                         <div class="tip-class" slot="content">
                             <div class="box_content_tip">
@@ -23,7 +18,6 @@
                                 <div>巡查时间：{{ item.beginTime }}</div>
                             </div>
                         </div>
-
                         <div v-if="!item.show" @mousemove="mouseList(item)" class="step-num_border">
                             <div class="step-num">
                                 <img width="100%" :src="item.img" alt="" />
@@ -36,18 +30,6 @@
                             </div>
                         </div>
                     </el-tooltip>
-
-                    <!--      <div class="sub_title">{{ item.name }}</div> -->
-                    <div class="step-sub">
-                        <!--  <el-timeline>
-                <el-timeline-item v-for="ele in item.child" :key="ele.id" :timestamp="ele.rq" placement="top">
-                  <el-card style="width: 100%">
-                    <h4>{{ ele.name }}</h4>
-                    <p style="word-wrap: break-word">{{ ele.nr }}</p>
-                  </el-card>
-                </el-timeline-item>
-              </el-timeline> -->
-                    </div>
                 </div>
             </li>
         </ul>
@@ -58,124 +40,19 @@
 export default {
     name: 'patroLable',
     props: ['chlidList'],
-    components: {},
     data() {
         return {
             list: [
-                {
-                    id: '1',
-                    name: '开始',
-                    zt: 1,
-                    show: 0,
-                    child: [
-                        /*  {
-                 rq: "2018-03-01",
-                 id: "11",
-                 nr: "提交",
-                 nr: "对方的说法的说法是抗老化反馈啦返回来打手将发生了的减肥了的看是否",
-               },
-               {
-                 rq: "2018-03-01",
-                 id: "12",
-                 nr: "修改",
-                 nr: "对方的说法的说法是抗老化反馈啦返回来打手将发生了的减肥了的看是否",
-               },
-               {
-                 rq: "2018-03-01",
-                 id: "13",
-                 nr: "提交",
-                 nr: "对方的说法的说法是抗老化反馈啦返回来打手将发生了的减肥了的看是否",
-               }, */
-                    ]
-                },
-                {
-                    id: '2',
-                    name: '审核',
-                    zt: 2,
-                    show: 0,
-                    child: [
-                        /*    {
-                   rq: "2018-03-01",
-                   id: "12",
-                   nr: "修改",
-                   nr: "对方的说法的说法是抗老化反馈啦返回来打手将发生了的减肥了的看是否",
-                 },
-                 {
-                   rq: "2018-03-01",
-                   id: "21",
-                   nr: "提交",
-                   nr: "对方的说法的说法是抗老化反馈啦返回来打手将发生了的减肥了的看是否",
-                 }, */
-                    ]
-                },
-                {
-                    id: '3',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '4',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '5',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '6',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '7',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '8',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '9',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '10',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '11',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                },
-                {
-                    id: '12',
-                    name: '完成',
-                    zt: 0,
-                    show: 0
-                }
+
             ]
         };
     },
-
-    created() {},
     mounted() {
         console.dir(this.chlidList);
         this.list = this.chlidList.map((item, index) => {
+
+            let time = ["02:00:00", "04:00:00", "06:00:00", "08:00:00", "10:00:00", "12:00:00", "14:00:00", "16:00:00", "18:00:00", "20:00:00", "22:00:00", "23:59:59"]
+
             return {
                 id: index,
                 name: '审核',
@@ -183,26 +60,36 @@ export default {
                 show: 0,
                 inspectPerson: item.inspectPerson,
                 beginTime: item.beginTime,
+
                 status: item.status == 1 ? '正常巡查' : item.status == 2 ? '未巡查' : '未开始巡查',
                 img: item.status == 1 ? require('../../../../../assets/patroLableImg/green.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red.png') : require('../../../../../assets/patroLableImg/grey.png'),
-                hoverImg: item.status == 1 ? require('../../../../../assets/patroLableImg/green_1.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red_1.png') : require('../../../../../assets/patroLableImg/grey_1.png')
+                hoverImg: item.status == 1 ? require('../../../../../assets/patroLableImg/green_1.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red_1.png') : require('../../../../../assets/patroLableImg/grey_1.png'),
+                endTime: time[index]
             };
         });
     },
-
     methods: {
         mouseList(val) {
             val.show = 1;
-            console.log(val, 8888888);
+
         },
         mouseleft(val) {
             val.show = 0;
+        },
+        getPost(val) {
+
+            if (val.zt === 1||val.zt === 2) {
+                this.$emit('getPatroLable', val )
+            }
+
+            console.log(val, '点位情况');
+
         }
     }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss"   >
 .apps {
     width: 100%;
     height: 100%;
@@ -250,24 +137,7 @@ export default {
     box-sizing: border-box;
 }
 
-/* .step_active .step-num {
-    background-color: #e55050;
-}
- */
-/* .step_pass .step-num {
-    background-color: #56b754;
-} */
 
-/* .step-num:after {
-    content: "";
-    width: 90%;
-    height: 5px;
-    background-color: #e0e0e0;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
-    position: absolute;
-    top: 10px;
-    margin-left: 6%;
-  } */
 
 .step_edd .step-num:after {
     display: none;
@@ -283,14 +153,7 @@ export default {
     left: 50%;
 }
 
-/*  .step_active .step-num_border {
-    background-color: #e55050;
-}  */
 
-/* .step_pass .step-num_border {
-    background-color: #56b754;
-}
- */
 .step-num_border {
     display: inline-block;
     height: 40px;
@@ -311,17 +174,6 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 99999 !important;
-}
-
-.step-num_border:after {
-    /*   content: "";
-    width: 525%;
-    height: 5px;
-    background-color: #e0e0e0;
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 20%);
-    position: absolute;
-    top: 7px;
-    margin-left: 52%; */
 }
 
 .step-content:after {
@@ -346,18 +198,7 @@ export default {
     background-color: #e55050;
 }
 
-/* .step_pass .step-num:after {
-    content: '';
-    display: block;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #f3862d;
-    position: relative;
-    top: 50px;
-    left: 50px;
-  
-  } */
+
 
 .step-content {
     height: 30px;
@@ -369,10 +210,7 @@ export default {
     margin: auto;
 }
 
-/* .show {
-    width: 20px;
-    height: 20px;
-} */
+
 
 .show .step-num {
     width: 30px;
@@ -383,11 +221,9 @@ export default {
     display: none !important;
 }
 
-/* [x-placement^='A'] A指的是el-tooltip标签中的placement的值，此处是bottom。猜测用于动态设置border-A-color。*/
-
 .el-tooltip__popper {
     background: #3e5e99 !important;
-    width: 242px;
+    width: 175px;
     height: 80px;
 }
 
