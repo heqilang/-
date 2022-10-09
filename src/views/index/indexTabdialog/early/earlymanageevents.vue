@@ -584,7 +584,7 @@ _self.drawLineChart3(); */
             let _yData = [];
             for (let i = 0; i < this.checkData.length; i++) {
                 _xData.push(this.checkData[i].timeName);
-                _yData.push(this.checkData[i].normalNum);
+                _yData.push(this.checkData[i].normalNum ? this.checkData[i].normalNum : '-'); //没有数据就不显示线条
             }
 
             // function formatData(arr) {
@@ -714,6 +714,7 @@ _self.drawLineChart3(); */
                 // legend: {
                 //     formatter: name
                 // },
+
                 series: [
                     {
                         data: _yData,
