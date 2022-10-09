@@ -218,7 +218,7 @@ export default {
     list-style: none;
     display: flex;
 
-    margin-top: 31px;
+    margin-top: 12px;
 }
 
 .steps li {

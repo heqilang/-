@@ -65,9 +65,9 @@
         </div>
 
         <div class="alertModels">
-            <el-dialog top="20vh" :modal-append-to-body="false" height="80%" width="80%" title="火情事件" :visible.sync="showalarmHead" :close-on-click-modal="true">
+            <el-dialog top="20vh" v-if="showalarmHead" :modal-append-to-body="false" height="80%" width="80%" title="火情事件" :visible.sync="showalarmHead" :close-on-click-modal="true">
                 <div style="width: 100%; height: 100%">
-                    <component @getFireDate="getFireDate" :videoid="videoid" :is="require('./homeFire.vue')"> </component>
+                    <component v-if="showalarmHead" @getFireDate="getFireDate" :videoid="videoid" :is="require('./homeFire.vue')"> </component>
                 </div>
             </el-dialog>
         </div>
