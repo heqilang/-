@@ -6,7 +6,7 @@
     <div>
         <div class="diaHeadStandardC"
             style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
-            <span v-if="showTitle"> {{ nameTime ? nameTime : currentLayerLevel === 5 ? '管理类事件预警' : title }}</span>
+            <span v-if="showTitle"> {{ nameTime ? nameTime : currentLayerLevel === 5 ? '漏检次数' : title }}</span>
 
             <span v-else class="diaHeadStandardCcolor"> {{ showTitleWord }}</span>
 
@@ -92,7 +92,9 @@
                         << </a>
                             <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange"
                                 :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
+
                 </div>
+
                 <div class="stats-layer-container" v-if="currentLayerLevel === 3">
                     <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)">
                         << </a>
@@ -111,7 +113,8 @@
                         << </a>
                             <earlymanageevents :getRedDate="getRedDate" :getRed="getRed"
                                 :readyAlarmType="readyAlarmType" :alarmRadiofu="alarmRadio"
-                                v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId" />
+                                v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId"
+                                :alparams="alparams" />
                 </div>
                 <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
 
@@ -185,6 +188,59 @@
                     </div>
                 </div>
                 <!-- 这里是当日巡查点位详细点进去的 -->
+
+                <!-- 这里是漏检次数点进去的 -->
+                <div class="stats-layer-container stats-layer-container_boxseven" v-if="currentLayerLevel === 7">
+                    <div class="stats-layer-container_six">
+                        <el-table class="xf-table" :data="dataTable" height="344">
+                            <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod">
+                            </el-table-column>
+                            <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
+                            </el-table-column>
+                            <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true">
+                            </el-table-column>
+                            <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
+                                <template slot-scope="scope">
+                                    <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
+                                    <div>{{ scope.row.sendName.split(':')[scope.row.sendName.split(':').length - 1] }}
+                                    </div>
+                                </template>
+                            </el-table-column>
+
+                            <el-table-column prop="unitName" label="预警位置" :show-overflow-tooltip="true">
+                            </el-table-column>
+
+                            <el-table-column prop="state" label="处置状态" width="120">
+                                <template slot-scope="scope">
+                                    <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' :
+                                    scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
+                                    <div v-else>--</div>
+                                </template>
+                            </el-table-column>
+
+                            <el-table-column prop="times" label="操作" width="80" align="center">
+                                <template slot-scope="scope">
+                                    <!-- <i class="el-icon-edit fs-16"></i>  -->
+                                    <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)">
+                                        查看
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <div class="text_c mar-t-18 backColorPage">
+                            <!-- 分页 -->
+                            <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList">
+                            </customPagination>
+                            <div v-else style="height: 32px"></div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <!-- 这里是漏检次数点进去的 -->
             </div>
         </div>
     </div>
@@ -229,6 +285,13 @@ export default {
         }
     },
     data: () => ({
+        alparams: false,
+        dataTable: [],
+        pager: {
+            pageSize: 5,
+            pageIndex: 1,
+            total: null
+        },
         buttonDay: require('@/assets/patroLableImg/daybotton.png'),
         buttonMonth: require('@/assets/patroLableImg/monthbotton.png'),
         dayDate: [
@@ -326,6 +389,78 @@ export default {
     methods: {
 
 
+        // 留
+        getList() {
+            let _self = this;
+            _self.loading = true;
+            _self.dataTable = [];
+            let searchObj = {
+                option: _self.dataRange == '当日' ? "DAY" : 'MONTH',
+                size: _self.pager.pageSize,
+                current: _self.pager.pageIndex,
+                //   handle: _self.chartRadio1 == '0' ? '' : _self.chartRadio1,
+                transform: 'U:handler;OW:owningSystem;B:building;F:floor;ES:owningSystem,U:dispatcher,taker,verifier',
+                sorts: 'sendTime:desc' //'addtime:desc'
+            };
+            //删除空值
+            for (let key in searchObj) {
+                if (searchObj[key] == '') {
+                    delete searchObj[key];
+                }
+            }
+            _self._http({
+                // url: _self.activeSenName == 'yinghuan' ? '/api/web/indexCountTwo/manageRisks' : '/api/web/indexCountTwo/findPatrols',
+                url: '/api/web/indexCountV3/findPatrols',
+                type: 'get',
+                data: searchObj,
+                success: function (res) {
+                    _self.dataTable = res.data.records;
+                    _self.pager.total = res.data.total;
+                    _self.loading = false;
+                }
+            });
+        },
+        indexMethod(index) {
+            let _self = this;
+            if (_self.pager.pageIndex * _self.pager.pageSize > _self.dataTable.totalCount) {
+                let tempIndex = index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
+                if (tempIndex < _self.dataTable.totalCount) {
+                    return tempIndex;
+                } else {
+                    return _self.dataTable.totalCount;
+                }
+            } else {
+                return index + 1 + _self.pager.pageSize * (_self.pager.pageIndex - 1);
+            }
+        },
+
+        updateOrDeleteInfo(type, row) {
+            console.log('查看');
+            console.log(row);
+            this.alparams = true;
+            this.title = '漏检次数'
+            this.currentLayerLevel = 5;
+            this.getRedDate = row;
+            // this.getMessageList(row);
+            // this.getfindMessages(row, 0);
+
+        },
+        getfindMessages(val, type) {
+            let _self = this;
+            _self.sourcelist = [];
+
+            _self._http({
+                url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
+                type: 'get',
+                isBody: true,
+                data: { waringId: type ? val.id : val.waringRecordId },
+                success: function (res) {
+                    _self.sourcelist = res.data.data || [];
+
+                }
+            });
+        },
+
         getDayDate(val) {
 
             //当日漏检的点位 
@@ -371,7 +506,8 @@ export default {
                     this.$emit('getPatroLable', val);
                 } else {
                     //这里的数据是传给earlymanageevents.vue
-
+                    console.log("执行这里吗");
+                    this.alparams = false
                     this.currentLayerLevel = 5;
                     this.getRedDate = val;
                 }
@@ -431,8 +567,17 @@ export default {
             this.currentLayerLevel = 1;
         },
         intoLayer2(patrolStatus) {
+            if (patrolStatus == 'TIMEOUT') {
+                this.activePatrolStatus = patrolStatus;
+                this.currentLayerLevel = 7;
+                this.title = '漏检次数'
+                this.getList()
+                return
+            }
+
             this.activePatrolStatus = patrolStatus;
             this.currentLayerLevel = 2;
+
         },
         intoLayer3(partolItem) {
             this.activePartolPointId = partolItem;
@@ -1002,5 +1147,9 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
+}
+
+.stats-layer-container_boxseven {
+    height: 442px;
 }
 </style>

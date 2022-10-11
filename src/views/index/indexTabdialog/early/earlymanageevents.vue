@@ -695,7 +695,7 @@ _self.drawLineChart3(); */
                         s += '查询时间:' + val[0].axisValue + '<br/>';
                         s += green + '正常巡查数' + val[0].data + '次' + '<br/>';
                         s += red + '未执行巡查' + val[1].data.leakNum + '次' + '<br/>';
-                        s += grey + '未开始巡查' + val[1].data.timeoutNum + '次' + '<br/>';
+                        s += grey + '未开始巡查' + val[1].data.notBeginNum + '次' + '<br/>';
                         return s;
                     }
                 },

@@ -1,9 +1,7 @@
 <template>
-    <div class="classReadyDialog" 
-  
-    >
-        <div         class="secendLevel" style="background-color: #2b4b6b; color: #fff">
-         <!--    <div class="diaHeadStandardC classReadyDialogTitle">
+    <div class="classReadyDialog">
+        <div class="secendLevel" style="background-color: #2b4b6b; color: #fff">
+            <!--    <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
                  
                     <span> 管理类 </span>事件预警
@@ -11,7 +9,8 @@
             
                 
             </div> -->
-            <div  class="classReadyDialog_box_bottom"    style="background: linear-gradient(to right bottom, #192640, #213d60) !important; padding: 30px">
+            <div class="classReadyDialog_box_bottom"
+                style="background: linear-gradient(to right bottom, #192640, #213d60) !important; padding: 30px">
                 <div>
                     <div style="display: flex">
                         <div>预警时间：</div>
@@ -52,60 +51,63 @@
 
 <script>
 export default {
-    props: ['readyAlarmType', 'alarmRadiofu','getRed','getRedDate'],
+    props: ['readyAlarmType', 'alarmRadiofu', 'getRed', 'getRedDate', 'alparams'],
     data() {
         return {
             sourcelist: [],
             alarmanalysis6_params: {
-                sendTime:'2022',
-                unitName:'环球中心'
+                sendTime: '2022',
+                unitName: '环球中心'
             },
-            loading:true
+            loading: true
         };
     },
     watch: {},
-    created() { 
+    created() {
         console.log(this.getRedDate);
     },
- 
+
     mounted() {
-      this.getPatroLable(this.getRedDate)  
+        this.getPatroLable(this.getRedDate)
     },
     methods: {
 
         getPatroLable(val) {
 
             console.log(val, '问');
-          
+
             this.showLeavel = 3
             this.alarmanalysis6_params = {
-                sendTime:val.sendTime,
-                unitName:val.pointName,
-               // waringRecordId: "334110422576816128"
+                sendTime: val.sendTime,
+                unitName: val.unitName || val.pointName,
+                // waringRecordId: "334110422576816128"
             };
             // this.getMessageList(row);
-              this.getfindMessages(val);
+            this.getfindMessages(val);
         },
-      
+
         getfindMessages(val) {
             let _self = this;
+
             _self.sourcelist = [];
             _self._http({
                 url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
                 type: 'get',
                 isBody: true,
-                data:{ waringId: val.id },
+                data: { waringId: val.waringRecordId || val.id },//_self.alarmanalysis6_params ? val.waringRecordId :
                 success: function (res) {
-                    _self.loading=false
+                    _self.loading = false
+
+
                     _self.sourcelist = res.data.data || [];
-                  
+
                 }
             });
         }
     },
     computed: {},
 
- 
+
 };
 </script>
 <style lang="scss">
@@ -257,5 +259,4 @@ export default {
     margin-top: 2px;
     border-radius: 2px;
 }
-
 </style>
