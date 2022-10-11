@@ -4,9 +4,11 @@
 
 <template>
     <div>
-        <div     class="diaHeadStandardC"
+        <div class="diaHeadStandardC"
             style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
-            {{ nameTime ? nameTime : currentLayerLevel === 5?"管理类事件预警":  title }}
+            <span v-if="showTitle"> {{ nameTime ? nameTime : currentLayerLevel === 5 ? '管理类事件预警' : title }}</span>
+
+            <span v-else class="diaHeadStandardCcolor"> {{ showTitleWord }}</span>
 
             <div style="height: 20px; display: flex; justify-content: space-between" class="clhangImg">
                 <i class="el-icon-circle-close" @click="$emit('closeRiskStats')"
@@ -30,7 +32,7 @@
                             <div class="patrol-stats-charts-content_box">
                                 <div style="width: 208px" v-if="dataRange == '当日'">
                                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                                        <el-tab-pane v-if="!nameTime" :label="dataRange + '平均处置时效'" name="first">
+                                        <el-tab-pane v-if="!nameTime" :label="dataRange + '点位漏检次数'" name="first">
                                         </el-tab-pane>
                                         <el-tab-pane label="点位列表" name="second"></el-tab-pane>
                                     </el-tabs>
@@ -70,7 +72,8 @@
                                             </div>
 
                                             <div class="box_patroLbaelww">
-                                                <component  :time="time"    :pointName="item.pointName"    @getPatroLable="getPatroLable" :chlidList="item.datas"
+                                                <component :time="time" :pointName="item.pointName"
+                                                    @getPatroLable="getPatroLable" :chlidList="item.datas"
                                                     :is="require('./patroLable.vue')" />
                                             </div>
                                         </div>
@@ -101,14 +104,87 @@
                         << </a>
                             <patrolPointDetail v-if="currentLayerLevel === 4" :patrolPointId="activePartolPointId" />
                 </div>
-                 <!-- 这里是正常巡查点位详细点进去的 -->
-                    <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
-                 <div class="stats-layer-container stats-layer-container_early  " v-if="currentLayerLevel === 5">
+                <!-- 这里是正常巡查点位详细点进去的 -->
+                <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
+                <div class="stats-layer-container stats-layer-container_early" v-if="currentLayerLevel === 5">
                     <a class="return-upper-level-btn" v-on:click="intoLayer5(activePatrolStatus)">
                         << </a>
-                            <earlymanageevents   :getRedDate="getRedDate"     :getRed="getRed"    :readyAlarmType="readyAlarmType"    :alarmRadiofu="alarmRadio"      v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId" />
+                            <earlymanageevents :getRedDate="getRedDate" :getRed="getRed"
+                                :readyAlarmType="readyAlarmType" :alarmRadiofu="alarmRadio"
+                                v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId" />
                 </div>
-                  <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
+                <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
+
+                <!-- 这里是当日巡查点位详细点进去的 -->
+                <div class="stats-layer-container stats-layer-container_boxsix" v-if="currentLayerLevel === 6">
+                    <div class="stats-layer-container_six">
+                        <div class="patrol-stats-charts-content_box">
+                            <div style="width: 70%" class="patrol-stats-charts-content_box_six">
+                                <el-tabs v-model="activeType" @tab-click="handleClick">
+                                    <template v-if="dataRange == '当日' ">
+                                        <el-tab-pane v-for="(item, index) in dayDate" :key="index" :label="item.label"
+                                            :name="item.name"> </el-tab-pane>
+                                    </template>
+                                    <template v-else>
+                                        <el-tab-pane v-for="(item, index) in monthDate" :key="index" :label="item.label"
+                                            :name="item.name"> </el-tab-pane>
+                                    </template>
+
+
+                                    <!--    <el-tab-pane label="物业公司" name="five"></el-tab-pane> -->
+                                </el-tabs>
+                            </div>
+                            <div>
+                                <img @click="getType(dataRange)" style="cursor: pointer" width="100%"
+                                    :src="dataRange == '当日' ? buttonDay : buttonMonth" alt="" />
+                                <!-- 查看{{dataRange}}点位漏检 -->
+                            </div>
+                        </div>
+
+                        <!--    <div class="patroLabel">
+                            <el-tabs v-model="activeType" @tab-click="handleClick">
+
+                                <el-tab-pane label="购物中心" name="one">
+                                </el-tab-pane>
+                                <el-tab-pane label="乐天百货" name="two">
+                                </el-tab-pane>
+                                <el-tab-pane label="写字楼" name="three"></el-tab-pane>
+                                <el-tab-pane label="海洋乐园" name="four"></el-tab-pane>
+                            </el-tabs>
+                        </div> -->
+
+                        <div class="patroLabel" style="height: 600px">
+                            <ul v-if="activeType=='one'">
+                                <li class="box_li" v-for="(item, index) in newlist" :key="index">
+                                    <div class="box_li_title_left">{{ item.pointName }}</div>
+                                    <div class="box_li_title_right">
+                                        <div style="height: 100%; width: 357px">
+                                            <div style="height: 50%; width: 357px; padding: 5px 5px">
+                                                <span>详细地址：{{ item.pointName }} </span>
+                                            </div>
+                                            <div style="height: 50%; width: 357px; padding: 5px 5px">
+                                                <span>巡查区域：环球中心购物中心</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="box_patroLbaelww">
+                                            <component :time="time" :pointName="item.pointName"
+                                                @getPatroLable="getPatroLable" :chlidList="item.datas"
+                                                :is="require('./patroLable.vue')" />
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="patroLabelnoDate" v-else>
+                                暂无数据...
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <!-- 这里是当日巡查点位详细点进去的 -->
             </div>
         </div>
     </div>
@@ -119,8 +195,7 @@ import XfIndicator from '../common/XfIndicator';
 import * as echarts from 'echarts';
 import patrolList from './patrolList';
 import patrolPointDetail from './patrolPointDetail';
-import earlymanageevents from './earlymang.vue'
-
+import earlymanageevents from './earlymang.vue';
 
 const mockChartBarData = [
     { timeslot: '01', normalTotal: 7, overtimeTotal: 5 }, //时间段 超时次数, 正常次数
@@ -154,13 +229,34 @@ export default {
         }
     },
     data: () => ({
-        time:'',
-        alarmRadio:'DAY',
-        readyAlarmType:1,
-        getRed:3,
-        getRedDate:'',
+        buttonDay: require('@/assets/patroLableImg/daybotton.png'),
+        buttonMonth: require('@/assets/patroLableImg/monthbotton.png'),
+        dayDate: [
+            { label: '购物中心', name: 'one' },
+            { label: '乐天百货', name: 'two' },
+            { label: '写字楼', name: 'three' },
+            { label: '海洋乐园', name: 'four' }
+        ],
+        monthDate: [
+            { label: '购物中心', name: 'one' },
+            { label: '乐天百货', name: 'two' },
+            { label: '物业公司', name: 'five' },
+            { label: '洗衣工厂', name: 'six' },
+            { label: '洲际酒店', name: 'seven' },
+            { label: '海洋乐园', name: 'four' },
+            { label: '能源', name: 'nigh' }
+        ],
+        showTitle: true,
+        showTitleWord: '',
+        time: '',
+        alarmRadio: 'DAY',
+        readyAlarmType: 1,
+        getRed: 3,
+        getRedDate: '',
         list: [],
+        newlist: [],
         activeName: 'first',
+        activeType: 'one',
         showAmep: false,
         statsData: {
             notOpportunelyFinish: 0,
@@ -229,34 +325,58 @@ export default {
 
     methods: {
 
-        getPatroLable(val) {
-            //从点位那边穿过来
-            console.log(val, '点位传过来');
-            if(val.zt==1){
-             this.currentLayerLevel=4
-             this.activePartolPointId= val ||  '7c232a48338c2ba2db25b3da0a1f2c63'
-            } 
-            
-            if(val.zt==2){
-               
-                if(this.nameTime){
-                    this.$emit('getPatroLable',val)
-                }else{
 
-                  //这里的数据是传给earlymanageevents.vue  
+        getDayDate(val) {
 
-                    this.currentLayerLevel=5 
-                    this.getRedDate=val
+            //当日漏检的点位 
+            let _self = this
+            // document.getElementById('lineChart3').innerHTML = '';
+            _self._http({
+                //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
+                url: '/api/web/indexCountV3/listPointCheckStatus',
+                data: { timeName: val },
+                //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
+                type: 'get',
+
+                success: function (res) {
+                    _self.newlist = res.data;
+                    console.dir(res);
                 }
+            });
 
-              
-            }
-         
-          
-            
 
         },
 
+
+
+
+
+
+        getType() {
+            //当日漏检
+            this.currentLayerLevel = 1;
+            this.showTitle = true;
+        },
+
+        getPatroLable(val) {
+            //从点位那边穿过来
+            console.log(val, '点位传过来');
+            if (val.zt == 1) {
+                this.currentLayerLevel = 4;
+                this.activePartolPointId = val || '7c232a48338c2ba2db25b3da0a1f2c63';
+            }
+
+            if (val.zt == 2) {
+                if (this.nameTime) {
+                    this.$emit('getPatroLable', val);
+                } else {
+                    //这里的数据是传给earlymanageevents.vue
+
+                    this.currentLayerLevel = 5;
+                    this.getRedDate = val;
+                }
+            }
+        },
 
         getNewPage() {
             //传给父组件的
@@ -273,7 +393,7 @@ export default {
                 time = _self.getDate();
             }
 
-            _self.time= time
+            _self.time = time;
             // 清空id的innerHTML
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
@@ -318,11 +438,14 @@ export default {
             this.activePartolPointId = partolItem;
             this.currentLayerLevel = 3;
         },
-        intoLayer4(val){
+        intoLayer4(val) {
             console.log(val);
             this.currentLayerLevel = 1;
         },
-        intoLayer5(){
+        intoLayer5() {
+            this.currentLayerLevel = 1;
+        },
+        intoLayer6() {
             this.currentLayerLevel = 1;
         },
         loadStatsData() {
@@ -365,8 +488,8 @@ export default {
                         label: {
                             normal: {
                                 show: true,
-                              
-                                formatter: '  {ng|{b} {c}   }',
+
+                                formatter: '  {ng|{b} {c}次   }',
                                 //标识内容；若要设置标识内容的样式，则需要像这样设置一个变量per或者ng，在rich配置项里去设置这2个变量的样式，则会改变对应标识内容的样式
                                 rich: {
                                     //设置标识内容样式
@@ -414,25 +537,35 @@ export default {
                 _self.DAYdrawLeftLineList.everyHour = [];
                 _self.DAYdrawLeftLineList.number = [];
                 /*    _self.MONTHdrawLeftLineList.everyDay = [];
-_self.MONTHdrawLeftLineList.number = []; */
+                  _self.MONTHdrawLeftLineList.number = []; */
+
+                /* _self.DAYdrawLeftLineList.everyHour = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                _self.DAYdrawLeftLineList.number = [10, 20, 40, 50, 20, 60, 50, 40, 20, 60];
+                return; */
 
                 _self._http({
-                    url: '/api/web/indexCountV3/countPatrolMinute',
+                    //   url:     '/api/web/indexCountV3/countPatrolMinute',
+                    url: '/api/web/indexCountV3/dayPointLeakNum',
                     type: 'get',
                     isBody: true,
                     data: {
-                        timeType: 'DAY',
-                        over: _self.overLevel
+                        /*   timeType: 'DAY',
+                          over: _self.overLevel */
+                        timeName: _self.getDate()
                     },
                     success: function (res) {
                         res.data = res.data || [];
 
-                        _self.DAYdrawLeftLineList.every = res.data[0].timeName.substring(0, 10);
+                        //   _self.DAYdrawLeftLineList.every = res.data[0].timeName.substring(0, 10);
                         res.data.forEach((item) => {
-                            _self.DAYdrawLeftLineList.everyHour.push(item.timeName.substring(11, 13));
-                            _self.DAYdrawLeftLineList.number.push(item.average);
+                            /*  10月 11 日  _self.DAYdrawLeftLineList.everyHour.push(item.timeName.substring(11, 13));
+                              _self.DAYdrawLeftLineList.number.push(item.average); */
+
+                            _self.DAYdrawLeftLineList.everyHour.push(item.pointName)
+                            _self.DAYdrawLeftLineList.number.push(item.leakNum);
+
                             /*    _self.DAYdrawLeftLineList.everyHour.push(item.everyHour.substring(11, 13));
-_self.DAYdrawLeftLineList.number.push(item.number); */
+                               _self.DAYdrawLeftLineList.number.push(item.number); */
                         });
 
                         _self.drawLeftLine();
@@ -440,25 +573,30 @@ _self.DAYdrawLeftLineList.number.push(item.number); */
                     }
                 });
             } else {
+
                 _self.MONTHdrawLeftLineList.everyDay = [];
                 _self.MONTHdrawLeftLineList.number = [];
                 _self._http({
-                    url: '/api/web/indexCountV3/countPatrolMinute',
+                    //     url: '/api/web/indexCountV3/countPatrolMinute',
+                    url: '/api/web/indexCountV3/dayLeakNum',
                     type: 'get',
                     isBody: true,
                     data: {
-                        timeType: 'MONTH',
-                        over: _self.overLevel
+                        /*   timeType: 'MONTH',
+                          over: _self.overLevel */
+                        timeRange: 'MONTH'
                     },
                     success: function (res) {
                         console.dir(res);
                         res.data = res.data || [];
 
-                        _self.MONTHdrawLeftLineList.every = res.data[0].timeName.substring(0, 5);
+                        // _self.MONTHdrawLeftLineList.every = res.data[0].timeName.substring(0, 5);
 
                         res.data.forEach((item) => {
-                            _self.MONTHdrawLeftLineList.everyDay.push(item.timeName.substring(5, 10));
-                            _self.MONTHdrawLeftLineList.number.push(item.average);
+                            /*  _self.MONTHdrawLeftLineList.everyDay.push(item.timeName.substring(5, 10));
+                             _self.MONTHdrawLeftLineList.number.push(item.average); */
+                            _self.MONTHdrawLeftLineList.everyDay.push(item.timeName);
+                            _self.MONTHdrawLeftLineList.number.push(item.leakNum);
                             /*   _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
 _self.MONTHdrawLeftLineList.number.push(item.number); */
                         });
@@ -480,7 +618,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
 
             option = {
                 title: {
-                    text: text1,
+                    text: '',
                     textStyle: {
                         color: 'rgb(255,255,255)',
                         fontWeight: 'bolder',
@@ -490,7 +628,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                 tooltip: {
                     trigger: 'axis',
                     /*  formatter: '时段：{b0}<br />' + text2 + '：{c0} 次', */
-                    formatter: `时段： ${_self.DAYdrawLeftLineList.every}   {b0}<br />` + text2 + '：{c0} 分钟'
+                    formatter: `巡查点位: ${_self.DAYdrawLeftLineList.every}   {b0}<br />` + '漏检次数' + '：{c0} 次'
                 },
                 /*   legend: {
                     data: [text2],
@@ -517,6 +655,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                     },
                     axisLabel: {
                         show: true,
+                        interval: 0,
                         textStyle: {
                             color: '#C9CED5'
                         }
@@ -561,7 +700,8 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                         data: _self.DAYdrawLeftLineList.number, //[2, 6, 3, 0, 0, 2, 1, 0, 0, 3, 0, 7]
                         // barMaxWidth: 10,
                         smooth: true,
-                        type: 'line',
+                        type: 'bar',
+                        barWidth: 24,
                         smoothMonotone: 'x',
                         areaStyle: {
                             normal: {
@@ -583,7 +723,16 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
 
             if (option && typeof option === 'object') {
                 quxianChart.setOption(option);
+                quxianChart.on('click', (d) => {
+                    _self.currentLayerLevel = 6;
+                    _self.showTitle = false;
+                    _self.showTitleWord = d.name;
+                    _self.newlist = _self.list
+                    console.log(d);
+                });
             }
+
+
         },
         //当月时段报警处置
         drawdangyeCharts() {
@@ -592,12 +741,12 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
             let option = null;
             let _self = this;
 
-            let text1 = _self.overLevel == true ? '当月平均处置时效' : '当月平均处置时效';
+            let text1 = _self.overLevel == true ? '当月点位漏检次数' : '当月点位漏检次数';
             let text2 = _self.overLevel == true ? '平均处置时效' : '平均处置时效';
 
             option = {
                 title: {
-                    text: text1,
+                    text: '',
                     textStyle: {
                         color: 'rgb(255,255,255)',
                         fontWeight: 'bolder',
@@ -606,7 +755,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                 },
                 tooltip: {
                     trigger: 'axis',
-                    formatter: `时段:${_self.MONTHdrawLeftLineList.every}{b0}<br />` + text2 + '：{c0} 分钟'
+                    formatter: `巡查日期:${_self.MONTHdrawLeftLineList.every}{b0}<br />` + '漏检次数' + '：{c0}次'
                     //formatter: '时段：{b0}<br />' + text2 + '：{c0} 分钟'
                 },
                 /*    legend: {
@@ -626,7 +775,8 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                 color: ['#25A6FF', '#E7745B'],
                 xAxis: {
                     type: 'category',
-                    data: _self.MONTHdrawLeftLineList.everyDay, //['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+                    data: _self.MONTHdrawLeftLineList.everyDay, //
+
                     axisLine: {
                         show: true,
                         lineStyle: {
@@ -635,9 +785,12 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                     },
                     axisLabel: {
                         show: true,
-                        rotate: 60,
+                        //    rotate: 60,
                         textStyle: {
                             color: '#C9CED5'
+                        },
+                        formatter: function (param) {
+                            return param.substring(8, 10) + '日'
                         }
                     },
                     splitLine: {
@@ -702,6 +855,14 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
 
             if (option && typeof option === 'object') {
                 drawLine2.setOption(option);
+
+                drawLine2.on('click', (d) => {
+                    _self.currentLayerLevel = 6;
+                    _self.showTitle = false;
+                    _self.showTitleWord = d.name;
+                    _self.getDayDate(d.name)
+                    console.log(d);
+                });
             }
         }
     }
@@ -800,9 +961,46 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
     color: #fff;
 }
 
-.stats-layer-container_early{
-
+.stats-layer-container_early {
     height: 650px;
     background: linear-gradient(to right bottom, rgb(25, 38, 64), rgb(33, 61, 96)) !important;
+}
+
+.stats-layer-container_six {
+    padding: 24px;
+}
+
+.patrol-stats-charts-content_box_six {
+    /deep/ .is-top {
+        color: rgb(125, 121, 121) !important;
+    }
+}
+
+.stats-layer-container_boxsix {
+    height: 702px;
+    background: linear-gradient(to right bottom, rgb(25, 38, 64), rgb(33, 61, 96)) !important;
+}
+
+.diaHeadStandardCcolor {
+    font-family: Alibaba PuHuiTi 2-95 ExtraBold, Alibaba PuHuiTi 20;
+    font-weight: normal;
+    background: linear-gradient(180deg, #ffffff 0%, #48e5e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.patroLabelnoDate {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+    font-family: Alibaba PuHuiTi 2-95 ExtraBold, Alibaba PuHuiTi 20;
+    font-weight: normal;
+    background: linear-gradient(180deg, #ffffff 0%, #48e5e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
 }
 </style>
