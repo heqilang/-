@@ -39,7 +39,7 @@
 <script>
 export default {
     name: 'patroLable',
-    props: ['chlidList'],
+    props: ['chlidList','pointName','time'],
     data() {
         return {
             list: [
@@ -49,22 +49,22 @@ export default {
     },
     mounted() {
         console.dir(this.chlidList);
+        let that=this
         this.list = this.chlidList.map((item, index) => {
-
             let time = ["02:00:00", "04:00:00", "06:00:00", "08:00:00", "10:00:00", "12:00:00", "14:00:00", "16:00:00", "18:00:00", "20:00:00", "22:00:00", "23:59:59"]
-
             return {
-                id: index,
-                name: '审核',
+                id:item.id,
+                name: item.inspectPerson,
                 zt: item.status, //等于1 正常色 等于2 灰色 等于三 红的
                 show: 0,
                 inspectPerson: item.inspectPerson,
                 beginTime: item.beginTime,
-
+                pointName:that.pointName,
                 status: item.status == 1 ? '正常巡查' : item.status == 2 ? '未巡查' : '未开始巡查',
                 img: item.status == 1 ? require('../../../../../assets/patroLableImg/green.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red.png') : require('../../../../../assets/patroLableImg/grey.png'),
                 hoverImg: item.status == 1 ? require('../../../../../assets/patroLableImg/green_1.png') : item.status == 2 ? require('../../../../../assets/patroLableImg/red_1.png') : require('../../../../../assets/patroLableImg/grey_1.png'),
-                endTime: time[index]
+                endTime: that.time +' '+ time[index],
+                sendTime:item.sendTime || that.time +' '+ time[index],
             };
         });
     },
@@ -145,6 +145,7 @@ export default {
 
 .step_pass .step-num:after {
     background-color: #56b754;
+    
 }
 
 .step-sub {
@@ -178,7 +179,7 @@ export default {
 
 .step-content:after {
     content: '';
-    width: 39%;
+    width: 40%;
     height: 5px;
     background-color: #5c88a7;
     position: absolute;
@@ -188,6 +189,7 @@ export default {
 
 .step_pass .step-num:after {
     background-color: #56b754;
+  ;
 }
 
 .step_pass .step-content:after {
@@ -195,7 +197,17 @@ export default {
 }
 
 .step_active .step-content:after {
-    background-color: #e55050;
+    //这里是红色圆点后的那条线
+   // background-color: #e55050;
+   //现在改成绿色 
+   background-color: #56b754;
+   
+}
+.step_active img{
+    cursor:pointer;
+} 
+.step_pass img{
+    cursor:pointer;
 }
 
 

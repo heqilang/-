@@ -9,7 +9,8 @@ export default {
     props: ['charRadio'],
     data() {
         return {
-            checkData: []
+            checkData: [],
+            chartNew:''
         };
     },
 
@@ -93,6 +94,8 @@ export default {
                         }
                     },
 
+                    extraCssText:'z-index: 2;',
+
                     trigger: 'axis',
                     backgroundColor: '#1F7093', //设置背景颜色
                     color: '#fff',
@@ -109,20 +112,32 @@ export default {
                         return s;
                     }
                 },
-
+                color:['#2BADFF'],
                 legend: {
                     icon: 'circle',
                     orient: 'rect',
                     selectedMode: false,
                     x: 'right', //可设定图例在左、右、居中
                     padding: [20, 50, 0, 0], //可设定图例[距上方距离，距右方距离，距下方距离，距左方距离]
+                   itemWidth: 14,//图标宽
+                    itemHeight: 12,//图标高
+                     itemGap: 10,//间距 
+
                     data: ['综合评分'],
                     textStyle: {
                         fontSize: '12px',
                         fontFamily: 'PingFang SC',
                         fontWeight: 400,
-                        color: '#fff'
-                    }
+                        color: '#fff',
+                        rich: {
+                            a: {
+                            verticalAlign: 'middle',
+                           },
+                         },
+            lineHeight: 12,
+             padding:[0,10,-4,5],
+                    },
+                  
                 },
 
                 xAxis: {
@@ -209,9 +224,12 @@ interval: 20 */
 
                         data: _yData,
                         type: 'line',
+                       /*  symbolSize:5, */
+                     //   symbol:'circle',
+                     symbolSize:5,
                       //  smooth: true, //面积图改成弧形状
                   //   showSymbol: false, //去除面积图节点圆
-                        showSymbol: true,//是否默认展示圆点
+                       showSymbol: true,//是否默认展示圆点
                         // symbol: 'circle',     //设定为实心点
                         //  symbolSize: 5,   //设定实心点的大小 */
 
@@ -233,6 +251,7 @@ interval: 20 */
 
                         lineStyle: {
                             // 设置线条的style等
+                         
                             normal: {
                                 color: '#2BADFF' ,//折线线条颜色:
                                 width: 3, // 描边的线宽// 
@@ -240,11 +259,14 @@ interval: 20 */
                         },
                         itemStyle: {
                             // 设置线条上点的颜色（和图例的颜色）
+                     
                             normal: {
-                              //  color: '#2BADFF' ,// 折线线条颜色:
-                                color: '#2BADFF', //拐点颜色
+                              color: '#2BADFF' ,// 折线线条颜色:
+                              //  color: '#1E3453FF', //拐点颜色
                                 borderColor: '#2BADFF', //拐点边框颜色
-                                borderWidth: 3 //拐点边框大小
+                                borderWidth: 2 //拐点边框大小
+                         
+                             
                             }
                         },
                         areaStyle: {
@@ -265,6 +287,17 @@ interval: 20 */
                 ]
             };
             option && myChart.setOption(option);
+
+            setTimeout(() => {
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0, // 针对series下第几个数据
+                    dataIndex: _yData.length - 1 // 第几个数据
+                });
+            }, 500); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
+            console.log('pxpxpx1', option);
+            this.chartNew = myChart;
+
         },
         getMin() {
             let _self = this;
@@ -349,7 +382,7 @@ interval: 20 */
                             width: 2
                         }
                     },
-
+                    extraCssText:'z-index: 2;',
                     backgroundColor: '#1F7093', //设置背景颜色
                     color: '#fff',
                     borderWidth: '0', //边框宽度设置1
@@ -379,8 +412,15 @@ interval: 20 */
                         fontSize: '12px',
                         fontFamily: 'PingFang SC',
                         fontWeight: 400,
-                        color: '#fff'
-                    }
+                        color: '#fff',
+                        rich: {
+                            a: {
+                            verticalAlign: 'middle',
+                           },
+                         },
+            lineHeight: 12,
+            padding:[0,4,-4,-2],
+                    },
                 },
 
                 xAxis: {
@@ -443,7 +483,7 @@ interval: 20 */
                 series: [
                     {
                         name: '当月',
-
+                        symbolSize:5,
                         data: _yData,
                         type: 'line',
                      //   smooth: true, //面积图改成弧形状
@@ -497,6 +537,7 @@ interval: 20 */
 
                         data: _yData_1,
                         type: 'line',
+                        symbolSize:5,
                       //  smooth: true, //面积图改成弧形状
                      //   showSymbol: false, //去除面积图节点圆
                         lineStyle: {
@@ -531,6 +572,18 @@ interval: 20 */
                 ]
             };
             option && myChart.setOption(option);
+           
+            setTimeout(() => {
+                console.log('执行了吗');
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0, // 针对series下第几个数据
+                    dataIndex: new Date().getDate() - 2  // 第几个数据
+                });
+            }, 500); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
+            console.log('pxpxpx1', option);
+           
+
         },
 
         getYear() {
@@ -586,7 +639,7 @@ interval: 20 */
                 },
                 tooltip: {
                     trigger: 'axis',
-
+                    extraCssText:'z-index: 2;',
                     backgroundColor: '#1F7093', //设置背景颜色
                     color: '#fff',
 
@@ -625,8 +678,15 @@ interval: 20 */
                         fontSize: '12px',
                         fontFamily: 'PingFang SC',
                         fontWeight: 400,
-                        color: '#fff'
-                    }
+                        color: '#fff',
+                        rich: {
+                            a: {
+                            verticalAlign: 'middle',
+                           },
+                         },
+            lineHeight: 12,
+             padding:[0,4,-4,-2],
+                    },
                 },
 
                 xAxis: {
@@ -689,7 +749,7 @@ interval: 20 */
                 series: [
                     {
                         name: '当年',
-
+                        symbolSize:5,
                         data: _yData,
                         type: 'line',
                      //   smooth: true, //面积图改成弧形状
@@ -738,7 +798,7 @@ interval: 20 */
                     },
                     {
                         name: '上一年',
-
+                      symbolSize:5,
                         data: _yData_1,
                         type: 'line',
                        //    smooth: true, //面积图改成弧形状
@@ -774,12 +834,28 @@ interval: 20 */
                 ]
             };
             option && myChart.setOption(option);
+
+            setTimeout(() => {
+                console.log('执行了吗', new Date().getMonth());
+
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0, // 针对series下第几个数据
+                    dataIndex: new Date().getMonth() - 1 // 第几个数据
+                });
+            }, 500);
+
         }
     },
     created() {
         this.getMin();
     },
-    mounted() {}
+    mounted() {},
+    beforeDestory() {
+        if (!this.chartNew) return; //页面销毁钩子销毁chart释放资源
+        this.chartNew.dispose();
+        this.chartNew = null;
+    }
 };
 </script>
 

@@ -4,9 +4,9 @@
 
 <template>
     <div>
-        <div class="diaHeadStandardC"
+        <div     class="diaHeadStandardC"
             style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
-            {{ nameTime ? nameTime : title }}
+            {{ nameTime ? nameTime : currentLayerLevel === 5?"管理类事件预警":  title }}
 
             <div style="height: 20px; display: flex; justify-content: space-between" class="clhangImg">
                 <i class="el-icon-circle-close" @click="$emit('closeRiskStats')"
@@ -70,7 +70,7 @@
                                             </div>
 
                                             <div class="box_patroLbaelww">
-                                                <component @getPatroLable="getPatroLable" :chlidList="item.datas"
+                                                <component  :time="time"    :pointName="item.pointName"    @getPatroLable="getPatroLable" :chlidList="item.datas"
                                                     :is="require('./patroLable.vue')" />
                                             </div>
                                         </div>
@@ -95,11 +95,20 @@
                         << </a>
                             <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
                 </div>
+                <!-- 这里是(绿颜色圈圈) 正常巡查点位详细点进去的 -->
                 <div class="stats-layer-container" v-if="currentLayerLevel === 4">
                     <a class="return-upper-level-btn" v-on:click="intoLayer4(activePatrolStatus)">
                         << </a>
                             <patrolPointDetail v-if="currentLayerLevel === 4" :patrolPointId="activePartolPointId" />
                 </div>
+                 <!-- 这里是正常巡查点位详细点进去的 -->
+                    <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
+                 <div class="stats-layer-container stats-layer-container_early  " v-if="currentLayerLevel === 5">
+                    <a class="return-upper-level-btn" v-on:click="intoLayer5(activePatrolStatus)">
+                        << </a>
+                            <earlymanageevents   :getRedDate="getRedDate"     :getRed="getRed"    :readyAlarmType="readyAlarmType"    :alarmRadiofu="alarmRadio"      v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId" />
+                </div>
+                  <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
             </div>
         </div>
     </div>
@@ -110,6 +119,8 @@ import XfIndicator from '../common/XfIndicator';
 import * as echarts from 'echarts';
 import patrolList from './patrolList';
 import patrolPointDetail from './patrolPointDetail';
+import earlymanageevents from './earlymang.vue'
+
 
 const mockChartBarData = [
     { timeslot: '01', normalTotal: 7, overtimeTotal: 5 }, //时间段 超时次数, 正常次数
@@ -127,7 +138,8 @@ export default {
     components: {
         XfIndicator,
         patrolList,
-        patrolPointDetail
+        patrolPointDetail,
+        earlymanageevents
     },
     props: {
         dataRange: {
@@ -142,6 +154,11 @@ export default {
         }
     },
     data: () => ({
+        time:'',
+        alarmRadio:'DAY',
+        readyAlarmType:1,
+        getRed:3,
+        getRedDate:'',
         list: [],
         activeName: 'first',
         showAmep: false,
@@ -174,7 +191,7 @@ export default {
                 //todo 陈磊20220902 新增的图表 , 目前的数据是mockChartBarData  后续需要对接接口
                 this.drawBarChart('patrol-stats-chart1', [
                     { name: '正常巡查次数', value: newVal.opportunelyFinish },
-                    { name: '逾期未巡查次数', value: newVal.notOpportunelyFinish }
+                    { name: '漏检次数', value: newVal.notOpportunelyFinish }
                 ]);
                 if (this.dataRange == '当日') {
                     this.drawLeftLine();
@@ -197,7 +214,7 @@ export default {
                     if (newVal !== oldVal && newVal === 1) {
                         this.drawBarChart('patrol-stats-chart1', [
                             { name: '正常巡查次数', value: this.statsData.opportunelyFinish },
-                            { name: '逾期未巡查次数', value: this.statsData.notOpportunelyFinish }
+                            { name: '漏检次数', value: this.statsData.notOpportunelyFinish }
                         ]);
                         if (this.dataRange == '当日') {
                             this.drawLeftLine();
@@ -215,13 +232,26 @@ export default {
         getPatroLable(val) {
             //从点位那边穿过来
             console.log(val, '点位传过来');
-
             if(val.zt==1){
              this.currentLayerLevel=4
-             this.activePartolPointId='7c232a48338c2ba2db25b3da0a1f2c63'
-            }else{
-                this.$emit('getPatroLable',val)
+             this.activePartolPointId= val ||  '7c232a48338c2ba2db25b3da0a1f2c63'
+            } 
+            
+            if(val.zt==2){
+               
+                if(this.nameTime){
+                    this.$emit('getPatroLable',val)
+                }else{
+
+                  //这里的数据是传给earlymanageevents.vue  
+
+                    this.currentLayerLevel=5 
+                    this.getRedDate=val
+                }
+
+              
             }
+         
           
             
 
@@ -243,6 +273,7 @@ export default {
                 time = _self.getDate();
             }
 
+            _self.time= time
             // 清空id的innerHTML
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
@@ -291,6 +322,9 @@ export default {
             console.log(val);
             this.currentLayerLevel = 1;
         },
+        intoLayer5(){
+            this.currentLayerLevel = 1;
+        },
         loadStatsData() {
             const that = this;
             that._http({
@@ -331,7 +365,8 @@ export default {
                         label: {
                             normal: {
                                 show: true,
-                                formatter: '  {ng|{b}    }',
+                              
+                                formatter: '  {ng|{b} {c}   }',
                                 //标识内容；若要设置标识内容的样式，则需要像这样设置一个变量per或者ng，在rich配置项里去设置这2个变量的样式，则会改变对应标识内容的样式
                                 rich: {
                                     //设置标识内容样式
@@ -763,5 +798,11 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
 .patrol-stats-charts-content_box .el-button--text {
     border-color: rgb(54, 75, 106);
     color: #fff;
+}
+
+.stats-layer-container_early{
+
+    height: 650px;
+    background: linear-gradient(to right bottom, rgb(25, 38, 64), rgb(33, 61, 96)) !important;
 }
 </style>
