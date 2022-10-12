@@ -9,8 +9,7 @@
             
                 
             </div> -->
-            <div class="classReadyDialog_box_bottom"
-                style="background: linear-gradient(to right bottom, #192640, #213d60) !important; padding: 30px">
+            <div class="classReadyDialog_box_bottom" style="background: linear-gradient(to right bottom, #192640, #213d60) !important; padding: 30px">
                 <div>
                     <div style="display: flex">
                         <div>预警时间：</div>
@@ -24,8 +23,7 @@
                 <div class="box2">流程追溯</div>
                 <el-scrollbar v-if="sourcelist.length > 0" style="height: 100%; width: 90%">
                     <el-timeline style="margin-top: 20px">
-                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate"
-                            placement="top">
+                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
                             <el-card style="font-size: 14px">
                                 <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
                                 <p v-else-if="(item.dealName || '') != ''">
@@ -35,8 +33,8 @@
                                 <p v-else-if="(item.pushUserName || '') != ''">
                                     <span style="display: block">{{ item.orgPushDesc }}</span>
                                     <span style="display: flex; justify-content: space-between">
-                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span><span>{{
-                                        item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
+                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
+                                        ><span>{{ item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
                                     </span>
                                 </p>
                             </el-card>
@@ -68,18 +66,16 @@ export default {
     },
 
     mounted() {
-        this.getPatroLable(this.getRedDate)
+        this.getPatroLable(this.getRedDate);
     },
     methods: {
-
         getPatroLable(val) {
-
             console.log(val, '问');
 
-            this.showLeavel = 3
+            this.showLeavel = 3;
             this.alarmanalysis6_params = {
                 sendTime: val.sendTime,
-                unitName: val.unitName || val.pointName,
+                unitName: val.unitName || val.pointName
                 // waringRecordId: "334110422576816128"
             };
             // this.getMessageList(row);
@@ -94,20 +90,16 @@ export default {
                 url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
                 type: 'get',
                 isBody: true,
-                data: { waringId: val.waringRecordId || val.id },//_self.alarmanalysis6_params ? val.waringRecordId :
+                data: { waringId: val.waringRecordId || val.id }, //_self.alarmanalysis6_params ? val.waringRecordId :
                 success: function (res) {
-                    _self.loading = false
-
+                    _self.loading = false;
 
                     _self.sourcelist = res.data.data || [];
-
                 }
             });
         }
     },
-    computed: {},
-
-
+    computed: {}
 };
 </script>
 <style lang="scss">
@@ -175,7 +167,7 @@ export default {
         border: none !important;
     }
 
-    .el-radio-group .is-active .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+    .el-radio-group .is-active .el-radio-button__orig-radio:checked + .el-radio-button__inner {
         background-color: #3869a4 !important;
         border-color: #3869a4 !important;
     }

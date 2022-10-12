@@ -3,8 +3,8 @@
         <div v-show="showLeavel == 1" class="firstLevel">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类')
-                    }}</span>事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警列表
                     <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a>
                 </span>
             </div>
@@ -26,8 +26,7 @@
                                         <div style="display: flex; justify-content: space-around">
                                             <p>{{ alarmRadio === 'DAY' ? '当日' : '当月' }}已处置数</p>
                                             <p>
-                                                <span style="color: #a0d1fa; margin-left: 25px">{{
-                                                firstPageData1.managesOver || 0 }}</span> 个
+                                                <span style="color: #a0d1fa; margin-left: 25px">{{ firstPageData1.managesOver || 0 }}</span> 个
                                             </p>
                                         </div>
                                     </div>
@@ -72,12 +71,9 @@
                         </el-tabs>
                     </div>
                     <el-table class="xf-table" :data="dataTable" height="340">
-                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod">
-                        </el-table-column>
-                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
-                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
                                 <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
@@ -95,8 +91,7 @@
 
                         <el-table-column prop="state" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' :
-                                scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -104,15 +99,13 @@
                         <el-table-column prop="times" label="操作" width="80" align="center">
                             <template slot-scope="scope">
                                 <!-- <i class="el-icon-edit fs-16"></i>  -->
-                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看
-                                </el-button>
+                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList">
-                        </customPagination>
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                         <div v-else style="height: 32px"></div>
                     </div>
                 </el-col>
@@ -122,8 +115,8 @@
         <div v-if="showLeavel == 2" class="seacondLeavel" style="background-color: #2b4b6b; color: #fff">
             <div class="diaHeadStandardC classReadyDialogTitle">
                 <span style="cursor: pointer">
-                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类')
-                    }}</span>事件预警列表
+                    <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警列表
                     <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
                 </span>
                 <span @click="showLeavel = 1" style="float: right; margin-right: 20px; cursor: pointer">
@@ -146,12 +139,9 @@
                         </el-tabs>
                     </div>
                     <el-table height="340" class="xf-table" :data="dataTable">
-                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod">
-                        </el-table-column>
-                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
-                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true">
-                        </el-table-column>
+                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                        <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
                             <template slot-scope="scope">
                                 <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
@@ -168,8 +158,7 @@
                         <el-table-column prop="unitName" label="预警位置" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="state" label="处置状态" width="120">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' :
-                                scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
+                                <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                 <div v-else>--</div>
                             </template>
                         </el-table-column>
@@ -177,15 +166,13 @@
                         <el-table-column prop="times" label="操作" width="80" align="center">
                             <template slot-scope="scope">
                                 <!-- <i class="el-icon-edit fs-16"></i>  -->
-                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看
-                                </el-button>
+                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList">
-                        </customPagination>
+                        <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                         <div v-else style="height: 32px"></div>
                     </div>
                 </el-col>
@@ -197,7 +184,8 @@
                 <span style="cursor: pointer">
                     <!--   <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
                     >事件预警列表 -->
-                    <span>{{ activeName == 'first' ? '突发类' : '管理类' }}</span>事件预警
+                    <span>{{ activeName == 'first' ? '突发类' : '管理类' }}</span
+                    >事件预警
                 </span>
                 <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
                 <span @click="changeTpage" style="float: right; margin-right: 20px; cursor: pointer">
@@ -218,8 +206,7 @@
                 <div class="box2">流程追溯</div>
                 <el-scrollbar v-if="sourcelist.length > 0" style="height: 100%; width: 90%">
                     <el-timeline style="margin-top: 20px">
-                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate"
-                            placement="top">
+                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
                             <el-card style="font-size: 14px">
                                 <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
                                 <p v-else-if="(item.dealName || '') != ''">
@@ -229,8 +216,8 @@
                                 <p v-else-if="(item.pushUserName || '') != ''">
                                     <span style="display: block">{{ item.orgPushDesc }}</span>
                                     <span style="display: flex; justify-content: space-between">
-                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span><span>{{
-                                        item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
+                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
+                                        ><span>{{ item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
                                     </span>
                                 </p>
                             </el-card>
@@ -242,8 +229,7 @@
         </div>
 
         <div v-if="showLeavel == 4">
-            <patrolstats @getPatroLable="getPatroLable" :nameTime="nameTime" @closeRiskStats="closeDialog"
-                @getNewPage="getNewPages" :datatype="'预警情况'" :dataRange="'当日'" />
+            <patrolstats @getPatroLable="getPatroLable" :nameTime="nameTime" @closeRiskStats="closeDialog" @getNewPage="getNewPages" :datatype="'预警情况'" :dataRange="'当日'" />
         </div>
     </div>
 </template>
@@ -313,7 +299,7 @@ export default {
             this.oldDate = oldDate;
         }
     },
-    created() { },
+    created() {},
     filters: {
         equipmentStateType(val) {
             if (val == '1') return '正常';
@@ -1219,8 +1205,6 @@ _self.drawLineChart3(); */
             let _self = this;
             _self.sourcelist = [];
 
-
-
             _self._http({
                 url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
                 type: 'get',
@@ -1358,7 +1342,7 @@ _self.drawLineChart3(); */
         border: none !important;
     }
 
-    .el-radio-group .is-active .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+    .el-radio-group .is-active .el-radio-button__orig-radio:checked + .el-radio-button__inner {
         background-color: #3869a4 !important;
         border-color: #3869a4 !important;
     }

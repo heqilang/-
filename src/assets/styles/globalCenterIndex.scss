@@ -508,9 +508,11 @@
             .cardItemS {
                 // background-color: red;
                 height: calc(100% - 0.1rem);
-              //  background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
-                background: linear-gradient(180deg, #19253E 0%, #223E61 100%);
-              //  box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
+                //  background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
+                background: linear-gradient(180deg, #19253e 0%, #223e61 100%);
+                //  background: linear-gradient(270deg, rgba(32,58,88,0) 0%, #28589F 100%);
+                // background:  linear-gradient(270deg, rgba(32,58,88,0) 0%, #28589F 100%);
+                //  box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
                 border-radius: 8px 8px 8px 8px;
                 .cardTit {
                     height: 0.39rem;
@@ -523,6 +525,7 @@
                     border-radius: 8px 8px 0px 0px;
                     margin-bottom: 2px;
                     position: relative;
+                    opacity: 1;
                     .navIconC {
                         position: absolute;
                         height: 0.3rem;
@@ -699,16 +702,19 @@
     border-radius: 8px;
     overflow: hidden;
     // background: linear-gradient(180deg, #1b2944 0%, #213b57 100%);
-  //  box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
- 
- //   background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
- //   background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
- background: linear-gradient(180deg, #19253E 0%, #223E61 100%)!important;
+    //  box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
+
+    //   background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
+    //   background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
+    // 10月12 好改    background: linear-gradient(180deg, #19253E 0%, #223E61 100%)!important;
+    background: linear-gradient(180deg, #19253e 0%, #223e61 100%) !important;
+
     // box-shadow: inset 0px 0px 30px 0px rgba(37 166 255 / 50%);
 }
 .dataMainCountBottom .cardItemB .cardTit {
-  //  z-index: 99;
+    //  z-index: 99;
     opacity: 1;
+    // 10月12好改 background: linear-gradient(90deg, rgba(0, 95, 201, 0.5) 0%, rgba(0, 95, 201, 0) 100%) !important;
     background: linear-gradient(90deg, rgba(0, 95, 201, 0.5) 0%, rgba(0, 95, 201, 0) 100%) !important;
 }
 .cardItem_box {
@@ -726,15 +732,16 @@
 }
 
 .dataMainCount_top {
-   // box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
- //   background: linear-gradient(180deg, #172840 100%, #203f65 0%)!important;
+    // box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
+    //   background: linear-gradient(180deg, #172840 100%, #203f65 0%)!important;
     .cardTit {
         background: linear-gradient(90deg, rgba(0, 95, 201, 0.5) 0%, rgba(0, 95, 201, 0) 100%) !important;
     }
 }
 .globalCenterIndexCon .mainClas .midConb .dataMainCount_top {
     height: 1.6rem;
-    background: linear-gradient(180deg, #19253E 0%, #223E61 100%)!important;
+    // background: linear-gradient(180deg, #19253E 0%, #223E61 100%)!important;
+    background: linear-gradient(360deg, rgba(23, 71, 126, 0) 0%, #28589f 100%);
     border-radius: 8px 8px 8px 8px;
     padding-bottom: 20px;
 }

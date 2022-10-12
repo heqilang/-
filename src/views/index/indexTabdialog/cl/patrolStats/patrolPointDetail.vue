@@ -102,7 +102,7 @@ export default {
     created() {},
     mounted() {
         let that = this;
-        console.log("有没有值",that.patrolPointId);
+        console.log('有没有值', that.patrolPointId);
         that.getfindMessages(that.patrolPointId);
         // this.patrolPointData = mockData;
     },
