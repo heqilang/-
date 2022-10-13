@@ -169,28 +169,28 @@ export default {
                     type: 'value',
 
                     /*      min: 0,
-                         max: 2000,
-                         splitNumber: 5, */
+                             max: 2000,
+                             splitNumber: 5, */
 
                     axisLabel: {
                         formatter: '{value}',
                         type: 'log',
 
                         /*     formatter: (v, i) => {
-                                let item = '';
-                                if (i === 0) {
-                                    item = '0';
-                                } else if (i == 1) {
-                                    item = '50';
-                                } else if (i == 2) {
-                                    item = '300';
-                                } else if (i == 3) {
-                                    item = '900';
-                                } else if (i == 4) {
-                                    item = '2100';
-                                }
-                                return item;
-                            }, */
+                                    let item = '';
+                                    if (i === 0) {
+                                        item = '0';
+                                    } else if (i == 1) {
+                                        item = '50';
+                                    } else if (i == 2) {
+                                        item = '300';
+                                    } else if (i == 3) {
+                                        item = '900';
+                                    } else if (i == 4) {
+                                        item = '2100';
+                                    }
+                                    return item;
+                                }, */
                         textStyle: {
                             fontSize: '12px',
                             fontFamily: ' PingFang SC-Medium, PingFang SC',
@@ -302,10 +302,14 @@ interval: 20 */
             _self._http({
                 //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
                 url: '/api/web/indexCountV3/getScoreTrend',
-                data: { timeType: 'DAY' },
+                data: {
+                    timeType: 'DAY'
+                },
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 type: 'get',
-                data: { timeType: 'DAY' },
+                data: {
+                    timeType: 'DAY'
+                },
                 success: function (res) {
                     console.dir(res);
                     res.data.forEach((item) => {
@@ -325,7 +329,9 @@ interval: 20 */
             _self._http({
                 //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
                 url: '/api/web/indexCountV3/getScoreTrend',
-                data: { timeType: 'MONTH' },
+                data: {
+                    timeType: 'MONTH'
+                },
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 type: 'get',
                 success: function (res) {
@@ -485,20 +491,20 @@ interval: 20 */
                         //   smooth: true, //面积图改成弧形状
                         //  showSymbol: false, //去除面积图节点圆
                         /*  itemStyle: {
-                            normal: {
-                                color: '#2BADFF', //拐点颜色
-                                borderColor: '#2BADFF', //拐点边框颜色
-                                borderWidth: 3 //拐点边框大小
-                            },
-                            emphasis: {
-                                 // 鼠标移上去的时候，拐点的颜色和样式
-                                color: '#FFF' ,//hover拐点颜色定义
-                                borderColor: '#FFFFFF99', //图形的描边颜色
-                                borderWidth: 5, // 描边的线宽
-                                shadowBlur: 10, // 图形的阴影大小
-                                shadowColor: '#FFFFFF99' // 图形的阴影颜色
-                            }
-                        }, */
+                                normal: {
+                                    color: '#2BADFF', //拐点颜色
+                                    borderColor: '#2BADFF', //拐点边框颜色
+                                    borderWidth: 3 //拐点边框大小
+                                },
+                                emphasis: {
+                                     // 鼠标移上去的时候，拐点的颜色和样式
+                                    color: '#FFF' ,//hover拐点颜色定义
+                                    borderColor: '#FFFFFF99', //图形的描边颜色
+                                    borderWidth: 5, // 描边的线宽
+                                    shadowBlur: 10, // 图形的阴影大小
+                                    shadowColor: '#FFFFFF99' // 图形的阴影颜色
+                                }
+                            }, */
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
@@ -551,19 +557,19 @@ interval: 20 */
                             }
                         }
                         /*    areaStyle: {
-                           normal: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                                    {
-                                        offset: 0,
-                                        color: '#053457'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#005695 '
-                                    }
-                                ])
-                            } 
-                        } */
+                               normal: {
+                                    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                                        {
+                                            offset: 0,
+                                            color: '#053457'
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: '#005695 '
+                                        }
+                                    ])
+                                } 
+                            } */
                     }
                 ]
             };
@@ -587,7 +593,9 @@ interval: 20 */
             _self._http({
                 //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
                 url: '/api/web/indexCountV3/getScoreTrend',
-                data: { timeType: 'YEAR' },
+                data: {
+                    timeType: 'YEAR'
+                },
                 //  url: '/api/web/indexCountTwo/countPatrolMinute',/api/web/indexCountTwo/countAlarmByFloor
                 type: 'get',
                 success: function (res) {
@@ -749,20 +757,20 @@ interval: 20 */
                         //   smooth: true, //面积图改成弧形状
                         //  showSymbol: false, //去除面积图节点圆
                         /*    itemStyle: {
-                            normal: {
-                                color: '#2BADFF', //拐点颜色
-                                borderColor: '#2BADFF', //拐点边框颜色
-                                borderWidth: 3 //拐点边框大小
-                            },
-                            emphasis: {
-                                 // 鼠标移上去的时候，拐点的颜色和样式
-                                color: '#FFF' ,//hover拐点颜色定义
-                                borderColor: '#FFFFFF99', //图形的描边颜色
-                                borderWidth: 5, // 描边的线宽
-                                shadowBlur: 10, // 图形的阴影大小
-                                shadowColor: '#FFFFFF99' // 图形的阴影颜色
-                            }
-                        }, */
+                                normal: {
+                                    color: '#2BADFF', //拐点颜色
+                                    borderColor: '#2BADFF', //拐点边框颜色
+                                    borderWidth: 3 //拐点边框大小
+                                },
+                                emphasis: {
+                                     // 鼠标移上去的时候，拐点的颜色和样式
+                                    color: '#FFF' ,//hover拐点颜色定义
+                                    borderColor: '#FFFFFF99', //图形的描边颜色
+                                    borderWidth: 5, // 描边的线宽
+                                    shadowBlur: 10, // 图形的阴影大小
+                                    shadowColor: '#FFFFFF99' // 图形的阴影颜色
+                                }
+                            }, */
                         lineStyle: {
                             // 设置线条的style等
                             normal: {
@@ -811,19 +819,19 @@ interval: 20 */
                             }
                         }
                         /*        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                                    {
-                                        offset: 0,
-                                        color: '#053457'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#005695 '
-                                    }
-                                ])
-                            } 
-                        } */
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                                        {
+                                            offset: 0,
+                                            color: '#053457'
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: '#005695 '
+                                        }
+                                    ])
+                                } 
+                            } */
                     }
                 ]
             };
