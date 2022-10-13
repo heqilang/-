@@ -8,6 +8,8 @@
             <iframe src="http://182.151.21.153:18080/enterprise/#/" frameborder="0"></iframe>
         </div>
         <div class="mainClas">
+            <div class="bottomBG"></div>
+
             <div class="swipBtnBox1" @click="goPage51Fn1"><span></span></div>
             <div class="swipBtnBox2" @click="goPage51Fn2"><span></span></div>
             <div class="alarmMsgInfo" v-if="showAlarmMsgInfo">
@@ -249,7 +251,7 @@
                     <el-col class="height100" :span="6">
                         <div class="height100 leftConb">
                             <div class="cardItemB">
-                                <div class="cardItemS">
+                                <div class="cardItemS" id="cardItemS_Left">
                                     <div class="cardTit">
                                         <div class="navIconC"></div>
                                         设备报警情况
@@ -312,7 +314,7 @@
                             <div class="cardItemB">
                                 <!--TODO 陈磊: 巡查情况-->
                                 <!--<div class="cardItemS" @click="goPagesEventFn('patro')">-->
-                                <div class="cardItemS">
+                                <div class="cardItemS" id="cardItemS_Left">
                                     <div class="cardTit flex f-between">
                                         <div>
                                             <div class="navIconC"></div>
@@ -325,68 +327,127 @@
                                         </el-radio-group>
                                     </div>
                                     <div class="cardMain">
-                                        <div style="height: 49%" v-if="alarmRadioDate === 'DAY'">
-                                            <el-row class="height100 zwstyle" style="padding: 0.12rem" :gutter="12">
-                                                <el-col class="height100" :span="8">
+                                        <div style="height: 98%" v-if="alarmRadioDate === 'DAY'">
+                                            <el-row class="height100 zwstyle" style="padding: 0.12rem; position: relative" :gutter="12">
+                                                <div class="height100_rightimgtitle">
+                                                    <el-col style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center" :span="24"> 当日巡查次数 </el-col>
+                                                </div>
+                                                <!--     <el-col class="height100" :span="8">
                                                     <img style="position: relative; left: 30%; height: 80%" src="../../assets/images/globalCenterNew/checkDay.png" alt="" />
                                                 </el-col>
 
                                                 <el-col class="height100" :span="8">
                                                     <div style="height: 100%; padding-left: 12%; display: flex; align-items: center; text-align: center" class="display_flex">
-                                                        <!--TODO 陈磊: 巡查情况-->
+                                                        
                                                         <el-row style="height: 100%" @click.native="(patrolOrRiskRange = '当日'), (patrolStatsVisible = true)">
                                                             <el-col style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center" :span="24"> 当日巡查次数 </el-col>
                                                             <el-col :span="24" style="height: 50%">
-                                                                <!-- 巡查情况 -->
+                                                             
                                                                 <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.patrolCountDay || 0 }}</span
                                                                 >次
                                                             </el-col>
                                                         </el-row>
                                                     </div>
+                                                </el-col> -->
+                                                <el-col class="height100" @click.native="(patrolOrRiskRange = '当日'), (patrolStatsVisible = true)" :span="12">
+                                                    <div style="height: 100%">
+                                                        <div class="patrol-stats-chart" id="patrol-stats-chart1"></div>
+                                                    </div>
+
+                                                    <!--   <div class="patrol-stats-chart" id="patrol-stats-chart1">
+                                                    </div> -->
                                                 </el-col>
 
-                                                <el-col class="height100" :span="8">
-                                                    <div style="height: 100%; padding-left: 12%; display: flex; align-items: center; text-align: center">
-                                                        <!--TODO 陈磊: 巡查情况-->
-                                                        <el-row style="height: 100%" @click.native="(patrolOrRiskRange = '当日'), (riskStatsVisible = true)">
-                                                            <el-col :span="24" style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center">
+                                                <el-col class="height100" :span="12">
+                                                    <div style="height: 100%; position: relative; text-align: center">
+                                                        <el-row style="height: 100%; position: relative" @click.native="(patrolOrRiskRange = '当日'), (riskStatsVisible = true)">
+                                                            <div class="height100_rightimg">
+                                                                <div class="height100_rightimgspan">
+                                                                    <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.risksCountDay || 0 }}个</span>
+                                                                </div>
+
+                                                                <img width="130%" src="../../assets/images/globalCenterNew/leftimg.png" alt="" />
+                                                            </div>
+                                                            <el-col :span="24" class="height100_rightimgtitle_right" style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center"> 当前隐患数量 </el-col>
+
+                                                            <!--     <el-col :span="24"
+                                                                style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center">
                                                                 当前隐患数量
-                                                                <!-- 隐患数量 -->
+                                                             
                                                             </el-col>
+                                                            
                                                             <el-col style="height: 50%" :span="24">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.risksCountDay || 0 }}</span> 个
-                                                            </el-col>
+                                                                <span class="textColor"
+                                                                    style="font-size: 0.26rem; font-weight: 700">{{
+                                                                    leftDataMid.risksCountDay || 0 }}</span> 个
+                                                            </el-col> -->
                                                         </el-row>
                                                     </div>
                                                 </el-col>
                                             </el-row>
                                         </div>
-                                        <div style="height: 49%" v-if="alarmRadioDate === 'MONTH'">
-                                            <el-row class="height100 zwstyle" style="padding: 0.12rem" :gutter="12">
-                                                <el-col @click.native="goPagesEventFn('/alarmCall')" class="height100" :span="8">
-                                                    <img style="position: relative; left: 30%; height: 80%" src="../../assets/images/globalCenterNew/checkMonth.png" alt="" />
-                                                </el-col>
-                                                <el-col class="height100" :span="8">
-                                                    <div style="height: 100%; padding-left: 12%; display: flex; align-items: center; text-align: center">
-                                                        <!--TODO 陈磊: 巡查情况-->
-                                                        <el-row style="height: 100%" @click.native="(patrolOrRiskRange = '当月'), (patrolStatsVisible = true)">
-                                                            <el-col style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center" :span="24"> 当月巡查次数</el-col>
+                                        <div style="height: 98%" v-if="alarmRadioDate === 'MONTH'">
+                                            <el-row class="height100 zwstyle" style="padding: 0.12rem; position: relative" :gutter="12">
+                                                <div class="height100_rightimgtitle">
+                                                    <el-col style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center" :span="24"> 当月巡查次数 </el-col>
+                                                </div>
+
+                                                <!--     <el-col @click.native="goPagesEventFn('/alarmCall')" class="height100"
+                                                    :span="8">
+                                                    <img style="position: relative; left: 30%; height: 80%"
+                                                        src="../../assets/images/globalCenterNew/checkMonth.png"
+                                                        alt="" />
+                                                </el-col> -->
+                                                <!--   <el-col class="height100" :span="8">
+                                                    <div
+                                                        style="height: 100%; padding-left: 12%; display: flex; align-items: center; text-align: center">
+                                                   
+                                                        <el-row style="height: 100%"
+                                                            @click.native="(patrolOrRiskRange = '当月'), (patrolStatsVisible = true)">
+                                                            <el-col
+                                                                style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center"
+                                                                :span="24"> 当月巡查次数</el-col>
                                                             <el-col :span="24" style="height: 50%">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.patrolCountMonth || 0 }}</span> 次
+                                                                <span class="textColor"
+                                                                    style="font-size: 0.26rem; font-weight: 700">{{
+                                                                    leftDataMid.patrolCountMonth || 0 }}</span> 次
                                                             </el-col>
                                                         </el-row>
                                                     </div>
+                                                </el-col> -->
+                                                <el-col class="height100" :span="12" @click.native="(patrolOrRiskRange = '当月'), (patrolStatsVisible = true)">
+                                                    <div style="height: 100%">
+                                                        <div class="patrol-stats-chart" id="patrol-stats-chart1"></div>
+                                                    </div>
+
+                                                    <!--   <div class="patrol-stats-chart" id="patrol-stats-chart1">
+                                                    </div> -->
                                                 </el-col>
 
-                                                <el-col class="height100" :span="8">
-                                                    <div style="height: 100%; padding-left: 12%; display: flex; align-items: center; text-align: center">
-                                                        <!--TODO 陈磊: 巡查情况-->
-                                                        <el-row style="height: 100%" @click.native="(patrolOrRiskRange = '当月'), (riskStatsVisible = true)">
-                                                            <el-col :span="24" style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center"> 当前隐患数量</el-col>
-                                                            <el-col style="height: 50%" :span="24">
-                                                                <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.risksCountMonth || 0 }}</span> 个
-                                                            </el-col>
+                                                <el-col class="height100" :span="12">
+                                                    <div style="height: 100%; position: relative; text-align: center">
+                                                        <el-row style="height: 100%; position: relative" @click.native="(patrolOrRiskRange = '当月'), (riskStatsVisible = true)">
+                                                            <div class="height100_rightimg">
+                                                                <div class="height100_rightimgspan">
+                                                                    <span class="textColor" style="font-size: 0.26rem; font-weight: 700">{{ leftDataMid.risksCountMonth || 0 }}个</span>
+                                                                </div>
+
+                                                                <img width="130%" src="../../assets/images/globalCenterNew/leftimg.png" alt="" />
+                                                            </div>
+
+                                                            <el-col :span="24" class="height100_rightimgtitle_right" style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center"> 当月隐患数量 </el-col>
                                                         </el-row>
+                                                        <!--  <el-row style="height: 100%"
+                                                            @click.native="(patrolOrRiskRange = '当月'), (riskStatsVisible = true)">
+                                                            <el-col :span="24"
+                                                                style="height: 50%; display: flex; align-items: center; text-align: center; justify-content: center">
+                                                                当前隐患数量</el-col>
+                                                            <el-col style="height: 50%" :span="24">
+                                                                <span class="textColor"
+                                                                    style="font-size: 0.26rem; font-weight: 700">{{
+                                                                    leftDataMid.risksCountMonth || 0 }}</span> 个
+                                                            </el-col>
+                                                        </el-row> -->
                                                     </div>
                                                 </el-col>
                                             </el-row>
@@ -395,7 +456,7 @@
                                 </div>
                             </div>
                             <div class="cardItemB">
-                                <div class="cardItemS">
+                                <div class="cardItemS" id="cardItemS_Left">
                                     <div class="cardTit flex f-between">
                                         <div>
                                             <div class="navIconC"></div>
@@ -472,46 +533,92 @@
                         <div class="height100 midConb">
                             <div class="dataMainCount dataMainCount_top">
                                 <!-- <span @click="showLCImg = true" style="border: 1px solid #ccc; padding: 0.06rem 0.12rem; cursor: pointer">建筑概况</span> -->
-                                <div class="cardItemB" @click="showLCImg = true">
-                                    <div class="cardItemS" style="height: 0px">
-                                        <div class="cardTit" style="background: transparent">
-                                            <div class="navIconC"></div>
-                                            建筑概况
+                                <div v-if="false">
+                                    <div class="cardItemB" @click="showLCImg = true">
+                                        <div class="cardItemS" style="height: 0px">
+                                            <div class="cardTit" style="background: transparent">
+                                                <div class="navIconC"></div>
+                                                建筑概况
+                                            </div>
                                         </div>
                                     </div>
+                                    <el-row style="text-align: left" class="height100 text_c dataMainCount_bottom_1">
+                                        <el-col style="width: 20%; margin-left: 25px">
+                                            <div>建筑面积</div>
+                                            <div style="margin-top: 12px">
+                                                <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.area }}</span> <span class="textColor">万平方米</span>
+                                            </div>
+                                        </el-col>
+                                        <el-col style="width: 20%; height: 100">
+                                            <div>建筑高度</div>
+                                            <div style="margin-top: 12px">
+                                                <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.buildingHeight }}</span> <span class="textColor">米</span>
+                                            </div>
+                                        </el-col>
+                                        <el-col style="width: 20%; height: 100">
+                                            <div>地上层数</div>
+                                            <div style="margin-top: 12px">
+                                                <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsOnGround }}</span> <span class="textColor">层</span>
+                                            </div>
+                                        </el-col>
+                                        <el-col style="width: 20%; height: 100">
+                                            <div>地下层数</div>
+                                            <div style="margin-top: 12px">
+                                                <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsUnderground }}</span> <span class="textColor">层</span>
+                                            </div>
+                                        </el-col>
+                                        <el-col style="width: 20%; height: 100">
+                                            <div>建筑类别</div>
+                                            <div style="margin-top: 12px">
+                                                <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ 1 }}</span> <span class="textColor"> 类高层公共建筑</span>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
                                 </div>
-                                <el-row style="text-align: left" class="height100 text_c dataMainCount_bottom_1">
-                                    <el-col style="width: 20%; margin-left: 25px">
-                                        <div>建筑面积</div>
-                                        <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.area }}</span> <span class="textColor">万平方米</span>
+                                <ul class="dataMainCount_ul">
+                                    <li>
+                                        <div class="dataMainCount_box_li">
+                                            <div class="dataMainCount_ul_img"></div>
+                                            <div class="dataMainCount_ul_word">
+                                                <div class="dataMainCount_ul_word_top" style="height: 45px; line-height: 45px">建筑面积</div>
+                                                <div style="height: 45px">
+                                                    <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.buildingHeight }}</span> <span class="textColor">米</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </el-col>
-                                    <el-col style="width: 20%; height: 100">
-                                        <div>建筑高度</div>
-                                        <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.buildingHeight }}</span> <span class="textColor">米</span>
+                                    </li>
+                                    <li>
+                                        <div class="dataMainCount_box_li">
+                                            <div class="dataMainCount_ul_img dataMainCount_ul_img_1"></div>
+                                            <div class="dataMainCount_ul_word">
+                                                <div class="dataMainCount_ul_word_top" style="height: 45px; line-height: 45px">地上层数</div>
+                                                <div style="height: 45px">
+                                                    <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsOnGround }}</span> <span class="textColor">米</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </el-col>
-                                    <el-col style="width: 20%; height: 100">
-                                        <div>地上层数</div>
-                                        <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsOnGround }}</span> <span class="textColor">层</span>
+                                    </li>
+                                    <li>
+                                        <div class="dataMainCount_box_li">
+                                            <div class="dataMainCount_ul_img dataMainCount_ul_img_2"></div>
+                                            <div class="dataMainCount_ul_word">
+                                                <div class="dataMainCount_ul_word_top" style="height: 45px; line-height: 45px">地下层数</div>
+                                                <div style="height: 45px">
+                                                    <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsUnderground }}</span> <span class="textColor">米</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </el-col>
-                                    <el-col style="width: 20%; height: 100">
-                                        <div>地下层数</div>
-                                        <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsUnderground }}</span> <span class="textColor">层</span>
+                                    </li>
+                                    <li>
+                                        <div class="dataMainCount_box_li">
+                                            <div class="dataMainCount_ul_img dataMainCount_ul_img_3"></div>
+                                            <div class="dataMainCount_ul_word">
+                                                <div class="dataMainCount_ul_word_top" style="height: 45px; line-height: 45px">建筑类别</div>
+                                                <div style="height: 45px"><span class="textColor" style="font-size: 0.32rem; font-weight: 700">1</span> <span class="textColor">米</span></div>
+                                            </div>
                                         </div>
-                                    </el-col>
-                                    <el-col style="width: 20%; height: 100">
-                                        <div>建筑类别</div>
-                                        <div style="margin-top: 12px">
-                                            <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ 1 }}</span> <span class="textColor"> 类高层公共建筑</span>
-                                        </div>
-                                    </el-col>
-                                </el-row>
+                                    </li>
+                                </ul>
                             </div>
 
                             <!-- <div class="dataMainCountBottom"> -->
@@ -548,20 +655,42 @@
                         <div class="height100 ritConb">
                             <div class="cardItemB">
                                 <div class="cardItemS">
-                                    <div class="cardTit">
+                                    <div class="cardTit" id="cardTitRight">
                                         <div class="navIconC"></div>
                                         消防安全运行综合评分
                                     </div>
                                     <div class="cardMain" @click="showScoreMark = true">
-                                        <div class="height100 sysRemark text_c">
+                                        <div v-if="false" class="height100 sysRemark text_c">
                                             <span style="margin-top: -9.9%; font-size: 0.38rem">{{ (systemScoreList.score / 1).toFixed(2) }}</span>
                                         </div>
+
+                                        <el-row style="width: 100%; height: 100%">
+                                            <el-col :span="12" style="width: 50%; height: 100%">
+                                                <div class="height100 sysRemark text_c">
+                                                    <span style="margin-top: -22.9%; font-size: 0.38rem">{{ (systemScoreList.score / 1).toFixed(2) }}</span>
+                                                </div>
+                                            </el-col>
+                                            <el-col style="width: 50%; height: 100%" :span="12">
+                                                <div class="navIconCc">
+                                                    <div class="navIconC_right" v-for="item in rightDate" :key="item.value">
+                                                        <div class="navIconC_right_top">
+                                                            <span> {{ item.lable }}</span>
+                                                        </div>
+                                                        <div class="navIconC_right_center">
+                                                            <span>{{ item.value }}分 </span> <span class="navIconC_right_center_title"> /{{ item.num }} </span>
+                                                        </div>
+
+                                                        <div class="navIconC_right_bottom"><span> </span></div>
+                                                    </div>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </div>
                             </div>
                             <div class="cardItemB">
-                                <div class="cardItemS">
-                                    <div class="cardTit">
+                                <div class="cardItemS" id="cardItemS_Gight">
+                                    <div class="cardTit" id="cardTitRight">
                                         <div class="navIconC"></div>
                                         企业消防安全责任体系
                                     </div>
@@ -599,8 +728,8 @@
                                 </div>
                             </div>
                             <div class="cardItemB">
-                                <div class="cardItemS">
-                                    <div class="cardTit">
+                                <div class="cardItemS" id="cardItemS_Gight">
+                                    <div class="cardTit" id="cardTitRight">
                                         <div class="navIconC"></div>
                                         消防资源
                                     </div>
@@ -723,10 +852,16 @@
             </el-dialog>
         </div>
 
-        <!-- TODO 陈磊: 巡查情况-巡查(次数)统计 -->
-        <div class="alertModel">
+        <!-- TODO 陈磊: 巡查情况-巡查(次数)统计 10月13号之前的版本-->
+        <!--   <div class="alertModel">
             <el-dialog top="5vh" :modal-append-to-body="false" :visible.sync="patrolStatsVisible" v-if="patrolStatsVisible" :close-on-click-modal="true" class="unit-edit-con" width="1200px">
                 <component :dataRange="patrolOrRiskRange" @closeRiskStats="patrolStatsVisible = false" :is="require('./indexTabdialog/cl/patrolStats/patrolStats.vue')" />
+            </el-dialog>
+        </div> -->
+        <!-- TODO 何七郎: 巡查情况-巡查(次数)统计   新的研发需求-->
+        <div class="alertModel">
+            <el-dialog top="5vh" :modal-append-to-body="false" :visible.sync="patrolStatsVisible" v-if="patrolStatsVisible" :close-on-click-modal="true" class="unit-edit-con" width="1200px">
+                <component :dataRange="patrolOrRiskRange" @closeRiskStats="patrolStatsVisible = false" :is="require('./indexTabdialog/cl/patrolStats/patrolHome.vue')" />
             </el-dialog>
         </div>
 
@@ -900,6 +1035,17 @@ import { Radar } from '@antv/g2plot';
 export default {
     data() {
         return {
+            rightDate: [
+                { lable: '报警处置评分', value: 0 },
+                { lable: '巡查完成评分', value: 1 },
+                { lable: '隐患整治评分', value: 2 }
+            ],
+
+            statsData: {
+                notOpportunelyFinish: 0,
+                opportunelyFinish: 0,
+                allFinishPatrol: 0
+            },
             charRadio: 'min',
             img: require('../../assets/images/globalCenterNew/xxxx.svg'),
             newImg_1: require('../../assets/images/layer1.png'),
@@ -1077,6 +1223,19 @@ export default {
         };
     },
     watch: {
+        statsData: {
+            handler: function (newVal, oldVal) {
+                //todo 陈磊20220902 新增的图表 , 目前的数据是mockChartBarData  后续需要对接接口
+
+                setTimeout(() => {
+                    this.drawBarChart('patrol-stats-chart1', [
+                        { name: '正常巡查次数', value: newVal.opportunelyFinish },
+                        { name: '漏检次数', value: newVal.notOpportunelyFinish }
+                    ]);
+                }, 500);
+            }
+        },
+
         showLCImg: function (newValue, oldvalue) {
             if (newValue) {
                 this.showImg = false;
@@ -1149,6 +1308,117 @@ export default {
     },
 
     methods: {
+        loadStatsData() {
+            const that = this;
+
+            that._http({
+                url: '/api/web/indexCountV3/thirdPatrolSecond', ///api/web/indexCountTwo/thirdPatrolSecond
+                type: 'get',
+                isBody: true,
+                data: {
+                    type: that.alarmRadioDate === 'DAY' ? 1 : 2
+                },
+                success: function (res) {
+                    that.statsData = res.data;
+                }
+            });
+        },
+
+        drawBarChart(elementId, data) {
+            const chartDom = document.getElementById(elementId);
+            const myChart = echarts.init(chartDom);
+            const that = this;
+            const option = {
+                title: {
+                    text: `${data[0].value + data[1].value}次`,
+                    top: '44%',
+                    left: 'center',
+                    //  textAlign: 'center',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 20,
+
+                        fontWeight: 'normal',
+                        background: 'linear-gradient(180deg, #FFFFFF 0%, #48E5E5 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
+                    }
+                },
+
+                color: ['#6BD0CA', '#D78A5F'],
+                tooltip: {
+                    trigger: 'item'
+                },
+                grid: {
+                    left: '0%',
+                    top: '5%',
+                    right: '5%',
+                    bottom: '5%'
+                },
+                series: [
+                    {
+                        name: '巡查类型',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        center: ['50%', '50%'],
+                        data: data,
+                        avoidLabelOverlap: false,
+                        labelLine: {
+                            normal: {
+                                length: 3, //第一条线
+                                length2: 80 //第二条线
+                                /*   lineStyle: {
+                                      width: 1, // 线条的宽度
+                                      color: '#fff' //线的颜色设置， 如没有设置颜色则线条的颜色跟随饼状图的颜色
+                                  } */
+                            }
+                        },
+                        label: {
+                            normal: {
+                                show: false,
+
+                                formatter: '  {ng|{b} {c}次   }',
+                                //标识内容；若要设置标识内容的样式，则需要像这样设置一个变量per或者ng，在rich配置项里去设置这2个变量的样式，则会改变对应标识内容的样式
+                                rich: {
+                                    //设置标识内容样式
+                                    per: {
+                                        color: 'rgba(133, 138, 155, 1)', //设置变量per的颜色，即设置{d}%的颜色
+                                        padding: [2, 4],
+                                        borderRadius: 2
+                                    },
+                                    ng: {
+                                        fontSize: 12,
+                                        color: '#fff',
+                                        fontWeight: 500,
+                                        lineHeight: 32,
+                                        align: 'right'
+                                        //设置变量ng的颜色，即设置{c}的颜色
+                                    }
+                                },
+                                padding: [0, -85, 20, -80]
+                            }
+                        },
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            myChart.setOption(option);
+
+            /*    myChart.on('click', (d) => {
+                   let name = 'NORMAL';
+                   if (d.name == '逾期未巡检次数') {
+                       name = 'TIMEOUT';
+                   }
+                   that.intoLayer2(name);
+               }); */
+        },
+
         getCharRadio(val) {
             console.log(val, this.charRadio);
         },
@@ -1411,6 +1681,16 @@ export default {
                     _self.systemScoreList = res.data;
                     console.log('eeeeeeeeeeeeeeeeeeeeeee');
                     console.dir(res);
+                    _self.rightDate[0].value = res.data.alarmScore.toFixed(2);
+                    _self.rightDate[0].num = res.data.alarmScoreALL || 0;
+                    _self.rightDate[1].value = res.data.patrolScore.toFixed(2);
+                    _self.rightDate[1].num = res.data.patrolScoreaLL || 0;
+                    _self.rightDate[2].value = res.data.risksScore.toFixed(2);
+                    _self.rightDate[2].num = res.data.risksScoreAll || 0;
+                    /*    _self.rightDate.forEach(item=>{
+                                item.value=  res.data.
+   
+                       }) */
                 }
             });
         },
@@ -2059,6 +2339,7 @@ export default {
         },
         getAlarmStatisticsDate(val) {
             console.dir(val);
+            this.loadStatsData();
         },
         getAlarmStatistics() {
             const _self = this;
@@ -2075,7 +2356,9 @@ export default {
             });
         }
     },
-    created() {},
+    created() {
+        this.loadStatsData();
+    },
     mounted() {
         let _self = this;
         _self.screenWidth = document.body.clientWidth;
