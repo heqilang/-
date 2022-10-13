@@ -74,7 +74,7 @@
                             <div class="scores">
                                 <div class="alarmDisposalScore">报警处置分：{{ (systemScoreList.alarmScore / 1).toFixed(2) }}</div>
                                 <div class="alarmDisposalScore">巡查完成分：{{ (systemScoreList.patrolScore / 1).toFixed(2) }}</div>
-                                <div class="alarmDisposalScore">隐患整治分：{{ (systemScoreList.risksScore / 1).toFixed(2) }}</div>
+                                <div class="alarmDisposalScore">隐患整治分：{{ (systemScoreList.score / 1).toFixed(2) - (systemScoreList.alarmScore / 1).toFixed(2) - (systemScoreList.patrolScore / 1).toFixed(2) }}</div>
                             </div>
                         </div>
                     </el-col>
@@ -584,6 +584,7 @@ export default {
 
         div {
             margin-bottom: 10px;
+            text-align: left;
         }
     }
 
