@@ -33,6 +33,15 @@
                             <div style="height: 200px" id="quxianChart1"></div>
                         </el-col>
                     </el-row>
+
+                    <el-col :span="24">
+                        <el-row>
+                            <el-col :span="24">
+                                <div style="height: 200px" id="linedyrChart2"></div>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+
                     <el-row>
                         <el-col :span="24">
                             <div style="margin-bottom: 12px">
@@ -122,6 +131,14 @@
                             </el-row>
                         </el-col>
                     </el-row>
+                    <el-col :span="24">
+                        <el-row>
+                            <el-col :span="24">
+                                <div style="height: 200px" id="lineMONTHChart2"></div>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+
                     <div style="margin-bottom: 12px">
                         <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
                             <el-radio-button label="设备报警数量">
@@ -507,7 +524,8 @@ export default {
                 { name: '其它', value: 0 }
             ],
 
-            colors: ['#7CFBDD', '#549EFF', '#8ef2a7', '#fdfd39', '#325efb', '#d37f8b', '#468080', '#5aa1fc']
+            colors: ['#7CFBDD', '#549EFF', '#8ef2a7', '#fdfd39', '#325efb', '#d37f8b', '#468080', '#5aa1fc'],
+            checkData: []
         };
     },
     watch: {
@@ -519,6 +537,7 @@ export default {
             this.pager.pageIndex = 1;
 
             this.getList();
+            this.changeTabsSeco();
         },
         showAlarm1Day: function (val) {
             this.showanalysis = 'alarmanalysis1';
@@ -538,6 +557,7 @@ export default {
         this.showanalysis = 'alarmanalysis1';
         this.getleftNumData();
         this.getList();
+        this.changeTabsSeco();
     },
     filters: {
         equipmentStateType(val) {
@@ -575,6 +595,241 @@ export default {
         }
     },
     methods: {
+        changeTabsSeco() {
+            let _self = this;
+            // 清空id的innerHTML
+            // document.getElementById('lineChart3').innerHTML = '';
+            _self._http({
+                url: '/api/web/indexCountV3/countAlarWaring',
+                type: 'get',
+                isBody: true,
+                data: {
+                    timeRange: _self.showAlarm1Day ? 'DAY' : 'MONTH'
+                },
+                success: function (res) {
+                    res.data.forEach((item) => {
+                        item.everyDay = item.timeName;
+                    });
+                    // const nowDdate = new Date();
+                    // console.log(nowDdate, '今天的日期');
+                    // const Day = nowDdate.getDate();
+                    // console.log(Day, '今天的日期');
+                    _self.checkData = res.data;
+                    _self.drawLineChartfu2();
+                }
+            });
+        },
+        drawLineChartfu2() {
+            let that = this;
+            var chartDom = that.showAlarm1Day ? document.getElementById('linedyrChart2') : document.getElementById('lineMONTHChart2');
+            var myChart = echarts.init(chartDom);
+            var option;
+            myChart.on('click', function (param) {
+                //  myChart.off('click') // 这里很重要 ，防止重复点击事件！！！
+                //X轴的值
+            });
+            let _xData = [];
+            let _yData = [];
+            let _y1Data = [];
+            for (let i = 0; i < this.checkData.length; i++) {
+                _xData.push(this.checkData[i].timeName);
+                _yData.push(this.checkData[i].alarmNum ? this.checkData[i].alarmNum : '-'); //没有数据就不显示线条
+                _y1Data.push(this.checkData[i].waringNum ? this.checkData[i].waringNum : '-'); //没有数据就不显示线条
+            }
+
+            // function formatData(arr) {
+            //     let newHashArray = [];
+            //     for (var i = 0; i < arr.length; i++) {
+            //         let obj = {};
+            //         let temp = arr[i];
+            //         if (arr[i] > 0 && arr[i] < 50) {
+            //             arr[i] = 0 + arr[i] * (500 / 50);
+            //         } else if (arr[i] > 50 && arr[i] < 300) {
+            //             arr[i] = 500 + (arr[i] - 50) * ((1000 - 500) / (300 - 50));
+            //         } else if (arr[i] > 300 && arr[i] < 900) {
+            //             arr[i] = 1000 + (arr[i] - 300) * ((1500 - 1000) / (900 - 300));
+            //         } else if (arr[i] > 900 && arr[i] < 2100) {
+            //             arr[i] = 1500 + (arr[i] - 900) * ((2000 - 1500) / (2100 - 900));
+            //         }
+            //         obj.value = arr[i];
+            //         obj.formatV = temp;
+            //         newHashArray.push(obj);
+            //     }
+            //     return newHashArray;
+            // }
+
+            // let wxArray = formatData(_yData);
+            // console.dir(_yData);
+
+            option = {
+                title: {
+                    text: '报警次数与突发类事件趋势图',
+                    textStyle: {
+                        fontSize: '14',
+                        color: '#ffffff'
+                    }
+                },
+                grid: {
+                    top: '25%',
+                    left: '0%',
+                    right: '5%',
+                    bottom: '5%',
+                    containLabel: true
+                },
+                color: ['#16f7e8', '#f75016'],
+                legend: {
+                    data: ['报警次数', '突发类事件次数'],
+                    right: '0%',
+                    textStyle: {
+                        color: '#ffffff'
+                    },
+                    icon: 'circle'
+                    /*  selected: { 设备报警数量: !val, 报警处置数量: val } */
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (val, index, e) {
+                        var s = '';
+                        // s += '查询时间:' + val[0].axisValue + '<br/>';
+                        // s += '平均处置时效' + val[0].data.formatV + '分钟';
+                        console.log(val);
+
+                        let red = '<span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#f75016;"></span>';
+                        let green = '<span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#16f7e8;"></span>';
+                        s += '查询时间:' + val[0].axisValue + '<br/>';
+                        s += green + '报警次数' + val[0].data + '次' + '<br/>';
+                        s += red + '突发类事件次数' + val[1].data + '次' + '<br/>';
+                        return s;
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLabel: {
+                        interval: 0,
+
+                        textStyle: {
+                            color: '#FFFFFF'
+                        },
+                        formatter: function (params) {
+                            console.log('params:', params);
+                            return params.slice(8, 10) + '日';
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#BBF6FF',
+                            width: 2
+                        },
+                        symbol: ['none', 'arrow']
+                    },
+                    data: _xData
+                },
+                yAxis: {
+                    type: 'value',
+
+                    // min: 0,
+                    // max: 2000,
+                    splitNumber: 5,
+
+                    axisLabel: {
+                        formatter: '{value}',
+                        type: 'log',
+
+                        // formatter: (v, i) => {
+                        //     let item = '';
+                        //     if (i === 0) {
+                        //         item = '0min';
+                        //     } else if (i == 1) {
+                        //         item = '50min';
+                        //     } else if (i == 2) {
+                        //         item = '300min';
+                        //     } else if (i == 3) {
+                        //         item = '900min';
+                        //     } else if (i == 4) {
+                        //         item = '2100min';
+                        //     }
+                        //     return item;
+                        // },
+                        textStyle: {
+                            color: '#FFFFFF'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#BBF6FF00',
+                            width: 2
+                        },
+                        symbol: ['none', 'arrow']
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            // color: ['#cfc'],
+                            color: '#596677',
+                            type: 'dotted',
+                            width: 1
+                            //  type: 'solid'
+                        }
+                    }
+                },
+                // legend: {
+                //     formatter: name
+                // },
+
+                series: [
+                    {
+                        name: '报警次数',
+                        data: _yData,
+                        type: 'line',
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                                    {
+                                        offset: 0,
+                                        color: '#2e486e'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#2e486e'
+                                    }
+                                ])
+                            }
+                        }
+                    },
+                    {
+                        name: '突发类事件次数',
+                        data: _y1Data,
+                        type: 'line',
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                                    {
+                                        offset: 0,
+                                        color: '#2e486e'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#2e486e'
+                                    }
+                                ])
+                            }
+                        }
+                    }
+                ]
+            };
+            option && myChart.setOption(option);
+
+            setTimeout(() => {
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0, // 针对series下第几个数据
+                    dataIndex: new Date().getDate() - 1 // 第几个数据
+                });
+            }, 500); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
+            console.log('pxpxpx1', option);
+            this.chartNew = myChart;
+        },
         turntopage(type, option) {
             console.dir('什么情况');
             console.log(type, option);

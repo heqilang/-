@@ -623,10 +623,10 @@
                                 </ul>
                             </div>
 
-                            <div class="dataMainCountBottom" v-if="false">
-                                <!-- <span @click="showLCImg = true" style="border: 1px solid #ccc; padding: 0.06rem 0.12rem; cursor: pointer">建筑概况</span> -->
-                                <div class="cardItemB">
-                                    <div class="cardItemS" id="cardItemS_Gight" style="height: 0px">
+                            <!-- <div class="dataMainCountBottom"> -->
+                            <!--xx <span @click="showLCImg = true" style="border: 1px solid #ccc; padding: 0.06rem 0.12rem; cursor: pointer">建筑概况</span> -->
+                            <!-- <div class="cardItemB">
+                                    <div class="cardItemS" style="height: 0px">
                                         <div class="cardTit" style="background: transparent">
                                             <div class="navIconC"></div>
                                             <span>消防安全运行综合评分 </span>
@@ -638,8 +638,8 @@
                                             </el-radio-group>
                                         </div>
                                     </div>
-                                </div>
-                                <!--      <el-row style="text-align: left">
+                                </div> -->
+                            <!--xx      <el-row style="text-align: left">
 
 
                                     我是图图片
@@ -647,10 +647,10 @@
 
                                 </el-row> -->
 
-                                <div class="cardItem_box">
+                            <!-- <div class="cardItem_box">
                                     <component :charRadio="charRadio" :is="require('@/components/echarts/pie.vue')" />
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </el-col>
                     <el-col class="height100" :span="6">
