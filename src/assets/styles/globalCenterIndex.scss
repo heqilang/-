@@ -415,9 +415,8 @@
             background-size: 100% 100%;
             cursor: pointer;
             font-weight: bold;
-            //10 13 调整的 
+            //10 13 调整的
             bottom: 11px;
-
 
             span {
                 background: linear-gradient(180deg, #ffffff 0%, #48e5e5 100%);
@@ -519,7 +518,7 @@
         border-radius: 0.05rem;
     }
 
-    .el-radio-group .is-active .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+    .el-radio-group .is-active .el-radio-button__orig-radio:checked + .el-radio-button__inner {
         background-color: #3869a4 !important;
         border-color: #3869a4 !important;
     }
@@ -563,7 +562,7 @@
                 height: calc(100% - 0.1rem);
                 //  background: linear-gradient(180deg, #19253e98 0%, #223e6198 100%);
                 /*    background: linear-gradient(180deg, #19253e 0%, #223e61 100%); */
-                background: linear-gradient(360deg, #19253E 0%, rgba(34, 62, 97, 0.2) 100%);
+                background: linear-gradient(360deg, #19253e 0%, rgba(34, 62, 97, 0.2) 100%);
                 // background: linear-gradient(to bottom, rgba(25, 37, 62, 1), rgba(34, 62, 97, 0));
                 /*  background: linear-gradient(to right, #30e8bf, #ff8235); */
                 //  background: linear-gradient(270deg, rgba(32,58,88,0) 0%, #28589F 100%);
@@ -620,7 +619,6 @@
                     }
 
                     .zwstyle {
-
                         height: 100%;
                         /* margin-top: 50px; */
                     }
@@ -819,7 +817,6 @@
 }
 
 .dataMainCount_top {
-
     // box-shadow: inset 0px 0px 30px 0px rgba(37, 166, 255, 0.5);
     //   background: linear-gradient(180deg, #172840 100%, #203f65 0%)!important;
     .cardTit {
@@ -830,8 +827,8 @@
 .globalCenterIndexCon .mainClas .midConb .dataMainCount_top {
     height: 1.6rem;
     // background: linear-gradient(180deg, #19253E 0%, #223E61 100%)!important;
-  //  background: linear-gradient(360deg, rgba(23, 71, 126, 0) 0%, #28589f 100%);
-  background:none;
+    //  background: linear-gradient(360deg, rgba(23, 71, 126, 0) 0%, #28589f 100%);
+    background: none;
     border-radius: 8px 8px 8px 8px;
     padding-bottom: 20px;
 }
@@ -851,7 +848,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
 }
 
 .height100_rightimg {
@@ -874,7 +870,6 @@
 }
 
 .height100_rightimgtitle {
-
     position: absolute;
     left: 15%;
     bottom: 5%;
@@ -899,11 +894,9 @@
 }
 
 .navIconC_right {
-
     height: 58px;
 
     .navIconC_right_box {
-
         width: 46px;
         height: 46px;
         opacity: 1;
@@ -914,10 +907,8 @@
 
         /*     border: 4px solid;
         border-image: linear-gradient(270deg, rgba(88, 191, 148, 1), rgba(42, 158, 238, 1)) 4 4; */
-
     }
 }
-
 
 .bottomBG {
     position: absolute;
@@ -936,43 +927,33 @@
     height: 20px;
     text-align: center;
     font-size: 14px;
-
-
-
 }
 
 .navIconC_right_center {
     width: 100%;
     height: 28px;
     font-size: 20px;
-    font-family: Alibaba PuHuiTi 2.0-85 Bold, Alibaba PuHuiTi 20;
+    font-family: Alibaba PuHuiTi 2-85 Bold, Alibaba PuHuiTi 20;
     font-weight: 700;
     line-height: 23px;
-    background: linear-gradient(180deg, #FFFFFF 0%, #3CA2F8 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #3ca2f8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
-
-
-
-
 }
 
 .navIconC_right_bottom {
-
     text-align: center;
     height: 2px;
     width: 87px;
     height: 2px;
-    background: linear-gradient(90deg, rgba(37, 166, 255, 0) 0%, #25A6FF 51%, rgba(37, 166, 255, 0) 100%);
+    background: linear-gradient(90deg, rgba(37, 166, 255, 0) 0%, #25a6ff 51%, rgba(37, 166, 255, 0) 100%);
     opacity: 1;
     margin: auto;
 
-    span {}
-
+    span {
+    }
 }
-
-
 
 .navIconCc {
     margin-left: 10px;
@@ -982,8 +963,6 @@
     border-radius: 0px 6px 6px 0px;
     opacity: 1;
     margin: auto;
-
-
 }
 
 .navIconCc {
@@ -991,56 +970,49 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-
 }
 
 .navIconC_right_center_title {
     font-size: 10px;
-    font-family: Alibaba PuHuiTi 2.0-55 Regular, Alibaba PuHuiTi 20;
+    font-family: Alibaba PuHuiTi 2-55 Regular, Alibaba PuHuiTi 20;
     font-weight: normal;
     line-height: 12px;
-    background: linear-gradient(180deg, #FFFFFF 0%, #3CA2F8 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #3ca2f8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 #cardTitRight {
-    background: linear-gradient(270deg, rgba(0, 95, 201, 0.5000), rgba(14, 66, 123, 0.3000));
+    background: linear-gradient(270deg, rgba(0, 95, 201, 0.5), rgba(14, 66, 123, 0.3));
 
     opacity: 1;
 }
 
 #cardItemS_Left {
-    background: linear-gradient(90deg, #19253E 0%, rgba(34, 62, 97, 0.2) 100%);
+    background: linear-gradient(90deg, #19253e 0%, rgba(34, 62, 97, 0.2) 100%);
 }
 
 #cardItemS_Gight {
-    background: linear-gradient(270deg, #19253E 0%, rgba(34, 62, 97, 0.5) 100%);
+    background: linear-gradient(270deg, #19253e 0%, rgba(34, 62, 97, 0.5) 100%);
 }
 
 .dataMainCount_ul {
-
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
 
     li {
-      
-       
         width: 23%;
         height: 90px;
-background: rgba(17,53,107,0.6);
-border-radius: 8px 8px 8px 8px;
-opacity: 1;
+        background: rgba(17, 53, 107, 0.6);
+        border-radius: 8px 8px 8px 8px;
+        opacity: 1;
 
-
-.dataMainCount_box_li{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-}
+        .dataMainCount_box_li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
         .dataMainCount_ul_img {
             width: 64px;
@@ -1052,32 +1024,25 @@ opacity: 1;
             margin-top: 0px;
             margin-left: 10px;
             margin-right: 20px;
-      
-
-            
-
         }
 
-        .dataMainCount_ul_img_1{
+        .dataMainCount_ul_img_1 {
             background-image: url('../../assets/images/globalCenterNew/img2.png');
         }
-        .dataMainCount_ul_img_2{
+        .dataMainCount_ul_img_2 {
             background-image: url('../../assets/images/globalCenterNew/img3.png');
         }
-        .dataMainCount_ul_img_3{
+        .dataMainCount_ul_img_3 {
             background-image: url('../../assets/images/globalCenterNew/img4.png');
         }
-        .dataMainCount_ul_word{
+        .dataMainCount_ul_word {
             width: calc(100% - 94px);
         }
-
     }
 }
-.dataMainCount_ul_word_top{
+.dataMainCount_ul_word_top {
     font-size: 16px;
- 
+
     font-weight: 400;
-    color: rgba(255,255,255,0.8);
-    
-    
+    color: rgba(255, 255, 255, 0.8);
 }

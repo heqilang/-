@@ -53,8 +53,8 @@ export default {
             //巡查状态(正常 或 超时)
             required: false
         },
-        title:{
-            required: false 
+        title: {
+            required: false
         }
     },
     data: () => ({
@@ -108,7 +108,7 @@ export default {
                 data: {
                     size: that.pager.pageSize,
                     current: that.pager.pageIndex,
-                    pointName:that.title,
+                    pointName: that.title,
                     // patrolStatus: 'NORMAL',
                     patrolStatus: that.patrolStatus,
                     timeType: that.dataRange == '当日' ? 1 : 2,

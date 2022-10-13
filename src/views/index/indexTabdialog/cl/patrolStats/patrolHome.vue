@@ -4,29 +4,22 @@
 
 <template>
     <div>
-
-        <div v-if="changePage=='0'">
-            <div class="diaHeadStandardC patrolHome"
-                style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
-                <span   class="diaHeadStandardCcolor"  > {{ title }}</span>
-
+        <div v-if="changePage == '0'">
+            <div class="diaHeadStandardC patrolHome" style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
+                <span class="diaHeadStandardCcolor"> {{ title }}</span>
 
                 <div style="height: 20px; display: flex; justify-content: space-between" class="clhangImg">
-                    <i class="el-icon-circle-close" @click="$emit('closeRiskStats')"
-                        style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
+                    <i class="el-icon-circle-close" @click="$emit('closeRiskStats')" style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
                 </div>
             </div>
 
             <div style="position: relative">
                 <div class="xf-stats-wrapper">
                     <div class="patrol-stats-wrapper">
-
                         <div class="risk-stats-charts-wrapper">
                             <div class="patrol-stats-charts-content">
                                 <ul class="patrolHome_box" @click="getChangLi">
-                                    <li class="patrolHome_box_li" v-for="item in monthDate" :key="item.name"
-                                        :value="item.name"  :title="item.label"   > {{item.label}}
-                                    </li>
+                                    <li class="patrolHome_box_li" v-for="item in monthDate" :key="item.name" :value="item.name" :title="item.label">{{ item.label }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -34,25 +27,16 @@
                 </div>
             </div>
         </div>
-        <div v-if="changePage=='3'">
-             
-            <PatrolStats   @closeRiskStats="closePage"     :dataRange="dataRange"  :titleTop="titleTop"      />
-
-
+        <div v-if="changePage == '3'">
+            <PatrolStats @closeRiskStats="closePage" :dataRange="dataRange" :titleTop="titleTop" />
         </div>
-
     </div>
-
-
 </template>
 
 <script>
 import XfIndicator from '../common/XfIndicator';
 
-
-
-import PatrolStats from './patrolStats.vue'
-
+import PatrolStats from './patrolStats.vue';
 
 const mockChartBarData = [
     { timeslot: '01', normalTotal: 7, overtimeTotal: 5 }, //时间段 超时次数, 正常次数
@@ -70,7 +54,6 @@ export default {
     components: {
         XfIndicator,
 
-
         PatrolStats
     },
     props: {
@@ -87,7 +70,7 @@ export default {
     },
     data: () => ({
         changePage: '0',
-        titleTop:'',
+        titleTop: '',
         alparams: false,
         dataTable: [],
         pager: {
@@ -130,37 +113,26 @@ export default {
         title: '',
         currentLayerLevel: 1,
         activePatrolStatus: '', //当前激活的 巡查状态(正常 或 超时)
-        activePartolPointId: undefined, //当前激活的 巡查点位id
-
-
+        activePartolPointId: undefined //当前激活的 巡查点位id
     }),
-    created() {
-
-    },
+    created() {},
     mounted() {
-        this.title = '选择区域'
+        this.title = '选择区域';
     },
     methods: {
         getChangLi(event) {
-       
             console.log(event, 'ssss');
-              
-              if(event.target.value=='3'){
-                this.changePage=event.target.value
-              this.titleTop=event.target.title
-              console.dir(event.target.title);
-              }
-           
 
-
-
+            if (event.target.value == '3') {
+                this.changePage = event.target.value;
+                this.titleTop = event.target.title;
+                console.dir(event.target.title);
+            }
         },
-        closePage(){
-            this.$emit('closeRiskStats')
+        closePage() {
+            this.$emit('closeRiskStats');
         }
     }
-
-
 };
 </script>
 
@@ -176,22 +148,22 @@ export default {
     .patrolHome_box_li {
         width: 30%;
         height: 152px;
-        background: rgba(55,140,240,0.4);
-        box-shadow: inset 0px 0px 20px 0px rgba(82,180,236,0.25);
+        background: rgba(55, 140, 240, 0.4);
+        box-shadow: inset 0px 0px 20px 0px rgba(82, 180, 236, 0.25);
         border-radius: 10px 10px 10px 10px;
         opacity: 1;
-        border: 3px solid #3676C1;
+        border: 3px solid #3676c1;
         text-align: center;
-        line-height:152px ;
+        line-height: 152px;
         font-size: 24px;
         margin-bottom: 20px;
-        
-   font-family: Alibaba PuHuiTi 2.0-95 ExtraBold, Alibaba PuHuiTi 20;
-     font-weight: normal;
-   margin-right: 5px;
-background: linear-gradient(180deg, #FFFFFF 0%, #3CA2F8 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+
+        font-family: Alibaba PuHuiTi 2-95 ExtraBold, Alibaba PuHuiTi 20;
+        font-weight: normal;
+        margin-right: 5px;
+        background: linear-gradient(180deg, #ffffff 0%, #3ca2f8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 }
 </style>

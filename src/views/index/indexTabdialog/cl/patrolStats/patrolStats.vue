@@ -4,15 +4,13 @@
 
 <template>
     <div>
-        <div class="diaHeadStandardC"
-            style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
+        <div class="diaHeadStandardC" style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">
             <span v-if="showTitle"> {{ nameTime ? nameTime : title }}</span>
 
             <span v-else class="diaHeadStandardCcolor"> {{ showTitleWord }}</span>
 
             <div style="height: 20px; display: flex; justify-content: space-between" class="clhangImg">
-                <i class="el-icon-circle-close" @click="$emit('closeRiskStats')"
-                    style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
+                <i class="el-icon-circle-close" @click="$emit('closeRiskStats')" style="font-size: 26px; color: #5e9ffb; cursor: pointer"> </i>
             </div>
         </div>
 
@@ -20,12 +18,9 @@
             <div class="xf-stats-wrapper">
                 <div class="patrol-stats-wrapper" v-if="currentLayerLevel === 1">
                     <div class="patrol-stats-indicators" v-if="!nameTime">
-                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次"
-                            v-on:onclick="intoLayer2('1')" />
-                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次"
-                            v-on:onclick="intoLayer2('NORMAL')" />
-                        <XfIndicator title="漏检次数" :num="statsData.notOpportunelyFinish" unit="次"
-                            v-on:onclick="intoLayer2('TIMEOUT')" />
+                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次" v-on:onclick="intoLayer2('1')" />
+                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次" v-on:onclick="intoLayer2('NORMAL')" />
+                        <XfIndicator title="漏检次数" :num="statsData.notOpportunelyFinish" unit="次" v-on:onclick="intoLayer2('TIMEOUT')" />
                     </div>
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
                         <div class="patrol-stats-charts-content">
@@ -36,14 +31,13 @@
                                         <el-tab-pane label="点位列表" name="second"></el-tab-pane>
                                     </el-tabs>
                                 </div> -->
-                                <div style="color: #fff"  v-show="!nameTime" > {{ `${dataRange}点位漏检次数(${title})`}} </div>
-                                <div v-if="datatype"  style=" float: right;text-align: right;"    >
-                                    <el-button  style=" float: right;  margin-bottom: 10px;"    type="text" @click="getNewPage" size="mini" v-once>查看当月点位</el-button>
+                                <div style="color: #fff" v-show="!nameTime">{{ `${dataRange}点位漏检次数(${title})` }}</div>
+                                <div v-if="datatype" style="float: right; text-align: right">
+                                    <el-button style="float: right; margin-bottom: 10px" type="text" @click="getNewPage" size="mini" v-once>查看当月点位</el-button>
                                 </div>
                             </div>
 
-                            <div v-if="false" v-show="activeName == 'first'" class="patrol-stats-chart"
-                                id="patrol-stats-chart1"></div>
+                            <div v-if="false" v-show="activeName == 'first'" class="patrol-stats-chart" id="patrol-stats-chart1"></div>
                             <!-- 
                             <div style="width: 208px">
                                 <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -60,7 +54,7 @@
                             <div v-show="activeName !== 'first'" class="patroLabel" style="height: 600px">
                                 <ul>
                                     <li class="box_li" v-for="(item, index) in list" :key="index">
-                                        <div class="box_li_title_left"    @click="getPointNameDate(item)" >{{ item.pointName }}</div>
+                                        <div class="box_li_title_left" @click="getPointNameDate(item)">{{ item.pointName }}</div>
                                         <div class="box_li_title_right">
                                             <div style="height: 100%; width: 357px">
                                                 <div style="height: 50%; width: 357px; padding: 5px 5px">
@@ -72,9 +66,7 @@
                                             </div>
 
                                             <div class="box_patroLbaelww">
-                                                <component :time="time" :pointName="item.pointName"
-                                                    @getPatroLable="getPatroLable" :chlidList="item.datas"
-                                                    :is="require('./patroLable.vue')" />
+                                                <component :time="time" :pointName="item.pointName" @getPatroLable="getPatroLable" :chlidList="item.datas" :is="require('./patroLable.vue')" />
                                             </div>
                                         </div>
                                     </li>
@@ -89,32 +81,24 @@
                 </div>
 
                 <div class="stats-layer-container" v-if="currentLayerLevel === 2">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer1()">
-                        << </a>
-                            <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange"
-                                :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer1()"> << </a>
+                    <patrolList v-if="currentLayerLevel === 2" :dataRange="dataRange" :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" />
                 </div>
 
                 <div class="stats-layer-container" v-if="currentLayerLevel === 3">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)">
-                        << </a>
-                            <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer2(activePatrolStatus)"> << </a>
+                    <patrolPointDetail v-if="currentLayerLevel === 3" :patrolPointId="activePartolPointId" />
                 </div>
                 <!-- 这里是(绿颜色圈圈) 正常巡查点位详细点进去的 -->
                 <div class="stats-layer-container" v-if="currentLayerLevel === 4">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer4(activePatrolStatus)">
-                        << </a>
-                            <patrolPointDetail v-if="currentLayerLevel === 4" :patrolPointId="activePartolPointId" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer4(activePatrolStatus)"> << </a>
+                    <patrolPointDetail v-if="currentLayerLevel === 4" :patrolPointId="activePartolPointId" />
                 </div>
                 <!-- 这里是正常巡查点位详细点进去的 -->
                 <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
                 <div class="stats-layer-container stats-layer-container_early" v-if="currentLayerLevel === 5">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer5(activePatrolStatus)">
-                        << </a>
-                            <earlymanageevents :getRedDate="getRedDate" :getRed="getRed"
-                                :readyAlarmType="readyAlarmType" :alarmRadiofu="alarmRadio"
-                                v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId"
-                                :alparams="alparams" />
+                    <a class="return-upper-level-btn" v-on:click="intoLayer5(activePatrolStatus)"> << </a>
+                    <earlymanageevents :getRedDate="getRedDate" :getRed="getRed" :readyAlarmType="readyAlarmType" :alarmRadiofu="alarmRadio" v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId" :alparams="alparams" />
                 </div>
                 <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
 
@@ -122,8 +106,7 @@
                 <div class="stats-layer-container stats-layer-container_boxsix" v-if="currentLayerLevel === 6">
                     <div class="stats-layer-container_six">
                         <div class="patrol-stats-charts-content_box">
-                            <div style="width: 70%;height:40px;    margin-bottom: 13px;"
-                                class="patrol-stats-charts-content_box_six">
+                            <div style="width: 70%; height: 40px; margin-bottom: 13px" class="patrol-stats-charts-content_box_six">
                                 <!--      <el-tabs v-model="activeType" @tab-click="handleClick">
                                    <template v-if="dataRange == '当日'">
                                         <el-tab-pane v-for="(item, index) in dayDate" :key="index" :label="item.label" :name="item.name"> </el-tab-pane>
@@ -135,15 +118,14 @@
                                 </el-tabs> -->
                             </div>
                             <div>
-                                <img @click="getType(dataRange)" style="cursor: pointer" width="100%"
-                                    :src="dataRange == '当日' ? buttonDay : buttonMonth" alt="" />
+                                <img @click="getType(dataRange)" style="cursor: pointer" width="100%" :src="dataRange == '当日' ? buttonDay : buttonMonth" alt="" />
                                 <!-- 查看{{dataRange}}点位漏检 -->
                             </div>
                         </div>
                         <div class="patroLabel" style="height: 600px">
                             <ul v-if="activeType == 'one'">
                                 <li class="box_li" v-for="(item, index) in newlist" :key="index">
-                                    <div class="box_li_title_left"  @click="getPointNameDate(item)"    >{{ item.pointName }}</div>
+                                    <div class="box_li_title_left" @click="getPointNameDate(item)">{{ item.pointName }}</div>
                                     <div class="box_li_title_right">
                                         <div style="height: 100%; width: 357px">
                                             <div style="height: 50%; width: 357px; padding: 5px 5px">
@@ -155,9 +137,7 @@
                                         </div>
 
                                         <div class="box_patroLbaelww">
-                                            <component :time="time" :pointName="item.pointName"
-                                                @getPatroLable="getPatroLable" :chlidList="item.datas"
-                                                :is="require('./patroLable.vue')" />
+                                            <component :time="time" :pointName="item.pointName" @getPatroLable="getPatroLable" :chlidList="item.datas" :is="require('./patroLable.vue')" />
                                         </div>
                                     </div>
                                 </li>
@@ -172,27 +152,21 @@
                 <div class="stats-layer-container stats-layer-container_boxseven" v-if="currentLayerLevel === 7">
                     <div class="stats-layer-container_six">
                         <el-table class="xf-table" :data="dataTable" height="344">
-                            <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod">
-                            </el-table-column>
-                            <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true">
-                            </el-table-column>
-                            <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true">
-                            </el-table-column>
+                            <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                            <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                            <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                             <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
                                 <template slot-scope="scope">
                                     <!-- <div>{{ scope.row.sendName.slice(scope.row.sendName.length - 3, scope.row.sendName.length) }}</div> -->
-                                    <div>{{ scope.row.sendName.split(':')[scope.row.sendName.split(':').length - 1] }}
-                                    </div>
+                                    <div>{{ scope.row.sendName.split(':')[scope.row.sendName.split(':').length - 1] }}</div>
                                 </template>
                             </el-table-column>
 
-                            <el-table-column prop="unitName" label="预警位置" :show-overflow-tooltip="true">
-                            </el-table-column>
+                            <el-table-column prop="unitName" label="预警位置" :show-overflow-tooltip="true"> </el-table-column>
 
                             <el-table-column prop="state" label="处置状态" width="120">
                                 <template slot-scope="scope">
-                                    <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' :
-                                    scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
+                                    <div v-if="scope.row.completeStatus">{{ scope.row.completeStatus == '1' ? '处置中' : scope.row.completeStatus == '2' ? '处置完毕' : '待处置' }}</div>
                                     <div v-else>--</div>
                                 </template>
                             </el-table-column>
@@ -200,15 +174,13 @@
                             <el-table-column prop="times" label="操作" width="80" align="center">
                                 <template slot-scope="scope">
                                     <!-- <i class="el-icon-edit fs-16"></i>  -->
-                                    <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)">
-                                        查看 </el-button>
+                                    <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
                         <div class="text_c mar-t-18 backColorPage">
                             <!-- 分页 -->
-                            <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList">
-                            </customPagination>
+                            <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                             <div v-else style="height: 32px"></div>
                         </div>
                     </div>
@@ -217,18 +189,12 @@
                 <!-- 点位列表 -->
                 <div class="stats-layer-container stats-layer-container_boxsix" v-if="currentLayerLevel === 8">
                     <div class="stats-layer-container_six">
-                        <div style="height:25px"> <a class="return-upper-level-btn"
-                                v-on:click="intoLayer8(activePatrolStatus)">
-                                << </a>
-                        </div>
-
-
+                        <div style="height: 25px"><a class="return-upper-level-btn" v-on:click="intoLayer8(activePatrolStatus)"> << </a></div>
 
                         <div class="patroLabel" style="height: 600px">
                             <ul>
                                 <li class="box_li" v-for="(item, index) in list" :key="index">
-                                    <div class="box_li_title_left" @click="getPointNameDate(item)">{{ item.pointName }}
-                                    </div>
+                                    <div class="box_li_title_left" @click="getPointNameDate(item)">{{ item.pointName }}</div>
                                     <div class="box_li_title_right">
                                         <div style="height: 100%; width: 357px">
                                             <div style="height: 50%; width: 357px; padding: 5px 5px">
@@ -240,25 +206,19 @@
                                         </div>
 
                                         <div class="box_patroLbaelww">
-                                            <component :time="time" :pointName="item.pointName"
-                                                @getPatroLable="getPatroLable" :chlidList="item.datas"
-                                                :is="require('./patroLable.vue')" />
+                                            <component :time="time" :pointName="item.pointName" @getPatroLable="getPatroLable" :chlidList="item.datas" :is="require('./patroLable.vue')" />
                                         </div>
                                     </div>
                                 </li>
                             </ul>
-
                         </div>
                     </div>
                 </div>
-<!-- 点位列表数据 -->
-       <div class="stats-layer-container" v-if="currentLayerLevel === 9">
-            <a class="return-upper-level-btn" v-on:click="intoLayer1()">
-                 << </a>
-            <patrolnewList v-if="currentLayerLevel === 9"     :dataRange="dataRange"
-                :patrolStatus="activePatrolStatus"  :title="title"     v-on:viewDetailOnclick="intoLayer3"    />
-        </div>
-
+                <!-- 点位列表数据 -->
+                <div class="stats-layer-container" v-if="currentLayerLevel === 9">
+                    <a class="return-upper-level-btn" v-on:click="intoLayer1()"> << </a>
+                    <patrolnewList v-if="currentLayerLevel === 9" :dataRange="dataRange" :patrolStatus="activePatrolStatus" :title="title" v-on:viewDetailOnclick="intoLayer3" />
+                </div>
             </div>
         </div>
     </div>
@@ -270,8 +230,7 @@ import * as echarts from 'echarts';
 import patrolList from './patrolList';
 import patrolPointDetail from './patrolPointDetail';
 import earlymanageevents from './earlymang.vue';
-import patrolnewList from './patrolnewList.vue'
-
+import patrolnewList from './patrolnewList.vue';
 
 const mockChartBarData = [
     { timeslot: '01', normalTotal: 7, overtimeTotal: 5 }, //时间段 超时次数, 正常次数
@@ -363,14 +322,11 @@ export default {
         this.activeName = this.datatype ? 'second' : 'first';
         this.getPostion(this.nameTime);
         console.log(this.titleTop);
-
-
-
     },
     mounted() {
         this.loadStatsData();
         this.getcountAlarms();
-        this.title = this.titleTop ? this.titleTop : this.title
+        this.title = this.titleTop ? this.titleTop : this.title;
     },
 
     watch: {
@@ -394,7 +350,7 @@ export default {
                 if (newVal === 1) {
                     console.log('触发这里');
                     this.title = `${this.titleTop}`;
-                    this.showTitle=true
+                    this.showTitle = true;
                 } else if (newVal === 2) {
                     this.title = `${this.dataRange}巡查列表`;
                 } else if (newVal === 3) {
@@ -409,7 +365,7 @@ export default {
                     this.title = `点位列表`;
                 } else if (newVal === 4) {
                     this.title = `点位详情`;
-                    this.showTitleWord=`点位详情`;
+                    this.showTitleWord = `点位详情`;
                 }
 
                 setTimeout(() => {
@@ -419,9 +375,7 @@ export default {
                                { name: '漏检次数', value: this.statsData.notOpportunelyFinish }
                            ]); */
 
-
                         if (this.dataRange == '当日') {
-
                             this.drawLeftLine();
                         } else {
                             this.drawdangyeCharts();
@@ -433,17 +387,13 @@ export default {
     },
 
     methods: {
-
         getPointNameDate(val) {
-            
             console.log(val);
-            this.title=val.pointName 
+            this.title = val.pointName;
 
             console.log('具体的点位列表');
-            this.currentLayerLevel=9
+            this.currentLayerLevel = 9;
         },
-
-
 
         // 留
         getList() {
@@ -495,12 +445,12 @@ export default {
             console.log(row);
             this.alparams = true;
 
-            let that = this
+            let that = this;
             this.currentLayerLevel = 5;
             this.getRedDate = row;
             setTimeout(() => {
                 that.title = '查看';
-            },);
+            });
 
             // this.getMessageList(row);
             // this.getfindMessages(row, 0);
@@ -610,7 +560,7 @@ export default {
             return nowDate;
         },
 
-        handleClick() { },
+        handleClick() {},
 
         intoLayer1() {
             this.currentLayerLevel = 1;
@@ -624,12 +574,11 @@ export default {
                 this.getList();
                 return;
             }
-            if (patrolStatus == '1'&&this.dataRange=='当日') {
+            if (patrolStatus == '1' && this.dataRange == '当日') {
                 //点位列表
-                this.currentLayerLevel = 8
+                this.currentLayerLevel = 8;
                 return;
             }
-
 
             this.activePatrolStatus = patrolStatus;
             this.currentLayerLevel = 2;
@@ -1115,7 +1064,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
         opacity: 1;
         border-radius: 12px 12px 12px 12px;
         opacity: 1;
-        border: 2px solid #5C88A7;
+        border: 2px solid #5c88a7;
 
         display: flex;
         overflow: hidden;
@@ -1123,11 +1072,11 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
         .box_li_title_left {
             width: 274px;
             height: 51px;
-            background: #2E8FD2;
+            background: #2e8fd2;
             border-radius: 12px 12px 12px 12px;
             opacity: 1;
-          
-          //  border: 2px solid #5c88a7;
+
+            //  border: 2px solid #5c88a7;
             text-align: center;
             line-height: 51px;
 
@@ -1158,7 +1107,6 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
 .patrol-stats-charts-content_box {
     display: flex;
     justify-content: space-between;
-
 }
 
 .patrol-stats-charts-content_box .el-button {
