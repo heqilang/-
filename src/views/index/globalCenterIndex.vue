@@ -593,7 +593,7 @@
                                             <div class="dataMainCount_ul_word">
                                                 <div class="dataMainCount_ul_word_top" style="height: 45px; line-height: 45px">地上层数</div>
                                                 <div style="height: 45px">
-                                                    <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.buildingHeight }}</span> <span class="textColor">米</span>
+                                                    <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsOnGround }}</span> <span class="textColor">米</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -604,7 +604,7 @@
                                             <div class="dataMainCount_ul_word">
                                                 <div class="dataMainCount_ul_word_top" style="height: 45px; line-height: 45px">地下层数</div>
                                                 <div style="height: 45px">
-                                                    <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.buildingHeight }}</span> <span class="textColor">米</span>
+                                                    <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.floorsUnderground }}</span> <span class="textColor">米</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -614,9 +614,7 @@
                                             <div class="dataMainCount_ul_img dataMainCount_ul_img_3"></div>
                                             <div class="dataMainCount_ul_word">
                                                 <div class="dataMainCount_ul_word_top" style="height: 45px; line-height: 45px">建筑类别</div>
-                                                <div style="height: 45px">
-                                                    <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.buildingHeight }}</span> <span class="textColor">米</span>
-                                                </div>
+                                                <div style="height: 45px"><span class="textColor" style="font-size: 0.32rem; font-weight: 700">1</span> <span class="textColor">米</span></div>
                                             </div>
                                         </div>
                                     </li>
