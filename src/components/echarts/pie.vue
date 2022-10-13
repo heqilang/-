@@ -1,6 +1,6 @@
 <template>
-    <div style="height: 100%">
-        <div style="height: 85%" id="lineChar_1"></div>
+    <div style="height: 100%; margin-top: 30px">
+        <div style="height: 100%" id="lineChar_1"></div>
     </div>
 </template>
 <script>

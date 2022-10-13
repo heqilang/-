@@ -68,7 +68,14 @@
                     <el-col :span="6" class="text_c">
                         <div class="total_head_card">
                             <div style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">综合评分</div>
-                            <div class="textColor" style="line-height: 140px; font-size: 0.36rem; text-align: center; font-weight: 700">{{ (systemScoreList.score / 1).toFixed(2) }}</div>
+                            <div class="textColor" style="width: 80%; line-height: 140px; font-size: 0.36rem; text-align: center; font-weight: 700">
+                                {{ (systemScoreList.score / 1).toFixed(2) }}
+                            </div>
+                            <div class="scores">
+                                <div class="alarmDisposalScore">报警处置分：{{ (systemScoreList.alarmScore / 1).toFixed(2) }}</div>
+                                <div class="alarmDisposalScore">巡查完成分：{{ (systemScoreList.patrolScore / 1).toFixed(2) }}</div>
+                                <div class="alarmDisposalScore">隐患整治分：{{ (systemScoreList.risksScore / 1).toFixed(2) }}</div>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
@@ -123,8 +130,9 @@
                     </el-col>
                 </el-row> -->
 
-                <div style="width: 100%; height: 360px; position: relative; display: flex">
-                    <div id="pieChart" style="width: 55%; height: 360px"></div>
+                <div style="width: 100%; height: 360px; display: flex">
+                    <!-- 55% -->
+                    <div id="pieChart" style="width: 45%; height: 360px"></div>
 
                     <div class="pieChart_box" v-if="systemScoreList.score < 95" style="color: #fff; text-align: left; font-size: 15px; width: 45%; height: 360px">
                         <div class="pieChart_box_title" style="padding: 0px 0 20px 0">
@@ -171,6 +179,30 @@
                         </ul> -->
                         </div>
                     </div>
+
+                    <!-- 11111111111111111111111111 -->
+                    <!-- <div class="mydiv"> -->
+                    <div class="dataMainCountBottom" style="width: 45%; height: 360px; margin-left: 635px">
+                        <div class="cardItemB">
+                            <div class="cardItemS" style="height: 0px">
+                                <div class="cardTit" style="background: transparent">
+                                    <div class="navIconC"></div>
+                                    <span>消防安全运行综合评分 </span>
+
+                                    <el-radio-group style="transform: scale(0.73); float: right" v-model="charRadio" @change="getCharRadio">
+                                        <el-radio-button label="min">近30天</el-radio-button>
+                                        <el-radio-button label="MONTH">当月</el-radio-button>
+                                        <el-radio-button label="YEAR">当年</el-radio-button>
+                                    </el-radio-group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cardItem_box">
+                            <component :charRadio="charRadio" :is="require('@/components/echarts/pie.vue')" />
+                        </div>
+                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -214,6 +246,7 @@ export default {
     props: ['showScoreMark'],
     data() {
         return {
+            charRadio: 'min',
             sonData: '',
             showPage: 1,
             showSec1: false,
@@ -238,13 +271,34 @@ export default {
         totalTitle: {
             get() {
                 let arr = [
-                    { title: '报警处置', showTitle: this.sonData.alarmHandlePercent !== 100 },
-                    { title: '报警及时处置', showTitle: this.sonData.alarmHandOpportunelyPercent !== 100 },
-                    { title: '巡查计划', showTitle: this.sonData.patrolHandlePercent !== 100 },
-                    { title: '巡查按时完成率', showTitle: this.sonData.patrolHandleOpportunelyPercent !== 100 },
-                    { title: '隐患排查', showTitle: this.sonData.risksPercent !== 100 },
-                    { title: '隐患整改', showTitle: this.sonData.risksHandlePercent !== 100 },
-                    { title: '按时整改隐患', showTitle: this.sonData.risksOpportunelyPercent !== 100 }
+                    {
+                        title: '报警处置',
+                        showTitle: this.sonData.alarmHandlePercent !== 100
+                    },
+                    {
+                        title: '报警及时处置',
+                        showTitle: this.sonData.alarmHandOpportunelyPercent !== 100
+                    },
+                    {
+                        title: '巡查计划',
+                        showTitle: this.sonData.patrolHandlePercent !== 100
+                    },
+                    {
+                        title: '巡查按时完成率',
+                        showTitle: this.sonData.patrolHandleOpportunelyPercent !== 100
+                    },
+                    {
+                        title: '隐患排查',
+                        showTitle: this.sonData.risksPercent !== 100
+                    },
+                    {
+                        title: '隐患整改',
+                        showTitle: this.sonData.risksHandlePercent !== 100
+                    },
+                    {
+                        title: '按时整改隐患',
+                        showTitle: this.sonData.risksOpportunelyPercent !== 100
+                    }
                 ];
                 let newArr = arr.filter((item) => {
                     return item.showTitle == true;
@@ -260,6 +314,9 @@ export default {
         }
     },
     methods: {
+        getCharRadio(val) {
+            console.log(val, this.charRadio);
+        },
         closeDealie(val) {
             this.$emit('closeTsCompF');
             this.$emit('closeDialog');
@@ -375,13 +432,34 @@ export default {
                         // ]
                         data: [
                             // { value: _self.sonData.equipPercent, name: '设备完好率' },
-                            { value: 10, name: '隐患发现率' },
-                            { value: 20, name: '报警处置及时率' },
-                            { value: 20, name: '巡查完成率' },
-                            { value: 10, name: '隐患整改率' },
-                            { value: 10, name: '报警处置率' },
-                            { value: 20, name: '隐患按时整改率' },
-                            { value: 10, name: '巡查按时完成率' }
+                            {
+                                value: 10,
+                                name: '隐患发现率'
+                            },
+                            {
+                                value: 20,
+                                name: '报警处置及时率'
+                            },
+                            {
+                                value: 20,
+                                name: '巡查完成率'
+                            },
+                            {
+                                value: 10,
+                                name: '隐患整改率'
+                            },
+                            {
+                                value: 10,
+                                name: '报警处置率'
+                            },
+                            {
+                                value: 20,
+                                name: '隐患按时整改率'
+                            },
+                            {
+                                value: 10,
+                                name: '巡查按时完成率'
+                            }
                         ].map((item, index) => {
                             let color = ['#25A6FF', '#E4AF3D', '#CD685B', '#83BDBF', '#6bd0ca', '#A259BC', '#ffd700'];
                             item.label = {
@@ -483,6 +561,12 @@ export default {
 </script>
 <style lang="scss">
 .scoreMark {
+    .mydiv {
+        width: 100px;
+        height: 100px;
+        background-color: #bfa;
+    }
+
     // height: 300px;
     .textColor {
         color: #ffffff;
@@ -490,6 +574,17 @@ export default {
         background: linear-gradient(180deg, #ffffff 0%, #48e5e5 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+    }
+
+    .scores {
+        float: right;
+        color: #ffffff;
+        margin-right: -7px;
+        margin-top: -110px;
+
+        div {
+            margin-bottom: 10px;
+        }
     }
 
     .total_head_card {
