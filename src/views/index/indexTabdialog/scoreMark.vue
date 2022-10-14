@@ -71,11 +71,11 @@
                             <div class="textColor" style="width: 40%; line-height: 140px; font-size: 0.36rem; text-align: center; font-weight: 700">
                                 {{ (systemScoreList.score / 1).toFixed(2) }}
                             </div>
-                            <div class="scores" style="width: 70%">
-                                <div class="alarmDisposalScore">报警处置分：{{ (systemScoreList.alarmScore / 1).toFixed(2) }}/{{ systemScoreList.alarmScoreAll }}分</div>
-                                <div class="alarmDisposalScore">巡查完成分：{{ (systemScoreList.patrolScore / 1).toFixed(2) }}/{{ systemScoreList.patrolScoreAll }}分</div>
+                            <div class="scores" style="width: 75%">
+                                <div class="alarmDisposalScore">报警处置分：{{ (systemScoreList.alarmScore / 1).toFixed(2) }}分/{{ systemScoreList.alarmScoreAll }}分</div>
+                                <div class="alarmDisposalScore">巡查完成分：{{ (systemScoreList.patrolScore / 1).toFixed(2) }}分/{{ systemScoreList.patrolScoreAll }}分</div>
                                 <!-- risksScore -->
-                                <div class="alarmDisposalScore">隐患整治分：{{ ((systemScoreList.score / 1).toFixed(2) - (systemScoreList.alarmScore / 1).toFixed(2) - (systemScoreList.patrolScore / 1).toFixed(2)).toFixed(2) }}/{{ systemScoreList.risksScoreAll }}分</div>
+                                <div class="alarmDisposalScore">隐患整治分：{{ ((systemScoreList.score / 1).toFixed(2) - (systemScoreList.alarmScore / 1).toFixed(2) - (systemScoreList.patrolScore / 1).toFixed(2)).toFixed(2) }}分/{{ systemScoreList.risksScoreAll }}分</div>
                                 <!-- <div class="alarmDisposalScore">隐患整治分：{{ (systemScoreList.risksScore / 1).toFixed(2) }}</div> -->
                             </div>
                         </div>
@@ -134,7 +134,7 @@
 
                 <div style="width: 100%; height: 360px; display: flex">
                     <!-- 55% -->
-                    <div id="pieChart" style="width: 45%; height: 360px"></div>
+                    <div id="pieChart" style="width: 30%; height: 360px"></div>
 
                     <div class="pieChart_box" v-if="systemScoreList.score < 95" style="color: #fff; text-align: left; font-size: 15px; width: 45%; height: 360px">
                         <div class="pieChart_box_title" style="padding: 0px 0 20px 0">
@@ -184,12 +184,14 @@
 
                     <!-- 11111111111111111111111111 -->
                     <!-- <div class="mydiv"> -->
-                    <div class="dataMainCountBottom" style="width: 45%; height: 360px; margin-left: 635px">
+                    <!-- margin-left: 635px -->
+
+                    <div class="dataMainCountBottom" style="width: 70%; height: 360px; margin-left: 356px">
                         <div class="cardItemB">
                             <div class="cardItemS" style="height: 0px">
                                 <div class="cardTit" style="background: transparent">
-                                    <div class="navIconC"></div>
-                                    <span>消防安全运行综合评分 </span>
+                                    <!-- <div class="navIconC"></div> -->
+                                    <!-- <span>消防安全运行综合评分 </span> -->
 
                                     <el-radio-group style="transform: scale(0.73); float: right" v-model="charRadio" @change="getCharRadio">
                                         <el-radio-button label="min">近30天</el-radio-button>
@@ -411,12 +413,12 @@ export default {
                     {
                         name: '',
                         type: 'pie',
-                        radius: '50%',
+                        radius: '40%',
 
                         labelLine: {
                             normal: {
                                 length: 20, //第一条线
-                                length2: 150, //第二条线
+                                length2: 80, //第二条线
                                 lineStyle: {
                                     width: 1, // 线条的宽度
                                     color: '#fff' //线的颜色设置， 如没有设置颜色则线条的颜色跟随饼状图的颜色
@@ -501,7 +503,7 @@ export default {
                                     console.dir(params);
                                     console.dir(params.name.length);
                                     if (params.name.length < 7) {
-                                        return '{per|' + '■' + ' }' + '{a|' + params.data.name + '       ' + ' }' + '{b|' + params.percent + '% }';
+                                        return '{per|' + '■' + ' }' + '{a|' + params.data.name + ' ' + ' }' + '{b|' + params.percent + '% }';
                                     } else {
                                         return '{per|' + '■' + ' }' + '{a|' + params.data.name + ' ' + ' }' + '{b|' + params.percent + '% }'; // params.name + params.percent+"%"
                                     }
