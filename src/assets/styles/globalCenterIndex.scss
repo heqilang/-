@@ -993,7 +993,7 @@
 #cardItemS_Left {
     background: linear-gradient(90deg, #19253e 0%, rgba(34, 62, 97, 0.2) 70%);
 }
-#cardItemS_Left_left{
+#cardItemS_Left_left {
     background: linear-gradient(90deg, #19253e 0%, rgba(34, 62, 97, 0.2) 70%);
 }
 
@@ -1053,59 +1053,56 @@
     color: rgba(255, 255, 255, 0.8);
 }
 //'../../assets/images/globalCenter/bottomBG2.png'
-.SS_1{
+.SS_1 {
     display: flex;
 }
 
-.S_comm{
+.S_comm {
     width: 18px;
     height: 18px;
     background-repeat: no-repeat;
-    margin-right:5px ;
+    margin-right: 5px;
     margin-top: 2px;
 }
 
-.S_1{
+.S_1 {
     background-image: url('../../assets/images/globalCenter/S-1.png');
-
 }
-.S_2{
+.S_2 {
     background-image: url('../../assets/images/globalCenter/S-2.png');
 }
-.S_3{
+.S_3 {
     background-image: url('../../assets/images/globalCenter/S-3.png');
-    
 }
-.S_4{
+.S_4 {
     background-image: url('../../assets/images/globalCenter/S-4.png');
 }
-.S_5{
+.S_5 {
     background-image: url('../../assets/images/globalCenter/S-5.png');
 }
-.S_6{
+.S_6 {
     background-image: url('../../assets/images/globalCenter/S-6.png');
 }
-.S_7{
+.S_7 {
     background-image: url('../../assets/images/globalCenter/S-7.png');
 }
 
-
-.wordComm{
+.wordComm {
     font-size: 15px;
-    font-family: Alibaba PuHuiTi 2.0-95 ExtraBold, Alibaba PuHuiTi 20;
+    font-family: Alibaba PuHuiTi 2-95 ExtraBold, Alibaba PuHuiTi 20;
     font-weight: normal;
 
-    background: linear-gradient(168deg, #C5E8FF 0%, #59C2FE 100%);
+    background: linear-gradient(168deg, #c5e8ff 0%, #59c2fe 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.midConb_center{
+.midConb_center {
     position: absolute;
     top: 44%;
     left: 49%;
     transform: translate(-50%, -50%);
     width: 100px;
     height: 32px;
-  cursor: pointer;
+    cursor: pointer;
 }

@@ -150,8 +150,8 @@
 
                 <!-- 这里是漏检次数点进去的 -->
                 <div class="stats-layer-container stats-layer-container_boxseven" v-if="currentLayerLevel === 7">
-                    <div  style="height: 26px"   ><a class="return-upper-level-btn" v-on:click="intoLayer7(activePatrolStatus)"> << </a></div>
-                    
+                    <div style="height: 26px"><a class="return-upper-level-btn" v-on:click="intoLayer7(activePatrolStatus)"> << </a></div>
+
                     <div class="stats-layer-container_six">
                         <el-table class="xf-table" :data="dataTable" height="344">
                             <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
@@ -599,7 +599,7 @@ export default {
         intoLayer6() {
             this.currentLayerLevel = 1;
         },
-        intoLayer7(){
+        intoLayer7() {
             this.currentLayerLevel = 1;
         },
         intoLayer8() {
@@ -752,7 +752,7 @@ export default {
                             /*  _self.MONTHdrawLeftLineList.everyDay.push(item.timeName.substring(5, 10));
                              _self.MONTHdrawLeftLineList.number.push(item.average); */
                             _self.MONTHdrawLeftLineList.everyDay.push(item.timeName);
-                            _self.MONTHdrawLeftLineList.number.push(item.leakNum?item.leakNum:'');
+                            _self.MONTHdrawLeftLineList.number.push(item.leakNum ? item.leakNum : '');
                             /*   _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
 _self.MONTHdrawLeftLineList.number.push(item.number); */
                         });
