@@ -3,29 +3,28 @@
 -->
 <template>
     <div class="equipment-type-list-wrapper">
-        <div id="alarmVideo" style="margin-top: 20px; background-color: #fff"></div>
+        <div class="videostils">
+            <video :id="postId" class="video-js vjs-default-skin videos" data-setup="{}"></video>
+        </div>
     </div>
 </template>
 
 <script>
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
+
 export default {
     props: {
         getvideoitem: {
             required: true
         }
     },
-    data: () => ({
-        pager: {
-            pageSize: 5,
-            pageIndex: 1,
-            total: 0
-        },
-        dataTable: [],
-        searchModel: {
-            fhfq: '',
-            installSite: undefined
-        }
-    }),
+    data() {
+        return {
+            // videoUrl2: 'rtmp://119.6.226.37:29765/live/1282482383_51010900001991003544_0_0'
+            postId: 'video' + new Date().getTime().toString().substr(8)
+        };
+    },
     created() {},
     mounted() {
         this.loadListData();
@@ -35,21 +34,27 @@ export default {
             let _self = this;
             // if (_self.owningSystem) {
             _self._http({
-                url: '/api/web/indexCountV3/findVideoEquipment',
+                url: '/api/open/longGuan/getVideoUrl',
                 type: 'get',
                 data: {
-                    // equipmentName: _self.type,
-                    // owningSystem: _self.owningSystem,
-                    // equipmentName: _self.type,
-                    current: _self.pager.pageIndex,
-                    size: _self.pager.pageSize,
-                    sorts: 'id:desc;',
-                    transform: 'B:building;F:floor;ET:equipmentType;ES:owningSystem',
-                    'owningSystem.symbol': 'IN'
+                    id: _self.getvideoitem.id,
+                    ip: ''
                 },
                 success: function (res) {
-                    _self.dataTable = res.data.records;
-                    _self.pager.total = res.data.total;
+                    let videoPlayer = videojs(_self.postId, {
+                        preload: 'auto', // 预加载
+                        autoplay: true, // 自动播放
+                        flash: {
+                            swf: '//vjs.zencdn.net/swf/5.4.2/video-js.swf'
+                        },
+                        notSupportedMessage: '你的浏览器不支持Flash播放'
+                    });
+
+                    videoPlayer.src({
+                        type: 'rtmp/flv',
+                        // src: "rtmp://119.6.226.38:29745/live/1282609116_51010900001991003545_0_0"
+                        src: res.data
+                    });
                 }
             });
         }
@@ -58,8 +63,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import './equipmentTypeList.scss';
-.el-button {
-    padding: 10px 3px;
+.videostils {
+    .videos {
+        height: 600px;
+        width: 1100px;
+    }
 }
 </style>

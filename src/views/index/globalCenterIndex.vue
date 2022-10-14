@@ -531,13 +531,11 @@
                     </el-col>
                     <el-col class="height100" :span="12">
                         <div class="height100 midConb">
-
-<div     @click="showLCImg = true"  class="midConb_center" >                                  </div>
-                         
+                            <div @click="showLCImg = true" class="midConb_center"></div>
 
                             <div class="dataMainCount dataMainCount_top">
                                 <!-- <span @click="showLCImg = true" style="border: 1px solid #ccc; padding: 0.06rem 0.12rem; cursor: pointer">建筑概况</span> -->
-                             <!--    <div v-if="false">
+                                <!--    <div v-if="false">
                                     <div class="cardItemB" @click="showLCImg = true">
                                         <div class="cardItemS" style="height: 0px">
                                             <div class="cardTit" style="background: transparent">
@@ -579,12 +577,12 @@
                                         </el-col>
                                     </el-row>
                                 </div> -->
-                                <ul   @click="showLCImg = true"  class="dataMainCount_ul">
+                                <ul @click="showLCImg = true" class="dataMainCount_ul">
                                     <li>
                                         <div class="dataMainCount_box_li">
                                             <div class="dataMainCount_ul_img"></div>
                                             <div class="dataMainCount_ul_word">
-                                                <div class="dataMainCount_ul_word_top"   style="height: 40px; line-height: 57px">建筑面积</div>
+                                                <div class="dataMainCount_ul_word_top" style="height: 40px; line-height: 57px">建筑面积</div>
                                                 <div style="height: 50px">
                                                     <span class="textColor" style="font-size: 0.32rem; font-weight: 700">{{ buildingInfo.area }}</span> <span class="textColor">万平方米</span>
                                                 </div>
@@ -748,7 +746,7 @@
                                                                 <img style="height: 0.56rem" src="../../assets/images/globalCenterNew/mhqIco.png" alt="" />
                                                             </el-col>
                                                             <el-col :span="12">
-                                                                <div class="text_l"> 设备总数</div>
+                                                                <div class="text_l">设备总数</div>
                                                                 <div class="text_l">
                                                                     <span class="textColor" style="font-size: 0.2rem; font-weight: 700">{{ alarmEventList.total - 1 }}</span>
                                                                 </div>
@@ -757,20 +755,29 @@
                                                     </div>
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
-                                                            <el-col :span="16"  class="SS_1"   > <div  class="S_1 S_comm " >  </div>    消防设备：</el-col>
-                                                            <el-col :span="8"    class="wordComm"     > {{ alarmEventList.equipSys1 + alarmEventList.equipSys3 + alarmEventList.equipSys8 + alarmEventList.equipSys5 + alarmEventList.equipSys9 }} </el-col>
+                                                            <el-col :span="16" class="SS_1">
+                                                                <div class="S_1 S_comm"></div>
+                                                                消防设备：</el-col
+                                                            >
+                                                            <el-col :span="8" class="wordComm"> {{ alarmEventList.equipSys1 + alarmEventList.equipSys3 + alarmEventList.equipSys8 + alarmEventList.equipSys5 + alarmEventList.equipSys9 }} </el-col>
                                                         </el-row>
                                                     </div>
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
-                                                            <el-col :span="16" class="SS_1"  >  <div  class="S_2 S_comm " >  </div>     安防设备：</el-col>
-                                                            <el-col :span="8" class="wordComm"     > {{ alarmEventList.videoCount }} </el-col>
+                                                            <el-col :span="16" class="SS_1">
+                                                                <div class="S_2 S_comm"></div>
+                                                                安防设备：</el-col
+                                                            >
+                                                            <el-col :span="8" class="wordComm"> {{ alarmEventList.videoCount }} </el-col>
                                                         </el-row>
                                                     </div>
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
-                                                            <el-col :span="16" class="SS_1"  > <div  class="S_3 S_comm " >  </div>   逃生疏散设备：</el-col>
-                                                            <el-col :span="8"  class="wordComm"  > {{ alarmEventList.tsbnxt + alarmEventList.equipSys6 + alarmEventList.equipSys11 + alarmEventList.equipSys10 }} </el-col>
+                                                            <el-col :span="16" class="SS_1">
+                                                                <div class="S_3 S_comm"></div>
+                                                                逃生疏散设备：</el-col
+                                                            >
+                                                            <el-col :span="8" class="wordComm"> {{ alarmEventList.tsbnxt + alarmEventList.equipSys6 + alarmEventList.equipSys11 + alarmEventList.equipSys10 }} </el-col>
                                                         </el-row>
                                                     </div>
                                                 </div>
@@ -791,26 +798,38 @@
                                                     </div>
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
-                                                            <el-col :span="18" class="SS_1" >  <div  class="S_4 S_comm " >  </div>  政府专职消防队：</el-col>
-                                                            <el-col :span="6" class="wordComm"    >1 </el-col>
+                                                            <el-col :span="18" class="SS_1">
+                                                                <div class="S_4 S_comm"></div>
+                                                                政府专职消防队：</el-col
+                                                            >
+                                                            <el-col :span="6" class="wordComm">1 </el-col>
                                                         </el-row>
                                                     </div>
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
-                                                            <el-col :span="18"  class="SS_1"  >  <div  class="S_5 S_comm " >  </div>  企业消防队：</el-col>
-                                                            <el-col :span="6" class="wordComm"    > 1 </el-col>
+                                                            <el-col :span="18" class="SS_1">
+                                                                <div class="S_5 S_comm"></div>
+                                                                企业消防队：</el-col
+                                                            >
+                                                            <el-col :span="6" class="wordComm"> 1 </el-col>
                                                         </el-row>
                                                     </div>
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
-                                                            <el-col :span="18" class="SS_1"   >  <div  class="S_6 S_comm " >  </div>  微型消防站：</el-col>
-                                                            <el-col :span="6" class="wordComm"  > 1 </el-col>
+                                                            <el-col :span="18" class="SS_1">
+                                                                <div class="S_6 S_comm"></div>
+                                                                微型消防站：</el-col
+                                                            >
+                                                            <el-col :span="6" class="wordComm"> 1 </el-col>
                                                         </el-row>
                                                     </div>
                                                     <div class="text_l" style="margin-top: 0.12rem">
                                                         <el-row>
-                                                            <el-col :span="18"  class="SS_1" > <div  class="S_7 S_comm " >  </div>  消防物资：</el-col>
-                                                            <el-col :span="6"  class="wordComm"  > 6 </el-col>
+                                                            <el-col :span="18" class="SS_1">
+                                                                <div class="S_7 S_comm"></div>
+                                                                消防物资：</el-col
+                                                            >
+                                                            <el-col :span="6" class="wordComm"> 6 </el-col>
                                                         </el-row>
                                                     </div>
                                                 </div>
@@ -1040,9 +1059,9 @@ export default {
     data() {
         return {
             rightDate: [
-                { lable: '报警处置评分', value: 0 ,num:0},
-                { lable: '巡查完成评分', value: 1,num:0 },
-                { lable: '隐患整治评分', value: 2 ,num:0}
+                { lable: '报警处置评分', value: 0, num: 0 },
+                { lable: '巡查完成评分', value: 1, num: 0 },
+                { lable: '隐患整治评分', value: 2, num: 0 }
             ],
 
             statsData: {
@@ -1333,12 +1352,10 @@ export default {
             const myChart = echarts.init(chartDom);
             const that = this;
             const option = {
-              
-
                 title: {
-                   // text: ['{a|你好}','{b|哈哈}'].join(''),
-                    
-                    text:  [`{a| ${data[0].value + data[1].value}}`,'{b|次}'].join('') , //  `{a|${data[0].value + data[1].value}} {b|次}  `,
+                    // text: ['{a|你好}','{b|哈哈}'].join(''),
+
+                    text: [`{a| ${data[0].value + data[1].value}}`, '{b|次}'].join(''), //  `{a|${data[0].value + data[1].value}} {b|次}  `,
                     top: '44%',
                     left: 'center',
                     //  textAlign: 'center',
@@ -1350,18 +1367,17 @@ export default {
                         background: 'linear-gradient(180deg, #FFFFFF 0%, #48E5E5 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
-                        rich:{
-                        a:{
-                            color: '#fff',
-                            fontWeight:'bold',
-                            fontSize: 20,
-                        },b:
-                        {
-                            color: '#fff',
-                            fontSize: 14,
+                        rich: {
+                            a: {
+                                color: '#fff',
+                                fontWeight: 'bold',
+                                fontSize: 20
+                            },
+                            b: {
+                                color: '#fff',
+                                fontSize: 14
+                            }
                         }
-            }
-
                     }
                 },
 
@@ -1707,7 +1723,6 @@ export default {
                     _self.rightDate[1].num = res.data.patrolScoreAll || 0;
                     _self.rightDate[2].value = res.data.risksScore.toFixed(2);
                     _self.rightDate[2].num = res.data.risksScoreAll || 0;
-             
                 }
             });
         },
