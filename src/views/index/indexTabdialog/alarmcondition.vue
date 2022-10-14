@@ -42,64 +42,64 @@
                         </el-row>
                     </el-col>
 
-                    <el-row>
-                        <el-col :span="24">
-                            <div style="margin-bottom: 12px">
-                                <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
-                                    <el-radio-button label="设备报警数量">
-                                        <!-- <i class="el-icon-s-grid"></i> -->
-                                    </el-radio-button>
-                                    <el-radio-button label="报警处置数量">
-                                        <!-- <i class="el-icon-s-data"></i> -->
-                                    </el-radio-button>
-                                </el-radio-group>
-                            </div>
-                            <el-table v-if="showanalysis == 'alarmanalysis1'" class="xf-table" :data="dataTable" height="345">
-                                <el-table-column label="序号" align="center" width="50">
-                                    <template slot-scope="scope">
-                                        {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
-                                <el-table-column prop="equipmentState" label="报警类型" width="140">
-                                    <template slot-scope="scope">
-                                        <!--  <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
+                    <!-- <el-row> -->
+                    <el-col :span="24">
+                        <div style="margin-bottom: 12px">
+                            <el-radio-group v-model="chartRadio1" @change="tabitemchange" size="mini">
+                                <el-radio-button label="设备报警数量">
+                                    <!-- <i class="el-icon-s-grid"></i> -->
+                                </el-radio-button>
+                                <el-radio-button label="报警处置数量">
+                                    <!-- <i class="el-icon-s-data"></i> -->
+                                </el-radio-button>
+                            </el-radio-group>
+                        </div>
+                        <el-table v-if="showanalysis == 'alarmanalysis1'" class="xf-table" :data="dataTable" height="345">
+                            <el-table-column label="序号" align="center" width="50">
+                                <template slot-scope="scope">
+                                    {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                            <el-table-column prop="equipmentState" label="报警类型" width="140">
+                                <template slot-scope="scope">
+                                    <!--  <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
                                         <div v-else>--</div> -->
-                                        <div>{{ scope.row.alarmType }}</div>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
-                                    <template slot-scope="scope">
-                                        <span>--</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
-                                    <template slot-scope="scope">
-                                        <!-- <div v-if="scope.row.lookup.building">{{ scope.row.lookup.building }} - {{ scope.row.lookup.floor }} - {{ scope.row.address }}</div>
+                                    <div>{{ scope.row.alarmType }}</div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
+                                <template slot-scope="scope">
+                                    <span>--</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
+                                <template slot-scope="scope">
+                                    <!-- <div v-if="scope.row.lookup.building">{{ scope.row.lookup.building }} - {{ scope.row.lookup.floor }} - {{ scope.row.address }}</div>
                                         <div v-else>--</div> -->
-                                        <div>{{ scope.row.alarmLocation }}</div>
-                                    </template>
-                                </el-table-column>
+                                    <div>{{ scope.row.alarmLocation }}</div>
+                                </template>
+                            </el-table-column>
 
-                                <el-table-column prop="state" label="处置状态" width="120">
-                                    <template slot-scope="scope">
-                                        <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
+                            <el-table-column prop="state" label="处置状态" width="120">
+                                <template slot-scope="scope">
+                                    <!-- <div v-if="scope.row.state">{{ scope.row.state == '02' ? '未处置' : '处置完毕' }}</div>
                                         <div v-else>--</div> -->
-                                        <div>{{ scope.row.alarmStatus == '1' ? '处置中' : scope.row.alarmStatus == '2' ? '已处置' : '未处置' }}</div>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="times" label="操作" width="80" align="center">
-                                    <template slot-scope="scope">
-                                        <el-button type="text" size="mini" @click="viewchange(scope.row, '设备报警情况')"> 查看 </el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            <div class="text_c mar-t-18 backColorPage">
-                                <!-- 分页 -->
-                                <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPaginationNoSizes>
-                            </div>
-                        </el-col>
-                    </el-row>
+                                    <div>{{ scope.row.alarmStatus == '1' ? '处置中' : scope.row.alarmStatus == '2' ? '已处置' : '未处置' }}</div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="times" label="操作" width="80" align="center">
+                                <template slot-scope="scope">
+                                    <el-button type="text" size="mini" @click="viewchange(scope.row, '设备报警情况')"> 查看 </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <div class="text_c mar-t-18 backColorPage">
+                            <!-- 分页 -->
+                            <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPaginationNoSizes>
+                        </div>
+                    </el-col>
+                    <!-- </el-row> -->
                 </div>
                 <div class="firstLevel" v-show="!showAlarm1Day">
                     <el-row>
@@ -605,6 +605,60 @@
                 </div>
             </div>
         </div>
+        <!-- 突发类事件查看 -->
+        <div v-else-if="showanalysis == 'alarmanalysis9'" class="secendLevel" style="background-color: #2b4b6b; color: #fff">
+            <div class="diaHeadStandardC classReadyDialogTitle">
+                <span style="cursor: pointer">
+                    <!-- <span>{{ (alarmRadio === 'DAY' ? '当日' : '当月') + (activeName == 'first' ? '突发类' : '管理类') }}</span
+                    >事件预警 -->
+                    <span>{{ activeName == 'first' ? '管理类' : '突发类' }}</span
+                    >事件预警
+                </span>
+                <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
+                <span @click="showLeavel = 2" style="float: right; margin-right: 20px; cursor: pointer">
+                    <i class="el-icon-d-arrow-left"></i>
+                </span>
+            </div>
+            <!-- <div class="diaHeadStandardC" style="height: 46px; background-color: #2b4b6b; line-height: 46px; padding-left: 12px; color: #fff">
+                <span style="cursor: pointer">
+                    {{ activeName == 'first' ? '突发类事件预警' : '管理类事件预警' }}
+                </span>
+            </div> -->
+            <div style="background: linear-gradient(to right bottom, #192640, #213d60) !important; padding: 30px">
+                <div>
+                    <div style="display: flex">
+                        <div>预警时间：</div>
+                        <div>{{ alarmanalysis6_params.sendTime }}</div>
+                    </div>
+                    <div style="display: flex">
+                        <div>预警位置：</div>
+                        <div>{{ alarmanalysis6_params.unitName }}</div>
+                    </div>
+                </div>
+                <div class="box2">流程追溯</div>
+                <el-scrollbar v-if="sourcelist.length > 0" style="height: 100%; width: 90%">
+                    <el-timeline style="margin-top: 20px">
+                        <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
+                            <el-card style="font-size: 14px">
+                                <p v-if="(item.alarmDate || '') != ''">{{ '设备报警' }}：{{ item.alarmDate }}</p>
+                                <p v-else-if="(item.dealName || '') != ''">
+                                    处置人员：{{ item.dealName }} {{ item.dealPhone }}<br />
+                                    处置描述：{{ item.dealDesc }}
+                                </p>
+                                <p v-else-if="(item.pushUserName || '') != ''">
+                                    <span style="display: block">{{ item.orgPushDesc }}</span>
+                                    <span style="display: flex; justify-content: space-between">
+                                        <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
+                                        ><span>{{ item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
+                                    </span>
+                                </p>
+                            </el-card>
+                        </el-timeline-item>
+                    </el-timeline>
+                </el-scrollbar>
+                <div v-if="sourcelist.length < 1" style="text-align: center; padding: 100px 0">暂时无数据哦.....</div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -622,6 +676,7 @@ export default {
     },
     data() {
         return {
+            showLeavel: '',
             isShow: 'Monthalarm',
             showanalysis: 'alarmanalysis1',
             floorname: '',
@@ -2239,6 +2294,30 @@ export default {
             this.alarmanalysis6_optin = title;
             this.analysischange('alarmanalysis6', row, title, val);
         },
+        // 突发类
+        updateOrDeleteInfo(type, row) {
+            console.log('点击参数');
+            console.log(row);
+            // this.showanalysis = 'alarmanalysis9'
+            // this.alarmanalysis6_params = row;
+            // this.getfindMessages(row);
+        },
+        getfindMessages(val) {
+            let _self = this;
+            _self.sourcelist = [];
+            _self._http({
+                url: '/api/web/indexCountV3/findDwMessages', ///api/web/indexCountTwo/findMessages
+                type: 'get',
+                isBody: true,
+                data: {
+                    waringId: val.waringRecordId
+                },
+                success: function (res) {
+                    _self.sourcelist = res.data.data || [];
+                }
+            });
+        },
+
         closeDialog() {
             this.$emit('update:visible', false);
             this.turntopage('alarmanalysis1');
