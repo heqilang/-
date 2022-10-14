@@ -928,6 +928,7 @@
     height: 20px;
     text-align: center;
     font-size: 14px;
+    line-height: 14px;
 }
 
 .navIconC_right_center {
@@ -990,17 +991,21 @@
 }
 
 #cardItemS_Left {
-    background: linear-gradient(90deg, #19253e 0%, rgba(34, 62, 97, 0.2) 100%);
+    background: linear-gradient(90deg, #19253e 0%, rgba(34, 62, 97, 0.2) 70%);
+}
+#cardItemS_Left_left{
+    background: linear-gradient(90deg, #19253e 0%, rgba(34, 62, 97, 0.2) 70%);
 }
 
 #cardItemS_Gight {
-    background: linear-gradient(270deg, #19253e 0%, rgba(34, 62, 97, 0.5) 100%);
+    background: linear-gradient(270deg, #19253e 0%, rgba(34, 62, 97, 0.5) 70%);
 }
 
 .dataMainCount_ul {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+    cursor: pointer;
 
     li {
         width: 23%;
@@ -1016,15 +1021,15 @@
         }
 
         .dataMainCount_ul_img {
-            width: 64px;
-            height: 64px;
+            width: 50px;
+            height: 50px;
             background-image: url('../../assets/images/globalCenterNew/img1.png');
             background-size: auto 100%;
             background-repeat: no-repeat;
             background-position: center;
             margin-top: 0px;
             margin-left: 10px;
-            margin-right: 20px;
+            margin-right: 10px;
         }
 
         .dataMainCount_ul_img_1 {
@@ -1037,13 +1042,70 @@
             background-image: url('../../assets/images/globalCenterNew/img4.png');
         }
         .dataMainCount_ul_word {
-            width: calc(100% - 94px);
+            width: calc(100% - 70px);
         }
     }
 }
 .dataMainCount_ul_word_top {
-    font-size: 16px;
+    font-size: 12px;
 
     font-weight: 400;
     color: rgba(255, 255, 255, 0.8);
+}
+//'../../assets/images/globalCenter/bottomBG2.png'
+.SS_1{
+    display: flex;
+}
+
+.S_comm{
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    margin-right:5px ;
+    margin-top: 2px;
+}
+
+.S_1{
+    background-image: url('../../assets/images/globalCenter/S-1.png');
+
+}
+.S_2{
+    background-image: url('../../assets/images/globalCenter/S-2.png');
+}
+.S_3{
+    background-image: url('../../assets/images/globalCenter/S-3.png');
+    
+}
+.S_4{
+    background-image: url('../../assets/images/globalCenter/S-4.png');
+}
+.S_5{
+    background-image: url('../../assets/images/globalCenter/S-5.png');
+}
+.S_6{
+    background-image: url('../../assets/images/globalCenter/S-6.png');
+}
+.S_7{
+    background-image: url('../../assets/images/globalCenter/S-7.png');
+}
+
+
+.wordComm{
+    font-size: 15px;
+    font-family: Alibaba PuHuiTi 2.0-95 ExtraBold, Alibaba PuHuiTi 20;
+    font-weight: normal;
+
+    background: linear-gradient(168deg, #C5E8FF 0%, #59C2FE 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.midConb_center{
+    position: absolute;
+    top: 44%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 32px;
+  cursor: pointer;
 }

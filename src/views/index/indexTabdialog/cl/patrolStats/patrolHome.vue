@@ -18,8 +18,17 @@
                     <div class="patrol-stats-wrapper">
                         <div class="risk-stats-charts-wrapper">
                             <div class="patrol-stats-charts-content">
-                                <ul class="patrolHome_box" @click="getChangLi">
-                                    <li class="patrolHome_box_li" v-for="item in monthDate" :key="item.name" :value="item.name" :title="item.label">{{ item.label }}</li>
+                                <ul class="patrolHome_box" >
+                                    <li class="patrolHome_box_li"   @click="getChangLi(item)"       v-for="item in monthDate" :key="item.name" :value="item.name" :title="item.label"> 
+                                        
+                                         <div  class="patrolHome_box_li_div"    >
+                                            <span  class="patrolHome_box_li_topWord"  >{{ item.label }}      </span>  
+                                            <span    class="bottom_word"  >   <img  v-if="item.show"   width="22px" height="22px" class="bottom_word_img"     src="../../../../../assets/images/globalCenter/fire.png" alt="">      <span>{{item.imgAfter}}</span>    </span>
+                                         </div>
+                                        
+                                          
+                                    
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -69,6 +78,9 @@ export default {
         }
     },
     data: () => ({
+        statsData:{},
+
+        //img: require('../../assets/images/globalCenter/fire.png'),
         changePage: '0',
         titleTop: '',
         alparams: false,
@@ -82,15 +94,13 @@ export default {
         buttonMonth: require('@/assets/patroLableImg/monthbotton.png'),
 
         monthDate: [
-            { label: '环球融创会展文旅集团', name: '1' },
-            { label: '四川大区物业', name: '2' },
-            { label: '环球购物中心', name: '3' },
-            { label: '环球物业公司', name: '4' },
-            { label: '乐天百货', name: '5' },
-            { label: '洗衣工厂', name: '6' },
-            { label: '洲际酒店', name: '7' },
-            { label: '海洋乐园', name: '8' },
-            { label: '能源公司', name: '9' }
+            { label: '环球购物中心', name: '3',value:'3',imgAfter:'',show:0 },
+            { label: '环球物业公司', name: '4' ,value:'4',imgAfter:'建设中...',show:1 },
+            { label: '乐天百货', name: '5', value:'5',imgAfter:'建设中...' ,show:1 },
+            { label: '洗衣工厂', name: '6' , value:'6',imgAfter:'建设中...',show:1 },
+            { label: '洲际酒店', name: '7', value:'7',imgAfter:'建设中...',show:1 },
+            { label: '海洋乐园', name: '8' , value:'8',imgAfter:'建设中...',show:1},
+            { label: '能源公司', name: '9' ,value:'9' ,imgAfter:'建设中...',show:1 }
         ],
         showTitle: true,
         showTitleWord: '',
@@ -115,18 +125,43 @@ export default {
         activePatrolStatus: '', //当前激活的 巡查状态(正常 或 超时)
         activePartolPointId: undefined //当前激活的 巡查点位id
     }),
-    created() {},
+    created() {
+
+
+
+
+
+    },
     mounted() {
         this.title = '选择区域';
+        this.loadStatsData()
     },
     methods: {
-        getChangLi(event) {
+
+        loadStatsData() {
+            const that = this;
+            that._http({
+                url: '/api/web/indexCountV3/thirdPatrolSecond', ///api/web/indexCountTwo/thirdPatrolSecond
+                type: 'get',
+                isBody: true,
+                data: {
+                    type: that.dataRange === '当日' ? 1 : 2
+                },
+                success: function (res) {
+                    that.statsData = res.data;
+                    that.monthDate[0].imgAfter= `已开展巡查次数：${res.data.opportunelyFinish}次`   
+                   
+                }
+            });
+        },
+
+        getChangLi(val) {
             console.log(event, 'ssss');
 
-            if (event.target.value == '3') {
-                this.changePage = event.target.value;
-                this.titleTop = event.target.title;
-                console.dir(event.target.title);
+            if (val.value == '3') {
+                this.changePage = val.value;
+                this.titleTop = val.label;
+                console.dir(val.title);
             }
         },
         closePage() {
@@ -136,7 +171,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss"  scoped >
 @import './patrolStats.scss';
 
 .patrolHome_box {
@@ -154,7 +189,7 @@ export default {
         opacity: 1;
         border: 3px solid #3676c1;
         text-align: center;
-        line-height: 152px;
+    //    line-height: 152px;
         font-size: 24px;
         margin-bottom: 20px;
 
@@ -164,6 +199,66 @@ export default {
         background: linear-gradient(180deg, #ffffff 0%, #3ca2f8 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+
+
     }
+}
+
+
+
+
+  li:first-child{
+    background: linear-gradient(180deg, #3D7BC5 0%, #183685 100%)!important;
+    box-shadow: inset 0px 0px 20px 0px rgba(82,180,236,0.25);
+
+  cursor:pointer ;
+  
+   
+  
+    border: 3px solid #3676C1;
+  }
+
+
+  .patrolHome_box_li_topWord{
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: normal;
+    padding-top: 39px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #3CA2F8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    box-sizing: border-box;
+    font-family: Alibaba PuHuiTi 2.0-95 ExtraBold, Alibaba PuHuiTi 20;
+  }
+  .bottom_word{
+    font-size: 14px;
+   line-height: 28px;
+    font-weight: normal;
+    background: linear-gradient(180deg, #FFFFFF 0%, #3CA2F8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Alibaba PuHuiTi 2.0-95 ExtraBold, Alibaba PuHuiTi 20;
+ }
+
+.patrolHome_box_li_div{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span{
+        flex: 1;
+    }
+}
+.bottom_word{
+    position: relative;
+
+    
+}
+.bottom_word_img{
+    position: absolute;
+    left: -23px;
+    top: 0px;
+  
 }
 </style>
