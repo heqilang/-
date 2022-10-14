@@ -68,7 +68,7 @@
                     <el-col :span="6" class="text_c">
                         <div class="total_head_card">
                             <div style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">综合评分</div>
-                            <div class="textColor" style="width: 40%; line-height: 140px; font-size: 0.36rem; text-align: center; font-weight: 700">
+                            <div class="textColor" style="width: 40%; line-height: 140px; font-size: 20px; text-align: center; font-weight: 700">
                                 {{ (systemScoreList.score / 1).toFixed(2) }}
                             </div>
                             <div class="scores" style="width: 75%">
@@ -135,8 +135,8 @@
                 <div style="width: 100%; height: 360px; display: flex">
                     <!-- 55% -->
                     <div id="pieChart" style="width: 30%; height: 360px"></div>
-
-                    <div class="pieChart_box" v-if="systemScoreList.score < 95" style="color: #fff; text-align: left; font-size: 15px; width: 45%; height: 360px">
+                    <!--  v-if="systemScoreList.score < 95" -->
+                    <div class="pieChart_box" v-if="false" style="color: #fff; text-align: left; font-size: 15px; width: 45%; height: 360px">
                         <div class="pieChart_box_title" style="padding: 0px 0 20px 0">
                             <ul style="margin-bottom: 30px">
                                 <li>

@@ -313,7 +313,45 @@
                     </el-radio-group>
                 </div>
                 <div style="overflow: auto">
-                    <el-table class="xf-table" :data="dataTable" height="650">
+                    <el-table v-if="showAlar" class="xf-table" :data="dataTable" height="650">
+                        <el-table-column label="序号" align="center" width="50">
+                            <template slot-scope="scope">
+                                {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
+                        <el-table-column prop="alarmType" label="报警类型" width="140">
+                            <template slot-scope="scope">
+                                <!--   <div v-if="scope.row.alarmType">{{ scope.row.alarmType | alarmStateType }}</div>
+                                <div v-else>--</div> -->
+                                <div>{{ scope.row.alarmType }}</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column v-if="false" prop="equipmentName" label="设备类型" width="140" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <span>{{ scope.row.equipmentName }}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="building" label="报警位置" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">
+                                <!-- <div v-if="scope.row.lookup.building">{{ scope.row.lookup.building }} - {{ scope.row.lookup.floor }} - {{ scope.row.address }}</div>
+                                <div v-else>--</div> -->
+                                <div>{{ scope.row.alarmLocation }}</div>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column prop="state" label="处置状态" width="120">
+                            <template slot-scope="scope">
+                                <div>{{ scope.row.status == '1' ? '报警中' : '结束报警' }}</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="times" label="操作" width="80" align="center">
+                            <template slot-scope="scope">
+                                <el-button type="text" size="mini" @click="viewchange(scope.row, '设备报警情况', 0)"> 查看 </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <el-table v-else class="xf-table" :data="dataTable" height="650">
                         <el-table-column label="序号" align="center" width="50">
                             <template slot-scope="scope">
                                 {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
@@ -353,6 +391,7 @@
                             </template>
                         </el-table-column>
                     </el-table>
+
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
                         <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
@@ -834,8 +873,8 @@ export default {
             } else if (type == 'alarmanalysis5') {
                 this.equipmentType = option;
                 this.equipmentName = option;
-                this.showAlar = 0;
-                this.getList(0);
+                this.showAlar = 1;
+                this.getList(1);
             }
         },
         analysischange(type, data, optin, val) {
