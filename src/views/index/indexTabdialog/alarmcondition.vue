@@ -625,6 +625,7 @@ export default {
             var myChart = echarts.init(chartDom);
             var option;
             myChart.on('click', function (param) {
+                console.log(param);
                 //  myChart.off('click') // 这里很重要 ，防止重复点击事件！！！
                 //X轴的值
             });
@@ -636,31 +637,6 @@ export default {
                 _yData.push(this.checkData[i].alarmNum ? this.checkData[i].alarmNum : '-'); //没有数据就不显示线条
                 _y1Data.push(this.checkData[i].waringNum ? this.checkData[i].waringNum : '-'); //没有数据就不显示线条
             }
-
-            // function formatData(arr) {
-            //     let newHashArray = [];
-            //     for (var i = 0; i < arr.length; i++) {
-            //         let obj = {};
-            //         let temp = arr[i];
-            //         if (arr[i] > 0 && arr[i] < 50) {
-            //             arr[i] = 0 + arr[i] * (500 / 50);
-            //         } else if (arr[i] > 50 && arr[i] < 300) {
-            //             arr[i] = 500 + (arr[i] - 50) * ((1000 - 500) / (300 - 50));
-            //         } else if (arr[i] > 300 && arr[i] < 900) {
-            //             arr[i] = 1000 + (arr[i] - 300) * ((1500 - 1000) / (900 - 300));
-            //         } else if (arr[i] > 900 && arr[i] < 2100) {
-            //             arr[i] = 1500 + (arr[i] - 900) * ((2000 - 1500) / (2100 - 900));
-            //         }
-            //         obj.value = arr[i];
-            //         obj.formatV = temp;
-            //         newHashArray.push(obj);
-            //     }
-            //     return newHashArray;
-            // }
-
-            // let wxArray = formatData(_yData);
-            // console.dir(_yData);
-
             option = {
                 title: {
                     text: '报警次数与突发类事件趋势图',
@@ -828,7 +804,6 @@ export default {
                 });
             }, 500); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
             console.log('pxpxpx1', option);
-            this.chartNew = myChart;
         },
         turntopage(type, option) {
             console.dir('什么情况');
