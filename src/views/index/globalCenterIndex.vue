@@ -251,7 +251,7 @@
                     <el-col class="height100" :span="6">
                         <div class="height100 leftConb">
                             <div class="cardItemB">
-                                <div class="cardItemS" id="cardItemS_Left_left">
+                                <div class="cardItemS" id="cardItemS_Left">
                                     <div class="cardTit">
                                         <div class="navIconC"></div>
                                         设备报警情况
@@ -1369,12 +1369,12 @@ export default {
                         WebkitTextFillColor: 'transparent',
                         rich: {
                             a: {
-                                color: '#fff',
+                                color: '#c8f7f7',
                                 fontWeight: 'bold',
                                 fontSize: 20
                             },
                             b: {
-                                color: '#fff',
+                                color: '#c8f7f7',
                                 fontSize: 14
                             }
                         }

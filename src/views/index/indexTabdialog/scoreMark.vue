@@ -208,6 +208,45 @@
                     </div>
                     <!-- </div> -->
                 </div>
+
+                <div class="pieChart_bottom" v-if="systemScoreList.score < 95" style="width: 100%">
+                    <ul style="padding-left: 20px">
+                        <li>
+                            <span></span>
+                            <span>
+                                当前综合评分为 <span style="color: red"> {{ (systemScoreList.score / 1).toFixed(2) }}</span>
+                            </span>
+                        </li>
+
+                        <li>
+                            <span style="display: flex; flex-wrap: wrap"
+                                >需要尽快完成
+                                <span v-for="(item, index) in totalTitle" :key="index">{{ item.title }}</span>
+
+                                *<span>提示</span> <span>低于95分，发送给社区相关人员；</span> <span>低于90分，发送给街道相关人员；</span><span>低于85分，发送给行业主管部门，消防救援机构，安办相关人员</span>
+                            </span>
+                        </li>
+
+                        <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px; margin-top: 30px">*<span>提示</span></li>
+                        <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                            <span>低于95分，发送给社区相关人员；</span>
+                        </li>
+                        <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                            <span>低于90分，发送给街道相关人员；</span>
+                        </li>
+                        <li style="color: #fff; text-align: left; font-size: 12px; font-weight: 400; line-height: 20px">
+                            <span>低于85分，发送给行业主管部门，消防救援机构，安办相关人员</span>
+                        </li>
+                    </ul>
+                    <!-- <ul style="margin: 10px 0px">
+                    <li><span style="margin-left: 10px">巡查完成率=（巡查总数-未完成总数）/ 巡查总数</span></li>
+                </ul>
+                <ul>
+                    <li><span style="margin-left: 10px"> 隐患发现率=（自查隐患总数-被查隐患总数）/ 应查出隐患数量5次【负数默认为0,超出5条为100%】</span></li>
+                    <li><span style="margin-left: 10px">隐患整改率=（隐患总数-未整改总数）/ 隐患总数</span></li>
+                    <li><span style="margin-left: 10px">隐患按时整改率=（隐患计划整改数量-隐患未按时整改数量）/ 隐患计划整改数量</span></li>
+                </ul> -->
+                </div>
             </div>
         </div>
 
@@ -680,6 +719,14 @@ export default {
         width: 140px;
         text-align: left;
     }
+}
+.pieChart_bottom {
+    height: auto;
+    height: 60px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #fff;
 }
 </style>
 <!-- 4.6.0  "echarts": "^3.3.2", -->
