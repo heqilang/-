@@ -140,7 +140,11 @@ export default {
                 },
                 success: function (res) {
                     that.statsData = res.data;
+<<<<<<< HEAD
                     that.monthDate[0].imgAfter = `已开展巡查次数：${res.data.opportunelyFinish}点·次`;
+=======
+                    that.monthDate[0].imgAfter = `已开展巡查次数：${res.data.opportunelyFinish}次`;
+>>>>>>> 8aafe386f195b3f6a64172c176c4b48c8381c270
                 }
             });
         },
