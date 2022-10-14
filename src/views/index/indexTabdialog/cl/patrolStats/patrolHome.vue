@@ -147,7 +147,6 @@ export default {
 
         getChangLi(val) {
             console.log(event, 'ssss');
-
             if (val.value == '3') {
                 this.changePage = val.value;
                 this.titleTop = val.label;
