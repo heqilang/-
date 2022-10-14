@@ -18,8 +18,8 @@
             <div class="xf-stats-wrapper">
                 <div class="patrol-stats-wrapper" v-if="currentLayerLevel === 1">
                     <div class="patrol-stats-indicators" v-if="!nameTime">
-                        <XfIndicator title="巡查次数" :num="statsData.allFinishPatrol" unit="次" v-on:onclick="intoLayer2('1')" />
-                        <XfIndicator title="正常巡查次数" :num="statsData.opportunelyFinish" unit="次" v-on:onclick="intoLayer2('NORMAL')" />
+                        <XfIndicator title="应巡查次数" :num="statsData.allFinishPatrol" unit="次" v-on:onclick="intoLayer2('1')" />
+                        <XfIndicator title="已开展巡查次数" :num="statsData.opportunelyFinish" unit="次" v-on:onclick="intoLayer2('NORMAL')" />
                         <XfIndicator title="漏检次数" :num="statsData.notOpportunelyFinish" unit="次" v-on:onclick="intoLayer2('TIMEOUT')" />
                     </div>
                     <div class="risk-stats-charts-wrapper" v-if="!showAmep">
@@ -150,6 +150,8 @@
 
                 <!-- 这里是漏检次数点进去的 -->
                 <div class="stats-layer-container stats-layer-container_boxseven" v-if="currentLayerLevel === 7">
+                    <div  style="height: 26px"   ><a class="return-upper-level-btn" v-on:click="intoLayer7(activePatrolStatus)"> << </a></div>
+                    
                     <div class="stats-layer-container_six">
                         <el-table class="xf-table" :data="dataTable" height="344">
                             <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
@@ -597,6 +599,9 @@ export default {
         intoLayer6() {
             this.currentLayerLevel = 1;
         },
+        intoLayer7(){
+            this.currentLayerLevel = 1;
+        },
         intoLayer8() {
             this.currentLayerLevel = 1;
         },
@@ -747,7 +752,7 @@ export default {
                             /*  _self.MONTHdrawLeftLineList.everyDay.push(item.timeName.substring(5, 10));
                              _self.MONTHdrawLeftLineList.number.push(item.average); */
                             _self.MONTHdrawLeftLineList.everyDay.push(item.timeName);
-                            _self.MONTHdrawLeftLineList.number.push(item.leakNum);
+                            _self.MONTHdrawLeftLineList.number.push(item.leakNum?item.leakNum:'');
                             /*   _self.MONTHdrawLeftLineList.everyDay.push(item.everyDay.substring(5, 11));
 _self.MONTHdrawLeftLineList.number.push(item.number); */
                         });
@@ -1161,6 +1166,6 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
 }
 
 .stats-layer-container_boxseven {
-    height: 442px;
+    height: 468px;
 }
 </style>
