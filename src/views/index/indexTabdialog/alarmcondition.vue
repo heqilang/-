@@ -450,7 +450,7 @@
             <div class="classReadyDialogBox">
                 <!-- <a class="returnbtn1" @click="turntopage('alarmanalysis2')"><i class="el-icon-pie-chart"></i>图表模式</a> -->
                 <div style="margin-bottom: 12px">
-                    <el-radio-group v-model="chartRadio2" @change="tabitemchange" size="mini">
+                    <el-radio-group v-model="chartRadio2" @change="tabitemchange1" size="mini">
                         <el-radio-button label="报警次数">
                             <!-- <i class="el-icon-s-grid"></i> -->
                         </el-radio-button>
@@ -494,8 +494,12 @@
                             </template>
                         </el-table-column>
                     </el-table>
-                    <el-table v-if="isShow == 'MonthTuFa'" class="xf-table" :data="dataTable" height="380">
-                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod"> </el-table-column>
+                    <el-table v-else class="xf-table" :data="dataTable" height="380">
+                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod">
+                            <template slot-scope="scope">
+                                {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="waringInfo" label="预警信息" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendTime" label="预警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="sendName" label="预警人员" width="160" :show-overflow-tooltip="true">
@@ -553,10 +557,10 @@
                 </div>
                 <div style="overflow: auto">
                     <el-table class="xf-table" :data="dataTable" height="650">
-                        <el-table-column label="序号" align="center" width="50">
-                            <template slot-scope="scope">
+                        <el-table-column type="index" label="序号" align="center" width="50">
+                            <!-- <template slot-scope="scope">
                                 {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
-                            </template>
+                            </template> -->
                         </el-table-column>
                         <el-table-column prop="alarmTime" label="报警时间" width="160" :show-overflow-tooltip="true"> </el-table-column>
                         <el-table-column prop="equipmentState" label="报警类型" width="140">
@@ -650,7 +654,7 @@ export default {
             overLevel: undefined, //下钻是否已处置
 
             pager: {
-                pageSize: 5,
+                pageSize: 10,
                 pageIndex: 1,
                 total: null
             },
@@ -858,7 +862,13 @@ export default {
                         },
                         formatter: function (params) {
                             console.log('params:', params);
-                            return params.slice(8, 10) + '日';
+                            if (that.showAlarm1Day) {
+                                console.log('日');
+                                return params.slice(11, 13) + '日';
+                            } else {
+                                console.log('yue');
+                                return params.slice(9, 12) + '月';
+                            }
                         }
                     },
                     axisLine: {
@@ -2247,18 +2257,67 @@ export default {
             } else {
                 this.drawdangyeCharts1(getDate);
             }
+
             if (this.chartRadio2 == '报警次数') {
                 // console.log('报警次数');
-                // this.isShow ='Monthalarm';
+                this.isShow = 'Monthalarm';
                 // this.showanalysis == 'alarmanalysis7'
                 // this.getList()
             }
             if (this.chartRadio2 == '突发类事件次数') {
                 // this.showanalysis == 'alarmanalysis7'
                 //                 console.log(this);
-                //                 this.isShow = 'MonthTuFa'
+                this.isShow = 'MonthTuFa';
                 // console.log('突发类事件次数');
             }
+        },
+        tabitemchange1(val) {
+            if (this.chartRadio2 == '报警次数') {
+                // console.log('报警次数');
+                this.isShow = 'Monthalarm';
+                // this.showanalysis == 'alarmanalysis7'
+                this.getList();
+            }
+            if (this.chartRadio2 == '突发类事件次数') {
+                // this.showanalysis == 'alarmanalysis7'
+                //                 console.log(this);
+                this.isShow = 'MonthTuFa';
+                // console.log('突发类事件次数');
+                this.getFirstData();
+            }
+        },
+        getFirstData() {
+            let _self = this;
+            _self.loading = true;
+            _self.dataTable = [];
+            let searchObj = {
+                option: 'MONTH',
+                size: _self.pager.pageSize,
+                current: _self.pager.pageIndex,
+                handle: false,
+                // transform: 'U:handler;OW:owningSystem;B:building;F:floor;ES:owningSystem,U:dispatcher,taker,verifier',
+                sorts: 'addtime:desc'
+            };
+            //删除空值
+            for (let key in searchObj) {
+                if (searchObj[key] == '') {
+                    delete searchObj[key];
+                }
+            }
+            _self._http({
+                // url: '/api/web/indexCountTwo/findAlarms',
+                url: '/api/web/indexCountV3/findAlarms',
+                type: 'get',
+                data: searchObj,
+                success: function (res) {
+                    res.data.records.sort((a, b) => {
+                        return new Date(b.sendTime) - new Date(a.sendTime);
+                    });
+                    _self.dataTable = res.data.records;
+                    _self.pager.total = res.data.total;
+                    _self.loading = false;
+                }
+            });
         },
         getList(val = 1) {
             console.dir(val);
