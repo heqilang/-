@@ -31,6 +31,15 @@
             <a class="return-upper-level-btn" v-on:click="intoLayer4(activeEquipmentCategory)"><<</a>
             <equipmentDealie :activeDealie="activeDealie" />
         </div>
+
+        <div class="stats-layer-container" v-if="currentLayerLevel === 5">
+            <a class="return-upper-level-btn" v-on:click="intoLayer5(activeEquipmentCategory)"><<</a>
+            <videoCountType @getvideo="getvideo" />
+        </div>
+        <div class="stats-layer-container" v-if="currentLayerLevel === 6">
+            <a class="return-upper-level-btn" v-on:click="intoLayer6(activeEquipmentCategory)"><<</a>
+            <videoCountitem :getvideoitem="getvideoitem" />
+        </div>
     </div>
 </template>
 
@@ -38,11 +47,16 @@
 import equipmentTypeStats from './equipmentTypeStats';
 import equipmentTypeList from './equipmentTypeList';
 import equipmentDealie from './equipmentDealie';
+import videoCountType from './videoCountType';
+import videoCountitem from './videoCountitem';
+
 export default {
     components: {
         equipmentTypeStats,
         equipmentTypeList,
-        equipmentDealie
+        equipmentDealie,
+        videoCountType,
+        videoCountitem
     },
     props: {},
     data: () => ({
@@ -55,7 +69,8 @@ export default {
         activeDealie: '', //设备详情页面的数据
         group1: {},
         group2: {},
-        group3: {}
+        group3: {},
+        getvideoitem: ''
     }),
     created() {},
     mounted() {
@@ -100,6 +115,10 @@ export default {
                 this.activeEquipmentCategory = category;
                 this.currentLayerLevel = 2;
             }
+            if (category == 'videoCount') {
+                this.activeEquipmentCategory = category;
+                this.currentLayerLevel = 5;
+            }
         },
         intoLayer3(type) {
             this.activeEquipmentType = type;
@@ -107,6 +126,12 @@ export default {
         },
         intoLayer4() {
             this.currentLayerLevel = 3;
+        },
+        intoLayer5() {
+            this.currentLayerLevel = 1;
+        },
+        intoLayer6() {
+            this.currentLayerLevel = 5;
         },
         getDealie(val) {
             this.currentLayerLevel = 4;
@@ -126,6 +151,10 @@ export default {
             } else if (groupName === '逃生疏散设备') {
                 this.equipmentGroupCategoryData = _self.group3;
             }
+        },
+        getvideo(val) {
+            this.getvideoitem = val;
+            this.currentLayerLevel = 6;
         }
     }
 };
