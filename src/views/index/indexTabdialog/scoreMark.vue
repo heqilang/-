@@ -68,14 +68,14 @@
                     <el-col :span="6" class="text_c">
                         <div class="total_head_card">
                             <div style="text-align: left; color: #fff; font-size: 0.2rem; font-weight: 700; margin-bottom: 12px">综合评分</div>
-                            <div class="textColor" style="width: 60%; line-height: 140px; font-size: 0.36rem; text-align: center; font-weight: 700">
+                            <div class="textColor" style="width: 40%; line-height: 140px; font-size: 0.36rem; text-align: center; font-weight: 700">
                                 {{ (systemScoreList.score / 1).toFixed(2) }}
                             </div>
-                            <div class="scores" style="width: 50%">
-                                <div class="alarmDisposalScore">报警处置分：{{ (systemScoreList.alarmScore / 1).toFixed(2) }}</div>
-                                <div class="alarmDisposalScore">巡查完成分：{{ (systemScoreList.patrolScore / 1).toFixed(2) }}</div>
+                            <div class="scores" style="width: 70%">
+                                <div class="alarmDisposalScore">报警处置分：{{ (systemScoreList.alarmScore / 1).toFixed(2) }}/{{ systemScoreList.alarmScoreAll }}分</div>
+                                <div class="alarmDisposalScore">巡查完成分：{{ (systemScoreList.patrolScore / 1).toFixed(2) }}/{{ systemScoreList.patrolScoreAll }}分</div>
                                 <!-- risksScore -->
-                                <div class="alarmDisposalScore">隐患整治分：{{ ((systemScoreList.score / 1).toFixed(2) - (systemScoreList.alarmScore / 1).toFixed(2) - (systemScoreList.patrolScore / 1).toFixed(2)).toFixed(2) }}</div>
+                                <div class="alarmDisposalScore">隐患整治分：{{ ((systemScoreList.score / 1).toFixed(2) - (systemScoreList.alarmScore / 1).toFixed(2) - (systemScoreList.patrolScore / 1).toFixed(2)).toFixed(2) }}/{{ systemScoreList.risksScoreAll }}分</div>
                                 <!-- <div class="alarmDisposalScore">隐患整治分：{{ (systemScoreList.risksScore / 1).toFixed(2) }}</div> -->
                             </div>
                         </div>
@@ -581,7 +581,7 @@ export default {
     .scores {
         float: right;
         color: #ffffff;
-        margin-right: -7px;
+        margin-right: -28px;
         margin-top: -110px;
 
         div {
