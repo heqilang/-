@@ -2330,7 +2330,7 @@ export default {
             _self.loading = true;
             _self.dataTable = [];
             let searchObj = {
-                option: 'MONTH',
+                option: _self.showAlarm1Day ? 'DAY' : 'MONTH',
                 size: _self.pager.pageSize,
                 current: _self.pager.pageIndex,
                 handle: false,
