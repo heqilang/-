@@ -495,7 +495,8 @@
                         </el-table-column>
                     </el-table>
                     <el-table v-else class="xf-table" :data="dataTable" height="380">
-                        <el-table-column type="index" width="50" label="序号" fixed="left" :index="indexMethod">
+                        <!-- type="index" -->
+                        <el-table-column width="50" label="序号" fixed="left" :index="indexMethod">
                             <template slot-scope="scope">
                                 {{ (pager.pageIndex - 1) * pager.pageSize + scope.$index + 1 }}
                             </template>
