@@ -898,10 +898,10 @@ export default {
                             console.log('params:', params);
                             if (that.showAlarm1Day) {
                                 console.log('日');
-                                return params.slice(11, 13) + '日';
+                                return params.slice(11, 13) + ':00';
                             } else {
                                 console.log('yue');
-                                return params.slice(9, 12) + '月';
+                                return params.slice(8, 12) + '日';
                             }
                         }
                     },
