@@ -78,8 +78,14 @@ export default {
             val.show = 0;
         },
         getPost(val) {
+            console.log(val);
+
             if (val.zt === 1 || val.zt === 2) {
-                this.$emit('getPatroLable', val);
+                if (val.id) {
+                    this.$emit('getPatroLable', val);
+                } else {
+                    this.$message.error('数据源未生成预警信息');
+                }
             }
 
             console.log(val, '点位情况');

@@ -279,10 +279,10 @@
         <div class="stats-layer-container" v-if="currentLayerLevel === 2">
             <a class="return-upper-level-btn" v-on:click="intoLayer1()"><<</a>
             <!-- <patrolList v-if="currentLayerLevel === 2" :number="number" :dataRange="dataRange" :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" /> -->
-            <filterChild1 v-on:viewDetailOnclick="viewDetailOnclick" :imgSing="imgSing"></filterChild1>
+            <filterChild1 v-on:viewDetailOnclick="viewDetailOnclick" :radioChange="radioChange" :imgSing="imgSing"></filterChild1>
         </div>
         <div class="stats-layer-container" v-if="currentLayerLevel === 3">
-            <a class="return-upper-level-btn" v-on:click="intoLayer2()"><<</a>
+            <a class="return-upper-level-btn" v-on:click="intoLayer3()"><<</a>
             <!-- <patrolList v-if="currentLayerLevel === 2" :number="number" :dataRange="dataRange" :patrolStatus="activePatrolStatus" v-on:viewDetailOnclick="intoLayer3" /> -->
             <filterChild2 :imgSing="imgSing" :peopleSign="peopleSign"></filterChild2>
         </div>
@@ -302,6 +302,7 @@ export default {
     props: ['safetyrespons', 'compType'],
     data() {
         return {
+            radioChange: '组织机构',
             currentLayerLevel: 1,
             tableData: [
                 {
@@ -506,8 +507,14 @@ export default {
             }
             this.currentLayerLevel = 2;
         },
+        intoLayer3() {
+            console.log('出发这个');
+            this.currentLayerLevel = 2;
+            this.radioChange = '人员';
+        },
         viewDetailOnclick(item) {
             this.currentLayerLevel = 3;
+            //打开了3
             this.peopleSign = item;
             console.log('item>>>>>>.', item);
         },

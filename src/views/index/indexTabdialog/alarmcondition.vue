@@ -94,7 +94,7 @@
                     </el-table>
                     <div class="text_c mar-t-18 backColorPage">
                         <!-- 分页 -->
-                        <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPaginationNoSizes>
+                        <customPaginationNoSizes v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPaginationNoSizes>
                     </div>
                 </div>
                 <div class="firstLevel" v-show="!showAlarm1Day">
@@ -194,7 +194,7 @@
         </div>
         <div v-else-if="showanalysis == 'alarmanalysis2'">
             <div class="diaHeadStandardC classReadyDialogTitle">
-                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
+                <a class="returnbtn" @click="turntopage('alarmanalysis1', '我看啊')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
             </div>
             <div class="classReadyDialogBox">
                 <div class="firstLevel" v-show="showAlarm1Day">
@@ -237,7 +237,9 @@
                     <div style="color: #fff; padding: 12px">
                         <div style="display: flex; justify-content: center">
                             <div v-for="(item, index) in MONTHcountByType.number" :key="index" @click="analysischange('alarmanalysis4', item, chartRadio == '当日' ? 'DAY' : 'MONTH')" style="margin: 0 10px; text-align: center; padding: 30px; background-image: linear-gradient(to bottom, #162542, #1a3d63)">
-                                <div class="alarmanalysis3_hidden" :title="item.name" style="line-height: 30px; width: 120px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden">{{ item.name || '--' }}</div>
+                                <div class="alarmanalysis3_hidden" :title="item.name" style="line-height: 30px; width: 120px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden">
+                                    {{ item.name || '--' }}
+                                </div>
                                 <div style="color: #ffffff">
                                     <span class="numColorN">{{ item.value }}</span> 个
                                 </div>
@@ -628,12 +630,91 @@
                 <div v-if="sourcelist.length < 1" style="text-align: center; padding: 100px 0">暂时无数据哦.....</div>
             </div>
         </div>
+
+        <div v-else-if="showanalysis == 'alarmanalysis10'">
+            <div class="diaHeadStandardC classReadyDialogTitle">
+                <a class="returnbtn" @click="turntopage('alarmanalysis10')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
+            </div>
+            <div class="classReadyDialogBox">
+                <div class="eventMsgInfo">
+                    <div class="box01">
+                        <div v-if="alarmanalysis6_optin == '设备报警情况'">
+                            <div style="display: flex">
+                                <div>报警时间：</div>
+                                <div>{{ alarmanalysis6_params.alarmTime }}</div>
+                            </div>
+                            <!-- <div style="display: flex">
+                                <div>设备名称：</div>
+                                <div>{{ alarmanalysis6_params.equipmentName || '--' }}</div>
+                            </div>
+                            <div style="display: flex">
+                                <div>所属系统：</div>
+                                <div>{{ alarmanalysis6_params.lookup.owningSystem||'--' }}</div>
+                            </div> -->
+                            <!-- <div style="display: flex">
+                                <div>设备类型：</div>
+                                <div v-if="alarmanalysis6_params.equipmentName">{{ alarmanalysis6_params.equipmentName | equipmentStateType }}</div>
+                                <div v-else>--</div>
+                            </div> -->
+                            <!-- <div style="display: flex">
+                                <div>报警类型：</div>
+                                <div>{{ _comm.getAlarmTypeByCode(alarmanalysis6_params.alarmType) || '--' }}</div>
+                            </div> -->
+                            <div style="display: flex">
+                                <div>报警位置：</div>
+                                <!-- <div>{{ alarmanalysis6_params.lookup.building }}-{{ alarmanalysis6_params.lookup.floor }}-{{ alarmanalysis6_params.address }}</div> -->
+                                <div>{{ alarmanalysis6_params.alarmLocation }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box02">流程追溯</div>
+                    <div style="height: 450px">
+                        <el-scrollbar style="height: 100%; width: 90%">
+                            <el-timeline>
+                                <el-timeline-item v-for="(item, index) in sourcelist" :key="index" :timestamp="item.lineDate" placement="top">
+                                    <el-card style="font-size: 14px">
+                                        <p v-if="(item.alarmDate || '') != ''">{{ item.alarmDesc }}：{{ item.alarmDate }}</p>
+                                        <p v-else-if="(item.dealName || '') != ''">
+                                            处理人员：{{ item.dealName }} {{ item.dealPhone }}<br />
+                                            处理描述：{{ item.dealDesc }}
+                                        </p>
+                                        <p v-else-if="(item.pushUserName || '') != ''">
+                                            <span style="display: block">{{ item.orgPushDesc }}</span>
+                                            <span style="display: flex; justify-content: space-between">
+                                                <span>{{ item.pushUserName }} {{ item.pushPhone }}</span
+                                                ><span>{{ item.pushResult == '短信推送成功' ? '语音、短信通知成功' : item.pushResult }}</span>
+                                            </span>
+                                        </p>
+                                    </el-card>
+                                </el-timeline-item>
+                                <!-- <el-timeline-item v-if="(alarmanalysis6_params.alarmTime || '') != ''" :timestamp="alarmanalysis6_params.alarmTime" placement="top">
+                                    <el-card style="font-size: 14px">
+                                        <p>设备报警：{{ alarmanalysis6_params.alarmTime }}</p>
+                                    </el-card>
+                                </el-timeline-item>
+                                <el-timeline-item v-for="(item, index) in sourcelist" :key="index" v-if="item.show && item.title != '被指派了报警工单'" :timestamp="item.addtime" placement="top">
+                                    <el-card style="font-size: 14px">
+                                        <p>{{ item.targetObjectJob }}</p>
+                                        <p style="display: flex; justify-content: space-between" v-if="item.title == '消防监控管理平台有一条报警消息，超时受理确认，请您及时处理！'">
+                                            <span>{{ item.lookup.targetObject }} {{ item.targetObjectJobMobile }}</span
+                                            ><span>语音、短信通知成功</span>
+                                        </p>
+                                        <p v-else-if="item.verifyTime">处理人员：{{ item.verifier || '--' }} {{ item.verifierPhone }}<br />处理描述：{{ item.result | confirmResultType }}</p>
+                                        <p v-else-if="item.confirmTime">确认人员：{{ item.confirmor || '--' }} {{ item.confirmorPhone }}<br />确认描述：{{ item.confirmResult | confirmResultType }}</p>
+                                    </el-card>
+                                </el-timeline-item> -->
+                            </el-timeline>
+                        </el-scrollbar>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import * as echarts from 'echarts';
-import { watch } from 'vue';
+
 export default {
     // props: ['showanaly'],
     props: {
@@ -652,6 +733,7 @@ export default {
             floornamenumber: '',
             showAlar: 1,
             leftDataTop: '',
+            timeName: '',
 
             DAYdrawLeftLineList: { everyHour: [], number: [], every: '' },
             MONTHdrawLeftLineList: { everyDay: [], number: [], every: '' },
@@ -739,6 +821,18 @@ export default {
         showAlarm1Day: function () {
             console.dir('eeeee');
             this.showAlar = 1;
+        },
+        showanalysis: function (newDate, oldDate) {
+            console.log('判断这个框框');
+            if (newDate == 'alarmanalysis1') {
+                console.log('判断这个框框有没有执行');
+
+                this.getList();
+                this.getleftNumData();
+                this.changeTabsSeco();
+            }
+
+            console.dir(newDate, oldDate);
         }
     },
     created() {},
@@ -785,10 +879,11 @@ export default {
     },
     methods: {
         guanlileifanhui() {
-            this.showanalysis = 'alarmanalysis1';
-            this.getleftNumData();
-            this.getList();
-            this.changeTabsSeco();
+            /*  this.showanalysis = 'alarmanalysis1';
+             this.getleftNumData();
+             this.getList();
+             this.changeTabsSeco(); */
+            this.showanalysis = 'alarmanalysis7';
         },
         changeTabsSeco() {
             let _self = this;
@@ -820,10 +915,12 @@ export default {
             var myChart = echarts.init(chartDom);
             var option;
             myChart.on('click', function (param) {
-                console.log(param);
+                console.log(param.name);
                 that.showanalysis = 'alarmanalysis7';
                 that.chartRadio2 = '报警次数';
+                that.timeName = param.name;
                 that.tabitemchange1();
+
                 //  myChart.off('click') // 这里很重要 ，防止重复点击事件！！！
                 //X轴的值
                 // console.log(that.showAlarm1Day==false就是当月);
@@ -875,7 +972,6 @@ export default {
                         var s = '';
                         // s += '查询时间:' + val[0].axisValue + '<br/>';
                         // s += '平均处置时效' + val[0].data.formatV + '分钟';
-                        console.log(val);
 
                         let red = '<span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#f75016;"></span>';
                         let green = '<span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#16f7e8;"></span>';
@@ -895,7 +991,7 @@ export default {
                             color: '#FFFFFF'
                         },
                         formatter: function (params) {
-                            console.log('params:', params);
+                            //   console.log('params:', params);
                             if (that.showAlarm1Day) {
                                 console.log('日');
                                 return params.slice(11, 13) + ':00';
@@ -1016,10 +1112,11 @@ export default {
                     dataIndex: new Date().getDate() - 1 // 第几个数据
                 });
             }, 500); // 这里跟图例一样显示最后一条数据的tooltip，chart有一个默认1s时长的渲染动画，执行到末端正好1s，所以设置定时器延时1s
-            console.log('pxpxpx1', option);
+            //  console.log('pxpxpx1', option);
         },
         turntopage(type, option) {
             console.dir('什么情况');
+
             console.log(type, option);
             let _self = this;
             this.showanalysis = type;
@@ -1030,6 +1127,8 @@ export default {
             }
             this.pager.pageSize = 10;
             if (type == 'alarmanalysis1') {
+                console.dir('执行这里不啊啊啊啊啊啊  啊啊');
+
                 this.pager.pageSize = 5;
                 this.getleftNumData();
                 this.changeTabsSeco();
@@ -1050,6 +1149,10 @@ export default {
                 this.equipmentName = option;
                 this.showAlar = 1;
                 this.getList(1);
+            } else if (type == 'alarmanalysis10') {
+                //返回上一级
+                console.log('返回上一级');
+                this.showanalysis = 'alarmanalysis7';
             }
         },
         analysischange(type, data, optin, val) {
@@ -1069,6 +1172,10 @@ export default {
                     this.getList(0);
                 });
             } else if (type == 'alarmanalysis6') {
+                this.$nextTick(() => {
+                    this.getfindMessages(data, val);
+                });
+            } else if (type == 'alarmanalysis10') {
                 this.$nextTick(() => {
                     this.getfindMessages(data, val);
                 });
@@ -2271,7 +2378,7 @@ export default {
 
             this.alarmanalysis6_params = row;
             this.alarmanalysis6_optin = title;
-            this.analysischange('alarmanalysis6', row, title, val);
+            this.analysischange('alarmanalysis10', row, title, val);
         },
         // 突发类
         updateOrDeleteInfo(type, row) {
@@ -2317,23 +2424,24 @@ export default {
                 this.drawdangyeCharts1(getDate);
             }
         },
-        tabitemchange1(val) {
+        tabitemchange1(type) {
             if (this.chartRadio2 == '报警次数') {
-                this.getList();
+                this.newgetList();
             }
             if (this.chartRadio2 == '突发类事件次数') {
                 this.getFirstData();
             }
         },
-        getFirstData() {
+        getFirstData(val) {
             let _self = this;
             _self.loading = true;
             _self.dataTable = [];
             let searchObj = {
-                option: _self.showAlarm1Day ? 'DAY' : 'MONTH',
+                option: 'DAY',
                 size: _self.pager.pageSize,
                 current: _self.pager.pageIndex,
                 handle: false,
+                timeName: _self.timeName,
                 // transform: 'U:handler;OW:owningSystem;B:building;F:floor;ES:owningSystem,U:dispatcher,taker,verifier',
                 sorts: 'addtime:desc'
             };
@@ -2358,7 +2466,61 @@ export default {
                 }
             });
         },
-        getList(val = 1) {
+        newgetList() {
+            let _self = this;
+            _self.loading = true;
+
+            if (_self.showanalysis == 'alarmanalysis1') {
+                if (_self.showAlarm1Day) {
+                    _self.chartRadio = '当日';
+                } else {
+                    _self.chartRadio = '';
+                }
+                if (_self.chartRadio1 == '设备报警数量') {
+                    _self.over = undefined;
+                } else {
+                    _self.over = true;
+                }
+                _self.floor = undefined;
+                _self.equipmentType = undefined;
+                _self.equipmentName = undefined;
+                _self.equipmentNameOther = [];
+                _self.isLevel1 = true;
+            } else {
+                _self.over = _self.overLevel;
+                _self.isLevel1 = false;
+            }
+            let searchObj = {
+                size: _self.pager.pageSize,
+                current: _self.pager.pageIndex,
+                option: 'DAY', //DAY：当日，MONTH：当月
+                floor: _self.floor,
+                area: _self.areaid,
+                timeName: _self.timeName,
+                equipmentType: _self.equipmentType,
+                equipmentName: _self.equipmentName == '其它' ? _self.equipmentNameOther.join(',') : _self.equipmentName,
+                'equipmentName.symbol': _self.equipmentName == '其它' ? 'IN' : undefined,
+                over: _self.over,
+                sorts: 'alarmTime:desc',
+                transform: 'B:building,F:floor,ES:owningSystem,U:confirmor,U:verifier'
+            };
+            console.dir(searchObj);
+            _self.dataTable = [];
+            _self._http({
+                url: _self.showAlar == 1 ? '/api/web/indexCountV3/find' : 'api/web/indexCountTwo/find',
+                // url: 'api/web/indexCountTwo/find',
+                // url: '/api/web/indexCountV3/find',
+                type: 'get',
+                isBody: true,
+                data: searchObj,
+                success: function (res) {
+                    _self.dataTable = res.data.records;
+                    _self.pager.total = res.data.total;
+                }
+            });
+        },
+
+        getList(val) {
             console.dir(val);
 
             let _self = this;
@@ -2801,5 +2963,11 @@ export default {
 }
 
 .alarmanalysis3_hidden {
+}
+
+.el-card {
+    background-color: #264365;
+    color: #fff;
+    border: none;
 }
 </style>

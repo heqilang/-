@@ -141,12 +141,12 @@ export const _http = (opt) => {
                     opt.success_false && opt.success_false();
                 } else if (httpRes.code == '500') {
                     MessageBox.alert(httpRes.msg || '网络异常', '系统提示', {
-                        confirmButtonText: '确定',
-                        callback: (action) => {
+                        confirmButtonText: '确定'
+                        /*    callback: (action) => {
                             comm.logout(() => {
                                 location.href = '/';
                             });
-                        }
+                        } */
                     });
                     opt.success_false && opt.success_false();
                 } else if (httpRes.code == '441') {

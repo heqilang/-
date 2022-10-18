@@ -59,7 +59,7 @@
         <div class="alertModel">
             <el-dialog top="20vh" :modal-append-to-body="false" height="1100px" width="600px" title="紫光视频" :visible.sync="showPurplevdio" :close-on-click-modal="true" class="unit-edit-con">
                 <div style="position: relative">
-                    <component :videoid="videoid" :is="require('./homePurplevideo.vue')"></component>
+                    <component v-if="showPurplevdio" :videoid="videoid" :is="require('./homePurplevideo.vue')"></component>
                 </div>
             </el-dialog>
         </div>

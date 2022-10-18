@@ -55,7 +55,7 @@
 
 <script>
 export default {
-    props: ['modleName', 'imgSing'],
+    props: ['modleName', 'imgSing', 'radioChange'],
     data() {
         return {
             currentLayerLevel: 1,
@@ -385,6 +385,8 @@ export default {
                 xh: 'G10D55S038988F'
             }
         ];
+
+        this.radio4 = this.radioChange;
     },
     methods: {
         intoLayer1() {
@@ -395,7 +397,7 @@ export default {
             this.currentLayerLevel = 2;
         },
         handleViewDetailClick(item) {
-            console.log('点击了查看数据');
+            console.log('点击了查看数据人员');
             console.log('item', item);
             this.$emit('viewDetailOnclick', item);
         }

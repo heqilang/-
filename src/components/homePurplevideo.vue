@@ -122,6 +122,8 @@ export default {
         }
     },
     created() {
+        this.$data = this.$options.data();
+
         /* let _self = this;
             _self._http({
                 url: '/api/web/indexCountV3/getUnisinsightVideoUrl',

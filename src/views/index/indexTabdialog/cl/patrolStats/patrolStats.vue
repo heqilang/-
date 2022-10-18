@@ -270,6 +270,7 @@ export default {
         }
     },
     data: () => ({
+        showTitleWordOld: '',
         alparams: false,
         dataTable: [],
         pager: {
@@ -366,8 +367,22 @@ export default {
                 } else if (newVal === 8) {
                     this.title = `点位列表`;
                 } else if (newVal === 4) {
-                    this.title = `点位详情`;
+                    //   this.title = `点位详情`;
                     this.showTitleWord = `点位详情`;
+                } else if (newVal === 6 && oldVal === 4) {
+                    //   this.showTitle = false;
+                    if (this.dataRange == '当日') {
+                        this.title = `点位详情`;
+                        //   this.showTitleWord = `点位详情`;
+                    } else {
+                        this.showTitle = false;
+                        console.log(this.title, this.showTitleWord);
+                        this.showTitleWord = this.showTitleWordOld;
+                    }
+                    //
+
+                    /*   this.title = `点位详情`;
+                    this.showTitleWord = `点位详情`; */
                 }
 
                 setTimeout(() => {
@@ -390,14 +405,13 @@ export default {
 
     methods: {
         getPointNameDate(val) {
-            console.log(val);
             this.title = val.pointName;
             this.showTitleWord = val.pointName;
             console.log('具体的点位列表');
             this.currentLayerLevel = 9;
-            console.dir(this.title);
+            /*       console.dir(this.title);
             console.dir(this.showTitle);
-            console.dir(this.showTitleWord);
+            console.dir(this.showTitleWord); */
         },
 
         // 留
@@ -476,7 +490,9 @@ export default {
 
         getDayDate(val) {
             //当日漏检的点位
+
             let _self = this;
+            _self.newlist = [];
             // document.getElementById('lineChart3').innerHTML = '';
             _self._http({
                 //  url: '/api/web/indexCountV3/countPatrolMinute',//迪威数据
@@ -551,14 +567,7 @@ export default {
         },
 
         getDate() {
-            var myDate = new Date();
-            var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
-            var myMonth = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
-            var myToday = myDate.getDate(); //获取当前日(1-31)
-            var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
-            var myHour = myDate.getHours(); //获取当前小时数(0-23)
-            var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
-            var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+            let myDate = new Date();
             let MONTH = myDate.getMonth() + 1 < 10 ? '0' + (myDate.getMonth() + 1) : myDate.getMonth() + 1;
             let DATE = myDate.getDate() < 10 ? '0' + myDate.getDate() : myDate.getDate();
             var nowDate = myDate.getFullYear() + '-' + MONTH + '-' + DATE;
@@ -594,10 +603,18 @@ export default {
         },
         intoLayer4(val) {
             console.log(val);
-            this.currentLayerLevel = 1;
+            //点位页面d
+            if (this.dataRange == '当日') {
+                this.currentLayerLevel = 8;
+            } else {
+                this.currentLayerLevel = 6;
+            }
+
+            // this.getDayDate();
         },
         intoLayer5() {
-            this.currentLayerLevel = 1;
+            //点位页面
+            this.currentLayerLevel = 7;
         },
         intoLayer6() {
             this.currentLayerLevel = 1;
@@ -1024,8 +1041,8 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                     _self.currentLayerLevel = 6;
                     _self.showTitle = false;
                     _self.showTitleWord = d.name;
+                    _self.showTitleWordOld = d.name;
                     _self.getDayDate(d.name);
-                    console.log(d);
                 });
             }
         }

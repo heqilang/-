@@ -84,7 +84,7 @@
                         <el-table-column prop="times" label="操作" width="80" align="center">
                             <template slot-scope="scope">
                                 <!-- <i class="el-icon-edit fs-16"></i>  -->
-                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update', scope.row)"> 查看 </el-button>
+                                <el-button type="text" size="mini" @click="updateOrDeleteInfo('update1', scope.row)"> 查看 </el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -167,7 +167,10 @@
                     >事件预警
                 </span>
                 <!-- <a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a> -->
-                <span @click="showLeavel = 2" style="float: right; margin-right: 20px; cursor: pointer">
+                <span v-if="changFather" @click="showLeavel = 2" style="float: right; margin-right: 20px; cursor: pointer">
+                    <i class="el-icon-d-arrow-left"></i>
+                </span>
+                <span v-else @click="showLeavel = 1" style="float: right; margin-right: 20px; cursor: pointer">
                     <i class="el-icon-d-arrow-left"></i>
                 </span>
             </div>
@@ -220,6 +223,7 @@ export default {
     props: ['readyAlarmType', 'alarmRadiofu'],
     data() {
         return {
+            changFather: true,
             chartRadio1: '0',
             warninginformation: '您好，这里是消防控制中心，您有一条报警信息，已超时未处置，请您及时确认，以免造成更大损失。',
             sourcelist: [],
@@ -329,8 +333,15 @@ export default {
         updateOrDeleteInfo(type, row) {
             console.log('点击参数');
             console.log(row);
+
             this.showLeavel = 3;
             this.alarmanalysis6_params = row;
+            if (type == 'update1') {
+                this.changFather = false;
+            } else {
+                this.changFather = true;
+            }
+
             // this.getMessageList(row);
             this.getfindMessages(row);
         },

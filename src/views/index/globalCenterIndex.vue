@@ -667,7 +667,7 @@
                                         </div>
 
                                         <el-row style="width: 100%; height: 100%">
-                                            <el-col :span="16" style="width: 50%; height: 100%">
+                                            <el-col :span="16" style="width: 50%; height: 100%; display: flex; justify-content: center; align-items: center">
                                                 <div class="height100 sysRemark text_c">
                                                     <span style="margin-top: -22.9%; font-size: 0.38rem">{{ (systemScoreList.score / 1).toFixed(2) }}</span>
                                                 </div>
