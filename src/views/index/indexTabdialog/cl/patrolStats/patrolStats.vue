@@ -96,8 +96,8 @@
                 </div>
                 <!-- 这里是正常巡查点位详细点进去的 -->
                 <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
-                <div class="stats-layer-container stats-layer-container_early" v-if="currentLayerLevel === 5">
-                    <a class="return-upper-level-btn" v-on:click="intoLayer5(activePatrolStatus)"> << </a>
+                <div class="stats-layer-container stats-layer-container_early" v-if="currentLayerLevel === 5"> 
+                    <a class="return-upper-level-btn" v-on:click="intoLayer5(changOther)"> << </a>
                     <earlymanageevents :getRedDate="getRedDate" :getRed="getRed" :readyAlarmType="readyAlarmType" :alarmRadiofu="alarmRadio" v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId" :alparams="alparams" />
                 </div>
                 <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
@@ -255,6 +255,7 @@ export default {
         patrolnewList
     },
     props: {
+        
         dataRange: {
             //数据范围 (当月 | 当日)
             required: true
@@ -270,6 +271,7 @@ export default {
         }
     },
     data: () => ({
+        changOther:'',
         showTitleWordOld: '',
         alparams: false,
         dataTable: [],
@@ -466,6 +468,7 @@ export default {
 
             let that = this;
             this.currentLayerLevel = 5;
+
             this.getRedDate = row;
             setTimeout(() => {
                 that.title = '查看';
@@ -530,6 +533,8 @@ export default {
                     this.alparams = false;
                     this.currentLayerLevel = 5;
                     this.getRedDate = val;
+                    this.changOther=6
+               
                 }
             }
         },
@@ -583,8 +588,8 @@ export default {
             if (patrolStatus == 'TIMEOUT') {
                 this.activePatrolStatus = patrolStatus;
                 this.currentLayerLevel = 7;
+                this.changOther=7
                 this.title = '漏检次数';
-
                 this.getList();
                 return;
             }
@@ -612,9 +617,10 @@ export default {
 
             // this.getDayDate();
         },
-        intoLayer5() {
+        intoLayer5(val) {
             //点位页面
-            this.currentLayerLevel = 7;
+            console.log(val);
+            this.currentLayerLevel = val;
         },
         intoLayer6() {
             this.currentLayerLevel = 1;
@@ -845,7 +851,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                     }
                 },
                 yAxis: {
-                    name: '单位: 次',
+                    name: '单位:点·次',
                     nameTextStyle: {
                         color: '#ffffff',
                         fontSize: '12px',
@@ -906,7 +912,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                     _self.currentLayerLevel = 6;
                     _self.showTitle = false;
                     _self.showTitleWord = d.name;
-
+                    _self.changOther=6
                     _self.newlist = _self.list.filter((item) => item.pointName == d.name);
                     console.log(d);
                 });
@@ -980,7 +986,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                     }
                 },
                 yAxis: {
-                    name: '单位 : 次',
+                    name: '单位 : 点·次',
                     nameTextStyle: {
                         color: '#ffffff',
                         fontSize: '12px',

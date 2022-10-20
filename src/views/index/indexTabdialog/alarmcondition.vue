@@ -915,10 +915,17 @@ export default {
             var myChart = echarts.init(chartDom);
             var option;
             myChart.on('click', function (param) {
-                console.log(param.name);
+                console.log(param);
                 that.showanalysis = 'alarmanalysis7';
                 that.chartRadio2 = '报警次数';
-                that.timeName = param.name;
+            
+                 console.log(that.showAlarm1Day);  
+                 if(that.showAlarm1Day){
+                    that.timeName=param.name.slice(0,10)
+                 }else{
+                    that.timeName = param.name; 
+                 }
+                
                 that.tabitemchange1();
 
                 //  myChart.off('click') // 这里很重要 ，防止重复点击事件！！！
@@ -2969,5 +2976,7 @@ export default {
     background-color: #264365;
     color: #fff;
     border: none;
+ 
 }
+
 </style>

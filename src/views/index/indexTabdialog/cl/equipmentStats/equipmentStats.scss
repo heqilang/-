@@ -1,5 +1,5 @@
 .equipment-category-stats-wrapper {
-    padding: 34px 42px 54px 42px;
+    padding: 20px;
 
     .equipment-category-groups {
         display: flex;
@@ -28,30 +28,153 @@
     }
 
     .equipment-categorys {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 42px 4.6%;
-        margin-top: 42px;
+        /*     display: grid;
+        grid-template-columns: repeat(4, 1fr); */
+        display: flex;
+        flex-direction: column;
+        // grid-gap: 42px 4.6%;
+        margin-top: 10px;
 
+
+.equipment-category_img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background:url('../../../../../assets//images//globalCenter/liimg.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    z-index: -1;
+
+}
+.equipment-categorys_immg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+         
         .equipment-category {
             cursor: pointer;
             display: block;
-            height: 200px;
+            height: 120px;
 
             box-shadow: inset 0px 3px 10px 0px rgba(43, 46, 52, 0.56);
-            border-radius: 3px 3px 3px 3px;
+            position: relative;
             border: 1px solid;
-            border-image: linear-gradient(180deg, rgba(65, 146, 217, 1), rgba(65, 146, 217, 0.3), rgba(65, 146, 217, 0.3), rgba(65, 146, 217, 1)) 1 1;
-
-            font-size: 42px;
+             z-index: 9999;
+            font-size: 20px;
             font-weight: normal;
             color: #ebf6ff;
             text-align: center;
 
-            padding-top: 43px;
+            padding-top: 8px;
+            padding-left: 5%;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+      
+         //   background: linear-gradient(360deg, #12243f, #203758)!important;
+            border-image: linear-gradient(180deg, rgba(65, 146, 217, 1), rgba(65, 146, 217, 0.3), rgba(65, 146, 217, 0.3), rgba(65, 146, 217, 1)) 1 1;
+            
+            border-radius:6px 6px 6px 6px;
 
+
+
+            background: linear-gradient(360deg, rgba(8,20,37,0.54) 0%, rgba(47,61,82,0.09) 100%);
+            border-radius: 3px 3px 3px 3px;
+            opacity: 1;
+            border: 1px solid;
+            border-image: linear-gradient(180deg, rgba(4, 146, 255, 1), rgba(65, 146, 217, 0.3), rgba(65, 146, 217, 0.3), rgba(4, 146, 255, 1)) 1 1;
+            
             background-repeat: no-repeat;
-            background-position: center calc(100% - 15px);
+            // 
+           // background: linear-gradient(0deg, #081425 53%,#2F3D52 9%);
+
+            background-position: 20px center;
+            border:none;
+            border-image:none;
+            background-size: 88px 88px;
+            .equipment-category_spanword {
+                font-size: 18px;
+
+                font-weight: normal;
+                color: #48E5E5;
+                line-height: 60px;
+
+
+
+
+            }
+
+           .equipment-category_imggggg{
+               position: absolute;
+               left: 20px;
+               top: 16px;
+               z-index: 1;
+            
+            }
+            .equipment-category_spanvalue{
+                font-size: 28px; 
+                font-weight: normal;
+ color: #EBF6FF;
+line-height: 23px;
+            }
+        }
+    }
+}
+
+
+
+.equipment-category-stats-wrapper {
+    h3 {
+
+        color: #fff;
+        text-align: center;
+        height: 108px;
+
+        padding-top: 15px;
+        border-radius: 8px 8px 0px 0px;
+        opacity: 1;
+        font-size: 28px;
+        font-family: Alibaba PuHuiTi-Medium, Alibaba PuHuiTi;
+        font-weight: 500;
+        color: #FFFFFF;
+        box-sizing: border-box;
+
+        .xf-stats-wrapper_li_span {
+            font-size: 14px;
+            font-family: Alibaba PuHuiTi 2.0-55 Regular, Alibaba PuHuiTi 20;
+            font-weight: normal;
+            color: #FFFFFF;
+            line-height: 40px;
+        }
+    }
+
+
+
+    ul {
+        display: flex;
+
+        justify-content: space-between;
+
+
+
+        .xf-stats-wrapper_li {
+            background: linear-gradient(180deg, rgba(40, 92, 154, 0.5) 0%, rgba(40, 92, 154, 0.3) 100%);
+            border-radius: 0px 0px 0px 0px;
+            opacity: 1;
+            width: 364px;
+            overflow: hidden;
+            background-image: url('../../../../../assets/images/cl/bt.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .equipment-categorys {
+            padding: 0 10px 10px 10px;
         }
     }
 }

@@ -870,7 +870,7 @@
             <el-dialog top="5vh" :modal-append-to-body="false" :visible.sync="equipmentStatsVisible" v-if="equipmentStatsVisible" :close-on-click-modal="true" class="unit-edit-con" width="1200px">
                 <div class="diaHeadStandardC" style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">消防资源</div>
                 <div style="position: relative">
-                    <component :is="require('./indexTabdialog/cl/equipmentStats/equipmentStats.vue')" />
+                    <component  :alarmEventList="alarmEventList"  :is="require('./indexTabdialog/cl/equipmentStats/equipmentStats.vue')" />
                 </div>
             </el-dialog>
         </div>
@@ -1355,7 +1355,7 @@ export default {
                 title: {
                     // text: ['{a|你好}','{b|哈哈}'].join(''),
 
-                    text: [`{a| ${data[0].value + data[1].value}}`, '{b|次}'].join(''), //  `{a|${data[0].value + data[1].value}} {b|次}  `,
+                    text: [`{a| ${data[0].value + data[1].value}}`, '{b|点·次}'].join(''), //  `{a|${data[0].value + data[1].value}} {b|次}  `,
                     top: '44%',
                     left: 'center',
                     //  textAlign: 'center',
@@ -1395,7 +1395,7 @@ export default {
                             params.name = '已开展巡查次数';
                         }
 
-                        var relVal = params.marker + params.name + '：' + params.value + '次';
+                        var relVal = params.marker + params.name + '：' + params.value + '点·次';
                         return relVal;
                     },
                     position: 'top'

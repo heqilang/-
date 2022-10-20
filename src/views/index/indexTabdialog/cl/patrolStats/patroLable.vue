@@ -78,7 +78,7 @@ export default {
             val.show = 0;
         },
         getPost(val) {
-            console.log(val);
+         
 
             if (val.zt === 1 || val.zt === 2) {
                 if (val.id) {
@@ -88,7 +88,6 @@ export default {
                 }
             }
 
-            console.log(val, '点位情况');
         }
     }
 };
