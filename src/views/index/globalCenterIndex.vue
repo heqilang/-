@@ -1483,11 +1483,11 @@ export default {
         },
 
         showTwoImg() {
-            this.newImg_1 = require('../../assets/images/globalCenterNew/viewPage.svg');
+            this.newImg_1 = require('../../assets/images/globalCenterNew/xxxxx.svg');
         },
 
         changeImgs() {
-            this.newImg_1 = require('../../assets/images/globalCenterNew/viewPage.svg');
+            this.newImg_1 = require('../../assets/images/globalCenterNew/xxxxx.svg');
             if (this.showImg) return;
             this.$message({
                 message: '抱歉亲，暂无图片',

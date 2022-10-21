@@ -482,7 +482,7 @@
         <!-- 当月 突发类&报警次数 -->
         <div v-else-if="showanalysis == 'alarmanalysis7'">
             <div class="diaHeadStandardC classReadyDialogTitle">
-                <a class="returnbtn" @click="turntopage('alarmanalysis2')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
+                <a class="returnbtn" @click="turntopage('alarmanalysis1')"><i class="el-icon-d-arrow-left"></i></a><a class="returnbtn2" @click="closeDialog"><i class="el-icon-circle-close"></i></a><span>报警情况</span>
             </div>
             <div class="classReadyDialogBox">
                 <!-- <a class="returnbtn1" @click="turntopage('alarmanalysis2')"><i class="el-icon-pie-chart"></i>图表模式</a> -->
@@ -921,7 +921,7 @@ export default {
             
                  console.log(that.showAlarm1Day);  
                  if(that.showAlarm1Day){
-                    that.timeName=param.name.slice(0,10)
+                    that.timeName=param.name
                  }else{
                     that.timeName = param.name; 
                  }
@@ -2444,7 +2444,7 @@ export default {
             _self.loading = true;
             _self.dataTable = [];
             let searchObj = {
-                option: 'DAY',
+                option: _self.showAlarm1Day ? 'HOURS' : 'DAY',
                 size: _self.pager.pageSize,
                 current: _self.pager.pageIndex,
                 handle: false,
@@ -2500,10 +2500,11 @@ export default {
             let searchObj = {
                 size: _self.pager.pageSize,
                 current: _self.pager.pageIndex,
-                option: 'DAY', //DAY：当日，MONTH：当月
+                option:  _self.showAlarm1Day ? 'HOURS' : 'DAY', //DAY：当日，MONTH：当月
                 floor: _self.floor,
                 area: _self.areaid,
                 timeName: _self.timeName,
+
                 equipmentType: _self.equipmentType,
                 equipmentName: _self.equipmentName == '其它' ? _self.equipmentNameOther.join(',') : _self.equipmentName,
                 'equipmentName.symbol': _self.equipmentName == '其它' ? 'IN' : undefined,

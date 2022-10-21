@@ -243,8 +243,8 @@
                 <div class="pieChart_bottom" style="width: 100%">
                     <ul style="padding-left: 20px">
                         <li>
-                            <span style="color:#cca32f"> 备注：当前综合评分为{{(systemScoreList.score /
-                            1).toFixed(2)}}分，需尽快完成报警处置、巡查巡检、隐患排查、隐患整改。低于95分，发送给社区相关人员，低于90分，发送给街道相关人员，低于85分，发送给行业主管部门，消防救援机构，安办相关人员。
+                            <span style="font-size:12px;color:rgba(133, 180, 231,.8)"> 备注：<br> 当前综合评分为 <span style="color:#fff"  >{{(systemScoreList.score /
+                                1).toFixed(2)}}分</span>  ，需尽快完成报警处置、巡查巡检、隐患排查、隐患整改。低于95分，发送给社区相关人员，低于90分，发送给街道相关人员，低于85分，发送给行业主管部门，消防救援机构，安办相关人员。
                             </span>
                             <span v-if="false">
                                 当前综合评分为 <span style="color: red"> {{ (systemScoreList.score / 1).toFixed(2) }}</span>
