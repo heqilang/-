@@ -96,7 +96,7 @@
                 </div>
                 <!-- 这里是正常巡查点位详细点进去的 -->
                 <!-- 这里是(红颜色圈圈) 巡查点位详细点进去的 -->
-                <div class="stats-layer-container stats-layer-container_early" v-if="currentLayerLevel === 5"> 
+                <div class="stats-layer-container stats-layer-container_early" v-if="currentLayerLevel === 5">
                     <a class="return-upper-level-btn" v-on:click="intoLayer5(changOther)"> << </a>
                     <earlymanageevents :getRedDate="getRedDate" :getRed="getRed" :readyAlarmType="readyAlarmType" :alarmRadiofu="alarmRadio" v-if="currentLayerLevel === 5" :patrolPointId="activePartolPointId" :alparams="alparams" />
                 </div>
@@ -255,7 +255,6 @@ export default {
         patrolnewList
     },
     props: {
-        
         dataRange: {
             //数据范围 (当月 | 当日)
             required: true
@@ -271,7 +270,7 @@ export default {
         }
     },
     data: () => ({
-        changOther:'',
+        changOther: '',
         showTitleWordOld: '',
         alparams: false,
         dataTable: [],
@@ -337,7 +336,7 @@ export default {
     watch: {
         statsData: {
             handler: function (newVal, oldVal) {
-                //todo 陈磊20220902 新增的图表 , 目前的数据是mockChartBarData  后续需要对接接口
+                //todo 何七郎20220902 新增的图表 , 目前的数据是mockChartBarData  后续需要对接接口
                 /*      this.drawBarChart('patrol-stats-chart1', [
                          { name: '正常巡查次数', value: newVal.opportunelyFinish },
                          { name: '漏检次数', value: newVal.notOpportunelyFinish }
@@ -533,8 +532,7 @@ export default {
                     this.alparams = false;
                     this.currentLayerLevel = 5;
                     this.getRedDate = val;
-                    this.changOther=6
-               
+                    this.changOther = 6;
                 }
             }
         },
@@ -588,7 +586,7 @@ export default {
             if (patrolStatus == 'TIMEOUT') {
                 this.activePatrolStatus = patrolStatus;
                 this.currentLayerLevel = 7;
-                this.changOther=7
+                this.changOther = 7;
                 this.title = '漏检次数';
                 this.getList();
                 return;
@@ -912,7 +910,7 @@ _self.MONTHdrawLeftLineList.number.push(item.number); */
                     _self.currentLayerLevel = 6;
                     _self.showTitle = false;
                     _self.showTitleWord = d.name;
-                    _self.changOther=6
+                    _self.changOther = 6;
                     _self.newlist = _self.list.filter((item) => item.pointName == d.name);
                     console.log(d);
                 });

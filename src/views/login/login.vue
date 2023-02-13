@@ -74,14 +74,13 @@ export default {
     methods: {
         handleSubmit() {
             // 如果输入框没有东西，就不能让他调用api，前端弹出提示框
-            // console.log(this._data.loginForm.loginName);
-            // this._data.loginForm.loginName
+            console.log('输入账号密码');
             if (this._data.loginForm.loginName == '' || this._data.loginForm.password == '') {
                 this.$message.error('请输入完整的账号或密码');
             } else {
                 let _self = this;
-                console.log('001', _self._storage.LStorage.get('_t'));
-                _self._storage.LStorage.remove('_t');
+
+                /*    _self._storage.LStorage.remove('_t'); */
                 // return false
                 _self.$refs['loginForm'].validate((valid) => {
                     if (valid) {
@@ -91,25 +90,32 @@ export default {
                             spinner: 'el-icon-loading',
                             background: 'rgba(0, 0, 0, 0.7)'
                         });
-                        _self._http({
-                            url: '/api/auth/user/login',
-                            type: 'post',
-                            isBody: true,
-                            data: _self.loginForm,
-                            success: function (res) {
-                                // 登录成功
-                                _self._storage.LStorage.set('_t', res.data.token);
-                                _self._storage.LStorage.set('_UserInfo', res.data);
-                                setTimeout(() => {
-                                    _self.getMenuList();
-                                }, 500);
-                                // _self.$router.push({ path: '/index' });
-                            },
-                            success_false: function (res) {
-                                _self.loading.close();
-                                return falsle;
-                            }
-                        });
+                        /*         _self._http({
+                                    url: '', //可以传入自己项目中登录url
+                                    type: 'post',
+                                    isBody: true,
+                                    data: _self.loginForm,
+                                    success: function (res) {
+                                        // 登录成功
+                                        _self._storage.LStorage.set('_t', res.data.token);
+                                        _self._storage.LStorage.set('_UserInfo', res.data);
+                                        setTimeout(() => {
+                                            _self.getMenuList();
+                                        }, 500);
+                                        // _self.$router.push({ path: '/index' });
+                                    },
+                                    success_false: function (res) {
+                                        _self.loading.close();
+                                        return falsle;
+                                    }
+                                }); */
+                        _self._storage.LStorage.set('_t', '我是假的token');
+                        console.log('这里吗');
+                        _self.$router.push({ path: '/index' });
+                        setTimeout(() => {
+                            _self.loading.close();
+                            //  _self.getMenuList();
+                        }, 500);
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -160,6 +166,7 @@ export default {
     background-image: url('../../assets/images/login/loginBG.png');
     background-size: 100% 100%;
     position: relative;
+
     .loginBoxCon {
         width: 860px;
         height: 512px;
@@ -174,6 +181,7 @@ export default {
         background-repeat: no-repeat;
         background-color: #fff;
     }
+
     .login-container {
         /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
         -webkit-border-radius: 5px;
@@ -188,12 +196,14 @@ export default {
         border: 1px solid #eaeaea;
         // box-shadow: 0 0 12px #cac6c6;
         margin-left: 50%;
+
         .bgimg {
             width: 150px;
             height: 25px;
             background-color: #bfa;
             margin: 0 auto 10px;
         }
+
         .title {
             margin: 0px auto 20px auto;
             text-align: center;

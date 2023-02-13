@@ -918,14 +918,14 @@ export default {
                 console.log(param);
                 that.showanalysis = 'alarmanalysis7';
                 that.chartRadio2 = '报警次数';
-            
-                 console.log(that.showAlarm1Day);  
-                 if(that.showAlarm1Day){
-                    that.timeName=param.name
-                 }else{
-                    that.timeName = param.name; 
-                 }
-                
+
+                console.log(that.showAlarm1Day);
+                if (that.showAlarm1Day) {
+                    that.timeName = param.name;
+                } else {
+                    that.timeName = param.name;
+                }
+
                 that.tabitemchange1();
 
                 //  myChart.off('click') // 这里很重要 ，防止重复点击事件！！！
@@ -2500,7 +2500,7 @@ export default {
             let searchObj = {
                 size: _self.pager.pageSize,
                 current: _self.pager.pageIndex,
-                option:  _self.showAlarm1Day ? 'HOURS' : 'DAY', //DAY：当日，MONTH：当月
+                option: _self.showAlarm1Day ? 'HOURS' : 'DAY', //DAY：当日，MONTH：当月
                 floor: _self.floor,
                 area: _self.areaid,
                 timeName: _self.timeName,
@@ -2977,7 +2977,5 @@ export default {
     background-color: #264365;
     color: #fff;
     border: none;
- 
 }
-
 </style>

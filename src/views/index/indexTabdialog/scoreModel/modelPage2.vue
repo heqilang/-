@@ -128,7 +128,7 @@
                     </el-table-column>
                 </el-table>
                 <div class="flex text_c mar-t-18 mar-b-18">
-                    <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                    <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
                 </div>
             </div>
         </div>
@@ -198,46 +198,42 @@ export default {
                     radiCode = item.dictCode;
                 }
             });
-
-            _self._http({
-                url: '/api/web/indexCountV3/findRisksList', //迪威--隐患列表-3级页面
-                // url: '/api/web/indexCountTwo/scoreFindRisks',
-                type: 'get',
-                data: {
-                    size: _self.pager.pageSize,
-                    current: _self.pager.pageIndex,
-                    patrolStatus: 'NORMAL',
-                    sorts: 'completeTime:desc',
-                    transform: 'U:handler;U:reporter;U:handleReportor;OW:owningSystem;B:building;F:floor',
-                    level: radiCode,
-                    timeType: 2,
-                    troubleType: _self.radio4 == '一般隐患' ? 0 : 1
-                    /*    size: _self.pager.pageSize,
-current: _self.pager.pageIndex,
-transform: 'U:handler;U:handleReportor;OW:owningSystem;B:building;F:floor',
-level: radiCode */
-                },
-                success: function (res) {
-                    _self.dataTable = res.data.records;
-                    _self.pager.total = res.data.total;
-                    _self.loading = false;
-                }
-            });
+            /* 
+                        _self._http({
+                            url: '/api/web/indexCountV3/findRisksList',
+                            type: 'get',
+                            data: {
+                                size: _self.pager.pageSize,
+                                current: _self.pager.pageIndex,
+                                patrolStatus: 'NORMAL',
+                                sorts: 'completeTime:desc',
+                                transform: 'U:handler;U:reporter;U:handleReportor;OW:owningSystem;B:building;F:floor',
+                                level: radiCode,
+                                timeType: 2,
+                                troubleType: _self.radio4 == '一般隐患' ? 0 : 1
+            
+                            },
+                            success: function (res) {
+                                _self.dataTable = res.data.records;
+                                _self.pager.total = res.data.total;
+                                _self.loading = false;
+                            }
+                        }); */
         },
         getdictItem() {
-            let _self = this;
-            _self._http({
-                url: '/api/auth/dict/dictItem',
-                type: 'get',
-                data: {
-                    parentCode: 'riskLevel'
-                },
-                success: function (res) {
-                    _self.dictItemlist = res.data;
-                    _self.radio4 = res.data[0].dictValue;
-                    _self.getList();
-                }
-            });
+            /*         let _self = this;
+                    _self._http({
+                        url: '/api/auth/dict/dictItem',
+                        type: 'get',
+                        data: {
+                            parentCode: 'riskLevel'
+                        },
+                        success: function (res) {
+                            _self.dictItemlist = res.data;
+                            _self.radio4 = res.data[0].dictValue;
+                            _self.getList();
+                        }
+                    }); */
         }
     },
     created() {},

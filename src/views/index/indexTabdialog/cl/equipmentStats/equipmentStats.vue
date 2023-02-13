@@ -5,101 +5,85 @@
 <template>
     <div class="xf-stats-wrapper">
         <div class="equipment-category-stats-wrapper" v-if="currentLayerLevel === 1">
-         <!--    <div class="equipment-category-groups">
+            <!--    <div class="equipment-category-groups">
                 <a :class="{ 'equipment-category-group': true, 'group-active': true }" v-on:click="changeEquipmentGroup('消防设备')">消防设备</a>
            <a :class="{ 'equipment-category-group': true, 'group-active': activeEquipmentGroup === '安防设备' }" v-on:click="changeEquipmentGroup('安防设备')">安防设备</a>
                 <a :class="{ 'equipment-category-group': true, 'group-active': activeEquipmentGroup === '逃生疏散设备' }" v-on:click="changeEquipmentGroup('逃生疏散设备')">逃生疏散设备</a> 
             </div> -->
 
+            <ul>
+                <li class="xf-stats-wrapper_li">
+                    <div class="grid-content bg-purple">
+                        <h3>
+                            <span>消防设备</span> <br />
+                            <span class="xf-stats-wrapper_li_span"> 已接入：{{ alarmEventList.equipSys1 + alarmEventList.equipSys3 + alarmEventList.equipSys8 + alarmEventList.equipSys5 + alarmEventList.equipSys9 }}</span>
+                        </h3>
 
-
-            <ul >
-                <li  class="xf-stats-wrapper_li"  ><div class="grid-content bg-purple">
-                    <h3>  <span>消防设备</span> <br>
-                        <span class="xf-stats-wrapper_li_span" > 已接入：{{ alarmEventList.equipSys1 + alarmEventList.equipSys3 + alarmEventList.equipSys8 + alarmEventList.equipSys5 + alarmEventList.equipSys9}}</span>
-                         
-
-                    </h3>
-
-                    <div class="equipment-categorys">
-                    
-                        
+                        <div class="equipment-categorys">
                             <a class="equipment-category" v-for="item in equipmentGroupCategoryData" :key="item" v-bind:style="'background-image:url(' + item.img + ')'" v-on:click="intoLayer2(item.code)">
-                                <span class="equipment-category_spanword"   >{{item.name}}  </span>  <br>
-      
-                                <span   class="equipment-category_spanvalue"  >
+                                <span class="equipment-category_spanword">{{ item.name }} </span> <br />
 
-                                  {{ item.value }}
-                                </span>  
-                            <div  class="equipment-category_img"  > </div>
-                            <img width="88px" height="88px" class="equipment-category_imggggg"     :src="item.img" alt="">
-                              </a>
-                   
-                          
-                     
-              
+                                <span class="equipment-category_spanvalue">
+                                    {{ item.value }}
+                                </span>
+                                <div class="equipment-category_img"></div>
+                                <img width="88px" height="88px" class="equipment-category_imggggg" :src="item.img" alt="" />
+                            </a>
+                        </div>
                     </div>
+                </li>
 
-
-
-
-
-                </div></li>
-                 
-                <li class="xf-stats-wrapper_li"  style="margin: 0px 10px;"   ><div class="grid-content bg-purple-light">
-  
-                    <h3>
-                        <span>安防设备</span> <br>
-                        <span class="xf-stats-wrapper_li_span" > 已接入：{{alarmEventList.videoCount }} </span>
-
-                    </h3>
-                    <!--   <div class="equipment-category-groups">
+                <li class="xf-stats-wrapper_li" style="margin: 0px 10px">
+                    <div class="grid-content bg-purple-light">
+                        <h3>
+                            <span>安防设备</span> <br />
+                            <span class="xf-stats-wrapper_li_span"> 已接入：{{ alarmEventList.videoCount }} </span>
+                        </h3>
+                        <!--   <div class="equipment-category-groups">
                           
                           <a :class="{ 'equipment-category-group': true, 'group-active': true }" v-on:click="changeEquipmentGroup('安防设备')">安防设备</a>
                          
                       </div> -->
-                      <div class="equipment-categorys">
-                          <a class="equipment-category" v-for="item in group2" :key="item" v-bind:style="'background-image:url(' + item.img + ')'" v-on:click="intoLayer2(item.code)">
-                            <span class="equipment-category_spanword"   >{{item.name}}  </span>  <br>
+                        <div class="equipment-categorys">
+                            <a class="equipment-category" v-for="item in group2" :key="item" v-bind:style="'background-image:url(' + item.img + ')'" v-on:click="intoLayer2(item.code)">
+                                <span class="equipment-category_spanword">{{ item.name }} </span> <br />
 
-                            <span   class="equipment-category_spanvalue"  >
-                              {{ item.value }}
-                            </span>  
-                            <div  class="equipment-category_img"  > </div>
-                             <img width="88px" height="88px" class="equipment-category_imggggg"     :src="item.img" alt="">
-                          </a>
-                      </div>
-                </div></li>
-           
-                <li  class="xf-stats-wrapper_li" ><div class="grid-content bg-purple">
-                    <h3>
-                        <span>逃生疏散设备</span> <br>
-                        <span class="xf-stats-wrapper_li_span" > 已接入： {{ alarmEventList.tsbnxt + alarmEventList.equipSys6 + alarmEventList.equipSys11 + alarmEventList.equipSys10 }}</span>
-
-                    </h3>
-                    <div class="equipment-categorys">
-                        <a class="equipment-category" v-for="item in group3" :key="item" v-bind:style="'background-image:url(' + item.img + ')'" v-on:click="intoLayer2(item.code)">
-                            <span class="equipment-category_spanword"   >{{item.name}}  </span>  <br>
-
-                            <span   class="equipment-category_spanvalue"  >
-                              {{ item.value }}
-                            </span>  
-                         <img   class="equipment-categorys_immg"  src="../../../../../assets//images//globalCenter/liimg.png" alt="">
-                         <img width="88px" height="88px" class="equipment-category_imggggg"     :src="item.img" alt="">
-                        </a>
+                                <span class="equipment-category_spanvalue">
+                                    {{ item.value }}
+                                </span>
+                                <div class="equipment-category_img"></div>
+                                <img width="88px" height="88px" class="equipment-category_imggggg" :src="item.img" alt="" />
+                            </a>
+                        </div>
                     </div>
+                </li>
 
-                </div></li>
-              </ul>
+                <li class="xf-stats-wrapper_li">
+                    <div class="grid-content bg-purple">
+                        <h3>
+                            <span>逃生疏散设备</span> <br />
+                            <span class="xf-stats-wrapper_li_span"> 已接入： {{ alarmEventList.tsbnxt + alarmEventList.equipSys6 + alarmEventList.equipSys11 + alarmEventList.equipSys10 }}</span>
+                        </h3>
+                        <div class="equipment-categorys">
+                            <a class="equipment-category" v-for="item in group3" :key="item" v-bind:style="'background-image:url(' + item.img + ')'" v-on:click="intoLayer2(item.code)">
+                                <span class="equipment-category_spanword">{{ item.name }} </span> <br />
 
-       
+                                <span class="equipment-category_spanvalue">
+                                    {{ item.value }}
+                                </span>
+                                <img class="equipment-categorys_immg" src="../../../../../assets//images//globalCenter/liimg.png" alt="" />
+                                <img width="88px" height="88px" class="equipment-category_imggggg" :src="item.img" alt="" />
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
 
-           <!--  <div class="equipment-category-groups">
+            <!--  <div class="equipment-category-groups">
                 
                 <a :class="{ 'equipment-category-group': true, 'group-active': true }" v-on:click="changeEquipmentGroup('逃生疏散设备')">逃生疏散设备</a>
                
             </div> -->
-      
         </div>
 
         <div class="stats-layer-container" v-if="currentLayerLevel === 2">
@@ -171,9 +155,8 @@ export default {
                     { name: '消防供水设备', code: 'equipSys9', value: res.data.equipSys9, img: require('@/assets/images/cl/huozaibaojing/2.png') },
                     { name: '喷水灭火系统', code: 'equipSys3,equipSys8', value: res.data.equipSys8 + res.data.equipSys3, img: require('@/assets/images/cl/huozaibaojing/3.png') },
                     // { name: '耐火构件系统', code: 'equipSys3', value: res.data.equipSys3 + res.data.equipSys4 + res.data.equipSys8, img: require('@/assets/images/cl/xiaofanggeishui.png') },
-                    { name: '手提式干粉灭火器', code: 'equipSys5', value: res.data.equipSys5, img: require('@/assets/images/cl/huozaibaojing/4.png') },
-                   
-                    
+                    { name: '手提式干粉灭火器', code: 'equipSys5', value: res.data.equipSys5, img: require('@/assets/images/cl/huozaibaojing/4.png') }
+
                     // { name: '其它', code: '', value: 0, img: require('@/assets/images/cl/qita.png') }
                 ];
 

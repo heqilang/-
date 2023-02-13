@@ -5,7 +5,7 @@
                 <el-col :span="4" class="text_l height100">
                     <img style="height: 88%; vertical-align: middle; margin-left: 70px" src="../assets/images/hqzx_logo.png" />
                 </el-col>
-                <el-col :span="16" class="text_c height100 sysTitle"> 环球中心消防安全管理平台 </el-col>
+                <el-col :span="16" class="text_c height100 sysTitle"> 消防安全管理平台 </el-col>
                 <el-col :span="4" style="box-sizing: border-box; padding-right: 10px" class="text_r height100">
                     <el-button style="background-color: #086ed9; border-color: #086ed9; color: #fff" @click="updatePwd">修改密码</el-button>
                     <el-button style="background-color: #f2414f; border-color: transparent; color: #fff" @click="logout">退出</el-button>
@@ -469,6 +469,7 @@ export default {
 <style lang="scss">
 .homeContainerBox {
     position: relative;
+
     .alarmVideoCon {
         width: 460px;
         // height: 500px;
@@ -479,6 +480,7 @@ export default {
         top: 40%;
         transform: translate(-50%, -50%);
         z-index: 99999;
+
         .closeIcon {
             position: absolute;
             width: 20px;
@@ -490,6 +492,7 @@ export default {
             z-index: 99;
         }
     }
+
     .chekPostDia {
         position: absolute;
         z-index: 999;
@@ -506,6 +509,7 @@ export default {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         border-radius: 20px;
         text-align: center;
+
         .checkPostBtn {
             margin-top: 20px;
             width: 60%;
@@ -520,6 +524,7 @@ export default {
             cursor: pointer;
             font-size: 16px;
         }
+
         .mhPic {
             position: absolute;
             height: 130px;
@@ -531,6 +536,7 @@ export default {
             transform: translateX(-50%);
         }
     }
+
     .showAlarmIco {
         color: #fff;
         font-weight: bold;
@@ -540,6 +546,7 @@ export default {
         cursor: pointer;
         border-radius: 10px;
     }
+
     .clopsMenu {
         position: fixed;
         left: 0px;
@@ -548,50 +555,63 @@ export default {
         height: 60px;
         text-align: center;
         line-height: 0.7rem;
+
         i {
             font-size: 0.28rem;
             cursor: pointer;
             color: #fff;
         }
     }
+
     width: 100%;
     height: 100%;
     min-width: 1366px;
     // background-color: pink;
     overflow: hidden;
+
     .header {
         background-color: #01122b;
         color: #fff;
         line-height: 60px;
+
         .sysTitle {
             font-size: 28px;
         }
+
         transition: all 0.2s linear;
     }
+
     .mainBox {
         transition: all 0.2s linear;
+
         .asideMenu {
             height: 100%;
             background-color: #01122b;
             transition: all 0.2s linear;
         }
+
         .router-tab-container {
             padding: 12px;
             box-sizing: border-box;
         }
+
         .el-menu {
             border-right: none;
         }
+
         .el-menu--inline {
             background-color: #01122b;
         }
+
         .el-menu-item {
             color: #fff !important;
         }
+
         .el-menu-item:hover,
         .el-menu-item:focus {
             background-color: #01122b !important;
         }
+
         // .is-active {
         //     color: #086ed9 !important;
         // }
@@ -599,13 +619,16 @@ export default {
         .el-menu--inline .el-submenu:hover {
             background-color: rgba(99, 99, 99, 0.3) !important;
         }
+
         .el-submenu__title:hover,
         .el-menu--inline .el-submenu:hover {
             background-color: rgba(99, 99, 99, 0.3) !important;
         }
+
         .router-tab-header {
             height: initial;
             border-bottom: initial;
+
             .router-tab-nav {
                 height: 100%;
             }
@@ -636,17 +659,20 @@ export default {
                 // padding-top: 30px;
             }
         }
+
         .router-tab-scroll {
             background-color: #f5f7fa;
             padding: 0 10px;
             // background-color: rgba(234, 235, 240, 1);
         }
+
         .router-tab-item {
             // background-color: #01122b;
             background-color: #1f2b3c1d;
             border-color: transparent;
 
             color: #01122b;
+
             .tab-close {
                 // position: initial;
                 // color: #67452F;
@@ -659,10 +685,12 @@ export default {
                 background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAElBMVEUAAAD///////////////////8+Uq06AAAABnRSTlMAMODmgGDCpqsuAAAAKklEQVQI12NAA44MDCJASkiAURFIMSoKCYBEhQ0ZoBRUEKEkkIFBFM0MAGCVAlS4n94EAAAAAElFTkSuQmCC);
             }
         }
+
         .el-scrollbar__view,
         .nav-menu-con {
             height: 100%;
         }
+
         .router-tab-item:not(.actived).contextmenu,
         .router-tab-item:not(.actived):hover {
             background-color: #01122b;
@@ -675,14 +703,17 @@ export default {
             background-color: #01122b;
             border-color: transparent;
             color: #fff;
+
             .tab-close {
                 background-image: url(data:/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAD1BMVEUAAACKioqHh4eHh4eHh4ckdXKMAAAABXRSTlMAMOKAYO4XA80AAAAqSURBVAjXY0ADhgwMwkBKSIBREUgxKgoJMIC4QA6EggoilDgyMIigmQEAVU8CEFHyN0cAAAAASUVORK5CYII=);
             }
         }
     }
+
     .hide-arrow .el-icon-arrow-down:before {
         display: none;
     }
+
     .app-main {
         position: absolute;
         top: 0;
@@ -693,6 +724,7 @@ export default {
         -webkit-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
     }
+
     .alarmHomeBox {
         width: 580px;
         height: 430px;

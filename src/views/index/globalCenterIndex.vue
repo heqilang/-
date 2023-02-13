@@ -1,12 +1,12 @@
 <template>
     <div class="globalCenterIndexCon">
-        <div class="globalCenterIndexCon_backcolor">
+        <!--    <div class="globalCenterIndexCon_backcolor">
             <img height="100%" width="100%" src="../../assets/images/globalCenter/backcolor.png" alt="" />
         </div>
 
         <div class="iframeBox">
             <iframe src="http://182.151.21.153:18080/enterprise/#/" frameborder="0"></iframe>
-        </div>
+        </div> -->
         <div class="mainClas">
             <div class="bottomBG"></div>
 
@@ -757,8 +757,8 @@
                                                         <el-row>
                                                             <el-col :span="16" class="SS_1">
                                                                 <div class="S_1 S_comm"></div>
-                                                                消防设备：</el-col
-                                                            >
+                                                                消防设备：
+                                                            </el-col>
                                                             <el-col :span="8" class="wordComm"> {{ alarmEventList.equipSys1 + alarmEventList.equipSys3 + alarmEventList.equipSys8 + alarmEventList.equipSys5 + alarmEventList.equipSys9 }} </el-col>
                                                         </el-row>
                                                     </div>
@@ -766,8 +766,8 @@
                                                         <el-row>
                                                             <el-col :span="16" class="SS_1">
                                                                 <div class="S_2 S_comm"></div>
-                                                                安防设备：</el-col
-                                                            >
+                                                                安防设备：
+                                                            </el-col>
                                                             <el-col :span="8" class="wordComm"> {{ alarmEventList.videoCount }} </el-col>
                                                         </el-row>
                                                     </div>
@@ -775,8 +775,8 @@
                                                         <el-row>
                                                             <el-col :span="16" class="SS_1">
                                                                 <div class="S_3 S_comm"></div>
-                                                                逃生疏散设备：</el-col
-                                                            >
+                                                                逃生疏散设备：
+                                                            </el-col>
                                                             <el-col :span="8" class="wordComm"> {{ alarmEventList.tsbnxt + alarmEventList.equipSys6 + alarmEventList.equipSys11 + alarmEventList.equipSys10 }} </el-col>
                                                         </el-row>
                                                     </div>
@@ -800,8 +800,8 @@
                                                         <el-row>
                                                             <el-col :span="18" class="SS_1">
                                                                 <div class="S_4 S_comm"></div>
-                                                                政府专职消防队：</el-col
-                                                            >
+                                                                政府专职消防队：
+                                                            </el-col>
                                                             <el-col :span="6" class="wordComm">1 </el-col>
                                                         </el-row>
                                                     </div>
@@ -809,8 +809,8 @@
                                                         <el-row>
                                                             <el-col :span="18" class="SS_1">
                                                                 <div class="S_5 S_comm"></div>
-                                                                企业消防队：</el-col
-                                                            >
+                                                                企业消防队：
+                                                            </el-col>
                                                             <el-col :span="6" class="wordComm"> 1 </el-col>
                                                         </el-row>
                                                     </div>
@@ -818,8 +818,8 @@
                                                         <el-row>
                                                             <el-col :span="18" class="SS_1">
                                                                 <div class="S_6 S_comm"></div>
-                                                                微型消防站：</el-col
-                                                            >
+                                                                微型消防站：
+                                                            </el-col>
                                                             <el-col :span="6" class="wordComm"> 1 </el-col>
                                                         </el-row>
                                                     </div>
@@ -827,8 +827,8 @@
                                                         <el-row>
                                                             <el-col :span="18" class="SS_1">
                                                                 <div class="S_7 S_comm"></div>
-                                                                消防物资：</el-col
-                                                            >
+                                                                消防物资：
+                                                            </el-col>
                                                             <el-col :span="6" class="wordComm"> 6 </el-col>
                                                         </el-row>
                                                     </div>
@@ -870,7 +870,7 @@
             <el-dialog top="5vh" :modal-append-to-body="false" :visible.sync="equipmentStatsVisible" v-if="equipmentStatsVisible" :close-on-click-modal="true" class="unit-edit-con" width="1200px">
                 <div class="diaHeadStandardC" style="height: 42px; line-height: 42px; padding-left: 12px; background-color: #364b6a; color: #fff">消防资源</div>
                 <div style="position: relative">
-                    <component  :alarmEventList="alarmEventList"  :is="require('./indexTabdialog/cl/equipmentStats/equipmentStats.vue')" />
+                    <component :alarmEventList="alarmEventList" :is="require('./indexTabdialog/cl/equipmentStats/equipmentStats.vue')" />
                 </div>
             </el-dialog>
         </div>
@@ -1252,8 +1252,8 @@ export default {
 
                 setTimeout(() => {
                     this.drawBarChart('patrol-stats-chart1', [
-                        { name: '正常巡查次数', value: newVal.opportunelyFinish },
-                        { name: '漏检次数', value: newVal.notOpportunelyFinish }
+                        { name: '正常巡查次数', value: newVal.opportunelyFinish || 10 },
+                        { name: '漏检次数', value: newVal.notOpportunelyFinish || 10 }
                     ]);
                 }, 500);
             }
@@ -1334,17 +1334,24 @@ export default {
         loadStatsData() {
             const that = this;
 
-            that._http({
-                url: '/api/web/indexCountV3/thirdPatrolSecond', ///api/web/indexCountTwo/thirdPatrolSecond
-                type: 'get',
-                isBody: true,
-                data: {
-                    type: that.alarmRadioDate === 'DAY' ? 1 : 2
-                },
-                success: function (res) {
-                    that.statsData = res.data;
-                }
-            });
+            /*    that._http({
+                   url: '', //接口用来处理巡查次数
+                   type: 'get',
+                   isBody: true,
+                   data: {
+                       type: that.alarmRadioDate === 'DAY' ? 1 : 2
+                   },
+                   success: function (res) {
+                       that.statsData = res.data;
+                   }
+               }); */
+            setTimeout(() => {
+                that.statsData = {
+                    notOpportunelyFinish: 10,
+                    opportunelyFinish: 10,
+                    allFinishPatrol: 10
+                };
+            }, 500);
         },
 
         drawBarChart(elementId, data) {
@@ -1571,185 +1578,185 @@ export default {
         },
         getTimeSlice() {
             let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/alarmTimeSlice',
-                type: 'get',
-                success: function (res) {
-                    let dayW = 0;
-                    let dayN = 0;
-                    let dayA = 0;
-                    for (let i = 0; i < res.data.length; i++) {
-                        if (i <= 3 || i >= 10) {
-                            for (let key in res.data[i]) {
-                                dayW += res.data[i][key] / 1;
-                                dayA += res.data[i][key] / 1;
-                            }
-                        } else {
-                            for (let key in res.data[i]) {
-                                dayN += res.data[i][key] / 1;
-                                dayA += res.data[i][key] / 1;
-                            }
-                        }
-                    }
-                    res.data.push({
-                        dayW: dayW,
-                        dayN: dayN,
-                        dayWP: ((dayW / dayA) * 100).toFixed(2),
-                        dayNP: ((dayN / dayA) * 100).toFixed(2)
-                    });
-                    _self.timeSliceArr = res.data;
-                    _self.drawAlarmTimePie();
-                }
-            });
+            /*  _self._http({
+                 url: '',
+                 type: 'get',
+                 success: function (res) {
+                     let dayW = 0;
+                     let dayN = 0;
+                     let dayA = 0;
+                     for (let i = 0; i < res.data.length; i++) {
+                         if (i <= 3 || i >= 10) {
+                             for (let key in res.data[i]) {
+                                 dayW += res.data[i][key] / 1;
+                                 dayA += res.data[i][key] / 1;
+                             }
+                         } else {
+                             for (let key in res.data[i]) {
+                                 dayN += res.data[i][key] / 1;
+                                 dayA += res.data[i][key] / 1;
+                             }
+                         }
+                     }
+                     res.data.push({
+                         dayW: dayW,
+                         dayN: dayN,
+                         dayWP: ((dayW / dayA) * 100).toFixed(2),
+                         dayNP: ((dayN / dayA) * 100).toFixed(2)
+                     });
+                     _self.timeSliceArr = res.data;
+                     _self.drawAlarmTimePie();
+                 }
+             }); */
         },
         get7DayAlarmCount() {
             let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countAlarmNumber',
-                type: 'get',
-                data: {
-                    n: 7
-                },
-                success: function (res) {
-                    _self.sevenDaysALarmCount = res.data;
-                    _self.drawIncresChart();
-                }
-            });
+            /*       _self._http({
+                      url: '',
+                      type: 'get',
+                      data: {
+                          n: 7
+                      },
+                      success: function (res) {
+                          _self.sevenDaysALarmCount = res.data;
+                          _self.drawIncresChart();
+                      }
+                  }); */
         },
         getEventListAll() {
             let _self = this;
-            _self._http({
-                url: '/api/web/webAlarmList/find',
-                type: 'get',
-                data: {
-                    current: 1,
-                    size: 20,
-                    state: '04',
-                    transform: 'B:building,F:floor',
-                    sorts: 'alarmTime:desc'
-                },
-                success: function (res) {
-                    _self.alarmEventListAll = res.data;
-                }
-            });
-
-            _self._http({
-                url: '/api/web/webRisksList/find',
-                type: 'get',
-                data: {
-                    current: 1,
-                    size: 20,
-                    state: '04',
-                    transform: 'B:building,F:floor',
-                    sorts: 'dispatchTime:desc'
-                },
-                success: function (res) {
-                    _self.hideTroEventList = res.data;
-                }
-            });
-            _self._http({
-                url: '/api/web/webPatrolRecord/findList',
-                type: 'get',
-                data: {
-                    current: 1,
-                    size: 20,
-                    state: '04',
-                    sorts: 'completeTime:desc'
-                },
-                success: function (res) {
-                    _self.checkEventList = res.data;
-                }
-            });
+            /*     _self._http({
+                    url: '',
+                    type: 'get',
+                    data: {
+                        current: 1,
+                        size: 20,
+                        state: '04',
+                        transform: 'B:building,F:floor',
+                        sorts: 'alarmTime:desc'
+                    },
+                    success: function (res) {
+                        _self.alarmEventListAll = res.data;
+                    }
+                }); */
+            /* 
+                        _self._http({
+                            url: '/api/web/webRisksList/find',
+                            type: 'get',
+                            data: {
+                                current: 1,
+                                size: 20,
+                                state: '04',
+                                transform: 'B:building,F:floor',
+                                sorts: 'dispatchTime:desc'
+                            },
+                            success: function (res) {
+                                _self.hideTroEventList = res.data;
+                            }
+                        }); */
+            /*     _self._http({
+                    url: '/api/web/webPatrolRecord/findList',
+                    type: 'get',
+                    data: {
+                        current: 1,
+                        size: 20,
+                        state: '04',
+                        sorts: 'completeTime:desc'
+                    },
+                    success: function (res) {
+                        _self.checkEventList = res.data;
+                    }
+                }); */
             //
         },
         getcountRisksNumber() {
             let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countRisksNumber',
-                type: 'get',
-                data: {
-                    n: 7
-                },
-                success: function (res) {
-                    _self.countRisksNumberList = res.data;
-                    _self.drawAlarmLineChart();
-                }
-            });
+            /*     _self._http({
+                    url: '/api/web/indexCount/countRisksNumber',
+                    type: 'get',
+                    data: {
+                        n: 7
+                    },
+                    success: function (res) {
+                        _self.countRisksNumberList = res.data;
+                        _self.drawAlarmLineChart();
+                    }
+                }); */
         },
         getcountCheck() {
             let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countCheckList',
-                type: 'get',
-                success: function (res) {
-                    // res.data.off = 10;
-                    // res.data.on = 10;
-                    // res.data.total = 20;
-
-                    res.data['offP'] = ((res.data.off / res.data.total) * 100).toFixed(2);
-                    res.data['onP'] = ((res.data.on / res.data.total) * 100).toFixed(2);
-                    if (res.data.offP == 'NaN') {
-                        res.data.offP = 0;
-                    }
-                    if (res.data.onP == 'NaN') {
-                        res.data.onP = 0;
-                    }
-                    _self.countCheckList = res.data;
-
-                    console.log('_self.countCheckList:', _self.countCheckList);
-                    _self.drawCheckDutyChart();
-                }
-            });
+            /*   _self._http({
+                  url: '/api/web/indexCount/countCheckList',
+                  type: 'get',
+                  success: function (res) {
+                      // res.data.off = 10;
+                      // res.data.on = 10;
+                      // res.data.total = 20;
+  
+                      res.data['offP'] = ((res.data.off / res.data.total) * 100).toFixed(2);
+                      res.data['onP'] = ((res.data.on / res.data.total) * 100).toFixed(2);
+                      if (res.data.offP == 'NaN') {
+                          res.data.offP = 0;
+                      }
+                      if (res.data.onP == 'NaN') {
+                          res.data.onP = 0;
+                      }
+                      _self.countCheckList = res.data;
+  
+                      console.log('_self.countCheckList:', _self.countCheckList);
+                      _self.drawCheckDutyChart();
+                  }
+              }); */
         },
         getcountDuties() {
             let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/radarPic',
-                type: 'get',
-                success: function (res) {
-                    _self.countDutiesList = res.data;
-                    _self.drawRedarChart();
-                }
-            });
+            /*    _self._http({
+                   url: '/api/web/indexCount/radarPic',
+                   type: 'get',
+                   success: function (res) {
+                       _self.countDutiesList = res.data;
+                       _self.drawRedarChart();
+                   }
+               }); */
         },
         getemergencyResources() {
             let _self = this;
-            _self._http({
-                url: '/api/open/fiveOne/emergencyResources',
-                type: 'get',
-                success: function (res) {
-                    _self.emergencyResourcesList = res.data;
-                }
-            });
+            /*      _self._http({
+                     url: '/api/open/fiveOne/emergencyResources',
+                     type: 'get',
+                     success: function (res) {
+                         _self.emergencyResourcesList = res.data;
+                     }
+                 }); */
         },
         getsystemScore() {
             let _self = this;
-            _self._http({
-                url: '/api/web/indexCountV3/systemScore', //迪威的系统评分
-                //  url: '/api/web/indexCountTwo/systemScore',
-                type: 'get',
-                success: function (res) {
-                    _self.systemScoreList = res.data;
-                    console.log('eeeeeeeeeeeeeeeeeeeeeee');
-                    console.dir(res);
-                    _self.rightDate[0].value = res.data.alarmScore.toFixed(2);
-                    _self.rightDate[0].num = res.data.alarmScoreAll || 0;
-                    _self.rightDate[1].value = res.data.patrolScore.toFixed(2);
-                    _self.rightDate[1].num = res.data.patrolScoreAll || 0;
-                    _self.rightDate[2].value = res.data.risksScore.toFixed(2);
-                    _self.rightDate[2].num = res.data.risksScoreAll || 0;
-                }
-            });
+            /*      _self._http({
+                     url: '/api/web/indexCountV3/systemScore', //迪威的系统评分
+     
+                     type: 'get',
+                     success: function (res) {
+                         _self.systemScoreList = res.data;
+                         console.log('eeeeeeeeeeeeeeeeeeeeeee');
+                         console.dir(res);
+                         _self.rightDate[0].value = res.data.alarmScore.toFixed(2);
+                         _self.rightDate[0].num = res.data.alarmScoreAll || 0;
+                         _self.rightDate[1].value = res.data.patrolScore.toFixed(2);
+                         _self.rightDate[1].num = res.data.patrolScoreAll || 0;
+                         _self.rightDate[2].value = res.data.risksScore.toFixed(2);
+                         _self.rightDate[2].num = res.data.risksScoreAll || 0;
+                     }
+                 }); */
         },
         getAlarmEventCount() {
             let _self = this;
-            _self._http({
-                url: '/api/web/indexCountTwo/resourceStatistics',
-                type: 'get',
-                success: function (res) {
-                    _self.alarmEventList = res.data;
-                }
-            });
+            /*       _self._http({
+                      url: '/api/web/indexCountTwo/resourceStatistics',
+                      type: 'get',
+                      success: function (res) {
+                          _self.alarmEventList = res.data;
+                      }
+                  }); */
         },
         getSysEquipCount() {
             let _self = this;
@@ -1895,33 +1902,33 @@ export default {
         },
         getBuildInfo() {
             let _self = this;
-            // /api/web/webBuilding/find
-            _self._http({
-                url: '/api/web/webBuilding/find',
-                type: 'get',
-                success: function (res) {
-                    if (res.data.records.length > 0) {
-                        _self._http({
-                            url: '/api/web/indexCount/getBuilding',
-                            type: 'get',
-                            data: {
-                                id: res.data.records[0].id
-                            },
-                            success: function (res) {
-                                _self.buildingInfo = res.data;
-                            }
-                        });
+
+            /*     _self._http({
+                    url: '',
+                    type: 'get',
+                    success: function (res) {
+                        if (res.data.records.length > 0) {
+                            _self._http({
+                                url: '',
+                                type: 'get',
+                                data: {
+                                    id: res.data.records[0].id
+                                },
+                                success: function (res) {
+                                    _self.buildingInfo = res.data;
+                                }
+                            });
+                        }
                     }
-                }
-            });
+                }); */
         },
         getDutyNUm() {
             let _self = this;
-            _self._http({
-                url: '/api/web/indexCount/countCheckList',
-                type: 'get',
-                success: function (res) {}
-            });
+            /*         _self._http({
+                        url: '',
+                        type: 'get',
+                        success: function (res) { }
+                    }); */
         },
         drawCheckDutyChart() {
             this.chartFour = echarts.init(document.getElementById('checkDutyChart'));
@@ -2367,22 +2374,21 @@ export default {
         },
         getleftNumData() {
             let _self = this;
-            _self._http({
-                // url: '/api/web/indexCountTwo/alarmStatistics',
-                url: '/api/web/indexCountV3/alarmStatistics',
-                type: 'get',
-                success: function (res) {
-                    _self.leftDataTop = res.data;
-                }
-            });
-            _self._http({
-                // url: '/api/web/indexCountTwo/patrolStatistics',
-                url: '/api/web/indexCountV3/patrolStatistics',
-                type: 'get',
-                success: function (res) {
-                    _self.leftDataMid = res.data;
-                }
-            });
+            /*        _self._http({
+                    
+                       url: '',
+                       type: 'get',
+                       success: function (res) {
+                           _self.leftDataTop = res.data;
+                       }
+                   });
+                   _self._http({
+                       url: '',
+                       type: 'get',
+                       success: function (res) {
+                           _self.leftDataMid = res.data;
+                       }
+                   }); */
         },
         getAlarmStatisticsDate(val) {
             console.dir(val);
@@ -2390,17 +2396,17 @@ export default {
         },
         getAlarmStatistics() {
             const _self = this;
-            _self._http({
-                // url: '/api/web/indexCountTwo/earlyWarningStatistics',
-                url: '/api/web/indexCountV3/earlyWarningStatistics',
-                type: 'get',
-                data: {
-                    option: _self.alarmRadio
-                },
-                success: function (res) {
-                    _self.leftDataBot = res.data;
-                }
-            });
+            /*   _self._http({
+                 
+                  url: '',
+                  type: 'get',
+                  data: {
+                      option: _self.alarmRadio
+                  },
+                  success: function (res) {
+                      _self.leftDataBot = res.data;
+                  }
+              }); */
         }
     },
     created() {

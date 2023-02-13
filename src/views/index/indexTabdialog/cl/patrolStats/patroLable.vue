@@ -78,8 +78,6 @@ export default {
             val.show = 0;
         },
         getPost(val) {
-         
-
             if (val.zt === 1 || val.zt === 2) {
                 if (val.id) {
                     this.$emit('getPatroLable', val);
@@ -87,7 +85,6 @@ export default {
                     this.$message.error('数据源未生成预警信息');
                 }
             }
-
         }
     }
 };

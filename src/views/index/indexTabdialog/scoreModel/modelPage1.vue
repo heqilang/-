@@ -59,7 +59,7 @@
                 </el-table-column>
             </el-table>
             <div class="flex text_c mar-t-18 mar-b-18">
-                <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"></customPagination>
+                <customPagination v-if="pager.total !== 0" :paginationData="pager" @getList="getList"> </customPagination>
             </div>
         </div>
     </div>
@@ -95,20 +95,20 @@ export default {
             let _self = this;
             _self.loading = true;
             _self.dataTable = [];
-            _self._http({
-                url: '/api/web/indexCountTwo/findEquipment',
-                type: 'get',
-                data: {
-                    size: _self.pager.pageSize,
-                    current: _self.pager.pageIndex,
-                    transform: 'U:handler;OW:owningSystem;B:building;F:floor'
-                },
-                success: function (res) {
-                    _self.dataTable = res.data.records;
-                    _self.pager.total = res.data.total;
-                    _self.loading = false;
-                }
-            });
+            /*     _self._http({
+                    url: '/api/web/indexCountTwo/findEquipment',
+                    type: 'get',
+                    data: {
+                        size: _self.pager.pageSize,
+                        current: _self.pager.pageIndex,
+                        transform: 'U:handler;OW:owningSystem;B:building;F:floor'
+                    },
+                    success: function (res) {
+                        _self.dataTable = res.data.records;
+                        _self.pager.total = res.data.total;
+                        _self.loading = false;
+                    }
+                }); */
         }
     },
     created() {},
